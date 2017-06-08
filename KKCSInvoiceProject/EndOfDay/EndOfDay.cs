@@ -76,6 +76,8 @@ namespace KKCSInvoiceProject
 
             connection.Open();
 
+            PrintYTDReport();
+
             //AccountsTest();
 
             //SendEmailTest();
@@ -84,7 +86,7 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of dat
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            //dtTodaysDate = new DateTime(2017, 4, 21, 12, 0, 0);
+            //dtTodaysDate = new DateTime(2017, 5, 17, 12, 0, 0);
 
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
@@ -262,7 +264,7 @@ namespace KKCSInvoiceProject
 
             DateTime dtDate = DateTime.Today;
             //string query = @"SELECT * FROM Invoice WHERE ReturnMonth = '" + 02 + "' AND ReturnYear = '" + 2017 + "' AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DateInInvisible DESC";
-            dtDate = new DateTime(2017, 4, dtDate.Day, 12, 0, 0);
+            dtDate = new DateTime(2017, 5, dtDate.Day, 12, 0, 0);
 
             string query = "select * from CustomerInvoices WHERE year(DTReturnDate) = year(@dtDate) AND month(DTDatePaid) = month(@dtDate) AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DTDateIn ASC";
             command.Parameters.AddWithValue("@dtDate", dtDate);
@@ -284,7 +286,7 @@ namespace KKCSInvoiceProject
             //sCombinedAccount += "Date In" + Padding.Left(5);
 
             //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
-            sTitle = "BOI Car Storage Yard - April 2017 Accounts";
+            sTitle = "BOI Car Storage Yard - May 2017 Accounts";
 
             int iPadLength = 25;
 
@@ -372,6 +374,7 @@ namespace KKCSInvoiceProject
                 client.Credentials = new NetworkCredential(
                   "pg8472@hotmail.com", "Voyger300");
                 MailMessage msg = new MailMessage();
+                //msg.To.Add("peter.george.green@gmail.com");
                 msg.To.Add("ar.boiairportcarstorage@outlook.com");
                 msg.CC.Add("peter.george.green@gmail.com");
                 msg.From = new MailAddress("pg8472@hotmail.com");
@@ -719,6 +722,7 @@ namespace KKCSInvoiceProject
             reader = command.ExecuteReader();
 
             string sCash = "";
+            iCashTotal = 0;
 
             while (reader.Read())
             {
@@ -996,7 +1000,7 @@ namespace KKCSInvoiceProject
 
         void YTDMoney()
         {
-            connection.Open();
+            //connection.Open();
 
             command = new OleDbCommand();
 
@@ -1012,6 +1016,7 @@ namespace KKCSInvoiceProject
             int iCash = 0;
             float fEftpos = 0.0f;
             float fCreditCard = 0.0f;
+            float fAccount = 0.0f;
 
             while (reader.Read())
             {
@@ -1041,6 +1046,14 @@ namespace KKCSInvoiceProject
                             fCreditCard += fCreditCardDatabase;
                             break;
                         }
+                    case "OnAcc":
+                        {
+                            float fAccountDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fAccountDatabase);
+
+                            fAccount += fAccountDatabase;
+                            break;
+                        }
                 }
             }
 
@@ -1052,11 +1065,14 @@ namespace KKCSInvoiceProject
             NextLine(1);
             string sCreditCardTotal = "YTD Credit Card Total: $" + fCreditCard.ToString("N");
             graphic.DrawString(sCreditCardTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(1);
+            string sAccountTotal = "YTD Account Total: $" + fAccount.ToString("N");
+            graphic.DrawString(sAccountTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             NextLine(2);
-            string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard).ToString("N");
+            string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard + fAccount).ToString("N");
             graphic.DrawString(sTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
 
-            connection.Close();
+            //connection.Close();
         }
 
         #endregion YTPReport

@@ -356,7 +356,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(250, 45);
             this.button2.TabIndex = 25;
-            this.button2.Text = "Pre-Booking";
+            this.button2.Text = "DOC Only Pre-Booking";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // MainMenu

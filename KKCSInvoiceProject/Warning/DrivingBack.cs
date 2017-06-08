@@ -22,7 +22,7 @@ namespace KKCSInvoiceProject
 
         string DrivingBackText()
         {
-            string sDrivingBack = @"Kerikeri Airport Car Storage Driving Back/Bus/Non-Flight Procedure
+            string sDrivingBack = @"Kerikeri Airport Car Storage Driving Back or 'Not on a Flight' Procedure.
 
 If you are driving back instead of coming on the plane, please note our opening times below.
 

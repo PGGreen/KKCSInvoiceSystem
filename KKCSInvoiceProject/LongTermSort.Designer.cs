@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.pnl_template = new System.Windows.Forms.Panel();
+            this.lbl_keynumber = new System.Windows.Forms.Label();
             this.lbl_dateout = new System.Windows.Forms.Label();
             this.lbl_datein = new System.Windows.Forms.Label();
             this.lbl_numberplate = new System.Windows.Forms.Label();
             this.txt_DateIn = new System.Windows.Forms.TextBox();
-            this.lbl_keynumber = new System.Windows.Forms.Label();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +49,16 @@
             this.pnl_template.Size = new System.Drawing.Size(1140, 45);
             this.pnl_template.TabIndex = 1;
             this.pnl_template.Visible = false;
+            // 
+            // lbl_keynumber
+            // 
+            this.lbl_keynumber.AutoSize = true;
+            this.lbl_keynumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_keynumber.Location = new System.Drawing.Point(20, 12);
+            this.lbl_keynumber.Name = "lbl_keynumber";
+            this.lbl_keynumber.Size = new System.Drawing.Size(219, 20);
+            this.lbl_keynumber.TabIndex = 4;
+            this.lbl_keynumber.Text = "000000000000000000000";
             // 
             // lbl_dateout
             // 
@@ -82,22 +92,14 @@
             // 
             // txt_DateIn
             // 
+            this.txt_DateIn.Enabled = false;
             this.txt_DateIn.Location = new System.Drawing.Point(1180, 489);
             this.txt_DateIn.Multiline = true;
             this.txt_DateIn.Name = "txt_DateIn";
             this.txt_DateIn.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_DateIn.Size = new System.Drawing.Size(67, 44);
             this.txt_DateIn.TabIndex = 2;
-            // 
-            // lbl_keynumber
-            // 
-            this.lbl_keynumber.AutoSize = true;
-            this.lbl_keynumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_keynumber.Location = new System.Drawing.Point(20, 12);
-            this.lbl_keynumber.Name = "lbl_keynumber";
-            this.lbl_keynumber.Size = new System.Drawing.Size(219, 20);
-            this.lbl_keynumber.TabIndex = 4;
-            this.lbl_keynumber.Text = "000000000000000000000";
+            this.txt_DateIn.Visible = false;
             // 
             // LongTermSort
             // 
