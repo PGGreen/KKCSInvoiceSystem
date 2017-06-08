@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Data.OleDb;
+using System.Net;
+using System.Net.Mail;
+using System.Drawing.Printing;
 
 namespace KKCSInvoiceProject
 {
@@ -19,6 +22,21 @@ namespace KKCSInvoiceProject
 
         OleDbDataReader reader;
 
+        OleDbCommand command;
+
+        DateTime dtTodaysDate = DateTime.Today;
+
+        // Print Member Variables
+        int m_iStartX = 10;
+        int m_iStartY = 10;
+        int m_iNextLineOffset = 30;
+        float m_fFontHeight = 0.0f;
+        Font font;
+        Font fontBold;
+        Font fontBoldUnderline;
+
+        Graphics graphic;
+
         private OleDbConnection connection = new OleDbConnection();
 
         public DailyCarsStats()
@@ -27,7 +45,7 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
-            Test();
+            //Test();
         }
 
         void Test()
@@ -237,5 +255,166 @@ namespace KKCSInvoiceProject
 
             return (Series);
         }
+
+        #region YTDReport
+
+        void PrintYTDReport()
+        {
+            PrintDialog printDialog = new PrintDialog();
+
+            PrintDocument printDocument = new PrintDocument();
+
+            printDialog.Document = printDocument;
+
+            printDocument.PrintPage += new PrintPageEventHandler(YTDReport);
+
+            //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+
+            printDocument.Print();
+        }
+
+        void NextLine(int _iAmount)
+        {
+            m_iNextLineOffset = m_iNextLineOffset + ((int)m_fFontHeight * +_iAmount);
+        }
+
+        public void YTDReport(object sender, PrintPageEventArgs e)
+        {
+            m_iNextLineOffset = 30;
+
+            graphic = e.Graphics;
+
+            font = new Font("Courier New", 12); //must use a mono spaced font as the spaces need to line up
+            fontBold = new Font("Courier New", 12, FontStyle.Bold);
+            fontBoldUnderline = new Font("Courier New", 12, FontStyle.Bold | FontStyle.Underline);
+
+            m_fFontHeight = font.GetHeight();
+
+            // Heading Title
+            graphic.DrawString("YTP Report - Kerikeri Car Storage - " + dtTodaysDate.ToString("yyy"), new Font("Courier New", 16), new SolidBrush(Color.Black), m_iStartX, m_iStartY);
+
+            // Line underneith heading title
+            graphic.DrawString("------------------------------------------------------------------------", font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(2);
+
+            // All the till information
+            string sTillTitle = "YTD Money:";
+            graphic.DrawString(sTillTitle, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(2);
+            YTDMoney();
+            NextLine(3);
+
+            // All the Eftpos information
+            //string sEftposTitle = "Daily EFTPOS + Credit Card:";
+            //graphic.DrawString(sEftposTitle, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //DailyEftpos();
+            //NextLine(3);
+
+            //string sDailyTotalMoneyTitle = "Daily Total Money:";
+            //graphic.DrawString(sDailyTotalMoneyTitle, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(2);
+            //string sDailyTotalMoney = "Cash + EFTPOS + Credit Card: $" + ((float)iCashTotal + fEftposTotal).ToString("0.00");
+            //graphic.DrawString(sDailyTotalMoney, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(3);
+
+            //string sTillRunningTotal = "Daily Running Total:";
+            //graphic.DrawString(sTillRunningTotal, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //TillRunningTotal();
+            //NextLine(3);
+
+            //string sPlasticBoxRunningTotal = "Daily Plastic Box Running Total:";
+            //graphic.DrawString(sPlasticBoxRunningTotal, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //PlasticBoxRunningTotal();
+            //NextLine(3);
+
+            //string sTodaysPettyCash = "Todays Petty Cash:";
+            //graphic.DrawString(sTodaysPettyCash, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //DailyPettyCash();
+        }
+
+        void YTDMoney()
+        {
+            //connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from CustomerInvoices WHERE year(DTDatePaid) = year(@dtDate) AND PaidStatus <> 'To Pay' ORDER BY DTDatePaid ASC";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            int iCash = 0;
+            float fEftpos = 0.0f;
+            float fCreditCard = 0.0f;
+            float fAccount = 0.0f;
+
+            while (reader.Read())
+            {
+                switch (reader["PaidStatus"].ToString())
+                {
+                    case "Cash":
+                        {
+                            int iCashDatabase = 0;
+                            int.TryParse(reader["TotalPay"].ToString(), out iCashDatabase);
+
+                            iCash += iCashDatabase;
+                            break;
+                        }
+                    case "Eftpos":
+                        {
+                            float fEftposDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fEftposDatabase);
+
+                            fEftpos += fEftposDatabase;
+                            break;
+                        }
+                    case "Credit Card":
+                        {
+                            float fCreditCardDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fCreditCardDatabase);
+
+                            fCreditCard += fCreditCardDatabase;
+                            break;
+                        }
+                    case "OnAcc":
+                        {
+                            float fAccountDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fAccountDatabase);
+
+                            fAccount += fAccountDatabase;
+                            break;
+                        }
+                }
+            }
+
+            string sCashTotal = "YTD Cash Total: $" + iCash.ToString("N");
+            graphic.DrawString(sCashTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(1);
+            string sEftposTotal = "YTD Eftpos Total: $" + fEftpos.ToString("N");
+            graphic.DrawString(sEftposTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(1);
+            string sCreditCardTotal = "YTD Credit Card Total: $" + fCreditCard.ToString("N");
+            graphic.DrawString(sCreditCardTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(1);
+            string sAccountTotal = "YTD Account Total: $" + fAccount.ToString("N");
+            graphic.DrawString(sAccountTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            NextLine(2);
+            string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard + fAccount).ToString("N");
+            graphic.DrawString(sTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+
+            //connection.Close();
+        }
+
+        #endregion YTPReport
     }
 }

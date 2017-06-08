@@ -333,6 +333,12 @@
     <Compile Include="Warning\WarningSystem.Designer.cs">
       <DependentUpon>WarningSystem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Stats\YardStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Stats\YardStats.Designer.cs">
+      <DependentUpon>YardStats.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Accounts\Accounts.resx">
       <DependentUpon>Accounts.cs</DependentUpon>
     </EmbeddedResource>
@@ -465,6 +471,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Accounts\WarningNewAccount.resx">
       <DependentUpon>WarningNewAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\YardStats.resx">
+      <DependentUpon>YardStats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Warning\DrivingBack.resx">
       <DependentUpon>DrivingBack.cs</DependentUpon>

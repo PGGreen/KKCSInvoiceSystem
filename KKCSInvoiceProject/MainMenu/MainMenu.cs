@@ -388,7 +388,7 @@ namespace KKCSInvoiceProject
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form fm = Application.OpenForms["DailyCarsStats"];
+            Form fm = Application.OpenForms["YardStats"];
 
             if (fm != null)
             {
@@ -396,7 +396,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                DailyCarsStats st = new DailyCarsStats();
+                YardStats st = new YardStats();
                 st.Show();
             }
         }
