@@ -24,6 +24,16 @@ namespace KKCSInvoiceProject
 
         OleDbCommand command;
 
+        float fYear2014 = 84205.0f;
+        float fYear2015 = 111572.10f;
+        float fYear2016 = 139034.52f;
+        float fYear2017 = 66556.14f;
+
+        float fYear2014JJ = 36651.0f;
+        float fYear2015JJ = 50497.10f;
+        float fYear2016JJ = 52697.00f;
+        float fYear2017JJ = 66556.14f;
+
         DateTime dtTodaysDate = DateTime.Today;
 
         // Print Member Variables
@@ -44,11 +54,60 @@ namespace KKCSInvoiceProject
             InitializeComponent();
 
             connection.ConnectionString = m_strDataBaseFilePath;
+
+            //YTDMoney();
+
+            TextYard();
+        }
+
+        void TextYard()
+        {
+            string sNL = "\r\n";
+
+            string sMoney = "Kerikeri Car Storage Income 2014-2016" + sNL;
+            sMoney += "----------------------------------------------------" + sNL;
+            sMoney += "2014: $" + fYear2014.ToString("N") + " Total Income" + sNL;
+            sMoney += "2015: $" + fYear2015.ToString("N") + " Total Income" + sNL;
+            sMoney += "2016: $" + fYear2016.ToString("N") + " Total Income" + sNL;
+            sMoney += "2017: $" + fYear2017.ToString("N") + " Current Jan-Jun Income";
+
+            sMoney += sNL + sNL;
+
+            sMoney += "2015: " + (((fYear2015 - fYear2014) / fYear2014) * 100.0f).ToString("N") + "% Growth Increase Over 2014";
+
+            sMoney += sNL;
+
+            sMoney += "2016: " + (((fYear2016 - fYear2015) / fYear2015) * 100.0f).ToString("N") + "% Growth Increase Over 2015";
+
+            sMoney += sNL + sNL + sNL;
+
+            sMoney += "Kerikeri Car Storage Jan-Jun 2014-2017" + sNL;
+            sMoney += "----------------------------------------------------" + sNL;
+            sMoney += "2014 Jan-Jun: $" + fYear2014JJ.ToString("N") + " Total Income" + sNL;
+            sMoney += "2015 Jan-Jun: $" + fYear2015JJ.ToString("N") + " Total Income" + sNL;
+            sMoney += "2016 Jan-Jun: $" + fYear2016JJ.ToString("N") + " Total Income" + sNL;
+            sMoney += "2017 Jan-Jun: $" + fYear2017JJ.ToString("N") + " Total Income";
+
+            sMoney += sNL + sNL;
+
+            sMoney += "2015 Jan-Jun: " + (((fYear2016JJ - fYear2014JJ) / fYear2014JJ) * 100.0f).ToString("N") + "% Growth Increase Over 2014";
+
+            sMoney += sNL;
+
+            sMoney += "2016 Jan-Jun: " + (((fYear2016JJ - fYear2015JJ) / fYear2015JJ) * 100.0f).ToString("N") + "% Growth Increase Over 2015";
+
+            sMoney += sNL;
+
+            sMoney += "2017 Jan-Jun: " + (((fYear2017JJ - fYear2016JJ) / fYear2016JJ) * 100.0f).ToString("N") + "% Growth Increase Over 2016";
+
+            lbl_money.Text = sMoney;
         }
 
         void YTDMoney()
         {
-            //connection.Open();
+            connection.Open();
+
+            DateTime dtTodaysDate = new DateTime(2016, 1, 1, 12, 0, 0);
 
             command = new OleDbCommand();
 
@@ -105,22 +164,19 @@ namespace KKCSInvoiceProject
                 }
             }
 
-            string sCashTotal = "YTD Cash Total: $" + iCash.ToString("N");
-            graphic.DrawString(sCashTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            string sCashTotal = "YTD Cash Total: $" + iCash.ToString("N") + "\r\n";
+            
+            string sEftposTotal = "YTD Eftpos Total: $" + fEftpos.ToString("N") + "\r\n";
 
-            string sEftposTotal = "YTD Eftpos Total: $" + fEftpos.ToString("N");
-            graphic.DrawString(sEftposTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            string sCreditCardTotal = "YTD Credit Card Total: $" + fCreditCard.ToString("N") + "\r\n";
 
-            string sCreditCardTotal = "YTD Credit Card Total: $" + fCreditCard.ToString("N");
-            graphic.DrawString(sCreditCardTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            string sAccountTotal = "YTD Account Total: $" + fAccount.ToString("N") + "\r\n";
 
-            string sAccountTotal = "YTD Account Total: $" + fAccount.ToString("N");
-            graphic.DrawString(sAccountTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard + fAccount).ToString("N") + "/r/n";
 
-            string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard + fAccount).ToString("N");
-            graphic.DrawString(sTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            lbl_money.Text = sCashTotal + sEftposTotal + sCreditCardTotal + sAccountTotal + sTotal;
 
-            //connection.Close();
+            connection.Close();
         }
     }
 }

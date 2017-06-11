@@ -59,7 +59,7 @@ namespace KKCSInvoiceProject
 
             Label lblDebug = new Label();
 
-            lblDebug.Location = new Point(240, 553);
+            lblDebug.Location = new Point(240, 600);
             lblDebug.Text = "WARNING: TEST MODE ACTIVE";
             lblDebug.Font = new Font("Microsoft San Serif", 24, FontStyle.Bold);
             lblDebug.Size = new Size(530, 37);
