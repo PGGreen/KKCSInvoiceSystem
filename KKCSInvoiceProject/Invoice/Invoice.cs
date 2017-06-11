@@ -159,13 +159,12 @@ namespace KKCSInvoiceProject
         private void Form2_Load(object sender, EventArgs e)
         {
             this.FormClosing += chkbox_topay_Closing;
-            //printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
 
             FindFlightTimes();
 
             if (!m_bIsFromCarReturns)
             {
-                lbl_datepaid.Text = "Date Paid: ";
+                lbl_datepaid.Text = "Paid: ";
 
                 txt_flighttimes.SelectedIndex = 0;
 
@@ -175,10 +174,6 @@ namespace KKCSInvoiceProject
 
                 dtReturnDateOriginal = dt_returndate.Value;
                 sReturnTimeOriginal = txt_flighttimes.Text;
-
-                txt_money7charge.Text = "10";
-                txt_money7pluscharge.Text = "8";
-                txt_moneyMonthcharge.Text = "40";
 
                 txt_firstname.BackColor = LabelBackColour;
                 txt_lastname.BackColor = LabelBackColour;
@@ -191,13 +186,14 @@ namespace KKCSInvoiceProject
                 cmb_timeinhours.Text = CurrentTime.Hour.ToString("00");
                 cmb_timeinminutes.Text = CurrentTime.Minute.ToString("00");
             }
+
+            btn_addinv.Text = "Add Invoice " + txt_invoiceno.Text + " Note";
+            cmb_paidstatus.SelectedIndex = 0;
         }
 
         // If opening form from Car Returns run this
         public void SetUpFromCarReturns(int _iInvoiceNumber, NewCarReturns _NewCarReturns)
         {
-            //PopulateAccountBox();
-
             m_bInitialSetUpFromCarReturns = true;
 
             // Opens the connection to the database
@@ -253,48 +249,27 @@ namespace KKCSInvoiceProject
                 txt_makemodel.Text = reader["MakeModel"].ToString();
                 cmb_rego.Text = reader["Rego"].ToString();
 
-
-
                 // Inserts any notes or alerts
                 txt_notes.Text = reader["Notes"].ToString();
                 txt_alerts.Text = reader["Alerts"].ToString();
+
+                if(txt_notes.Text != "")
+                {
+                    txt_notes.Visible = true;
+                    btn_addinv.Text = "Delete " + txt_invoiceno.Text + " Note"; 
+                }
+                if (txt_alerts.Text != "")
+                {
+                    txt_alerts.Visible = true;
+                    btn_addcustalert.Text = "Delete Customer Alert";
+                }
 
                 bool bIsUnknown = (bool)reader["UnknownDate"];
 
                 if (!bIsUnknown)
                 {
-                    // Inserts the date the customer dropped the car off
                     DateTime dtReturnDate = (DateTime)reader["DTReturnDate"];
                     dt_returndate.Value = dtReturnDate;
-
-                    // Checks to see if customer is owed a refund or if we owe them money
-                    DateTime dtTodaysDate = DateTime.Now;
-
-                    TimeSpan TimeDifference = dt_returndate.Value - dtTodaysDate;
-                    int iDays = TimeDifference.Days;
-
-                    if(false)//if(iDays > 0)
-                    {
-                        string sWarning = "Has this customer come back early?";
-                        WarningSystem ws = new WarningSystem(sWarning, true);
-                        ws.ShowDialog();
-
-                        if (ws.DialogResult == DialogResult.OK)
-                        {
-                            sWarning = "Customer is owed a refund";
-                            ws = new WarningSystem(sWarning, false);
-                            ws.ShowDialog();
-
-                            // Customer is back early
-                            pnl_refund.Enabled = true;
-                            pnl_refund.Visible = true;
-
-                            int iPrice = iDays * 10;
-
-                            lbl_daysearly.Text += " " + iDays.ToString();
-                            txt_refundowed.Text = "$" + iPrice.ToString("0.00");
-                        }
-                    }
                 }
                 else
                 {
@@ -306,13 +281,13 @@ namespace KKCSInvoiceProject
                 {
                     DateTime dtReturnDate = DateTime.Now;
 
-                    chk_manual.Checked = true;
+                    //chk_manual.Checked = true;
 
                     int iHours = dtReturnDate.Hour;
                     int iMinutes = dtReturnDate.Minute;
 
-                    cmb_returntimehours.Text = iHours.ToString("00");
-                    cmb_returntimeminutes.Text = iMinutes.ToString("00");
+                    //cmb_returntimehours.Text = iHours.ToString("00");
+                    //cmb_returntimeminutes.Text = iMinutes.ToString("00");
 
                 }
                 else
@@ -324,7 +299,7 @@ namespace KKCSInvoiceProject
                     if (FlightOrManual)
                     {
                         txt_flighttimes.Text = reader["ReturnTime"].ToString();
-                        chk_flighttimes.Checked = true;
+                        //chk_flighttimes.Checked = true;
                     }
                     else
                     {
@@ -332,10 +307,10 @@ namespace KKCSInvoiceProject
                         string sReturnTimeHours = reader["ReturnTime"].ToString().Substring(0, 2);
                         string sReturnTimeMinutes = reader["ReturnTime"].ToString().Substring(2, 2);
 
-                        cmb_returntimehours.Text = sReturnTimeHours;
-                        cmb_returntimeminutes.Text = sReturnTimeMinutes;
+                        //cmb_returntimehours.Text = sReturnTimeHours;
+                        //cmb_returntimeminutes.Text = sReturnTimeMinutes;
 
-                        chk_manual.Checked = true;
+                        //chk_manual.Checked = true;
                     }
                 }
 
@@ -343,11 +318,7 @@ namespace KKCSInvoiceProject
                 bIsOnAccount = PopulatePaidStatus(reader);
 
                 // Inserts the amount paid
-                txt_money7.Text = reader["SevenDaysPay"].ToString();
-                txt_money7plus.Text = reader["SevenDaysPlusPay"].ToString();
-                txt_monthmoney.Text = reader["OneMonthPlusPay"].ToString();
-                txt_creditcharge.Text = reader["CreditCardFeePay"].ToString();
-                txt_total.Text = reader["TotalPay"].ToString();
+                //txt_total.Text = reader["TotalPay"].ToString();
 
                 bool bPickedUp = (bool)reader["PickUp"];
 
@@ -588,7 +559,7 @@ namespace KKCSInvoiceProject
                 int.TryParse(reader["KeyNumber"].ToString(), out iFirstNumber);
             }
 
-            txt_keyno.Text = (iFirstNumber + 1).ToString("00");
+            txt_keyno.Text = (iFirstNumber + 1).ToString();
 
             // Closes the connection to the database
             if (connection.State == ConnectionState.Open)
@@ -657,82 +628,24 @@ namespace KKCSInvoiceProject
 
             txt_flighttimes.Items.Clear();
 
-            // TODO: Delete Later, New Times
-            DateTime dtNewStartDate = new DateTime(2016, 10, 29, 12, 0, 0);
-            DateTime dtReturnDate = dt_returndate.Value;
-            int result = 1;// DateTime.Compare(dtNewStartDate, dtReturnDate);
-
             string sTxtFileLocation = "";
 
             if (sTodaysDay == "Saturday")
             {
-                if (result > 0)
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
-                }
-                else if (result == 0 || result < 0)
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat - NOV 16.txt";
-                }
-
+                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
             }
             else if (sTodaysDay == "Sunday")
             {
-                if (result > 0)
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
-                }
-                else if (result == 0 || result < 0)
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun - NOV 16.txt";
-                }
-
+                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
             }
             else
             {
-                if (result > 0)
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
-                }
-                else if (result == 0 || result < 0)
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri - NOV 16.txt";
-                }
+                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
             }
 
             using (StreamReader sr = new StreamReader(sTxtFileLocation))
             {
                 txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
-            }
-        }
-
-        void MakeSureNoDuplicates()
-        {
-            // Opens the connection to the database
-            if (connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
-
-            // Checks to see if the NumberPlate already exists
-            string cmdStr = @"SELECT COUNT(*) FROM Invoice
-                        WHERE InvoiceNumber = " + iInvoiceNumber + "";
-
-            // Runs the command from above to search the database
-            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
-
-            int count = (int)cmd.ExecuteScalar();
-
-            // Closes the connection to the database
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-
-            // Record Already exists
-            if (count > 0)
-            {
-                FindInvoiceNumber();
             }
         }
 
@@ -1204,16 +1117,16 @@ namespace KKCSInvoiceProject
                                                                     "', ReturnTime = '" + tempReturnTimeHours +
                                                                     "', AccountHolder = '" + txt_account.Text +
                                                                     "', AccountParticulars = '" + txt_particulars.Text +
-                                                                    "', SevenDaysPay = '" + txt_money7.Text +
-                                                                    "', SevenDaysPlusPay = '" + txt_money7plus.Text +
-                                                                    "', OneMonthPlusPay = '" + txt_monthmoney.Text +
-                                                                    "', CreditCardFeePay = '" + txt_creditcharge.Text +
+                                                                    //"', SevenDaysPay = '" + txt_money7.Text +
+                                                                    //"', SevenDaysPlusPay = '" + txt_money7plus.Text +
+                                                                    //"', OneMonthPlusPay = '" + txt_monthmoney.Text +
+                                                                    //"', CreditCardFeePay = '" + txt_creditcharge.Text +
                                                                     "', TotalPay = '" + txt_total.Text +
                                                                     "', PaidStatus = '" + g_sPaidStatus +
                                                                     "', CarLocation = '" + m_sCarLocation +
                                                                     "', Notes = '" + txt_notes.Text +
                                                                     "', Alerts = '" + txt_alerts.Text +
-                                                                    "', FlightOrManual  = " + chk_flighttimes.Checked +
+                                                                    //"', FlightOrManual  = " + chk_flighttimes.Checked +
                                                                     ", YNDatePaid  = " + m_bAlreadyPaid +
                                                                     ", PickUp  = " + m_bCarPickedUp +
                                                                     ", UnknownDate  = " + bUnknownDate +
@@ -1505,17 +1418,19 @@ namespace KKCSInvoiceProject
         {
             string tempTimeCombined = "";
 
-            if (chk_manual.Checked)
-            {
-                string tempReturnTimeHours = cmb_returntimehours.Text;
-                string tempReturnTimeMinutes = cmb_returntimeminutes.Text;
+            //if (chk_manual.Checked)
+            //{
+            //    string tempReturnTimeHours = cmb_returntimehours.Text;
+            //    string tempReturnTimeMinutes = cmb_returntimeminutes.Text;
 
-                tempTimeCombined = tempReturnTimeHours + tempReturnTimeMinutes;
-            }
-            else
-            {
-                tempTimeCombined = txt_flighttimes.Text;
-            }
+            //    tempTimeCombined = tempReturnTimeHours + tempReturnTimeMinutes;
+            //}
+            //else
+            //{
+            //    tempTimeCombined = txt_flighttimes.Text;
+            //}
+
+            tempTimeCombined = txt_flighttimes.Text;
 
             return (tempTimeCombined);
         }
@@ -1752,7 +1667,7 @@ namespace KKCSInvoiceProject
         {
             if (!bIsAlreadySaved)
             {
-                txt_total.Text = "";
+                //txt_total.Text = "";
             }
 
             if (!m_bInitialSetUpFromCarReturns)
@@ -1763,9 +1678,9 @@ namespace KKCSInvoiceProject
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-            txt_total.Text = "";
-
             FindFlightTimes();
+
+            SetUpPrice();
 
             txt_flighttimes.SelectedIndex = 0;
         }
@@ -1994,7 +1909,7 @@ namespace KKCSInvoiceProject
         {
             if(!bIsAlreadySaved)
             {
-                txt_total.Text = "";
+                //txt_total.Text = "";
             }
             
             if (!m_bInitialSetUpFromCarReturns)
@@ -2005,36 +1920,36 @@ namespace KKCSInvoiceProject
 
         private void chk_flighttimes_CheckedChanged(object sender, EventArgs e)
         {
-            if (chk_flighttimes.Checked)
-            {
-                chk_manual.Checked = false;
+            //if (chk_flighttimes.Checked)
+            //{
+            //    chk_manual.Checked = false;
 
-                txt_flighttimes.Visible = true;
+            //    txt_flighttimes.Visible = true;
 
-                cmb_returntimehours.Visible = false;
-                cmb_returntimeminutes.Visible = false;
-            }
-            else
-            {
-                chk_manual.Checked = true;
-            }
+            //    cmb_returntimehours.Visible = false;
+            //    cmb_returntimeminutes.Visible = false;
+            //}
+            //else
+            //{
+            //    chk_manual.Checked = true;
+            //}
         }
 
         private void chk_manual_CheckedChanged(object sender, EventArgs e)
         {
-            if (chk_manual.Checked)
-            {
-                chk_flighttimes.Checked = false;
+            //if (chk_manual.Checked)
+            //{
+            //    chk_flighttimes.Checked = false;
 
-                txt_flighttimes.Visible = false;
+            //    txt_flighttimes.Visible = false;
 
-                cmb_returntimehours.Visible = true;
-                cmb_returntimeminutes.Visible = true;
-            }
-            else
-            {
-                chk_flighttimes.Checked = true;
-            }
+            //    cmb_returntimehours.Visible = true;
+            //    cmb_returntimeminutes.Visible = true;
+            //}
+            //else
+            //{
+            //    chk_flighttimes.Checked = true;
+            //}
         }
 
         private void txt_money7_TextChanged(object sender, EventArgs e)
@@ -2071,9 +1986,12 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetUpPrice();
+
             if (!bIsAlreadySaved)
             {
-                txt_total.Text = "";
+                //txt_total.Text = "";
+                
             }
 
             if (!m_bInitialSetUpFromCarReturns)
@@ -2108,19 +2026,19 @@ namespace KKCSInvoiceProject
             dt_returndate.Enabled = true;
             dt_returndate.Visible = true;
 
-            if (chk_manual.Checked)
-            {
-                cmb_returntimehours.Enabled = true;
-                cmb_returntimeminutes.Enabled = true;
+            //if (chk_manual.Checked)
+            //{
+            //    cmb_returntimehours.Enabled = true;
+            //    cmb_returntimeminutes.Enabled = true;
 
-                cmb_returntimehours.Visible = true;
-                cmb_returntimeminutes.Visible = true;
-            }
-            else
-            {
-                txt_flighttimes.Enabled = true;
-                txt_flighttimes.Visible = true;
-            }
+            //    cmb_returntimehours.Visible = true;
+            //    cmb_returntimeminutes.Visible = true;
+            //}
+            //else
+            //{
+            //    txt_flighttimes.Enabled = true;
+            //    txt_flighttimes.Visible = true;
+            //}
 
             chkbox_uknowndate.BackColor = System.Drawing.Color.Transparent;
             chkbox_uknowntime.BackColor = System.Drawing.Color.Transparent;
@@ -2132,9 +2050,9 @@ namespace KKCSInvoiceProject
             txt_ph.Text = "";
             txt_makemodel.Text = "";
             cmb_rego.Text = "";
-            txt_money7.Text = "";
-            txt_money7plus.Text = "";
-            txt_total.Text = "";
+            //txt_money7.Text = "";
+            //txt_money7plus.Text = "";
+            //txt_total.Text = "";
 
             chkbox_cash.Checked = false;
             chkbox_eftpos.Checked = false;
@@ -2359,15 +2277,15 @@ namespace KKCSInvoiceProject
         {
             m_bInitialSetUpFromCarReturns = true;
 
-            if (chk_flighttimes.Checked == true)
-            {
-                txt_flighttimes.Text = lstOriginalValues[17];
-            }
-            else
-            {
-                cmb_returntimehours.Text = lstOriginalValues[17].Substring(0, 2);
-                cmb_returntimeminutes.Text = lstOriginalValues[17].Substring(2, 2);
-            }
+            //if (chk_flighttimes.Checked == true)
+            //{
+            //    txt_flighttimes.Text = lstOriginalValues[17];
+            //}
+            //else
+            //{
+            //    cmb_returntimehours.Text = lstOriginalValues[17].Substring(0, 2);
+            //    cmb_returntimeminutes.Text = lstOriginalValues[17].Substring(2, 2);
+            //}
 
             txt_firstname.Text = lstOriginalValues[0];
             txt_lastname.Text = lstOriginalValues[1];
@@ -2376,10 +2294,10 @@ namespace KKCSInvoiceProject
             cmb_rego.Text = lstOriginalValues[4];
             txt_notes.Text = lstOriginalValues[5];
             txt_alerts.Text = lstOriginalValues[6];
-            txt_money7.Text = lstOriginalValues[7];
-            txt_money7plus.Text = lstOriginalValues[8];
-            txt_monthmoney.Text = lstOriginalValues[9];
-            txt_creditcharge.Text = lstOriginalValues[10];
+            //txt_money7.Text = lstOriginalValues[7];
+            //txt_money7plus.Text = lstOriginalValues[8];
+            //txt_monthmoney.Text = lstOriginalValues[9];
+            //txt_creditcharge.Text = lstOriginalValues[10];
             txt_total.Text = lstOriginalValues[11];
 
             g_sPaidStatus = lstOriginalValues[12];
@@ -2598,7 +2516,7 @@ namespace KKCSInvoiceProject
 
                 chkbox_uknowndate.BackColor = System.Drawing.Color.Orange;
 
-                txt_total.Text = "";
+                //txt_total.Text = "";
             }
             else
             {
@@ -2613,38 +2531,38 @@ namespace KKCSInvoiceProject
         {
             if (chkbox_uknowntime.Checked == true)
             {
-                cmb_returntimehours.Enabled = false;
-                cmb_returntimeminutes.Enabled = false;
-                txt_flighttimes.Enabled = false;
+                //cmb_returntimehours.Enabled = false;
+                //cmb_returntimeminutes.Enabled = false;
+                //txt_flighttimes.Enabled = false;
 
                 if (g_sPaidStatus != "OnAcc")
                 {
                     chkbox_stilltopay.CheckState = CheckState.Checked;
                 }
 
-                cmb_returntimehours.Visible = false;
-                cmb_returntimeminutes.Visible = false;
-                txt_flighttimes.Visible = false;
+                //cmb_returntimehours.Visible = false;
+                //cmb_returntimeminutes.Visible = false;
+                //txt_flighttimes.Visible = false;
 
                 chkbox_uknowntime.BackColor = System.Drawing.Color.Orange;
 
-                txt_total.Text = "";
+                //txt_total.Text = "";
             }
             else
             {
-                cmb_returntimehours.Enabled = true;
-                cmb_returntimeminutes.Enabled = true;
-                txt_flighttimes.Enabled = true;
+                //cmb_returntimehours.Enabled = true;
+                //cmb_returntimeminutes.Enabled = true;
+                //txt_flighttimes.Enabled = true;
 
-                if (chk_flighttimes.Checked)
-                {
-                    txt_flighttimes.Visible = true;
-                }
-                else
-                {
-                    cmb_returntimehours.Visible = true;
-                    cmb_returntimeminutes.Visible = true;
-                }
+                //if (chk_flighttimes.Checked)
+                //{
+                //    txt_flighttimes.Visible = true;
+                //}
+                //else
+                //{
+                //    cmb_returntimehours.Visible = true;
+                //    cmb_returntimeminutes.Visible = true;
+                //}
 
                 chkbox_uknowntime.BackColor = System.Drawing.Color.Transparent;
             }
@@ -3086,9 +3004,9 @@ Number: 02-0800-0493229-00
                 g_sPaidStatus = "N/C";
 
                 sTempStorePrice = txt_total.Text;
-                txt_total.Text = "";
-                txt_money7.Text = "";
-                txt_money7plus.Text = "";
+                //txt_total.Text = "";
+                //txt_money7.Text = "";
+                //txt_money7plus.Text = "";
 
                 txt_total.Enabled = false;
                 txt_total.Visible = false;
@@ -3110,28 +3028,16 @@ Number: 02-0800-0493229-00
 
         public void SetUpPrice()
         {
-            // This function puts in the default charges if they are blank
-            if (txt_money7charge.Text == "")
-            {
-                txt_money7charge.Text = "10";
-            }
-            if (txt_money7pluscharge.Text == "")
-            {
-                txt_money7pluscharge.Text = "8";
-            }
-            if (txt_moneyMonthcharge.Text == "")
-            {
-                txt_moneyMonthcharge.Text = "40";
-            }
-
-            lbl_monthweeks.Text = "per week (0 weeks)";
-
             // Sets up the global days and times
             int iDays = 0;
             int iTimeInHours = 0;
             int iReturnTimeHours = 0;
 
             int iTotalMoney = 0;
+
+            int iFirstDay = 15;
+            int iDaysAfter = 12;
+            int iMonth = 50;
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
@@ -3149,17 +3055,20 @@ Number: 02-0800-0493229-00
             // Gets the time the customer brought the car in
             iTimeInHours = int.Parse(cmb_timeinhours.Text);
 
+            iReturnTimeHours = int.Parse(txt_flighttimes.Text.Substring(0, 2));
+
             // Checks to see if Flight Times or Manual times has been selected
-            if (chk_flighttimes.Checked)
-            {
-                // Gets the time in
-                iReturnTimeHours = int.Parse(txt_flighttimes.Text.Substring(0, 2));
-            }
-            else if (chk_manual.Checked)
-            {
-                // Gets the time in
-                iReturnTimeHours = int.Parse(cmb_returntimehours.SelectedItem.ToString());
-            }
+            //if (chk_flighttimes.Checked)
+            //{
+            //    // Gets the time in
+                
+            //}
+            //else if (chk_manual.Checked)
+            //{
+            //    // Gets the time in
+            //    iReturnTimeHours = int.Parse(cmb_returntimehours.SelectedItem.ToString());
+            //}
+
             // If there is a gap of more than 4 hours between dropping off and picking up, add another days pay
             if (iReturnTimeHours - iTimeInHours > 4 && iDays != 0)
             {
@@ -3178,73 +3087,19 @@ Number: 02-0800-0493229-00
                 }
 
                 // If they are only staying for 1 day
-                else if (iDays == 0)
+                else if (iDays == 0 || iDays == 1)
                 {
-                    // Sets the 7+ days to null
-                    txt_money7plus.Text = "";
-
-                    // Gets the daily charge (Default $10)
-                    int iMoneyCharge = int.Parse(txt_money7charge.Text.ToString());
-
-                    // Calculates the price for 1 day
-                    int iCalculateTotal = iMoneyCharge * (iDays + 1);
-
-                    // Puts the total into box
-                    txt_money7.Text = iCalculateTotal.ToString();
-                    iTotalMoney = iCalculateTotal;
+                    iTotalMoney = 15;
                 }
 
                 // If they are staying between 2 to 7 days
-                else if (iDays >= 1 && iDays <= 7)
+                else if (iDays >= 2)
                 {
-                    // Sets the money to blank
-                    txt_money7.Text = "";
-                    txt_money7plus.Text = "";
-
-                    // Gets the money each day will be charged at (Default: $10 per day)
-                    int iMoneyCharge = int.Parse(txt_money7charge.Text.ToString());
-
                     // Multiplies the price by the number of days
-                    int iCalculateTotal = iMoneyCharge * iDays;
+                    int iCalculateTotal = iDaysAfter * iDays;
 
                     // Puts in the price in to the box
-                    txt_money7.Text = iCalculateTotal.ToString();
                     iTotalMoney = iCalculateTotal;
-                }
-
-                // If they are staying more than 7 days, but less than a month+
-                else if (iDays > 7)
-                {
-                    // Sets the money to blank
-                    txt_money7.Text = "";
-                    txt_money7plus.Text = "";
-
-                    // Sets up the first 7 days price
-                    /////////////////
-                    int iMoneyCharge = int.Parse(txt_money7charge.Text.ToString());
-
-                    int iCalculateTotal = iMoneyCharge * 7;
-
-                    txt_money7.Text = iCalculateTotal.ToString();
-                    /////////////////
-
-
-                    // Sets up all the remaining days prices
-                    ///////////////
-                    int iRemainingDays = iDays - 7;
-
-                    int iMoney7PlusCharge = int.Parse(txt_money7pluscharge.Text.ToString());
-
-                    int iCalculatePlusTotal = iMoney7PlusCharge * iRemainingDays;
-
-                    txt_money7plus.Text = iCalculatePlusTotal.ToString();
-                    //////////////
-
-
-                    // Adds the 2 prices together
-                    //////////////
-                    iTotalMoney = iCalculateTotal + iCalculatePlusTotal;
-                    ///////////////
                 }
             }
             // This calculates prices if the customer are staying over 1 month or more
@@ -3253,19 +3108,14 @@ Number: 02-0800-0493229-00
                 float fWorkOutWeeks = (float)iDays / 7;
 
                 int iWorkOutWeeks = (int)decimal.Round((decimal)fWorkOutWeeks, 0, MidpointRounding.AwayFromZero);
-                lbl_monthweeks.Text = "per week (" + iWorkOutWeeks.ToString() + " weeks)";
 
-                int iMonthCharge = int.Parse(txt_moneyMonthcharge.Text.ToString());
-                iTotalMoney = iMonthCharge * iWorkOutWeeks;
-
-                txt_monthmoney.Text = iTotalMoney.ToString();
+                iTotalMoney = iMonth * iWorkOutWeeks;
             }
 
             // Adds the credit card fee if applicable
             if (chk_credit.Checked)
             {
                 float fTempCreditCardCharge = (float)iTotalMoney * 0.02f;
-                txt_creditcharge.Text = fTempCreditCardCharge.ToString("N2");
 
                 float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
                 txt_total.Text = fTempTotalPrice.ToString("N2");
@@ -3294,10 +3144,10 @@ Number: 02-0800-0493229-00
             lstOriginalValues.Add(cmb_rego.Text);
             lstOriginalValues.Add(txt_notes.Text);
             lstOriginalValues.Add(txt_alerts.Text);
-            lstOriginalValues.Add(txt_money7.Text);
-            lstOriginalValues.Add(txt_money7plus.Text);
-            lstOriginalValues.Add(txt_monthmoney.Text);
-            lstOriginalValues.Add(txt_creditcharge.Text);
+            //lstOriginalValues.Add(txt_money7.Text);
+            //lstOriginalValues.Add(txt_money7plus.Text);
+            //lstOriginalValues.Add(txt_monthmoney.Text);
+            //lstOriginalValues.Add(txt_creditcharge.Text);
             lstOriginalValues.Add(txt_total.Text);
             lstOriginalValues.Add(g_sPaidStatus);
             //lstOriginalValues.Add(cmd_accountlist.Text);
@@ -3305,14 +3155,14 @@ Number: 02-0800-0493229-00
             lstOriginalValues.Add(m_bCarPickedUp.ToString());
             lstOriginalValues.Add(m_sCarLocation);
 
-            if (chk_flighttimes.Checked == true)
-            {
-                lstOriginalValues.Add(txt_flighttimes.Text);
-            }
-            else
-            {
-                lstOriginalValues.Add(cmb_returntimehours.Text + cmb_returntimeminutes.Text);
-            }
+            //if (chk_flighttimes.Checked == true)
+            //{
+            //    lstOriginalValues.Add(txt_flighttimes.Text);
+            //}
+            //else
+            //{
+            //    lstOriginalValues.Add(cmb_returntimehours.Text + cmb_returntimeminutes.Text);
+            //}
         }
 
         void WarningsChangesMade()
@@ -3328,10 +3178,10 @@ Number: 02-0800-0493229-00
                 lstCheckValues.Add(cmb_rego.Text);
                 lstCheckValues.Add(txt_notes.Text);
                 lstCheckValues.Add(txt_alerts.Text);
-                lstCheckValues.Add(txt_money7.Text);
-                lstCheckValues.Add(txt_money7plus.Text);
-                lstCheckValues.Add(txt_monthmoney.Text);
-                lstCheckValues.Add(txt_creditcharge.Text);
+                //lstCheckValues.Add(txt_money7.Text);
+                //lstCheckValues.Add(txt_money7plus.Text);
+                //lstCheckValues.Add(txt_monthmoney.Text);
+                //lstCheckValues.Add(txt_creditcharge.Text);
                 lstCheckValues.Add(txt_total.Text);
                 lstCheckValues.Add(g_sPaidStatus);
                 //lstCheckValues.Add(cmd_accountlist.Text);
@@ -3339,14 +3189,14 @@ Number: 02-0800-0493229-00
                 lstCheckValues.Add(m_bCarPickedUp.ToString());
                 lstCheckValues.Add(m_sCarLocation);
 
-                if (chk_flighttimes.Checked == true)
-                {
-                    lstCheckValues.Add(txt_flighttimes.Text);
-                }
-                else
-                {
-                    lstCheckValues.Add(cmb_returntimehours.Text + cmb_returntimeminutes.Text);
-                }
+                //if (chk_flighttimes.Checked == true)
+                //{
+                //    lstCheckValues.Add(txt_flighttimes.Text);
+                //}
+                //else
+                //{
+                //    lstCheckValues.Add(cmb_returntimehours.Text + cmb_returntimeminutes.Text);
+                //}
 
                 int iCount = 0;
 
@@ -3399,6 +3249,16 @@ Number: 02-0800-0493229-00
         }
 
         private void txt_particulars_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_changesmade_Click(object sender, EventArgs e)
         {
 
         }
