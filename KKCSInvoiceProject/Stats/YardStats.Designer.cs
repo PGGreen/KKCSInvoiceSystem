@@ -35,7 +35,7 @@
             // 
             this.lbl_money.AutoSize = true;
             this.lbl_money.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_money.Location = new System.Drawing.Point(12, 24);
+            this.lbl_money.Location = new System.Drawing.Point(12, 9);
             this.lbl_money.Name = "lbl_money";
             this.lbl_money.Size = new System.Drawing.Size(73, 24);
             this.lbl_money.TabIndex = 0;
@@ -45,6 +45,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1269, 618);
             this.Controls.Add(this.lbl_money);
             this.Name = "YardStats";

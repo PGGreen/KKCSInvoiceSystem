@@ -110,6 +110,7 @@
             this.cmb_paidstatus = new System.Windows.Forms.ComboBox();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnl_refund.SuspendLayout();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
@@ -346,7 +347,6 @@
             this.label3.Size = new System.Drawing.Size(72, 31);
             this.label3.TabIndex = 37;
             this.label3.Text = "INV:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // btn_save
             // 
@@ -424,14 +424,13 @@
             this.lbl_accountname.TabIndex = 65;
             this.lbl_accountname.Text = "Acc:";
             this.lbl_accountname.Visible = false;
-            this.lbl_accountname.Click += new System.EventHandler(this.lbl_accountname_Click);
             // 
             // btn_print
             // 
             this.btn_print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btn_print.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_print.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_print.Location = new System.Drawing.Point(924, 421);
+            this.btn_print.Location = new System.Drawing.Point(956, 416);
             this.btn_print.Name = "btn_print";
             this.btn_print.Size = new System.Drawing.Size(145, 41);
             this.btn_print.TabIndex = 71;
@@ -493,7 +492,7 @@
             this.lbl_datepaid.AutoSize = true;
             this.lbl_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_datepaid.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_datepaid.Location = new System.Drawing.Point(1098, 187);
+            this.lbl_datepaid.Location = new System.Drawing.Point(785, 109);
             this.lbl_datepaid.Name = "lbl_datepaid";
             this.lbl_datepaid.Size = new System.Drawing.Size(124, 20);
             this.lbl_datepaid.TabIndex = 88;
@@ -519,7 +518,6 @@
             this.txt_particulars.Size = new System.Drawing.Size(225, 26);
             this.txt_particulars.TabIndex = 94;
             this.txt_particulars.Visible = false;
-            this.txt_particulars.TextChanged += new System.EventHandler(this.txt_particulars_TextChanged);
             // 
             // lbl_particulars
             // 
@@ -531,7 +529,6 @@
             this.lbl_particulars.TabIndex = 96;
             this.lbl_particulars.Text = "Parti:";
             this.lbl_particulars.Visible = false;
-            this.lbl_particulars.Click += new System.EventHandler(this.lbl_particulars_Click);
             // 
             // btn_update
             // 
@@ -793,7 +790,6 @@
             this.lbl_changesmade.Text = "WARNING!\r\nChanges Made";
             this.lbl_changesmade.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbl_changesmade.Visible = false;
-            this.lbl_changesmade.Click += new System.EventHandler(this.lbl_changesmade_Click);
             // 
             // btn_revertchanges
             // 
@@ -839,7 +835,6 @@
             this.txt_account.Size = new System.Drawing.Size(377, 26);
             this.txt_account.TabIndex = 163;
             this.txt_account.Visible = false;
-            this.txt_account.TextChanged += new System.EventHandler(this.txt_account_TextChanged);
             // 
             // button5
             // 
@@ -1180,12 +1175,23 @@
             this.comboBox6.Size = new System.Drawing.Size(231, 28);
             this.comboBox6.TabIndex = 175;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1090, 184);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 24);
+            this.label1.TabIndex = 176;
+            this.label1.Text = "GST Inc.";
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox6);
             this.Controls.Add(this.comboBox5);
             this.Controls.Add(this.cmb_paidstatus);
@@ -1348,5 +1354,6 @@
         private System.Windows.Forms.ComboBox cmb_paidstatus;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.Label label1;
     }
 }

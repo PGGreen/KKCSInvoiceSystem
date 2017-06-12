@@ -57,7 +57,90 @@ namespace KKCSInvoiceProject
 
             //YTDMoney();
 
-            TextYard();
+            //TextYard();
+
+            CarStats();
+        }
+
+        void CarStats()
+        {
+            connection.Open();
+
+            DateTime dtTodaysDate = new DateTime(2016, 1, 1, 12, 0, 0);
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            //string query = "select * from CustomerInvoices WHERE year(DTDatePaid) = year(@dtDate) ORDER BY InvoiceNumber ASC";
+            string query = "select * from CustomerInvoices ORDER BY InvoiceNumber ASC";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            // Works out how many days there are between the date the car was
+            // brought in, and when they are returning
+
+
+            // Put the difference of days into the variable
+
+            List<int> lstDays = new List<int>();
+
+            int iDays = 0;
+            
+            while (reader.Read())
+            {
+                DateTime dtDateIn = (DateTime)reader["DTDateIn"];
+                DateTime dtDateReturn = (DateTime)reader["DTReturnDate"];
+
+                TimeSpan TimeDifference = dtDateReturn - dtDateIn;
+
+                iDays = TimeDifference.Days;
+
+                lstDays.Add(iDays);
+            }
+
+            lstDays.Sort();
+
+            int iCount = 0;
+
+            // Stores the time from the table
+            int StoreDays = 0;
+
+            // Stores time at end to compare and see if a new time has shown
+            int StoreDaysSecond = 0;
+
+            // Skips the very first check as there is no time to compare on the first
+            bool bSkipFirstCheck = true;
+
+            lbl_money.Text = lstDays[0].ToString() + "\r\n";
+
+            int iAmountOfDaysCount = 0;
+
+            while (iCount < lstDays.Count)
+            {
+                // Gets the current time of the record
+                StoreDays = lstDays[iCount];
+
+                if (StoreDays != StoreDaysSecond && !bSkipFirstCheck)
+                {
+                    lbl_money.Text += StoreDays.ToString("00") + " Days = " + iAmountOfDaysCount.ToString() + "x" + "\r\n";
+
+                    iAmountOfDaysCount = 0;
+                }
+
+                iAmountOfDaysCount++;
+
+                // Makes the Second time = the first time for comparision purposes
+                StoreDaysSecond = StoreDays;
+
+                // Makes the first check to false for using
+                bSkipFirstCheck = false;
+
+                iCount++;
+            }
         }
 
         void TextYard()

@@ -168,7 +168,7 @@ namespace KKCSInvoiceProject
 
                 txt_flighttimes.SelectedIndex = 0;
 
-                PopulateRegoBox();
+                //PopulateRegoBox();
                 FindKeyNumber();
                 FindInvoiceNumber();
 
@@ -322,42 +322,42 @@ namespace KKCSInvoiceProject
 
                 bool bPickedUp = (bool)reader["PickUp"];
 
-                if (bPickedUp)
-                {
-                    chk_pickedup.Checked = true;
-                    chk_carinyard.Checked = false;
+                //if (bPickedUp)
+                //{
+                //    chk_pickedup.Checked = true;
+                //    chk_carinyard.Checked = false;
 
-                    chk_pickedup.BackColor = Color.Lime;
-                }
-                else
-                {
-                    chk_pickedup.Checked = false;
-                    chk_carinyard.Checked = true;
+                //    chk_pickedup.BackColor = Color.Lime;
+                //}
+                //else
+                //{
+                //    chk_pickedup.Checked = false;
+                //    chk_carinyard.Checked = true;
 
-                    chk_carinyard.BackColor = Color.Lime;
-                }
+                //    chk_carinyard.BackColor = Color.Lime;
+                //}
 
                 m_bCarPickedUp = (bool)reader["PickUp"];
 
-                if (m_bCarPickedUp)
-                {
-                    chk_pickedup.Checked = true;
-                }
-                else if (!m_bCarPickedUp)
-                {
-                    chk_carinyard.Checked = true;
-                }
+                //if (m_bCarPickedUp)
+                //{
+                //    chk_pickedup.Checked = true;
+                //}
+                //else if (!m_bCarPickedUp)
+                //{
+                //    chk_carinyard.Checked = true;
+                //}
 
                 m_sCarLocation = reader["CarLocation"].ToString();
 
-                if (m_sCarLocation == "Front")
-                {
-                    chk_carlocationfront.Checked = true;
-                }
-                else if (m_sCarLocation == "Back")
-                {
-                    chk_carlocationback.Checked = true;
-                }
+                //if (m_sCarLocation == "Front")
+                //{
+                //    chk_carlocationfront.Checked = true;
+                //}
+                //else if (m_sCarLocation == "Back")
+                //{
+                //    chk_carlocationback.Checked = true;
+                //}
 
                 m_bAlreadyPaid = (bool)reader["YNDatePaid"];
 
@@ -383,7 +383,7 @@ namespace KKCSInvoiceProject
 
             if(bIsOnAccount)
             {
-                chkbox_onaccount.Checked = true;
+                //chkbox_onaccount.Checked = true;
             }
              
             WarningsStoreOriginalValues();
@@ -401,76 +401,76 @@ namespace KKCSInvoiceProject
         {
             bool bIsAccount = false;
 
-            if (_reader["PaidStatus"].ToString() == "Cash")
-            {
-                chkbox_cash.Checked = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "Eftpos")
-            {
-                chkbox_eftpos.Checked = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "Credit Card")
-            {
-                chk_credit.Checked = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "Internet")
-            {
-                chkbox_internet.Checked = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "Cheque")
-            {
-                chkbox_cheque.Checked = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "To Pay")
-            {
-                chkbox_stilltopay.Checked = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "OnAcc")
-            {
-                bIsAccount = true;
-            }
-            else if (_reader["PaidStatus"].ToString() == "N/C")
-            {
-                chkbox_nocharge.Checked = true;
-            }
+            //if (_reader["PaidStatus"].ToString() == "Cash")
+            //{
+            //    chkbox_cash.Checked = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "Eftpos")
+            //{
+            //    chkbox_eftpos.Checked = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "Credit Card")
+            //{
+            //    chk_credit.Checked = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "Internet")
+            //{
+            //    chkbox_internet.Checked = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "Cheque")
+            //{
+            //    chkbox_cheque.Checked = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "To Pay")
+            //{
+            //    chkbox_stilltopay.Checked = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "OnAcc")
+            //{
+            //    bIsAccount = true;
+            //}
+            //else if (_reader["PaidStatus"].ToString() == "N/C")
+            //{
+            //    chkbox_nocharge.Checked = true;
+            //}
 
             return (bIsAccount);
         }
 
         void PopulatePaidStatusWarnings(string _sPaidStatus)
         {
-            if (_sPaidStatus == "Cash")
-            {
-                chkbox_cash.Checked = true;
-            }
-            else if (_sPaidStatus == "Eftpos")
-            {
-                chkbox_eftpos.Checked = true;
-            }
-            else if (_sPaidStatus == "Credit Card")
-            {
-                chk_credit.Checked = true;
-            }
-            else if (_sPaidStatus == "Internet")
-            {
-                chkbox_internet.Checked = true;
-            }
-            else if (_sPaidStatus == "Cheque")
-            {
-                chkbox_cheque.Checked = true;
-            }
-            else if (_sPaidStatus == "To Pay")
-            {
-                chkbox_stilltopay.Checked = true;
-            }
-            else if (_sPaidStatus == "OnAcc")
-            {
-                chkbox_onaccount.Checked = true;
-            }
-            else if (_sPaidStatus == "N/C")
-            {
-                chkbox_nocharge.Checked = true;
-            }
+            //if (_sPaidStatus == "Cash")
+            //{
+            //    chkbox_cash.Checked = true;
+            //}
+            //else if (_sPaidStatus == "Eftpos")
+            //{
+            //    chkbox_eftpos.Checked = true;
+            //}
+            //else if (_sPaidStatus == "Credit Card")
+            //{
+            //    chk_credit.Checked = true;
+            //}
+            //else if (_sPaidStatus == "Internet")
+            //{
+            //    chkbox_internet.Checked = true;
+            //}
+            //else if (_sPaidStatus == "Cheque")
+            //{
+            //    chkbox_cheque.Checked = true;
+            //}
+            //else if (_sPaidStatus == "To Pay")
+            //{
+            //    chkbox_stilltopay.Checked = true;
+            //}
+            //else if (_sPaidStatus == "OnAcc")
+            //{
+            //    chkbox_onaccount.Checked = true;
+            //}
+            //else if (_sPaidStatus == "N/C")
+            //{
+            //    chkbox_nocharge.Checked = true;
+            //}
         }
 
         #endregion
@@ -686,26 +686,7 @@ namespace KKCSInvoiceProject
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            DateTime dtTimePicker = dt_returndate.Value;
-
-            DateTime dtCompare = new DateTime(dtTimePicker.Year, dtTimePicker.Month, dtTimePicker.Day, 12, 0, 0);
-            DateTime dtFeb11 = new DateTime(2017, 2, 11, 12, 0, 0);
-
-            int iTimeIn = 0;
-            int.TryParse(ReturnTime(), out iTimeIn);
-            
-            if (dtFeb11 == dtCompare && (iTimeIn > 1430 || chkbox_uknowntime.Checked))
-            {
-                string strWS = "PLEASE NOTE:\r\nOn Saturday 11th of February we will be closed for the 1720 flight.\r\n";
-                strWS += "Please make other arrangements if coming in or out at this time.\r\n\r\n";
-                strWS += "We are sorry for the inconvenience this may cause.";
-                WarningSystem ws = new WarningSystem(strWS, false);
-                ws.ShowDialog();
-            }
-            else
-            {
-                SetUpSave();
-            }
+            SetUpSave();
         }
 
         private void btn_update_Click(object sender, EventArgs e)
@@ -717,10 +698,10 @@ namespace KKCSInvoiceProject
         {
             bool bCheckUnknown = false;
 
-            if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
-            {
-                bCheckUnknown = true;
-            }
+            //if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
+            //{
+            //    bCheckUnknown = true;
+            //}
 
             string sWarning = "";
             string sEndLine = "\r\n";
@@ -780,10 +761,10 @@ namespace KKCSInvoiceProject
 
                     InsertIntoNumberPlates();
 
-                    if (chkbox_onaccount.Checked)
-                    {
-                        InsertIntoAccounts();
-                    }
+                    //if (chkbox_onaccount.Checked)
+                    //{
+                    //    InsertIntoAccounts();
+                    //}
 
                     if (!m_bInitialSetUpFromCarReturns)
                     {
@@ -811,10 +792,10 @@ namespace KKCSInvoiceProject
 
                     InsertIntoNumberPlates();
 
-                    if (chkbox_onaccount.Checked)
-                    {
-                        InsertIntoAccounts();
-                    }
+                    //if (chkbox_onaccount.Checked)
+                    //{
+                    //    InsertIntoAccounts();
+                    //}
 
                     bIsAlreadySaved = true;
 
@@ -925,32 +906,32 @@ namespace KKCSInvoiceProject
                     }
                 }
 
-                if (chkbox_uknowntime.Checked)
-                {
-                    tempReturnTimeHours = "Unknown";
-                }
-                else
-                {
-                    tempReturnTimeHours = ReturnTime();
-                }
+                //if (chkbox_uknowntime.Checked)
+                //{
+                //    tempReturnTimeHours = "Unknown";
+                //}
+                //else
+                //{
+                //    tempReturnTimeHours = ReturnTime();
+                //}
 
                 bool bUnknownDate = false;
                 DateTime dtReturnDate = new DateTime();
 
-                if (chkbox_uknowndate.Checked)
-                {
-                    dtReturnDate = new DateTime(2001, 1, 1, 12, 0, 0);
+                //if (chkbox_uknowndate.Checked)
+                //{
+                //    dtReturnDate = new DateTime(2001, 1, 1, 12, 0, 0);
 
-                    bUnknownDate = true;
-                }
-                else
-                {
-                    int iYearReturnDate = dt_returndate.Value.Year;
-                    int iMonthReturnDate = dt_returndate.Value.Month;
-                    int iDayReturnDate = dt_returndate.Value.Day;
+                //    bUnknownDate = true;
+                //}
+                //else
+                //{
+                //    int iYearReturnDate = dt_returndate.Value.Year;
+                //    int iMonthReturnDate = dt_returndate.Value.Month;
+                //    int iDayReturnDate = dt_returndate.Value.Day;
 
-                    dtReturnDate = new DateTime(iYearReturnDate, iMonthReturnDate, iDayReturnDate, 12, 0, 0);
-                }
+                //    dtReturnDate = new DateTime(iYearReturnDate, iMonthReturnDate, iDayReturnDate, 12, 0, 0);
+                //}
 
                 int iYearDateIn = dt_datein.Value.Year;
                 int iMonthDateIn = dt_datein.Value.Month;
@@ -1268,7 +1249,7 @@ namespace KKCSInvoiceProject
             MyAppManager.MainMenuInstance.SetUpRegoComboBox();
 
             // Populates the Regastration on the next invoice
-            PopulateRegoBox();
+            //PopulateRegoBox();
         }
 
         void InsertIntoAccounts()
@@ -1463,10 +1444,10 @@ namespace KKCSInvoiceProject
             {
                 try
                 {
-                    if (chkbox_onaccount.Checked)
-                    {
-                        chkbox_onaccount.Checked = false;
-                    }
+                    //if (chkbox_onaccount.Checked)
+                    //{
+                    //    chkbox_onaccount.Checked = false;
+                    //}
 
                     CurrentTime = DateTime.Now;
 
@@ -1517,18 +1498,18 @@ namespace KKCSInvoiceProject
                     //lbl_accountname.Visible = true;
                     //txt_account.Visible = true;
 
-                    if (CheckIfAccount())
-                    {
-                        chkbox_onaccount.Checked = true;
-                    }
-                    else
-                    {
-                        lbl_particulars.Visible = false;
-                        txt_particulars.Visible = false;
+                    //if (CheckIfAccount())
+                    //{
+                    //    chkbox_onaccount.Checked = true;
+                    //}
+                    //else
+                    //{
+                    //    lbl_particulars.Visible = false;
+                    //    txt_particulars.Visible = false;
 
-                        lbl_accountname.Visible = false;
-                        txt_account.Visible = false;
-                    }
+                    //    lbl_accountname.Visible = false;
+                    //    txt_account.Visible = false;
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -1872,21 +1853,21 @@ namespace KKCSInvoiceProject
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            chkbox_cash.Enabled = true;
-            chkbox_eftpos.Enabled = true;
-            chkbox_cheque.Enabled = true;
-            chkbox_internet.Enabled = true;
-            chkbox_stilltopay.Enabled = true;
-            chkbox_onaccount.Enabled = true;
-            chkbox_nocharge.Enabled = true;
+            //chkbox_cash.Enabled = true;
+            //chkbox_eftpos.Enabled = true;
+            //chkbox_cheque.Enabled = true;
+            //chkbox_internet.Enabled = true;
+            //chkbox_stilltopay.Enabled = true;
+            //chkbox_onaccount.Enabled = true;
+            //chkbox_nocharge.Enabled = true;
 
-            chkbox_cash.Visible = true;
-            chkbox_eftpos.Visible = true;
-            chkbox_cheque.Visible = true;
-            chkbox_internet.Visible = true;
-            chkbox_stilltopay.Visible = true;
-            chkbox_onaccount.Visible = true;
-            chkbox_nocharge.Visible = true;
+            //chkbox_cash.Visible = true;
+            //chkbox_eftpos.Visible = true;
+            //chkbox_cheque.Visible = true;
+            //chkbox_internet.Visible = true;
+            //chkbox_stilltopay.Visible = true;
+            //chkbox_onaccount.Visible = true;
+            //chkbox_nocharge.Visible = true;
 
             txt_paidstatus.Visible = true;
         }
@@ -2040,11 +2021,11 @@ namespace KKCSInvoiceProject
             //    txt_flighttimes.Visible = true;
             //}
 
-            chkbox_uknowndate.BackColor = System.Drawing.Color.Transparent;
-            chkbox_uknowntime.BackColor = System.Drawing.Color.Transparent;
+            //chkbox_uknowndate.BackColor = System.Drawing.Color.Transparent;
+            //chkbox_uknowntime.BackColor = System.Drawing.Color.Transparent;
 
-            chkbox_uknowndate.Checked = false;
-            chkbox_uknowntime.Checked = false;
+            //chkbox_uknowndate.Checked = false;
+            //chkbox_uknowntime.Checked = false;
 
             txt_firstname.Text = "";
             txt_ph.Text = "";
@@ -2054,13 +2035,13 @@ namespace KKCSInvoiceProject
             //txt_money7plus.Text = "";
             //txt_total.Text = "";
 
-            chkbox_cash.Checked = false;
-            chkbox_eftpos.Checked = false;
-            chkbox_cheque.Checked = false;
-            chkbox_internet.Checked = false;
-            chkbox_stilltopay.Checked = false;
-            chkbox_onaccount.Checked = false;
-            chkbox_nocharge.Checked = false;
+            //chkbox_cash.Checked = false;
+            //chkbox_eftpos.Checked = false;
+            //chkbox_cheque.Checked = false;
+            //chkbox_internet.Checked = false;
+            //chkbox_stilltopay.Checked = false;
+            //chkbox_onaccount.Checked = false;
+            //chkbox_nocharge.Checked = false;
 
             cmb_rego.Focus();
         }
@@ -2126,10 +2107,10 @@ namespace KKCSInvoiceProject
         {
             bool bCheckUnknown = false;
 
-            if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
-            {
-                bCheckUnknown = true;
-            }
+            //if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
+            //{
+            //    bCheckUnknown = true;
+            //}
 
             if (cmb_rego.Text == "")
             {
@@ -2170,7 +2151,7 @@ namespace KKCSInvoiceProject
                 
                 printDialog.Document = printDocument; //add the document to the dialog box...        
 
-                printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
+                //printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
 
                 // This is used for getting the printer tray names
                 string sString = "";
@@ -2191,10 +2172,10 @@ namespace KKCSInvoiceProject
         {
             bool bCheckUnknown = false;
 
-            if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
-            {
-                bCheckUnknown = true;
-            }
+            //if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
+            //{
+            //    bCheckUnknown = true;
+            //}
 
             if (cmb_rego.Text == "")
             {
@@ -2225,7 +2206,7 @@ namespace KKCSInvoiceProject
 
                 printDialog.Document = printDocument; //add the document to the dialog box...        
 
-                printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
+                //printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
 
                 //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
 
@@ -2308,25 +2289,25 @@ namespace KKCSInvoiceProject
 
             string sCarPickedUp = lstOriginalValues[15];
 
-            if(sCarPickedUp == "True")
-            {
-                chk_pickedup.Checked = true;
-            }
-            else if(sCarPickedUp == "False")
-            {
-                chk_carinyard.Checked = true;
-            }
+            //if(sCarPickedUp == "True")
+            //{
+            //    chk_pickedup.Checked = true;
+            //}
+            //else if(sCarPickedUp == "False")
+            //{
+            //    chk_carinyard.Checked = true;
+            //}
 
             m_sCarLocation = lstOriginalValues[16];
 
-            if(m_sCarLocation == "Front")
-            {
-                chk_carlocationfront.Checked = true;
-            }
-            else if(m_sCarLocation == "Back")
-            {
-                chk_carlocationback.Checked = true;
-            }
+            //if(m_sCarLocation == "Front")
+            //{
+            //    chk_carlocationfront.Checked = true;
+            //}
+            //else if(m_sCarLocation == "Back")
+            //{
+            //    chk_carlocationback.Checked = true;
+            //}
 
             m_bInitialSetUpFromCarReturns = false;
 
@@ -2339,7 +2320,7 @@ namespace KKCSInvoiceProject
         #endregion
 
         #region CheckBoxes
-
+        /*
         private void chkbox_cash_CheckedChanged(object sender, EventArgs e)
         {
             if (chkbox_cash.Checked)
@@ -2409,7 +2390,7 @@ namespace KKCSInvoiceProject
                 PaidStatusPicked = false;
             }
         }
-
+        */
         WarningNewAccount wna;
 
         void CloseNewAccount(object sender, CancelEventArgs e)
@@ -2440,13 +2421,14 @@ namespace KKCSInvoiceProject
                 iCount++;
             }
 
-            if(iCount == 0)
-            {
-                chkbox_onaccount.Checked = false;
-            }
+            //if(iCount == 0)
+            //{
+            //    chkbox_onaccount.Checked = false;
+            //}
 
         }
 
+        /*
         private void chkbox_onaccount_CheckedChanged(object sender, EventArgs e)
         {
             if (chkbox_onaccount.Checked)
@@ -2711,7 +2693,7 @@ namespace KKCSInvoiceProject
                 WarningsChangesMade();
             }
         }
-
+        /*
         #endregion
 
         #region Printing
@@ -2893,113 +2875,113 @@ Number: 02-0800-0493229-00
         {
             if (_name == "chkbox_cash")
             {
-                chkbox_cash.BackColor = System.Drawing.Color.DodgerBlue;
+                //chkbox_cash.BackColor = System.Drawing.Color.DodgerBlue;
 
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "Cash";
             }
             else if (_name == "chkbox_eftpos")
             {
-                chkbox_eftpos.BackColor = System.Drawing.Color.DodgerBlue;
+                //chkbox_eftpos.BackColor = System.Drawing.Color.DodgerBlue;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "Eftpos";
             }
             else if (_name == "chk_credit")
             {
-                chk_credit.BackColor = System.Drawing.Color.DodgerBlue;
+                //chk_credit.BackColor = System.Drawing.Color.DodgerBlue;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "Credit Card";
             }
             else if (_name == "chkbox_cheque")
             {
-                chkbox_cheque.BackColor = System.Drawing.Color.DodgerBlue;
+                //chkbox_cheque.BackColor = System.Drawing.Color.DodgerBlue;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "Cheque";
             }
             else if (_name == "chkbox_internet")
             {
-                chkbox_internet.BackColor = System.Drawing.Color.DodgerBlue;
+                //chkbox_internet.BackColor = System.Drawing.Color.DodgerBlue;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "Internet";
             }
             else if (_name == "chkbox_stilltopay")
             {
-                chkbox_stilltopay.BackColor = System.Drawing.Color.Yellow;
+                //chkbox_stilltopay.BackColor = System.Drawing.Color.Yellow;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "To Pay";
             }
             else if (_name == "chkbox_onaccount")
             {
-                chkbox_onaccount.BackColor = System.Drawing.Color.LightPink;
+                //chkbox_onaccount.BackColor = System.Drawing.Color.LightPink;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_nocharge.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_nocharge.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "OnAcc";
             }
             else if (_name == "chkbox_nocharge")
             {
-                chkbox_nocharge.BackColor = System.Drawing.Color.LightPink;
+                //chkbox_nocharge.BackColor = System.Drawing.Color.LightPink;
 
-                chkbox_cash.CheckState = CheckState.Unchecked;
-                chkbox_eftpos.CheckState = CheckState.Unchecked;
-                chkbox_cheque.CheckState = CheckState.Unchecked;
-                chkbox_internet.CheckState = CheckState.Unchecked;
-                chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chk_credit.CheckState = CheckState.Unchecked;
+                //chkbox_cash.CheckState = CheckState.Unchecked;
+                //chkbox_eftpos.CheckState = CheckState.Unchecked;
+                //chkbox_cheque.CheckState = CheckState.Unchecked;
+                //chkbox_internet.CheckState = CheckState.Unchecked;
+                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
+                //chkbox_onaccount.CheckState = CheckState.Unchecked;
+                //chk_credit.CheckState = CheckState.Unchecked;
 
                 g_sPaidStatus = "N/C";
 
@@ -3113,17 +3095,17 @@ Number: 02-0800-0493229-00
             }
 
             // Adds the credit card fee if applicable
-            if (chk_credit.Checked)
-            {
-                float fTempCreditCardCharge = (float)iTotalMoney * 0.02f;
+            //if (chk_credit.Checked)
+            //{
+            //    float fTempCreditCardCharge = (float)iTotalMoney * 0.02f;
 
-                float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
-                txt_total.Text = fTempTotalPrice.ToString("N2");
-            }
-            else
-            {
-                txt_total.Text = iTotalMoney.ToString();
-            }
+            //    float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
+            //    txt_total.Text = fTempTotalPrice.ToString("N2");
+            //}
+            //else
+            //{
+            //    txt_total.Text = iTotalMoney.ToString();
+            //}
         }
 
         #endregion
@@ -3231,36 +3213,6 @@ Number: 02-0800-0493229-00
         {
             NewAccount nw = new NewAccount();
             nw.ShowDialog();
-        }
-
-        private void lbl_accountname_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbl_particulars_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txt_account_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txt_particulars_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lbl_changesmade_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
