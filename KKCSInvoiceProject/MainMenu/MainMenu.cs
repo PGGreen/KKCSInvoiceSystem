@@ -25,6 +25,7 @@ namespace KKCSInvoiceProject
 
         private ComboBox cmb_storeRegoItems;
         private ComboBox cmb_storeAccountItems;
+        private ComboBox cmb_storeMakeModel;
 
         private bool m_bUserExit = false;
 
@@ -47,6 +48,8 @@ namespace KKCSInvoiceProject
             #endif
 
             SetUpRegoComboBox();
+
+            SetUpMakeModelComboBox();
 
             SetUpAccountComboBox();
         }
@@ -99,6 +102,45 @@ namespace KKCSInvoiceProject
             connection.Close();
         }
 
+        public void SetUpMakeModelComboBox()
+        {
+            cmb_storeMakeModel = new ComboBox();
+
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from NumberPlates ORDER BY MakeModel ASC";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            string sStoreFirstMM = "";
+            string sStoreSecondMM = "";
+            bool bSkipFirstCheck = false;
+
+            while (reader.Read())
+            {
+                //cmb_storeMakeModel
+                sStoreFirstMM = reader["MakeModel"].ToString();
+
+                if (sStoreFirstMM != sStoreSecondMM)
+                {
+                    if(sStoreFirstMM != "")
+                    {
+                        cmb_storeMakeModel.Items.Add(sStoreFirstMM);
+                    }
+                }
+
+                sStoreSecondMM = sStoreFirstMM;
+            }
+
+            connection.Close();
+        }
+
         public void SetUpAccountComboBox()
         {
             //cmb_storeAccountItems = new ComboBox();
@@ -133,6 +175,11 @@ namespace KKCSInvoiceProject
         public ComboBox GetCmbRegoComboBox()
         {
             return (cmb_storeRegoItems);
+        }
+
+        public ComboBox GetCmbMakeModelComboBox()
+        {
+            return (cmb_storeMakeModel);
         }
 
         private void MainMenu_Closing(object sender, FormClosingEventArgs e)

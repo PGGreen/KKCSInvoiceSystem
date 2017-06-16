@@ -53,7 +53,6 @@
             this.btn_mainmenu = new System.Windows.Forms.Button();
             this.btn_returns = new System.Windows.Forms.Button();
             this.txt_flighttimes = new System.Windows.Forms.ComboBox();
-            this.lbl_datepaid = new System.Windows.Forms.Label();
             this.btn_keybox = new System.Windows.Forms.Button();
             this.txt_particulars = new System.Windows.Forms.TextBox();
             this.lbl_particulars = new System.Windows.Forms.Label();
@@ -103,14 +102,15 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.txt_makemodel = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.cmb_makemodel = new System.Windows.Forms.ComboBox();
+            this.cmb_carstatus = new System.Windows.Forms.ComboBox();
             this.btn_addinv = new System.Windows.Forms.Button();
             this.btn_addcustalert = new System.Windows.Forms.Button();
             this.cmb_paidstatus = new System.Windows.Forms.ComboBox();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_datepaid = new System.Windows.Forms.Button();
             this.pnl_refund.SuspendLayout();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
@@ -487,17 +487,6 @@
             this.txt_flighttimes.TabIndex = 85;
             this.txt_flighttimes.SelectedIndexChanged += new System.EventHandler(this.txt_flighttimes_SelectedIndexChanged);
             // 
-            // lbl_datepaid
-            // 
-            this.lbl_datepaid.AutoSize = true;
-            this.lbl_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_datepaid.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_datepaid.Location = new System.Drawing.Point(785, 109);
-            this.lbl_datepaid.Name = "lbl_datepaid";
-            this.lbl_datepaid.Size = new System.Drawing.Size(124, 20);
-            this.lbl_datepaid.TabIndex = 88;
-            this.lbl_datepaid.Text = "Paid: 17/06/16";
-            // 
             // btn_keybox
             // 
             this.btn_keybox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -563,6 +552,7 @@
             this.label8.Size = new System.Drawing.Size(148, 13);
             this.label8.TabIndex = 115;
             this.label8.Text = "(Credit Card fee of 2% applies)";
+            this.label8.Visible = false;
             // 
             // txt_total
             // 
@@ -634,6 +624,7 @@
             this.button2.TabIndex = 142;
             this.button2.Text = "Use $20 Credit";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // label28
             // 
@@ -1045,7 +1036,6 @@
             // 
             // button1
             // 
-            this.button1.Enabled = false;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(415, 161);
             this.button1.Name = "button1";
@@ -1053,32 +1043,32 @@
             this.button1.TabIndex = 168;
             this.button1.Text = "Search By Name";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             // 
-            // txt_makemodel
+            // cmb_makemodel
             // 
-            this.txt_makemodel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.txt_makemodel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.txt_makemodel.BackColor = System.Drawing.SystemColors.Window;
-            this.txt_makemodel.Cursor = System.Windows.Forms.Cursors.Default;
-            this.txt_makemodel.DropDownWidth = 121;
-            this.txt_makemodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_makemodel.FormattingEnabled = true;
-            this.txt_makemodel.Location = new System.Drawing.Point(130, 272);
-            this.txt_makemodel.Name = "txt_makemodel";
-            this.txt_makemodel.Size = new System.Drawing.Size(268, 33);
-            this.txt_makemodel.TabIndex = 169;
+            this.cmb_makemodel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_makemodel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_makemodel.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_makemodel.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_makemodel.DropDownWidth = 121;
+            this.cmb_makemodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_makemodel.FormattingEnabled = true;
+            this.cmb_makemodel.Location = new System.Drawing.Point(130, 272);
+            this.cmb_makemodel.Name = "cmb_makemodel";
+            this.cmb_makemodel.Size = new System.Drawing.Size(268, 33);
+            this.cmb_makemodel.TabIndex = 169;
+            this.cmb_makemodel.TextChanged += new System.EventHandler(this.cmb_makemodel_TextChanged);
             // 
-            // comboBox4
+            // cmb_carstatus
             // 
-            this.comboBox4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBox4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox4.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.comboBox4.DropDownWidth = 121;
-            this.comboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
+            this.cmb_carstatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_carstatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_carstatus.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_carstatus.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_carstatus.DropDownWidth = 121;
+            this.cmb_carstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_carstatus.FormattingEnabled = true;
+            this.cmb_carstatus.Items.AddRange(new object[] {
             "Standard - Coming In On Flight",
             "Unknown Date & Time",
             "Unknown Date",
@@ -1087,10 +1077,10 @@
             "Bus",
             "Non-Flight",
             "Other"});
-            this.comboBox4.Location = new System.Drawing.Point(362, 416);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(334, 28);
-            this.comboBox4.TabIndex = 170;
+            this.cmb_carstatus.Location = new System.Drawing.Point(362, 416);
+            this.cmb_carstatus.Name = "cmb_carstatus";
+            this.cmb_carstatus.Size = new System.Drawing.Size(334, 28);
+            this.cmb_carstatus.TabIndex = 170;
             // 
             // btn_addinv
             // 
@@ -1122,24 +1112,20 @@
             this.cmb_paidstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_paidstatus.FormattingEnabled = true;
             this.cmb_paidstatus.Items.AddRange(new object[] {
-            "Please Pick a Status...",
-            "",
+            "Please Pick...",
             "Cash",
             "Eftpos",
             "Credit Card",
-            "",
             "On Account",
-            "",
             "No Charge",
-            "",
-            "To Pay",
-            "",
             "Internet",
-            "Cheque"});
+            "Cheque",
+            "To Pay"});
             this.cmb_paidstatus.Location = new System.Drawing.Point(909, 262);
             this.cmb_paidstatus.Name = "cmb_paidstatus";
             this.cmb_paidstatus.Size = new System.Drawing.Size(231, 39);
             this.cmb_paidstatus.TabIndex = 173;
+            this.cmb_paidstatus.SelectedIndexChanged += new System.EventHandler(this.cmb_paidstatus_SelectedIndexChanged);
             // 
             // comboBox5
             // 
@@ -1185,20 +1171,32 @@
             this.label1.TabIndex = 176;
             this.label1.Text = "GST Inc.";
             // 
+            // btn_datepaid
+            // 
+            this.btn_datepaid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btn_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_datepaid.Location = new System.Drawing.Point(787, 109);
+            this.btn_datepaid.Name = "btn_datepaid";
+            this.btn_datepaid.Size = new System.Drawing.Size(240, 23);
+            this.btn_datepaid.TabIndex = 177;
+            this.btn_datepaid.Text = "Paid: 17/06/17 (Click to Change)";
+            this.btn_datepaid.UseVisualStyleBackColor = false;
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.btn_datepaid);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox6);
             this.Controls.Add(this.comboBox5);
             this.Controls.Add(this.cmb_paidstatus);
             this.Controls.Add(this.btn_addcustalert);
             this.Controls.Add(this.btn_addinv);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.txt_makemodel);
+            this.Controls.Add(this.cmb_carstatus);
+            this.Controls.Add(this.cmb_makemodel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pnl_splitpayment);
             this.Controls.Add(this.pnl_overdue);
@@ -1224,7 +1222,6 @@
             this.Controls.Add(this.lbl_particulars);
             this.Controls.Add(this.txt_particulars);
             this.Controls.Add(this.btn_keybox);
-            this.Controls.Add(this.lbl_datepaid);
             this.Controls.Add(this.txt_flighttimes);
             this.Controls.Add(this.btn_returns);
             this.Controls.Add(this.btn_mainmenu);
@@ -1254,7 +1251,7 @@
             this.Controls.Add(this.txt_firstname);
             this.Name = "Invoice";
             this.Text = " ";
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Load += new System.EventHandler(this.Invoice_Load);
             this.pnl_refund.ResumeLayout(false);
             this.pnl_refund.PerformLayout();
             this.pnl_overdue.ResumeLayout(false);
@@ -1297,7 +1294,6 @@
         private System.Windows.Forms.Button btn_mainmenu;
         private System.Windows.Forms.Button btn_returns;
         private System.Windows.Forms.ComboBox txt_flighttimes;
-        private System.Windows.Forms.Label lbl_datepaid;
         private System.Windows.Forms.Button btn_keybox;
         private System.Windows.Forms.TextBox txt_particulars;
         private System.Windows.Forms.Label lbl_particulars;
@@ -1347,13 +1343,14 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox txt_makemodel;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox cmb_makemodel;
+        private System.Windows.Forms.ComboBox cmb_carstatus;
         private System.Windows.Forms.Button btn_addinv;
         private System.Windows.Forms.Button btn_addcustalert;
         private System.Windows.Forms.ComboBox cmb_paidstatus;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.ComboBox comboBox6;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_datepaid;
     }
 }

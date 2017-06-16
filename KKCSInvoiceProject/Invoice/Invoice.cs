@@ -17,7 +17,7 @@ namespace KKCSInvoiceProject
     public partial class Invoice : Form
     {
         #region GlobalVaribles
-
+        //3209
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
         private Button printButton = new Button();
@@ -156,19 +156,22 @@ namespace KKCSInvoiceProject
         }
 
         // Loads Invoice Form
-        private void Form2_Load(object sender, EventArgs e)
+        private void Invoice_Load(object sender, EventArgs e)
         {
             this.FormClosing += chkbox_topay_Closing;
 
             FindFlightTimes();
 
+            // Checks to see if opened from Invoice
+            // If not, then it is a new Invoice
             if (!m_bIsFromCarReturns)
             {
-                lbl_datepaid.Text = "Paid: ";
+                btn_datepaid.Visible = false;
 
                 txt_flighttimes.SelectedIndex = 0;
 
-                //PopulateRegoBox();
+                PopulateRegoBox();
+                PopulateMakeModel();
                 FindKeyNumber();
                 FindInvoiceNumber();
 
@@ -178,7 +181,7 @@ namespace KKCSInvoiceProject
                 txt_firstname.BackColor = LabelBackColour;
                 txt_lastname.BackColor = LabelBackColour;
                 txt_ph.BackColor = LabelBackColour;
-                txt_makemodel.BackColor = LabelBackColour;
+                cmb_makemodel.BackColor = LabelBackColour;
                 cmb_rego.BackColor = LabelBackColour;
 
                 CurrentTime = DateTime.Now;
@@ -189,6 +192,7 @@ namespace KKCSInvoiceProject
 
             btn_addinv.Text = "Add Invoice " + txt_invoiceno.Text + " Note";
             cmb_paidstatus.SelectedIndex = 0;
+            cmb_carstatus.SelectedIndex = 0;
         }
 
         // If opening form from Car Returns run this
@@ -246,7 +250,7 @@ namespace KKCSInvoiceProject
                 txt_firstname.Text = reader["FirstName"].ToString();
                 txt_lastname.Text = reader["LastName"].ToString();
                 txt_ph.Text = reader["PhoneNumber"].ToString();
-                txt_makemodel.Text = reader["MakeModel"].ToString();
+                cmb_makemodel.Text = reader["MakeModel"].ToString();
                 cmb_rego.Text = reader["Rego"].ToString();
 
                 // Inserts any notes or alerts
@@ -370,14 +374,14 @@ namespace KKCSInvoiceProject
 
                 if (g_sPaidStatus == "To Pay")
                 {
-                    lbl_datepaid.Text = "Date Paid: To Pay";
+                    btn_datepaid.Visible = false;
                 }
                 else
                 {
                     //DateTime dtDatePaid = (DateTime)reader["DTDatePaid"];
                     string sDatePaid = dtDatePaid.Day + "/" + dtDatePaid.Month + "/" + dtDatePaid.ToString("yy");
 
-                    lbl_datepaid.Text = "Date Paid: " + sDatePaid;
+                    btn_datepaid.Text = "Date Paid: " + sDatePaid + "(Click to Change)";
                 }
             }
 
@@ -891,7 +895,7 @@ namespace KKCSInvoiceProject
 
                     if (g_sPaidStatus == "To Pay")
                     {
-                        lbl_datepaid.Text = "Date Paid: To Pay";
+                        btn_datepaid.Visible = false;
 
                         dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
                     }
@@ -902,7 +906,7 @@ namespace KKCSInvoiceProject
 
                         string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                        lbl_datepaid.Text = "Date Paid: " + dateCustomerPaid;
+                        btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + "(Click to Change)";
                     }
                 }
 
@@ -1090,7 +1094,7 @@ namespace KKCSInvoiceProject
                                                                     "', FirstName = '" + txt_firstname.Text +
                                                                     "', LastName = '" + txt_lastname.Text +
                                                                     "', PhoneNumber = '" + txt_ph.Text +
-                                                                    "', MakeModel = '" + txt_makemodel.Text +
+                                                                    "', MakeModel = '" + cmb_makemodel.Text +
                                                                     "', DTDateIn = '" + dtDateIn +
                                                                     "', TimeIn = '" + sTimeIn +
                                                                     "', DTDatePaid = '" + dtDatePaid +
@@ -1203,7 +1207,7 @@ namespace KKCSInvoiceProject
                                                             ('" + cmb_rego.Text + "','" +
                                                                 txt_firstname.Text + "','" +
                                                                 txt_lastname.Text + "','" +
-                                                                txt_makemodel.Text + "','" +
+                                                                cmb_makemodel.Text + "','" +
                                                                 txt_ph.Text + "','" +
                                                                 txt_alerts.Text +
                                                             "')";
@@ -1227,7 +1231,7 @@ namespace KKCSInvoiceProject
                                     NumberPlates = '" + cmb_rego.Text +
                                     "', ClientName = '" + txt_firstname.Text +
                                     "', LastName = '" + txt_lastname.Text +
-                                    "', MakeModel = '" + txt_makemodel.Text +
+                                    "', MakeModel = '" + cmb_makemodel.Text +
                                     "', Ph = '" + txt_ph.Text +
                                     "', Alerts = '" + txt_alerts.Text +
                                     "' WHERE NumberPlates = '" + m_sTempStoreRego + "'";
@@ -1477,7 +1481,7 @@ namespace KKCSInvoiceProject
                     {
                         txt_firstname.Text = reader["ClientName"].ToString();
                         txt_lastname.Text = reader["LastName"].ToString();
-                        txt_makemodel.Text = reader["MakeModel"].ToString();
+                        cmb_makemodel.Text = reader["MakeModel"].ToString();
                         txt_ph.Text = reader["Ph"].ToString();
                         txt_alerts.Text = reader["Alerts"].ToString();
 
@@ -1702,6 +1706,23 @@ namespace KKCSInvoiceProject
             }
         }
 
+        private void cmb_makemodel_TextChanged(object sender, EventArgs e)
+        {
+            if (cmb_makemodel.Text == "")
+            {
+                cmb_makemodel.BackColor = LabelBackColour;
+            }
+            else
+            {
+                cmb_makemodel.BackColor = System.Drawing.Color.White;
+            }
+
+            //if (!m_bInitialSetUpFromCarReturns)
+            //{
+            //    WarningsChangesMade();
+            //}
+        }
+
         private void txt_total_TextChanged(object sender, EventArgs e)
         {
             //if (m_bIsFromCarReturns && g_sPaidStatus != "To Pay" && g_sPaidStatus != "Credit Card" && !m_bInitialSetUpFromCarReturns)
@@ -1790,13 +1811,13 @@ namespace KKCSInvoiceProject
 
         private void txt_makemodel_TextChanged(object sender, EventArgs e)
         {
-            if (txt_makemodel.Text == "")
+            if (cmb_makemodel.Text == "")
             {
-                txt_makemodel.BackColor = LabelBackColour;
+                cmb_makemodel.BackColor = LabelBackColour;
             }
             else
             {
-                txt_makemodel.BackColor = System.Drawing.Color.White;
+                cmb_makemodel.BackColor = System.Drawing.Color.White;
             }
 
             if (!m_bInitialSetUpFromCarReturns)
@@ -1967,7 +1988,7 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetUpPrice();
+            //SetUpPrice();
 
             if (!bIsAlreadySaved)
             {
@@ -1984,72 +2005,6 @@ namespace KKCSInvoiceProject
         #endregion
 
         #region ButtonClicks
-
-        private void btn_calculateprice_Click(object sender, EventArgs e)
-        {
-            //if (m_bIsFromCarReturns && g_sPaidStatus != "To Pay")
-            //{
-            //    string sWarningMessage = "This invoice has already been paid for.";
-
-            //    WarningSystem ws = new WarningSystem(sWarningMessage, false);
-            //    ws.ShowDialog();
-
-            //    RevertChanges();
-            //}
-            //else
-            //{
-                SetUpPrice();
-            //}
-        }
-
-        private void btn_clear_Click(object sender, EventArgs e)
-        {
-            dt_returndate.Enabled = true;
-            dt_returndate.Visible = true;
-
-            //if (chk_manual.Checked)
-            //{
-            //    cmb_returntimehours.Enabled = true;
-            //    cmb_returntimeminutes.Enabled = true;
-
-            //    cmb_returntimehours.Visible = true;
-            //    cmb_returntimeminutes.Visible = true;
-            //}
-            //else
-            //{
-            //    txt_flighttimes.Enabled = true;
-            //    txt_flighttimes.Visible = true;
-            //}
-
-            //chkbox_uknowndate.BackColor = System.Drawing.Color.Transparent;
-            //chkbox_uknowntime.BackColor = System.Drawing.Color.Transparent;
-
-            //chkbox_uknowndate.Checked = false;
-            //chkbox_uknowntime.Checked = false;
-
-            txt_firstname.Text = "";
-            txt_ph.Text = "";
-            txt_makemodel.Text = "";
-            cmb_rego.Text = "";
-            //txt_money7.Text = "";
-            //txt_money7plus.Text = "";
-            //txt_total.Text = "";
-
-            //chkbox_cash.Checked = false;
-            //chkbox_eftpos.Checked = false;
-            //chkbox_cheque.Checked = false;
-            //chkbox_internet.Checked = false;
-            //chkbox_stilltopay.Checked = false;
-            //chkbox_onaccount.Checked = false;
-            //chkbox_nocharge.Checked = false;
-
-            cmb_rego.Focus();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void btn_mainmenu_Click(object sender, EventArgs e)
         {
@@ -2168,79 +2123,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void button1_Click_3(object sender, EventArgs e)
-        {
-            bool bCheckUnknown = false;
-
-            //if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
-            //{
-            //    bCheckUnknown = true;
-            //}
-
-            if (cmb_rego.Text == "")
-            {
-                string sPaidStatusWarning = "WARNING";
-                string sPaidStatusWarningMessage = "Please at least set the Car Rego before printing receipt";
-
-                MessageBox.Show(sPaidStatusWarningMessage, sPaidStatusWarning);
-            }
-            else if (txt_total.Text == "" && g_sPaidStatus != "N/C" && !bCheckUnknown)
-            {
-                string sPaidStatusWarning = "WARNING";
-                string sPaidStatusWarningMessage = "Please calculate price before printing receipt";
-
-                MessageBox.Show(sPaidStatusWarningMessage, sPaidStatusWarning);
-            }
-            else if (g_sPaidStatus == "")
-            {
-                string sPaidStatusWarning = "WARNING";
-                string sPaidStatusWarningMessage = "You have not picked a 'Paid Status' please select one before printing a receipt";
-
-                MessageBox.Show(sPaidStatusWarningMessage, sPaidStatusWarning);
-            }
-            else
-            {
-                PrintDialog printDialog = new PrintDialog();
-
-                PrintDocument printDocument = new PrintDocument();
-
-                printDialog.Document = printDocument; //add the document to the dialog box...        
-
-                //printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
-
-                //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
-
-                printDocument.PrinterSettings.PrinterName = "Brother HL-1210W series";
-
-                printDocument.Print();
-            }
-
-            //DialogResult result = printDialog.ShowDialog();
-
-            //if (result == DialogResult.OK)
-            //{
-            //    printDocument.Print();
-            //}
-
-
-            //Bitmap bmpScreenshot;
-
-            //bmpScreenshot = new Bitmap(Screen.AllScreens[1].Bounds.Width,
-            //                                           Screen.AllScreens[1].Bounds.Height,
-            //                                           System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-
-            //Graphics.FromImage(bmpScreenshot).CopyFromScreen(Screen.AllScreens[1].Bounds.X,
-            //                                         Screen.AllScreens[1].Bounds.Y,
-            //                                         0,
-            //                                         0,
-            //                                         Screen.AllScreens[1].Bounds.Size,
-            //                                         CopyPixelOperation.SourceCopy);
-
-            //pictureBox1.Image = bmpScreenshot;
-            //pictureBox1.Refresh();
-        }
-
         private void btn_revertchanges_Click(object sender, EventArgs e)
         {
             string sWarningMessage = "Do you wish to revert the changes you have made?";
@@ -2271,7 +2153,7 @@ namespace KKCSInvoiceProject
             txt_firstname.Text = lstOriginalValues[0];
             txt_lastname.Text = lstOriginalValues[1];
             txt_ph.Text = lstOriginalValues[2];
-            txt_makemodel.Text = lstOriginalValues[3];
+            cmb_makemodel.Text = lstOriginalValues[3];
             cmb_rego.Text = lstOriginalValues[4];
             txt_notes.Text = lstOriginalValues[5];
             txt_alerts.Text = lstOriginalValues[6];
@@ -2317,384 +2199,7 @@ namespace KKCSInvoiceProject
             }
         }
 
-        #endregion
-
-        #region CheckBoxes
-        /*
-        private void chkbox_cash_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_cash.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_cash.Name);
-            }
-            else
-            {
-                chkbox_cash.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-            }
-        }
-
-        private void chkbox_eftpos_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_eftpos.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_eftpos.Name);
-            }
-            else
-            {
-                chkbox_eftpos.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-            }
-        }
-
-        private void chkbox_cheque_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_cheque.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_cheque.Name);
-            }
-            else
-            {
-                chkbox_cheque.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-            }
-        }
-
-        private void chkbox_internet_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_internet.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_internet.Name);
-            }
-            else
-            {
-                chkbox_internet.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-            }
-        }
-
-        private void chkbox_stilltopay_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_stilltopay.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_stilltopay.Name);
-            }
-            else
-            {
-                chkbox_stilltopay.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-            }
-        }
-        */
-        WarningNewAccount wna;
-
-        void CloseNewAccount(object sender, CancelEventArgs e)
-        {
-            int iCount = 0;
-
-            if(wna.sGetIsExistingAccount())
-            {
-                lbl_particulars.Visible = true;
-                txt_particulars.Visible = true;
-
-                lbl_accountname.Visible = true;
-                txt_account.Visible = true;
-
-                txt_account.Text = wna.sGetAccount();
-
-                iCount++;
-            }
-
-            if(wna.sGetIsNewAccount())
-            {
-                lbl_particulars.Visible = true;
-                txt_particulars.Visible = true;
-
-                lbl_accountname.Visible = true;
-                txt_account.Visible = true;
-
-                iCount++;
-            }
-
-            //if(iCount == 0)
-            //{
-            //    chkbox_onaccount.Checked = false;
-            //}
-
-        }
-
-        /*
-        private void chkbox_onaccount_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_onaccount.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_onaccount.Name);
-
-                if(!PopulateAccountBoxes())
-                {
-                    wna = new WarningNewAccount();
-                    wna.FormClosing += CloseNewAccount;
-                    wna.ShowDialog();
-                }
-                else
-                {
-                    lbl_particulars.Visible = true;
-                    txt_particulars.Visible = true;
-
-                    lbl_accountname.Visible = true;
-                    txt_account.Visible = true;
-                }
-            }
-            else
-            {
-                chkbox_onaccount.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-
-                lbl_particulars.Visible = false;
-                txt_particulars.Visible = false;
-
-                lbl_accountname.Visible = false;
-                txt_account.Visible = false;
-            }
-        }
-
-        private void chkbox_nocharge_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_nocharge.Checked == true)
-            {
-                ChangeOtherPaidStatusToNull(chkbox_nocharge.Name);
-            }
-            else
-            {
-                chkbox_nocharge.BackColor = System.Drawing.Color.Transparent;
-
-                txt_total.Enabled = true;
-                txt_total.Visible = true;
-
-                label13.Visible = true;
-
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-            }
-        }
-
-        private void chkbox_uknowndate_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_uknowndate.Checked == true)
-            {
-                dt_returndate.Enabled = false;
-                dt_returndate.Visible = false;
-
-                if(g_sPaidStatus != "OnAcc")
-                {
-                    chkbox_stilltopay.CheckState = CheckState.Checked;
-                }
-
-                chkbox_uknowndate.BackColor = System.Drawing.Color.Orange;
-
-                //txt_total.Text = "";
-            }
-            else
-            {
-                dt_returndate.Enabled = true;
-                dt_returndate.Visible = true;
-
-                chkbox_uknowndate.BackColor = System.Drawing.Color.Transparent;
-            }
-        }
-
-        private void chkbox_uknowntime_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkbox_uknowntime.Checked == true)
-            {
-                //cmb_returntimehours.Enabled = false;
-                //cmb_returntimeminutes.Enabled = false;
-                //txt_flighttimes.Enabled = false;
-
-                if (g_sPaidStatus != "OnAcc")
-                {
-                    chkbox_stilltopay.CheckState = CheckState.Checked;
-                }
-
-                //cmb_returntimehours.Visible = false;
-                //cmb_returntimeminutes.Visible = false;
-                //txt_flighttimes.Visible = false;
-
-                chkbox_uknowntime.BackColor = System.Drawing.Color.Orange;
-
-                //txt_total.Text = "";
-            }
-            else
-            {
-                //cmb_returntimehours.Enabled = true;
-                //cmb_returntimeminutes.Enabled = true;
-                //txt_flighttimes.Enabled = true;
-
-                //if (chk_flighttimes.Checked)
-                //{
-                //    txt_flighttimes.Visible = true;
-                //}
-                //else
-                //{
-                //    cmb_returntimehours.Visible = true;
-                //    cmb_returntimeminutes.Visible = true;
-                //}
-
-                chkbox_uknowntime.BackColor = System.Drawing.Color.Transparent;
-            }
-        }
-
-        private void chk_drivingback_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_drivingback.Checked == true)
-            {
-                chk_drivingback.BackColor = System.Drawing.Color.Orange;
-
-                DrivingBack db = new DrivingBack();
-                db.ShowDialog();
-            }
-            else
-            {
-                chk_drivingback.BackColor = System.Drawing.Color.Transparent;
-            }
-        }
-
-        private void btn_recalculatecredit_Click(object sender, EventArgs e)
-        {
-            if (chk_credit.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chk_credit.Name);
-
-                if (txt_total.Text != "")
-                {
-                    float fTempNewPrice = 0;
-
-                    float fParse = 0.0f;
-                    float.TryParse(txt_total.Text, out fParse);
-
-                    m_fOriginalPriceBeforeCredit = fParse;
-
-                    fTempNewPrice = fParse + (fParse * 0.02f);
-
-                    txt_total.Text = fTempNewPrice.ToString("N2");
-                }
-            }
-        }
-
-        private void chk_credit_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_credit.Checked)
-            {
-                ChangeOtherPaidStatusToNull(chk_credit.Name);
-
-                //btn_recalculatecredit.Visible = true;
-
-                if (txt_total.Text != "")
-                {
-                    float fTempNewPrice = 0;
-
-                    float fParse = 0.0f;
-                    float.TryParse(txt_total.Text, out fParse);
-
-                    m_fOriginalPriceBeforeCredit = fParse;
-
-                    fTempNewPrice = fParse + (fParse * 0.02f);
-                    
-                    txt_total.Text = fTempNewPrice.ToString("N2");
-                }
-            }
-            else
-            {
-                txt_total.Text = m_fOriginalPriceBeforeCredit.ToString();
-
-                chk_credit.BackColor = System.Drawing.Color.Transparent;
-                g_sPaidStatus = "";
-                PaidStatusPicked = false;
-
-                //SetUpPrice();
-                //txt_total.Text = m_fTempCreditCard.ToString();
-            }
-        }
-
-        private void chk_carinyard_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_carinyard.Checked)
-            {
-                chk_pickedup.BackColor = System.Drawing.Color.Transparent;
-                chk_pickedup.Checked = false;
-
-                chk_carinyard.BackColor = Color.Lime;
-
-                m_bCarPickedUp = false;
-            }
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                WarningsChangesMade();
-            }
-        }
-
-        private void chk_pickedup_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_pickedup.Checked)
-            {
-                chk_carinyard.BackColor = System.Drawing.Color.Transparent;
-                chk_carinyard.Checked = false;
-
-                chk_pickedup.BackColor = Color.Lime;
-
-                m_bCarPickedUp = true;
-            }
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                WarningsChangesMade();
-            }
-        }
-
-        private void chk_carlocationfront_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_carlocationfront.Checked)
-            {
-                chk_carlocationback.BackColor = System.Drawing.Color.Transparent;
-                chk_carlocationback.Checked = false;
-
-                chk_carlocationfront.BackColor = Color.Lime;
-
-                m_sCarLocation = "Front";
-            }
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                WarningsChangesMade();
-            }
-        }
-
-        private void chk_carlocationback_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_carlocationback.Checked)
-            {
-                chk_carlocationfront.BackColor = System.Drawing.Color.Transparent;
-                chk_carlocationfront.Checked = false;
-
-                chk_carlocationback.BackColor = Color.Red;
-
-                m_sCarLocation = "Back";
-            }
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                WarningsChangesMade();
-            }
-        }
-        /*
-        #endregion
+        #endregion ButtonClicks
 
         #region Printing
 
@@ -2807,6 +2312,13 @@ Number: 02-0800-0493229-00
             cmb_rego.Items.AddRange(a);
         }
 
+        private void PopulateMakeModel()
+        {
+            object[] a = new object[MyAppManager.MainMenuInstance.GetCmbMakeModelComboBox().Items.Count];
+            MyAppManager.MainMenuInstance.GetCmbMakeModelComboBox().Items.CopyTo(a, 0);
+            cmb_makemodel.Items.AddRange(a);
+        }
+
         void PopulateAccountBox()
         {
             // Opens the connection to the database
@@ -2847,163 +2359,6 @@ Number: 02-0800-0493229-00
             }
         }
 
-        
-
-        /*
-        void CheckBoxOnAccount(bool _bAccountStatus)
-        {
-            if (_bAccountStatus == true)
-            {
-                chkbox_onaccount.CheckState = CheckState.Checked;
-                chkbox_onaccount.BackColor = System.Drawing.Color.LightPink;
-                DisableOtherPaidStatusCheckBox(chkbox_onaccount.Name);
-
-                g_sPaidStatus = "OnAcc";
-            }
-            else
-            {
-                chkbox_onaccount.CheckState = CheckState.Unchecked;
-                chkbox_onaccount.BackColor = System.Drawing.Color.Transparent;
-                EnableAllPaidStatusCheckBox();
-
-                g_sPaidStatus = "";
-            }
-        }
-        */
-
-        private void ChangeOtherPaidStatusToNull(string _name)
-        {
-            if (_name == "chkbox_cash")
-            {
-                //chkbox_cash.BackColor = System.Drawing.Color.DodgerBlue;
-
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "Cash";
-            }
-            else if (_name == "chkbox_eftpos")
-            {
-                //chkbox_eftpos.BackColor = System.Drawing.Color.DodgerBlue;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "Eftpos";
-            }
-            else if (_name == "chk_credit")
-            {
-                //chk_credit.BackColor = System.Drawing.Color.DodgerBlue;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "Credit Card";
-            }
-            else if (_name == "chkbox_cheque")
-            {
-                //chkbox_cheque.BackColor = System.Drawing.Color.DodgerBlue;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "Cheque";
-            }
-            else if (_name == "chkbox_internet")
-            {
-                //chkbox_internet.BackColor = System.Drawing.Color.DodgerBlue;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "Internet";
-            }
-            else if (_name == "chkbox_stilltopay")
-            {
-                //chkbox_stilltopay.BackColor = System.Drawing.Color.Yellow;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "To Pay";
-            }
-            else if (_name == "chkbox_onaccount")
-            {
-                //chkbox_onaccount.BackColor = System.Drawing.Color.LightPink;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_nocharge.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "OnAcc";
-            }
-            else if (_name == "chkbox_nocharge")
-            {
-                //chkbox_nocharge.BackColor = System.Drawing.Color.LightPink;
-
-                //chkbox_cash.CheckState = CheckState.Unchecked;
-                //chkbox_eftpos.CheckState = CheckState.Unchecked;
-                //chkbox_cheque.CheckState = CheckState.Unchecked;
-                //chkbox_internet.CheckState = CheckState.Unchecked;
-                //chkbox_stilltopay.CheckState = CheckState.Unchecked;
-                //chkbox_onaccount.CheckState = CheckState.Unchecked;
-                //chk_credit.CheckState = CheckState.Unchecked;
-
-                g_sPaidStatus = "N/C";
-
-                sTempStorePrice = txt_total.Text;
-                //txt_total.Text = "";
-                //txt_money7.Text = "";
-                //txt_money7plus.Text = "";
-
-                txt_total.Enabled = false;
-                txt_total.Visible = false;
-
-                label13.Visible = false;
-            }
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                WarningsChangesMade();
-            }
-
-            PaidStatusPicked = true;
-        }
-
         #endregion
 
         #region Price
@@ -3019,7 +2374,8 @@ Number: 02-0800-0493229-00
 
             int iFirstDay = 15;
             int iDaysAfter = 12;
-            int iMonth = 50;
+            int iDays7Plus = 10;
+            int iMonth = 55;
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
@@ -3038,18 +2394,6 @@ Number: 02-0800-0493229-00
             iTimeInHours = int.Parse(cmb_timeinhours.Text);
 
             iReturnTimeHours = int.Parse(txt_flighttimes.Text.Substring(0, 2));
-
-            // Checks to see if Flight Times or Manual times has been selected
-            //if (chk_flighttimes.Checked)
-            //{
-            //    // Gets the time in
-                
-            //}
-            //else if (chk_manual.Checked)
-            //{
-            //    // Gets the time in
-            //    iReturnTimeHours = int.Parse(cmb_returntimehours.SelectedItem.ToString());
-            //}
 
             // If there is a gap of more than 4 hours between dropping off and picking up, add another days pay
             if (iReturnTimeHours - iTimeInHours > 4 && iDays != 0)
@@ -3075,17 +2419,25 @@ Number: 02-0800-0493229-00
                 }
 
                 // If they are staying between 2 to 7 days
-                else if (iDays >= 2)
+                else if (iDays >= 2 && iDays <= 7)
                 {
                     // Multiplies the price by the number of days
-                    int iCalculateTotal = iDaysAfter * iDays;
+                    //int iCalculateTotal = (15 + (iDaysAfter * (iDays - 1)));
+                    int iCalculateTotal = ((iDaysAfter * iDays) + 3);
 
                     // Puts in the price in to the box
                     iTotalMoney = iCalculateTotal;
                 }
+
+                else
+                {
+                    int iCalculateTotal = (87 + (iDays7Plus * (iDays -7)));
+
+                    iTotalMoney = iCalculateTotal;
+                }
             }
             // This calculates prices if the customer are staying over 1 month or more
-            else if(iDays > 28)
+            else if(iDays >= 28)
             {
                 float fWorkOutWeeks = (float)iDays / 7;
 
@@ -3106,6 +2458,8 @@ Number: 02-0800-0493229-00
             //{
             //    txt_total.Text = iTotalMoney.ToString();
             //}
+
+            txt_total.Text = iTotalMoney.ToString();
         }
 
         #endregion
@@ -3122,7 +2476,7 @@ Number: 02-0800-0493229-00
             lstOriginalValues.Add(txt_firstname.Text);
             lstOriginalValues.Add(txt_lastname.Text);
             lstOriginalValues.Add(txt_ph.Text);
-            lstOriginalValues.Add(txt_makemodel.Text);
+            lstOriginalValues.Add(cmb_makemodel.Text);
             lstOriginalValues.Add(cmb_rego.Text);
             lstOriginalValues.Add(txt_notes.Text);
             lstOriginalValues.Add(txt_alerts.Text);
@@ -3156,7 +2510,7 @@ Number: 02-0800-0493229-00
                 lstCheckValues.Add(txt_firstname.Text);
                 lstCheckValues.Add(txt_lastname.Text);
                 lstCheckValues.Add(txt_ph.Text);
-                lstCheckValues.Add(txt_makemodel.Text);
+                lstCheckValues.Add(cmb_makemodel.Text);
                 lstCheckValues.Add(cmb_rego.Text);
                 lstCheckValues.Add(txt_notes.Text);
                 lstCheckValues.Add(txt_alerts.Text);
@@ -3213,6 +2567,43 @@ Number: 02-0800-0493229-00
         {
             NewAccount nw = new NewAccount();
             nw.ShowDialog();
+        }
+
+        private void cmb_paidstatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch(cmb_paidstatus.Text)
+            {
+                case "To Pay":
+                    {
+                        cmb_paidstatus.BackColor = Color.Yellow;
+
+                        break;
+                    }
+                case "Cash": case "Eftpos": case "Credit Card": case "Internet": case "Cheque":
+                    {
+                        cmb_paidstatus.BackColor = Color.LightBlue;
+
+                        break;
+                    }
+                case "On Account":
+                
+                    {
+                        cmb_paidstatus.BackColor = Color.PaleVioletRed;
+
+                        break;
+                    }
+                case "No Charge":
+                    {
+                        cmb_paidstatus.BackColor = Color.Orange;
+
+                        break;
+                    }
+                default:
+                    {
+                        cmb_paidstatus.BackColor = Color.White;
+                        break;
+                    }
+            }
         }
     }
 }

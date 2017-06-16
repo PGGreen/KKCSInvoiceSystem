@@ -533,6 +533,10 @@ namespace KKCSInvoiceProject
                 {
                     lbl.BackColor = Color.Violet;
                 }
+                else if(sPaidStatus == "N/C")
+                {
+                    lbl.BackColor = Color.Orange;
+                }
                 else
                 {
                     lbl.BackColor = _p.BackColor;
