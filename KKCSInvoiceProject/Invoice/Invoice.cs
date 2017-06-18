@@ -188,11 +188,16 @@ namespace KKCSInvoiceProject
 
                 cmb_timeinhours.Text = CurrentTime.Hour.ToString("00");
                 cmb_timeinminutes.Text = CurrentTime.Minute.ToString("00");
-            }
 
-            btn_addinv.Text = "Add Invoice " + txt_invoiceno.Text + " Note";
-            cmb_paidstatus.SelectedIndex = 0;
-            cmb_carstatus.SelectedIndex = 0;
+                cmb_paidstatus.SelectedIndex = 0;
+                cmb_carstatus.SelectedIndex = 0;
+                cmb_pickedup.SelectedIndex = 0;
+                cmb_carlocation.SelectedIndex = 0;
+
+                btn_addinv.Text = "Add Invoice " + txt_invoiceno.Text + " Note";
+
+                txt_total.Text = "";
+            }
         }
 
         // If opening form from Car Returns run this
@@ -702,11 +707,6 @@ namespace KKCSInvoiceProject
         {
             bool bCheckUnknown = false;
 
-            //if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
-            //{
-            //    bCheckUnknown = true;
-            //}
-
             string sWarning = "";
             string sEndLine = "\r\n";
 
@@ -745,8 +745,6 @@ namespace KKCSInvoiceProject
                 {
                     invManager.ChangeColour(iTabNumberFromManager);
                 }
-
-                //btn_save.Enabled = false;
             }
         }
 
@@ -765,11 +763,13 @@ namespace KKCSInvoiceProject
 
                     InsertIntoNumberPlates();
 
+                    // TODO: Fix Accounts
                     //if (chkbox_onaccount.Checked)
                     //{
                     //    InsertIntoAccounts();
                     //}
 
+                    // TODO: Fix this
                     if (!m_bInitialSetUpFromCarReturns)
                     {
                         WarningsStoreOriginalValues();
@@ -785,7 +785,6 @@ namespace KKCSInvoiceProject
             else
             {
                 // Insert First Time
-                // TODO: Fix this
                 bool bCheckKeyNumberBlank = true;// CheckKeyNumberIsBlank();
 
                 if (bCheckKeyNumberBlank)
@@ -860,6 +859,7 @@ namespace KKCSInvoiceProject
             return (true);
         }
 
+        /*
         void UpdateInvoice()
         {
             try
@@ -872,9 +872,6 @@ namespace KKCSInvoiceProject
                 OleDbCommand command = new OleDbCommand();
 
                 command.Connection = connection;
-
-
-                //dtDatePaid = new DateTime(dtDatePaid.Year, dtDatePaid.Month, dtDatePaid.Day, 12, 0, 0);
 
                 string tempReturnTimeHours = "";
 
@@ -910,32 +907,8 @@ namespace KKCSInvoiceProject
                     }
                 }
 
-                //if (chkbox_uknowntime.Checked)
-                //{
-                //    tempReturnTimeHours = "Unknown";
-                //}
-                //else
-                //{
-                //    tempReturnTimeHours = ReturnTime();
-                //}
-
                 bool bUnknownDate = false;
                 DateTime dtReturnDate = new DateTime();
-
-                //if (chkbox_uknowndate.Checked)
-                //{
-                //    dtReturnDate = new DateTime(2001, 1, 1, 12, 0, 0);
-
-                //    bUnknownDate = true;
-                //}
-                //else
-                //{
-                //    int iYearReturnDate = dt_returndate.Value.Year;
-                //    int iMonthReturnDate = dt_returndate.Value.Month;
-                //    int iDayReturnDate = dt_returndate.Value.Day;
-
-                //    dtReturnDate = new DateTime(iYearReturnDate, iMonthReturnDate, iDayReturnDate, 12, 0, 0);
-                //}
 
                 int iYearDateIn = dt_datein.Value.Year;
                 int iMonthDateIn = dt_datein.Value.Month;
@@ -951,142 +924,110 @@ namespace KKCSInvoiceProject
 
                 string sTimeIn = iTimeHours.ToString("00") + iTimeMinutes.ToString("00");
 
-                #region OldCode
-                /*
-                // Gets the Time the Car Came In
-                string tempTimeInHours = CreateTimeIn();
+                string UpdateCommand = @"UPDATE CustomerInvoices SET
+                                                                    KeyNumber = '" + txt_keyno.Text +
+                                                                    "', Rego = '" + cmb_rego.Text +
+                                                                    "', FirstName = '" + txt_firstname.Text +
+                                                                    "', LastName = '" + txt_lastname.Text +
+                                                                    "', PhoneNumber = '" + txt_ph.Text +
+                                                                    "', MakeModel = '" + cmb_makemodel.Text +
+                                                                    "', DTDateIn = '" + dtDateIn +
+                                                                    "', TimeIn = '" + sTimeIn +
+                                                                    "', DTDatePaid = '" + dtDatePaid +
+                                                                    "', DTReturnDate = '" + dtReturnDate +
+                                                                    "', ReturnTime = '" + tempReturnTimeHours +
+                                                                    "', AccountHolder = '" + txt_account.Text +
+                                                                    "', AccountParticulars = '" + txt_particulars.Text +
+                                                                    "', TotalPay = '" + txt_total.Text +
+                                                                    "', PaidStatus = '" + g_sPaidStatus +
+                                                                    "', CarLocation = '" + m_sCarLocation +
+                                                                    "', Notes = '" + txt_notes.Text +
+                                                                    "', Alerts = '" + txt_alerts.Text +
+                                                                    ", YNDatePaid  = " + m_bAlreadyPaid +
+                                                                    ", PickUp  = " + m_bCarPickedUp +
+                                                                    ", UnknownDate  = " + bUnknownDate +
+                                                                    " WHERE InvoiceNumber = " + iInvoiceNumber + "";
+
+                command.CommandText = UpdateCommand;
+
+                command.ExecuteNonQuery();
+
+                // Closes the connection to the database
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error " + ex);
+            }
+        }
+        */
+
+        void UpdateInvoice()
+        {
+            try
+            {
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
 
                 string tempReturnTimeHours = "";
 
-                if (cmb_returntimehours.Enabled == false || txt_flighttimes.Enabled == false)
+                // If paid status is "To Pay", sets AlreadyPaid to false
+                if (g_sPaidStatus == "To Pay")
                 {
-                    tempReturnTimeHours = "Unknown";
-                }
-                else
-                {
-                    tempReturnTimeHours = ReturnTime();
+                    m_bAlreadyPaid = false;
                 }
 
-
-                string sReturnDate = "";
-
-                if (dt_returndate.Enabled == false)
+                // Checks to see if the customer has already paid or not
+                // Goes in if the customer has not yet paid
+                if (!m_bAlreadyPaid)
                 {
-                    sReturnDate = "Unknown";
-                }
-                else
-                {
-                    sReturnDate = dt_returndate.Value.DayOfWeek.ToString() + ", " +
-                    dt_returndate.Value.Day.ToString() + " " +
-                    dt_returndate.Value.ToString("MMMM") + " " +
-                    dt_returndate.Value.Year.ToString();
-                }
-
-                string sDateIn = dt_datein.Value.DayOfWeek.ToString() + ", " +
-                dt_datein.Value.Day.ToString() + " " +
-                dt_datein.Value.ToString("MMMM") + " " +
-                dt_datein.Value.Year.ToString();
-
-                string sDatePaidReturnYear = "";
-                string sDatePaidReturnMonth = "";
-                string sDatePaidReturnDay = "";
-
-                DateTime dtDPInvisible = new DateTime();
-
-                if (g_sPaidStatus != "To Pay" && !sDatePaidBool)
-                {
-                    if (g_sPaidStatus == "N/C" || g_sPaidStatus == "OnAcc")
+                    if (g_sPaidStatus != "To Pay")
                     {
-                        lbl_datepaid.Text = "Date Paid: N/A";
-                        sDatePaid = "N/A";
-                        sDatePaidInvisible = "N/A";
-
-                        sDatePaidReturnYear = dt_datein.Value.Year.ToString();
-                        sDatePaidReturnMonth = dt_datein.Value.Month.ToString();
-                        sDatePaidReturnDay = dt_datein.Value.Day.ToString();
-
-                        dtDPInvisible = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
+                        m_bAlreadyPaid = true;
                     }
-                    else // All others apart from "To Pay"
+
+                    if (g_sPaidStatus == "To Pay")
                     {
-                        // This means they paid the day they dropped the car off into the yard
-                        if (!m_bIsFromCarReturns)
-                        {
-                            // This function makes the date paid
-                            string dateCustomerPaid = dt_datein.Value.Day.ToString() + "/" + dt_datein.Value.Month.ToString("00") + "/" + dt_datein.Value.ToString("yy");
+                        btn_datepaid.Visible = false;
 
-                            sDatePaidReturnYear = dt_datein.Value.Year.ToString();
-                            sDatePaidReturnMonth = dt_datein.Value.Month.ToString();
-                            sDatePaidReturnDay = dt_datein.Value.Day.ToString();
+                        dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
+                    }
+                    else
+                    {
+                        DateTime dtNow = DateTime.Now;
+                        dtDatePaid = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
 
-                            dtDPInvisible = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
+                        string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                            lbl_datepaid.Text = "Date Paid: " + dateCustomerPaid;
-
-                            sDatePaid = dt_datein.Value.DayOfWeek.ToString() + ", " +
-                            dt_datein.Value.Day.ToString() + " " +
-                            dt_datein.Value.ToString("MMMM") + " " +
-                            dt_datein.Value.Year.ToString();
-
-                            sDatePaidInvisible = dateCustomerPaid;
-                        }
-                        // This means they paid the day they picked up the car from the yard
-                        else
-                        {
-                            DateTime dtTodaysDate = DateTime.Now;
-
-                            // This function makes the date paid
-                            string dateCustomerPaid = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString("00") + "/" + dtTodaysDate.ToString("yy");
-
-                            sDatePaidReturnYear = dtTodaysDate.Year.ToString();
-                            sDatePaidReturnMonth = dtTodaysDate.Month.ToString();
-                            sDatePaidReturnDay = dtTodaysDate.Day.ToString();
-
-                            dtDPInvisible = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
-
-                            lbl_datepaid.Text = "Date Paid: " + dateCustomerPaid;
-
-                            sDatePaid = dtTodaysDate.DayOfWeek.ToString() + ", " +
-                            dtTodaysDate.Day.ToString() + " " +
-                            dtTodaysDate.ToString("MMMM") + " " +
-                            dtTodaysDate.Year.ToString();
-
-                            sDatePaidInvisible = dateCustomerPaid;
-                        }
-
-                        sDatePaidBool = true;
+                        btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + "(Click to Change)";
                     }
                 }
-                else if(g_sPaidStatus == "To Pay")
-                {
-                    lbl_datepaid.Text = "Date Paid: To Pay";
-                    sDatePaid = "To Pay";
-                    sDatePaidInvisible = "To Pay";
 
-                    sDatePaidReturnYear = "To Pay";
-                    sDatePaidReturnMonth = "To Pay";
-                    sDatePaidReturnDay = "To Pay";
+                bool bUnknownDate = false;
+                DateTime dtReturnDate = new DateTime();
 
-                    dtDPInvisible = new DateTime(2000, 1, 1, 12, 0, 0);
+                int iYearDateIn = dt_datein.Value.Year;
+                int iMonthDateIn = dt_datein.Value.Month;
+                int iDayDateIn = dt_datein.Value.Day;
 
-                    sDatePaidBool = false;
-                }
-                else if(g_sPaidStatus == "N/C" || g_sPaidStatus == "OnAcc")
-                {
-                    lbl_datepaid.Text = "Date Paid: N/A";
-                    sDatePaid = "N/A";
-                    sDatePaidInvisible = "N/A";
+                DateTime dtDateIn = new DateTime(iYearDateIn, iMonthDateIn, iDayDateIn, 12, 0, 0);
 
-                    sDatePaidReturnYear = dt_datein.Value.Year.ToString();
-                    sDatePaidReturnMonth = dt_datein.Value.Month.ToString();
-                    sDatePaidReturnDay = dt_datein.Value.Day.ToString();
+                int iTimeHours = 0;
+                int iTimeMinutes = 0;
 
-                    dtDPInvisible = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
+                Int32.TryParse(cmb_timeinhours.Text, out iTimeHours);
+                Int32.TryParse(cmb_timeinminutes.Text, out iTimeMinutes);
 
-                    sDatePaidBool = false;
-                }
-                */
-                #endregion OldCode
+                string sTimeIn = iTimeHours.ToString("00") + iTimeMinutes.ToString("00");
 
                 string UpdateCommand = @"UPDATE CustomerInvoices SET
                                                                     KeyNumber = '" + txt_keyno.Text +
@@ -1102,58 +1043,16 @@ namespace KKCSInvoiceProject
                                                                     "', ReturnTime = '" + tempReturnTimeHours +
                                                                     "', AccountHolder = '" + txt_account.Text +
                                                                     "', AccountParticulars = '" + txt_particulars.Text +
-                                                                    //"', SevenDaysPay = '" + txt_money7.Text +
-                                                                    //"', SevenDaysPlusPay = '" + txt_money7plus.Text +
-                                                                    //"', OneMonthPlusPay = '" + txt_monthmoney.Text +
-                                                                    //"', CreditCardFeePay = '" + txt_creditcharge.Text +
                                                                     "', TotalPay = '" + txt_total.Text +
                                                                     "', PaidStatus = '" + g_sPaidStatus +
                                                                     "', CarLocation = '" + m_sCarLocation +
                                                                     "', Notes = '" + txt_notes.Text +
                                                                     "', Alerts = '" + txt_alerts.Text +
-                                                                    //"', FlightOrManual  = " + chk_flighttimes.Checked +
                                                                     ", YNDatePaid  = " + m_bAlreadyPaid +
                                                                     ", PickUp  = " + m_bCarPickedUp +
                                                                     ", UnknownDate  = " + bUnknownDate +
                                                                     " WHERE InvoiceNumber = " + iInvoiceNumber + "";
 
-                /*
-                string cmd1 = @"UPDATE Invoice SET
-                                                    DateIn = '" + sDateIn +
-                                                    "', DatePaid  = '" + sDatePaid +
-                                                    "', DatePaidInvisible  = '" + sDatePaidInvisible +
-                                                    "', DateInInvisible = '" + dt_datein.Value +
-                                                    "', TimeIn = '" + tempTimeInHours +
-                                                    "', ClientName = '" + txt_firstname.Text +
-                                                    "', LastName = '" + txt_lastname.Text +
-                                                    "', Ph = '" + txt_ph.Text +
-                                                    "', MakeModel = '" + txt_makemodel.Text +
-                                                    "', Rego = '" + cmb_rego.Text +
-                                                    "', ReturnDate = '" + sReturnDate +
-                                                    "', ReturnDateInvisible = '" + dt_returndate.Value +
-                                                    "', DisplayedReturnDate = '" + MakeDisplayDate() +
-                                                    "', ReturnTime = '" + tempReturnTimeHours +
-                                                    "', SevenDaysPay = '" + txt_money7.Text +
-                                                    "', SevenDaysPlusPay = '" + txt_money7plus.Text +
-                                                    "', TotalPay = '" + txt_total.Text +
-                                                    "', Notes = '" + txt_notes.Text +
-                                                    "', AccountHolder = '" + cmd_accountlist.Text +
-                                                    "', AccountParticulars = '" + txt_particulars.Text +
-                                                    "', KeyNumber = '" + txt_keyno.Text +
-                                                    "', PaidStatus = '" + g_sPaidStatus +
-                                                    "', Alerts = '" + txt_alerts.Text +
-                                                    "', ReturnYear = '" + dt_returndate.Value.Year +
-                                                    "', ReturnMonth = '" + dt_returndate.Value.Month +
-                                                    "', ReturnDay = '" + dt_returndate.Value.Day +
-                                                    "', DPReturnYear = '" + sDatePaidReturnYear +
-                                                    "', DPReturnMonth = '" + sDatePaidReturnMonth +
-                                                    "', DPReturnDay = '" + sDatePaidReturnDay +
-                                                    "', DPInvisible = '" + dtDPInvisible +
-                                                    "', SevenDaysRate = '" + txt_money7charge.Text +
-                                                    "', SevenDaysPlusRate = '" + txt_money7pluscharge.Text +
-                                                    "', FlightOrManual  = " + chk_flighttimes.Checked +
-                                                    " WHERE InvoiceNumber = " + iInvoiceNumber + "";
-                */
                 command.CommandText = UpdateCommand;
 
                 command.ExecuteNonQuery();
@@ -1667,6 +1566,8 @@ namespace KKCSInvoiceProject
 
             SetUpPrice();
 
+            lbl_pickreturn.Visible = false;
+
             txt_flighttimes.SelectedIndex = 0;
         }
 
@@ -1988,7 +1889,7 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //SetUpPrice();
+            SetUpPrice();
 
             if (!bIsAlreadySaved)
             {
@@ -2062,11 +1963,6 @@ namespace KKCSInvoiceProject
         {
             bool bCheckUnknown = false;
 
-            //if (chkbox_uknowndate.Checked == true || chkbox_uknowntime.Checked == true && g_sPaidStatus == "To Pay")
-            //{
-            //    bCheckUnknown = true;
-            //}
-
             if (cmb_rego.Text == "")
             {
                 string sPaidStatusWarning = "WARNING";
@@ -2106,7 +2002,7 @@ namespace KKCSInvoiceProject
                 
                 printDialog.Document = printDocument; //add the document to the dialog box...        
 
-                //printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
+                printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
 
                 // This is used for getting the printer tray names
                 string sString = "";
@@ -2447,19 +2343,23 @@ Number: 02-0800-0493229-00
             }
 
             // Adds the credit card fee if applicable
-            //if (chk_credit.Checked)
-            //{
-            //    float fTempCreditCardCharge = (float)iTotalMoney * 0.02f;
+            if (g_sPaidStatus == "Credit Card")
+            {
+                float fTempCreditCardCharge = (float)iTotalMoney * 0.02f;
 
-            //    float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
-            //    txt_total.Text = fTempTotalPrice.ToString("N2");
-            //}
-            //else
-            //{
-            //    txt_total.Text = iTotalMoney.ToString();
-            //}
+                float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
+                txt_total.Text = fTempTotalPrice.ToString("N2");
 
-            txt_total.Text = iTotalMoney.ToString();
+                lbl_cccharges.Visible = true;
+            }
+            else
+            {
+                txt_total.Text = iTotalMoney.ToString();
+
+                lbl_cccharges.Visible = false;
+
+                txt_total.Text = iTotalMoney.ToString();
+            }
         }
 
         #endregion
@@ -2571,7 +2471,14 @@ Number: 02-0800-0493229-00
 
         private void cmb_paidstatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(cmb_paidstatus.Text)
+            if (cmb_paidstatus.Text != "Please Pick...")
+            {
+                g_sPaidStatus = cmb_paidstatus.Text;
+            }
+
+            SetUpPrice();
+            
+            switch (cmb_paidstatus.Text)
             {
                 case "To Pay":
                     {
@@ -2579,7 +2486,27 @@ Number: 02-0800-0493229-00
 
                         break;
                     }
-                case "Cash": case "Eftpos": case "Credit Card": case "Internet": case "Cheque":
+                case "Cash": 
+                    {
+                        cmb_paidstatus.BackColor = Color.LightBlue;
+
+                        CashChangeCalc ccc = new CashChangeCalc();
+
+                        int iPrice = int.Parse(txt_total.Text);
+
+                        ccc.CashChangeCalculation(iPrice);
+
+                        ccc.ShowDialog();
+
+                        break;
+                    }
+                case "Credit Card":
+                    {
+                        cmb_paidstatus.BackColor = Color.LightBlue;
+
+                        break;
+                    }
+                case "Eftpos": case "Internet": case "Cheque":
                     {
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
@@ -2600,6 +2527,7 @@ Number: 02-0800-0493229-00
                     }
                 default:
                     {
+                        g_sPaidStatus = "";
                         cmb_paidstatus.BackColor = Color.White;
                         break;
                     }

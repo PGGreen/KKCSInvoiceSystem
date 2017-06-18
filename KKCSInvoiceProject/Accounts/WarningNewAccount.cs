@@ -111,3 +111,78 @@ namespace KKCSInvoiceProject
         }
     }
 }
+
+
+/*
+private void chkbox_onaccount_CheckedChanged(object sender, EventArgs e)
+{
+    if (chkbox_onaccount.Checked)
+    {
+        ChangeOtherPaidStatusToNull(chkbox_onaccount.Name);
+
+        if (!PopulateAccountBoxes())
+        {
+            wna = new WarningNewAccount();
+            wna.FormClosing += CloseNewAccount;
+            wna.ShowDialog();
+        }
+        else
+        {
+            lbl_particulars.Visible = true;
+            txt_particulars.Visible = true;
+
+            lbl_accountname.Visible = true;
+            txt_account.Visible = true;
+        }
+    }
+    else
+    {
+        chkbox_onaccount.BackColor = System.Drawing.Color.Transparent;
+        g_sPaidStatus = "";
+        PaidStatusPicked = false;
+
+        lbl_particulars.Visible = false;
+        txt_particulars.Visible = false;
+
+        lbl_accountname.Visible = false;
+        txt_account.Visible = false;
+    }
+}
+
+WarningNewAccount wna;
+
+void CloseNewAccount(object sender, CancelEventArgs e)
+{
+    int iCount = 0;
+
+    if (wna.sGetIsExistingAccount())
+    {
+        lbl_particulars.Visible = true;
+        txt_particulars.Visible = true;
+
+        lbl_accountname.Visible = true;
+        txt_account.Visible = true;
+
+        txt_account.Text = wna.sGetAccount();
+
+        iCount++;
+    }
+
+    if (wna.sGetIsNewAccount())
+    {
+        lbl_particulars.Visible = true;
+        txt_particulars.Visible = true;
+
+        lbl_accountname.Visible = true;
+        txt_account.Visible = true;
+
+        iCount++;
+    }
+
+    if (iCount == 0)
+    {
+        chkbox_onaccount.Checked = false;
+    }
+
+}
+*/

@@ -58,7 +58,7 @@
             this.lbl_particulars = new System.Windows.Forms.Label();
             this.btn_update = new System.Windows.Forms.Button();
             this.txt_lastname = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lbl_cccharges = new System.Windows.Forms.Label();
             this.txt_total = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
@@ -100,15 +100,15 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lbl_pickreturn = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.cmb_makemodel = new System.Windows.Forms.ComboBox();
             this.cmb_carstatus = new System.Windows.Forms.ComboBox();
             this.btn_addinv = new System.Windows.Forms.Button();
             this.btn_addcustalert = new System.Windows.Forms.Button();
             this.cmb_paidstatus = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.cmb_pickedup = new System.Windows.Forms.ComboBox();
+            this.cmb_carlocation = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_datepaid = new System.Windows.Forms.Button();
             this.pnl_refund.SuspendLayout();
@@ -543,16 +543,16 @@
             this.txt_lastname.TabIndex = 105;
             this.txt_lastname.TextChanged += new System.EventHandler(this.txt_lastname_TextChanged);
             // 
-            // label8
+            // lbl_cccharges
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(932, 221);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(148, 13);
-            this.label8.TabIndex = 115;
-            this.label8.Text = "(Credit Card fee of 2% applies)";
-            this.label8.Visible = false;
+            this.lbl_cccharges.AutoSize = true;
+            this.lbl_cccharges.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cccharges.Location = new System.Drawing.Point(915, 221);
+            this.lbl_cccharges.Name = "lbl_cccharges";
+            this.lbl_cccharges.Size = new System.Drawing.Size(189, 16);
+            this.lbl_cccharges.TabIndex = 115;
+            this.lbl_cccharges.Text = "(Credit Card fee of 2% applies)";
+            this.lbl_cccharges.Visible = false;
             // 
             // txt_total
             // 
@@ -1023,16 +1023,16 @@
             this.label35.TabIndex = 1;
             this.label35.Text = "Split Payment";
             // 
-            // label11
+            // lbl_pickreturn
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(779, 137);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(327, 25);
-            this.label11.TabIndex = 26;
-            this.label11.Text = "Please Pick Return Date/Time";
+            this.lbl_pickreturn.AutoSize = true;
+            this.lbl_pickreturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_pickreturn.ForeColor = System.Drawing.Color.Red;
+            this.lbl_pickreturn.Location = new System.Drawing.Point(779, 137);
+            this.lbl_pickreturn.Name = "lbl_pickreturn";
+            this.lbl_pickreturn.Size = new System.Drawing.Size(327, 25);
+            this.lbl_pickreturn.TabIndex = 26;
+            this.lbl_pickreturn.Text = "Please Pick Return Date/Time";
             // 
             // button1
             // 
@@ -1127,39 +1127,39 @@
             this.cmb_paidstatus.TabIndex = 173;
             this.cmb_paidstatus.SelectedIndexChanged += new System.EventHandler(this.cmb_paidstatus_SelectedIndexChanged);
             // 
-            // comboBox5
+            // cmb_pickedup
             // 
-            this.comboBox5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBox5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox5.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.comboBox5.DropDownWidth = 121;
-            this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
+            this.cmb_pickedup.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_pickedup.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_pickedup.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_pickedup.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_pickedup.DropDownWidth = 121;
+            this.cmb_pickedup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_pickedup.FormattingEnabled = true;
+            this.cmb_pickedup.Items.AddRange(new object[] {
             "Car In Yard",
             "Car Is Picked Up"});
-            this.comboBox5.Location = new System.Drawing.Point(914, 331);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(231, 28);
-            this.comboBox5.TabIndex = 174;
+            this.cmb_pickedup.Location = new System.Drawing.Point(914, 331);
+            this.cmb_pickedup.Name = "cmb_pickedup";
+            this.cmb_pickedup.Size = new System.Drawing.Size(231, 28);
+            this.cmb_pickedup.TabIndex = 174;
             // 
-            // comboBox6
+            // cmb_carlocation
             // 
-            this.comboBox6.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBox6.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox6.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox6.Cursor = System.Windows.Forms.Cursors.Default;
-            this.comboBox6.DropDownWidth = 121;
-            this.comboBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
+            this.cmb_carlocation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_carlocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_carlocation.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_carlocation.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_carlocation.DropDownWidth = 121;
+            this.cmb_carlocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_carlocation.FormattingEnabled = true;
+            this.cmb_carlocation.Items.AddRange(new object[] {
             "Front",
             "Back"});
-            this.comboBox6.Location = new System.Drawing.Point(914, 369);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(231, 28);
-            this.comboBox6.TabIndex = 175;
+            this.cmb_carlocation.Location = new System.Drawing.Point(914, 369);
+            this.cmb_carlocation.Name = "cmb_carlocation";
+            this.cmb_carlocation.Size = new System.Drawing.Size(231, 28);
+            this.cmb_carlocation.TabIndex = 175;
             // 
             // label1
             // 
@@ -1190,8 +1190,8 @@
             this.ClientSize = new System.Drawing.Size(1525, 734);
             this.Controls.Add(this.btn_datepaid);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox6);
-            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.cmb_carlocation);
+            this.Controls.Add(this.cmb_pickedup);
             this.Controls.Add(this.cmb_paidstatus);
             this.Controls.Add(this.btn_addcustalert);
             this.Controls.Add(this.btn_addinv);
@@ -1216,7 +1216,7 @@
             this.Controls.Add(this.label39);
             this.Controls.Add(this.label38);
             this.Controls.Add(this.label37);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lbl_cccharges);
             this.Controls.Add(this.txt_lastname);
             this.Controls.Add(this.btn_update);
             this.Controls.Add(this.lbl_particulars);
@@ -1239,7 +1239,7 @@
             this.Controls.Add(this.cmb_timeinhours);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txt_total);
-            this.Controls.Add(this.label11);
+            this.Controls.Add(this.lbl_pickreturn);
             this.Controls.Add(this.txt_ph);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label7);
@@ -1299,7 +1299,7 @@
         private System.Windows.Forms.Label lbl_particulars;
         private System.Windows.Forms.Button btn_update;
         private System.Windows.Forms.TextBox txt_lastname;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbl_cccharges;
         private System.Windows.Forms.TextBox txt_total;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
@@ -1341,15 +1341,15 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lbl_pickreturn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox cmb_makemodel;
         private System.Windows.Forms.ComboBox cmb_carstatus;
         private System.Windows.Forms.Button btn_addinv;
         private System.Windows.Forms.Button btn_addcustalert;
         private System.Windows.Forms.ComboBox cmb_paidstatus;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox cmb_pickedup;
+        private System.Windows.Forms.ComboBox cmb_carlocation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_datepaid;
     }

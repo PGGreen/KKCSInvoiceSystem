@@ -114,6 +114,18 @@
     <Compile Include="CarReturns\CarReturns.Designer.cs">
       <DependentUpon>CarReturns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\InvoiceNotes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceNotes.Designer.cs">
+      <DependentUpon>InvoiceNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\CashChangeCalc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoice\CashChangeCalc.Designer.cs">
+      <DependentUpon>CashChangeCalc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Changelog\Changelog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -362,6 +374,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CarReturns\CarReturns.resx">
       <DependentUpon>CarReturns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceNotes.resx">
+      <DependentUpon>InvoiceNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\CashChangeCalc.resx">
+      <DependentUpon>CashChangeCalc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Changelog\Changelog.resx">
       <DependentUpon>Changelog.cs</DependentUpon>
