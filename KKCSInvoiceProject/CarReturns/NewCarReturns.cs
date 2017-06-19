@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -1051,8 +1052,8 @@ namespace KKCSInvoiceProject
             }
         */
 
-        #region Printing
-
+        #region PrintingOld
+        
         #region GlobalVariables
         int iLocationY = 50;
         int iItemsPerPage = 0;
@@ -1084,7 +1085,7 @@ namespace KKCSInvoiceProject
 
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
-            //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
@@ -1094,7 +1095,7 @@ namespace KKCSInvoiceProject
 
             pnl_printtitles.Visible = false;
 
-           PrintUnknowns();
+            PrintUnknowns();
         }
 
         private void doc_PrintReturnsPage(object sender, PrintPageEventArgs e)
@@ -1541,7 +1542,21 @@ namespace KKCSInvoiceProject
         }
 
         #endregion BadDebotors
-
+        
         #endregion
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

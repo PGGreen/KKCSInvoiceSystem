@@ -12,7 +12,7 @@ using System.Data.OleDb;
 
 namespace KKCSInvoiceProject
 {
-    public partial class btn_firstnameseach : Form
+    public partial class SearchByName : Form
     {
         #region GlobalVariables
 
@@ -26,11 +26,15 @@ namespace KKCSInvoiceProject
 
         int iInitialPanelLocationY = 0;
 
+        string g_sCustomerID = "";
+
         Panel pnl;
 
         #endregion
 
-        public btn_firstnameseach()
+        #region Load
+
+        public SearchByName()
         {
             InitializeComponent();
 
@@ -39,37 +43,15 @@ namespace KKCSInvoiceProject
             SetUpComboBoxes();
         }
 
+        #endregion Load
+
         #region SetUpComboBoxes
 
         void SetUpComboBoxes()
         {
-            SetUpRegoComboBox();
-
             SetUpFirstNameComboBox();
 
             SetUpLastNameComboBox();
-        }
-
-        public void SetUpRegoComboBox()
-        {
-            connection.Open();
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = "select * from NumberPlates ORDER BY NumberPlates ASC";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                cmb_rego.Items.Add(reader["NumberPlates"].ToString());
-            }
-
-            connection.Close();
         }
 
         public void SetUpFirstNameComboBox()
@@ -138,28 +120,6 @@ namespace KKCSInvoiceProject
             connection.Close();
         }
 
-        public void SetUpAccountComboBox()
-        {
-            connection.Open();
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = "select * from NumberPlates ORDER BY NumberPlates ASC";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                cmb_rego.Items.Add(reader["NumberPlates"].ToString());
-            }
-
-            connection.Close();
-        }
-
         #endregion
 
         #region CreatePanels
@@ -204,26 +164,6 @@ namespace KKCSInvoiceProject
             Controls.Add(lblBlank);
         }
 
-        void RefreshRegoSearch()
-        {
-            // Set the initial location for the title
-            iInitialPanelLocationY = pnl_template.Location.Y;
-
-            // Creates the Title Header
-            TitleHeaders(1);
-
-            // Creates a query for todays returns
-            string sQuery = "select * from NumberPlates WHERE NumberPlates = '" + cmb_rego.Text + "'";
-            CreateQuery(sQuery);
-
-            iInitialPanelLocationY += 10;
-
-            Label lblBlank = new Label();
-            lblBlank.Name = "lbl_blank";
-            lblBlank.Location = new Point(0, iInitialPanelLocationY);
-            Controls.Add(lblBlank);
-        }
-
         void TitleHeaders(int _iPickTitle)
         {
             Label lblTitle = new Label();
@@ -253,7 +193,7 @@ namespace KKCSInvoiceProject
                 lblTitle.BackColor = System.Drawing.Color.LightBlue;
                 lblTitle.ForeColor = System.Drawing.Color.Black;
 
-                lblTitle.Text = "Searching Rego: " + cmb_rego.Text;
+                //lblTitle.Text = "Searching Rego: " + cmb_rego.Text;
             }
 
             Controls.Add(lblTitle);
@@ -289,8 +229,7 @@ namespace KKCSInvoiceProject
         void CreateIndividualPanel()
         {
             pnl = new Panel();
-            //pnl.Name = reader["InvoiceNumber"].ToString();
-
+            
             pnl.Location = new Point(pnl_template.Location.X, iInitialPanelLocationY);
             iInitialPanelLocationY += 50;
 
@@ -323,33 +262,21 @@ namespace KKCSInvoiceProject
             btn.Visible = false;
 
             // Is it the Invoice No Button
-            if (_p.Name == "btn_open")
+            if (_p.Name == "btn_insert")
             {
                 btn.Text = _p.Text;
+                btn.Name = reader["ID"].ToString();
                 btn.BackColor = _p.BackColor;
 
                 btn.Visible = true;
 
-                //btn.Name = reader["InvoiceNumber"].ToString();
-
-                //btn.Click += new EventHandler(InvoiceButton_Click);
-            }
-
-            if (reader["Alerts"].ToString() != "")
-            {
-                if (_p.Name == "btn_alerts")
-                {
-                    btn.Text = _p.Text;
-                    btn.BackColor = _p.BackColor;
-
-                    btn.Visible = true;
-                }
+                btn.Click += new EventHandler(Insert_Click);
             }
 
             btn.Location = _p.Location;
             btn.Size = _p.Size;
             pnl.Controls.Add(btn);
-            
+
         }
 
         void ControlLabels(Control _p)
@@ -418,30 +345,38 @@ namespace KKCSInvoiceProject
 
         #endregion
 
-        #region Buttons
+        private void Insert_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
 
-        private void btn_firstnameseach_Click(object sender, EventArgs e)
+            g_sCustomerID = btn.Name;
+
+            Close();
+        }
+
+        public string GetCustomerID()
+        {
+            return (g_sCustomerID);
+        }
+
+
+        #region TextChanged
+
+        private void cmb_firstname_TextChanged(object sender, EventArgs e)
         {
             DeleteControls();
 
             RefreshFirstNameSearch();
         }
 
-        private void btn_lastnamesearch_Click(object sender, EventArgs e)
+        private void cmb_lastname_TextChanged(object sender, EventArgs e)
         {
             DeleteControls();
 
             RefreshLastNameSearch();
         }
 
-        private void btn_searchrego_Click(object sender, EventArgs e)
-        {
-            DeleteControls();
-
-            RefreshRegoSearch();
-        }
-
-        #endregion
+        #endregion TextChanged
 
         #region Delete
 

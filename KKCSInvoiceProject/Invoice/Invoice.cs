@@ -33,6 +33,9 @@ namespace KKCSInvoiceProject
 
         DateTime dtDatePaid = DateTime.Now;
 
+        InvoiceNotes iv;
+        SearchByName sbn;
+
         private bool bIsAlreadySaved = false;
 
         private int iTabNumberFromManager = 0;
@@ -2532,6 +2535,72 @@ Number: 02-0800-0493229-00
                         break;
                     }
             }
+        }
+
+        private void btn_addinv_Click(object sender, EventArgs e)
+        {
+            iv = new InvoiceNotes();
+            iv.GetInvoiceNumber(iInvoiceNumber);
+            iv.FormClosing += CloseInvoiceNotes;
+            iv.ShowDialog();
+        }
+
+        private void CloseInvoiceNotes(object sender, CancelEventArgs e)
+        {
+            string sGetCurrentNotes = iv.GetCurrentNotes();
+
+            if(sGetCurrentNotes != "")
+            {
+                txt_notes.Visible = true;
+                txt_notes.Text = sGetCurrentNotes;
+            }
+        }
+
+        private void CloseCustomerSearch(object sender, CancelEventArgs e)
+        {
+            string sCustomerID = sbn.GetCustomerID();
+
+            int iCustomerID = int.Parse(sCustomerID);
+
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string sQuery = @"SELECT * FROM NumberPlates WHERE ID = " + iCustomerID + "";
+
+            command.CommandText = sQuery;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while(reader.Read())
+            {
+                txt_firstname.Text = reader["ClientName"].ToString();
+                txt_lastname.Text = reader["LastName"].ToString();
+                txt_ph.Text = reader["Ph"].ToString();
+            }
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        private void btn_namesearch_Click(object sender, EventArgs e)
+        {
+            sbn = new SearchByName();
+            sbn.FormClosing += CloseCustomerSearch;
+            sbn.ShowDialog();
+        }
+
+        private void btn_refund_Click(object sender, EventArgs e)
+        {
+            Refund r = new Refund();
+            r.ShowDialog();
         }
     }
 }

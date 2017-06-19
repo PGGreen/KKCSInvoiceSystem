@@ -144,23 +144,23 @@
     <Compile Include="Customers\Customers.Designer.cs">
       <DependentUpon>Customers.cs</DependentUpon>
     </Compile>
-    <Compile Include="LongTermSort.cs">
+    <Compile Include="Invoice\Refund.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LongTermSort.Designer.cs">
-      <DependentUpon>LongTermSort.cs</DependentUpon>
+    <Compile Include="Invoice\Refund.Designer.cs">
+      <DependentUpon>Refund.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SearchByName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchByName.Designer.cs">
+      <DependentUpon>SearchByName.cs</DependentUpon>
     </Compile>
     <Compile Include="Warning\DrivingBack.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Warning\DrivingBack.Designer.cs">
       <DependentUpon>DrivingBack.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LongTermNew.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LongTermNew.Designer.cs">
-      <DependentUpon>LongTermNew.cs</DependentUpon>
     </Compile>
     <Compile Include="LongTerm\LongTerm.cs">
       <SubType>Form</SubType>
@@ -390,14 +390,14 @@
     <EmbeddedResource Include="Customers\Customers.resx">
       <DependentUpon>Customers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LongTermNew.resx">
-      <DependentUpon>LongTermNew.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LongTermSort.resx">
-      <DependentUpon>LongTermSort.cs</DependentUpon>
+    <EmbeddedResource Include="Invoice\Refund.resx">
+      <DependentUpon>Refund.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LongTerm\LongTerm.resx">
       <DependentUpon>LongTerm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchByName.resx">
+      <DependentUpon>SearchByName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stats\DailyCarsStats.resx">
       <DependentUpon>DailyCarsStats.cs</DependentUpon>

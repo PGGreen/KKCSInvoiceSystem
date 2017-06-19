@@ -382,11 +382,6 @@ namespace KKCSInvoiceProject
                 AdministratorPassword adp = new AdministratorPassword();
                 adp.Show();
             }
-            else if(ModifierKeys.HasFlag(Keys.Alt))
-            {
-                LongTermSort lts = new LongTermSort();
-                lts.Show();
-            }
             else
             {
                 Form fm = Application.OpenForms["Changelog"];
@@ -496,7 +491,100 @@ namespace KKCSInvoiceProject
             ncr.Show();
 
             ncr.PrintReturns();
+            //ncr.TestPrint();
+
+            //PrintReturns();
         }
+
+        #region Printing
+
+        private void PrintReturns()
+        {
+            PrintDocument printDocument = new PrintDocument();
+
+            PaperSize ps = new PaperSize();
+            ps.RawKind = (int)PaperKind.A4;
+
+            printDocument.DefaultPageSettings.PaperSize = ps;
+
+            printDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            printDocument.OriginAtMargins = false;
+            printDocument.DefaultPageSettings.Landscape = true;
+            printDocument.PrintPage += new PrintPageEventHandler(PrintReturns);
+
+            printDocument.Print();
+
+            printDocument.Dispose();
+        }
+
+        public void PrintReturns(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime dtNow = DateTime.Now;
+            DateTime dtDate = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
+
+            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTReturnDate = @dtDate ORDER BY ReturnTime,KeyNumber ASC";
+
+            command.CommandText = sTodaysQuerys;
+            command.Parameters.AddWithValue("@dtDate", dtDate);
+
+            Graphics graphic = e.Graphics;
+
+            Font font = new Font("Times New Roman", 12); //must use a mono spaced font as the spaces need to line up
+
+            float fontHeight = font.GetHeight();
+
+            int startX = 10;
+            int startY = 10;
+            int offset = 30;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while(reader.Read())
+            {
+                graphic.DrawString(reader["Rego"].ToString(), font, new SolidBrush(Color.Black), startX, startY + offset);
+
+                offset = offset + (int)fontHeight;
+            }
+
+            if(connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+
+
+            //string s = "Ph: 09-401-6351";
+
+            //SizeF size = graphic.MeasureString(s, font);
+
+            //graphic.DrawString("BOI Airport Car Storage Receipt", new Font("Courier New", 18), new SolidBrush(Color.Black), startX, startY);
+            //offset = offset + (int)fontHeight; //make the spacing consistent
+
+            //Brush brush = new SolidBrush(Color.FromArgb(255, 0, 0, 255));
+            //e.Graphics.FillRectangle(brush, startX, startY + 7, size.Width, size.Height);
+
+            //graphic.DrawString("Ph: 09-401-6351", font, new SolidBrush(Color.Black), startX, startY + 25);
+
+            //Brush brush = new SolidBrush(Color.FromArgb(40, 0, 0, 255));
+            //e.Graphics.FillRectangle(brush, startX, startY + 25, size.Width, size.Height);
+
+            //graphic.DrawString("---------------------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
+            //offset = offset + (int)fontHeight; //make the spacing consistent
+
+            //Font fontStencil = new Font("Stencil", 20);
+            //graphic.DrawString("Paid By: " + g_sPaidStatus, fontStencil, new SolidBrush(Color.Black), startX, startY + offset);
+        }
+
+        #endregion
 
         /*
 #region Printing

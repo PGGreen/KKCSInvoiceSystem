@@ -68,16 +68,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label28 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.pnl_refund = new System.Windows.Forms.Panel();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.txt_refundowed = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.lbl_daysearly = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.lbl_changesmade = new System.Windows.Forms.Label();
             this.btn_revertchanges = new System.Windows.Forms.Button();
             this.lbl_pickuptitle = new System.Windows.Forms.Label();
@@ -101,7 +91,7 @@
             this.label26 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.lbl_pickreturn = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_namesearch = new System.Windows.Forms.Button();
             this.cmb_makemodel = new System.Windows.Forms.ComboBox();
             this.cmb_carstatus = new System.Windows.Forms.ComboBox();
             this.btn_addinv = new System.Windows.Forms.Button();
@@ -111,7 +101,8 @@
             this.cmb_carlocation = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_datepaid = new System.Windows.Forms.Button();
-            this.pnl_refund.SuspendLayout();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.btn_refund = new System.Windows.Forms.Button();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -367,6 +358,7 @@
             this.txt_notes.Location = new System.Drawing.Point(25, 519);
             this.txt_notes.Multiline = true;
             this.txt_notes.Name = "txt_notes";
+            this.txt_notes.ReadOnly = true;
             this.txt_notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_notes.Size = new System.Drawing.Size(254, 208);
             this.txt_notes.TabIndex = 39;
@@ -379,6 +371,7 @@
             this.txt_alerts.Location = new System.Drawing.Point(319, 519);
             this.txt_alerts.Multiline = true;
             this.txt_alerts.Name = "txt_alerts";
+            this.txt_alerts.ReadOnly = true;
             this.txt_alerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_alerts.Size = new System.Drawing.Size(254, 208);
             this.txt_alerts.TabIndex = 58;
@@ -653,122 +646,6 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 147;
             // 
-            // pnl_refund
-            // 
-            this.pnl_refund.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pnl_refund.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnl_refund.Controls.Add(this.checkBox4);
-            this.pnl_refund.Controls.Add(this.textBox5);
-            this.pnl_refund.Controls.Add(this.txt_refundowed);
-            this.pnl_refund.Controls.Add(this.comboBox2);
-            this.pnl_refund.Controls.Add(this.label43);
-            this.pnl_refund.Controls.Add(this.label42);
-            this.pnl_refund.Controls.Add(this.lbl_daysearly);
-            this.pnl_refund.Controls.Add(this.label25);
-            this.pnl_refund.Location = new System.Drawing.Point(600, 519);
-            this.pnl_refund.Name = "pnl_refund";
-            this.pnl_refund.Size = new System.Drawing.Size(254, 208);
-            this.pnl_refund.TabIndex = 144;
-            this.pnl_refund.Visible = false;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox4.ForeColor = System.Drawing.Color.White;
-            this.checkBox4.Location = new System.Drawing.Point(12, 157);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(213, 20);
-            this.checkBox4.TabIndex = 152;
-            this.checkBox4.Text = "ADD AS CREDIT INSTEAD";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // textBox5
-            // 
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(91, 6);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(80, 22);
-            this.textBox5.TabIndex = 149;
-            this.textBox5.Text = "R-0000";
-            // 
-            // txt_refundowed
-            // 
-            this.txt_refundowed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_refundowed.Location = new System.Drawing.Point(138, 74);
-            this.txt_refundowed.Name = "txt_refundowed";
-            this.txt_refundowed.Size = new System.Drawing.Size(98, 22);
-            this.txt_refundowed.TabIndex = 149;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Till",
-            "Plastic Box"});
-            this.comboBox2.Location = new System.Drawing.Point(138, 116);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(99, 21);
-            this.comboBox2.TabIndex = 149;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.ForeColor = System.Drawing.Color.White;
-            this.label43.Location = new System.Drawing.Point(10, 115);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(129, 20);
-            this.label43.TabIndex = 150;
-            this.label43.Text = "From Location:";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.ForeColor = System.Drawing.Color.White;
-            this.label42.Location = new System.Drawing.Point(9, 75);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(123, 20);
-            this.label42.TabIndex = 149;
-            this.label42.Text = "Refund Owed:";
-            // 
-            // lbl_daysearly
-            // 
-            this.lbl_daysearly.AutoSize = true;
-            this.lbl_daysearly.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_daysearly.ForeColor = System.Drawing.Color.White;
-            this.lbl_daysearly.Location = new System.Drawing.Point(10, 40);
-            this.lbl_daysearly.Name = "lbl_daysearly";
-            this.lbl_daysearly.Size = new System.Drawing.Size(104, 20);
-            this.lbl_daysearly.TabIndex = 149;
-            this.lbl_daysearly.Text = "Days Early: ";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.White;
-            this.label25.Location = new System.Drawing.Point(8, 5);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(68, 20);
-            this.label25.TabIndex = 1;
-            this.label25.Text = "Refund";
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Enabled = false;
-            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.Location = new System.Drawing.Point(600, 489);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(76, 20);
-            this.checkBox3.TabIndex = 153;
-            this.checkBox3.Text = "Refund";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
             // lbl_changesmade
             // 
             this.lbl_changesmade.AutoSize = true;
@@ -1034,15 +911,16 @@
             this.lbl_pickreturn.TabIndex = 26;
             this.lbl_pickreturn.Text = "Please Pick Return Date/Time";
             // 
-            // button1
+            // btn_namesearch
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(415, 161);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 31);
-            this.button1.TabIndex = 168;
-            this.button1.Text = "Search By Name";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_namesearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_namesearch.Location = new System.Drawing.Point(415, 161);
+            this.btn_namesearch.Name = "btn_namesearch";
+            this.btn_namesearch.Size = new System.Drawing.Size(122, 31);
+            this.btn_namesearch.TabIndex = 168;
+            this.btn_namesearch.Text = "Search By Name";
+            this.btn_namesearch.UseVisualStyleBackColor = true;
+            this.btn_namesearch.Click += new System.EventHandler(this.btn_namesearch_Click);
             // 
             // cmb_makemodel
             // 
@@ -1091,6 +969,7 @@
             this.btn_addinv.TabIndex = 171;
             this.btn_addinv.Text = "Add Invoice 00000 Note";
             this.btn_addinv.UseVisualStyleBackColor = true;
+            this.btn_addinv.Click += new System.EventHandler(this.btn_addinv_Click);
             // 
             // btn_addcustalert
             // 
@@ -1182,12 +1061,37 @@
             this.btn_datepaid.Text = "Paid: 17/06/17 (Click to Change)";
             this.btn_datepaid.UseVisualStyleBackColor = false;
             // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.textBox4.Location = new System.Drawing.Point(600, 519);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox4.Size = new System.Drawing.Size(254, 208);
+            this.textBox4.TabIndex = 178;
+            this.textBox4.Visible = false;
+            // 
+            // btn_refund
+            // 
+            this.btn_refund.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_refund.Location = new System.Drawing.Point(600, 484);
+            this.btn_refund.Name = "btn_refund";
+            this.btn_refund.Size = new System.Drawing.Size(140, 29);
+            this.btn_refund.TabIndex = 179;
+            this.btn_refund.Text = "Refund/Credit";
+            this.btn_refund.UseVisualStyleBackColor = true;
+            this.btn_refund.Click += new System.EventHandler(this.btn_refund_Click);
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.btn_refund);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.btn_datepaid);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmb_carlocation);
@@ -1197,7 +1101,7 @@
             this.Controls.Add(this.btn_addinv);
             this.Controls.Add(this.cmb_carstatus);
             this.Controls.Add(this.cmb_makemodel);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_namesearch);
             this.Controls.Add(this.pnl_splitpayment);
             this.Controls.Add(this.pnl_overdue);
             this.Controls.Add(this.checkBox2);
@@ -1208,8 +1112,6 @@
             this.Controls.Add(this.lbl_pickuptitle);
             this.Controls.Add(this.btn_revertchanges);
             this.Controls.Add(this.lbl_changesmade);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.pnl_refund);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label41);
             this.Controls.Add(this.label40);
@@ -1252,8 +1154,6 @@
             this.Name = "Invoice";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Invoice_Load);
-            this.pnl_refund.ResumeLayout(false);
-            this.pnl_refund.PerformLayout();
             this.pnl_overdue.ResumeLayout(false);
             this.pnl_overdue.PerformLayout();
             this.pnl_splitpayment.ResumeLayout(false);
@@ -1307,18 +1207,8 @@
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Panel pnl_refund;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox txt_refundowed;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label lbl_daysearly;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Label lbl_changesmade;
         private System.Windows.Forms.Button btn_revertchanges;
         private System.Windows.Forms.Label lbl_pickuptitle;
@@ -1342,7 +1232,7 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label lbl_pickreturn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_namesearch;
         private System.Windows.Forms.ComboBox cmb_makemodel;
         private System.Windows.Forms.ComboBox cmb_carstatus;
         private System.Windows.Forms.Button btn_addinv;
@@ -1352,5 +1242,7 @@
         private System.Windows.Forms.ComboBox cmb_carlocation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_datepaid;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button btn_refund;
     }
 }
