@@ -53,6 +53,7 @@
             // chk_addascredit
             // 
             this.chk_addascredit.AutoSize = true;
+            this.chk_addascredit.BackColor = System.Drawing.Color.Lime;
             this.chk_addascredit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_addascredit.ForeColor = System.Drawing.Color.Black;
             this.chk_addascredit.Location = new System.Drawing.Point(477, 71);
@@ -60,7 +61,7 @@
             this.chk_addascredit.Size = new System.Drawing.Size(309, 29);
             this.chk_addascredit.TabIndex = 152;
             this.chk_addascredit.Text = "ADD AS CREDIT INSTEAD";
-            this.chk_addascredit.UseVisualStyleBackColor = true;
+            this.chk_addascredit.UseVisualStyleBackColor = false;
             this.chk_addascredit.CheckedChanged += new System.EventHandler(this.chk_addascredit_CheckedChanged);
             // 
             // txt_refundowed

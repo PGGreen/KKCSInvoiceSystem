@@ -27,6 +27,7 @@ namespace KKCSInvoiceProject
         int iInitialPanelLocationY = 0;
 
         string g_sCustomerID = "";
+        bool g_bIsWithRego = false;
 
         Panel pnl;
 
@@ -273,6 +274,18 @@ namespace KKCSInvoiceProject
                 btn.Click += new EventHandler(Insert_Click);
             }
 
+            // Is it the Invoice No Button
+            if (_p.Name == "btn_InsertWRego")
+            {
+                btn.Text = _p.Text;
+                btn.Name = reader["ID"].ToString();
+                btn.BackColor = _p.BackColor;
+
+                btn.Visible = true;
+
+                btn.Click += new EventHandler(btn_InsertWRego_Click);
+            }
+
             btn.Location = _p.Location;
             btn.Size = _p.Size;
             pnl.Controls.Add(btn);
@@ -349,6 +362,17 @@ namespace KKCSInvoiceProject
         {
             Button btn = (Button)sender;
 
+            g_bIsWithRego = false;
+            g_sCustomerID = btn.Name;
+
+            Close();
+        }
+
+        private void btn_InsertWRego_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            g_bIsWithRego = true;
             g_sCustomerID = btn.Name;
 
             Close();
@@ -359,17 +383,22 @@ namespace KKCSInvoiceProject
             return (g_sCustomerID);
         }
 
+        public bool GetIsWithRego()
+        {
+            return (g_bIsWithRego);
+        }
+
 
         #region TextChanged
 
-        private void cmb_firstname_TextChanged(object sender, EventArgs e)
+        private void cmb_firstname_SelectedIndexChanged(object sender, EventArgs e)
         {
             DeleteControls();
 
             RefreshFirstNameSearch();
         }
 
-        private void cmb_lastname_TextChanged(object sender, EventArgs e)
+        private void cmb_lastname_SelectedIndexChanged(object sender, EventArgs e)
         {
             DeleteControls();
 
@@ -406,5 +435,10 @@ namespace KKCSInvoiceProject
         }
 
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

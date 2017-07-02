@@ -119,7 +119,7 @@
             // 
             // cmb_rego
             // 
-            this.cmb_rego.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_rego.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cmb_rego.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmb_rego.BackColor = System.Drawing.SystemColors.Window;
             this.cmb_rego.Cursor = System.Windows.Forms.Cursors.Default;

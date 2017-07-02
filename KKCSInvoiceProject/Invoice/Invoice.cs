@@ -2560,33 +2560,42 @@ Number: 02-0800-0493229-00
         {
             string sCustomerID = sbn.GetCustomerID();
 
-            int iCustomerID = int.Parse(sCustomerID);
-
-            if(connection.State == ConnectionState.Closed)
+            if (sCustomerID != "")
             {
-                connection.Open();
-            }
+                bool bIsWithRego = sbn.GetIsWithRego();
+                int iCustomerID = int.Parse(sCustomerID);
 
-            OleDbCommand command = new OleDbCommand();
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
 
-            command.Connection = connection;
+                OleDbCommand command = new OleDbCommand();
 
-            string sQuery = @"SELECT * FROM NumberPlates WHERE ID = " + iCustomerID + "";
+                command.Connection = connection;
 
-            command.CommandText = sQuery;
+                string sQuery = @"SELECT * FROM NumberPlates WHERE ID = " + iCustomerID + "";
 
-            OleDbDataReader reader = command.ExecuteReader();
+                command.CommandText = sQuery;
 
-            while(reader.Read())
-            {
-                txt_firstname.Text = reader["ClientName"].ToString();
-                txt_lastname.Text = reader["LastName"].ToString();
-                txt_ph.Text = reader["Ph"].ToString();
-            }
+                OleDbDataReader reader = command.ExecuteReader();
 
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
+                while (reader.Read())
+                {
+                    txt_firstname.Text = reader["ClientName"].ToString();
+                    txt_lastname.Text = reader["LastName"].ToString();
+                    txt_ph.Text = reader["Ph"].ToString();
+
+                    if(bIsWithRego)
+                    {
+                        cmb_rego.Text = reader["Rego"].ToString();
+                    }
+                }
+
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
         }
 

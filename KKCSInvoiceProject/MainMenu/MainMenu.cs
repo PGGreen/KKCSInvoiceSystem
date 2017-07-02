@@ -32,6 +32,9 @@ namespace KKCSInvoiceProject
         string sVersionNumber = "2.00";
 
         private OleDbConnection connection = new OleDbConnection();
+        OleDbCommand command;
+
+        OleDbDataReader reader;
 
         public MainMenu()
         {
@@ -480,20 +483,21 @@ namespace KKCSInvoiceProject
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form fm = Application.OpenForms["NewCarReturns"];
+            //Form fm = Application.OpenForms["NewCarReturns"];
 
-            if (fm != null)
-            {
-                fm.Close();
-            }
+            //if (fm != null)
+            //{
+            //    fm.Close();
+            //}
 
-            NewCarReturns ncr = new NewCarReturns();
-            ncr.Show();
+            //NewCarReturns ncr = new NewCarReturns();
+            //ncr.Show();
 
-            ncr.PrintReturns();
+            //ncr.PrintReturns();
             //ncr.TestPrint();
 
             //PrintReturns();
+            PrintTest();
         }
 
         #region Printing
@@ -507,7 +511,7 @@ namespace KKCSInvoiceProject
 
             printDocument.DefaultPageSettings.PaperSize = ps;
 
-            printDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
             printDocument.OriginAtMargins = false;
             printDocument.DefaultPageSettings.Landscape = true;
             printDocument.PrintPage += new PrintPageEventHandler(PrintReturns);
@@ -550,9 +554,19 @@ namespace KKCSInvoiceProject
 
             while(reader.Read())
             {
+                string sString = reader["Rego"].ToString();
+
+                SizeF stringSize = new SizeF();
+                stringSize = e.Graphics.MeasureString(sString, font);
+
                 graphic.DrawString(reader["Rego"].ToString(), font, new SolidBrush(Color.Black), startX, startY + offset);
 
+                Brush brush = new SolidBrush(Color.FromArgb(30, 0, 0, 255));
+                e.Graphics.FillRectangle(brush, startX, startY + offset, stringSize.Width, stringSize.Height);
+
                 offset = offset + (int)fontHeight;
+
+                break;
             }
 
             if(connection.State == ConnectionState.Open)
@@ -584,10 +598,27 @@ namespace KKCSInvoiceProject
             //graphic.DrawString("Paid By: " + g_sPaidStatus, fontStencil, new SolidBrush(Color.Black), startX, startY + offset);
         }
 
+        private void btn_rentalcars_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["RentalCars"];
+
+            if (fm != null)
+            {
+                fm.BringToFront();
+            }
+            else
+            {
+                RentalCars nm = new RentalCars();
+                nm.Show();
+            }
+        }
+
         #endregion
 
-        /*
-#region Printing
+        
+#region Printing Test
+
+
 
         // Print Button
         int totalnumber = 0;//this is for total number of items of the list or array
@@ -620,7 +651,8 @@ namespace KKCSInvoiceProject
 
         string sLine = "----------------------------------------------------------------------------------------------------------------------------------\r\n";
 
-        private void button3_Click(object sender, EventArgs e)
+        //private void button3_Click(object sender, EventArgs e)
+        void PrintTest()
         {
             bReferenceDatabaseOnce = true;
             bReferenceUnknownOnce = true;
@@ -657,7 +689,7 @@ namespace KKCSInvoiceProject
 
             printDialog2.Document = printDocument2; //add the document to the dialog box...        
 
-            printDocument2.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateTodaysUnknowns); //add an event handler that will do the printing
+            //printDocument2.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateTodaysUnknowns); //add an event handler that will do the printing
 
             ps = new PaperSize();
             ps.RawKind = (int)PaperKind.A4;
@@ -669,7 +701,7 @@ namespace KKCSInvoiceProject
 
             if (CheckForPrintUnknowns())
             {
-                printDocument2.Print();
+                //printDocument2.Print();
             }
             // ----------------------------------------------------------------------------
         }
@@ -1130,7 +1162,7 @@ namespace KKCSInvoiceProject
 
 
 #endregion
-        */
+        
 
         // This Function handles the printing of the Daily Car Returns print out
         // TODO: -Clean up in general

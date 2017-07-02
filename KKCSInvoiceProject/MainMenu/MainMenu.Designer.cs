@@ -55,6 +55,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.btn_rentalcars = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,7 +120,7 @@
             // btn_build
             // 
             this.btn_build.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btn_build.Location = new System.Drawing.Point(887, 617);
+            this.btn_build.Location = new System.Drawing.Point(885, 664);
             this.btn_build.Name = "btn_build";
             this.btn_build.Size = new System.Drawing.Size(53, 28);
             this.btn_build.TabIndex = 6;
@@ -164,7 +165,7 @@
             // 
             this.btn_eod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btn_eod.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_eod.Location = new System.Drawing.Point(12, 554);
+            this.btn_eod.Location = new System.Drawing.Point(12, 602);
             this.btn_eod.Name = "btn_eod";
             this.btn_eod.Size = new System.Drawing.Size(250, 45);
             this.btn_eod.TabIndex = 11;
@@ -197,7 +198,7 @@
             // btn_exit
             // 
             this.btn_exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_exit.Location = new System.Drawing.Point(8, 618);
+            this.btn_exit.Location = new System.Drawing.Point(12, 664);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(38, 28);
             this.btn_exit.TabIndex = 16;
@@ -210,7 +211,7 @@
             this.button3.BackColor = System.Drawing.Color.Black;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(12, 503);
+            this.button3.Location = new System.Drawing.Point(12, 551);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(250, 45);
             this.button3.TabIndex = 17;
@@ -255,7 +256,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(283, 138);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(645, 461);
+            this.panel1.Size = new System.Drawing.Size(645, 509);
             this.panel1.TabIndex = 24;
             this.panel1.Visible = false;
             // 
@@ -360,12 +361,24 @@
             this.button2.Text = "DOC Only Pre-Booking";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // btn_rentalcars
+            // 
+            this.btn_rentalcars.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.btn_rentalcars.Location = new System.Drawing.Point(12, 499);
+            this.btn_rentalcars.Name = "btn_rentalcars";
+            this.btn_rentalcars.Size = new System.Drawing.Size(250, 45);
+            this.btn_rentalcars.TabIndex = 26;
+            this.btn_rentalcars.Text = "Rental Cars";
+            this.btn_rentalcars.UseVisualStyleBackColor = true;
+            this.btn_rentalcars.Click += new System.EventHandler(this.btn_rentalcars_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Cornsilk;
-            this.ClientSize = new System.Drawing.Size(950, 651);
+            this.ClientSize = new System.Drawing.Size(950, 702);
+            this.Controls.Add(this.btn_rentalcars);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
@@ -423,5 +436,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_rentalcars;
     }
 }
