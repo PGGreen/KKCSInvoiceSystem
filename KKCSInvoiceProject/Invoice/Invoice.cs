@@ -2580,15 +2580,17 @@ Number: 02-0800-0493229-00
 
                 OleDbDataReader reader = command.ExecuteReader();
 
+                string sStoreRego = "";
+
                 while (reader.Read())
                 {
                     txt_firstname.Text = reader["ClientName"].ToString();
                     txt_lastname.Text = reader["LastName"].ToString();
                     txt_ph.Text = reader["Ph"].ToString();
 
-                    if(bIsWithRego)
+                    if (bIsWithRego)
                     {
-                        cmb_rego.Text = reader["Rego"].ToString();
+                        sStoreRego = reader["NumberPlates"].ToString();
                     }
                 }
 
@@ -2596,6 +2598,8 @@ Number: 02-0800-0493229-00
                 {
                     connection.Close();
                 }
+
+                cmb_rego.Text = sStoreRego;
             }
         }
 
