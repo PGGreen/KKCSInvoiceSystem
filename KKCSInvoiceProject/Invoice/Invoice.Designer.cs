@@ -103,6 +103,7 @@
             this.btn_datepaid = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.btn_refund = new System.Windows.Forms.Button();
+            this.btn_cashcalc = new System.Windows.Forms.Button();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -1084,12 +1085,27 @@
             this.btn_refund.UseVisualStyleBackColor = true;
             this.btn_refund.Click += new System.EventHandler(this.btn_refund_Click);
             // 
+            // btn_cashcalc
+            // 
+            this.btn_cashcalc.BackColor = System.Drawing.Color.Transparent;
+            this.btn_cashcalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cashcalc.ForeColor = System.Drawing.Color.Black;
+            this.btn_cashcalc.Location = new System.Drawing.Point(807, 211);
+            this.btn_cashcalc.Name = "btn_cashcalc";
+            this.btn_cashcalc.Size = new System.Drawing.Size(80, 39);
+            this.btn_cashcalc.TabIndex = 180;
+            this.btn_cashcalc.Text = "Cash Calculator";
+            this.btn_cashcalc.UseVisualStyleBackColor = false;
+            this.btn_cashcalc.Visible = false;
+            this.btn_cashcalc.Click += new System.EventHandler(this.btn_cashcalc_Click);
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.btn_cashcalc);
             this.Controls.Add(this.btn_refund);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.btn_datepaid);
@@ -1244,5 +1260,6 @@
         private System.Windows.Forms.Button btn_datepaid;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button btn_refund;
+        private System.Windows.Forms.Button btn_cashcalc;
     }
 }

@@ -727,7 +727,7 @@ namespace KKCSInvoiceProject
 
                 iIsThereWarnings++;
             }
-            if (!PaidStatusPicked)
+            if (g_sPaidStatus == "")
             {
                 sWarning += "-Please pick a 'Paid Status'" + sEndLine;
 
@@ -1049,9 +1049,7 @@ namespace KKCSInvoiceProject
                                                                     "', TotalPay = '" + txt_total.Text +
                                                                     "', PaidStatus = '" + g_sPaidStatus +
                                                                     "', CarLocation = '" + m_sCarLocation +
-                                                                    "', Notes = '" + txt_notes.Text +
-                                                                    "', Alerts = '" + txt_alerts.Text +
-                                                                    ", YNDatePaid  = " + m_bAlreadyPaid +
+                                                                    "', YNDatePaid  = " + m_bAlreadyPaid +
                                                                     ", PickUp  = " + m_bCarPickedUp +
                                                                     ", UnknownDate  = " + bUnknownDate +
                                                                     " WHERE InvoiceNumber = " + iInvoiceNumber + "";
@@ -2480,7 +2478,10 @@ Number: 02-0800-0493229-00
             }
 
             SetUpPrice();
-            
+
+            btn_cashcalc.Enabled = false;
+            btn_cashcalc.Visible = false;
+
             switch (cmb_paidstatus.Text)
             {
                 case "To Pay":
@@ -2496,6 +2497,9 @@ Number: 02-0800-0493229-00
                         CashChangeCalc ccc = new CashChangeCalc();
 
                         int iPrice = int.Parse(txt_total.Text);
+
+                        btn_cashcalc.Enabled = true;
+                        btn_cashcalc.Visible = true;
 
                         ccc.CashChangeCalculation(iPrice);
 
@@ -2614,6 +2618,17 @@ Number: 02-0800-0493229-00
         {
             Refund r = new Refund();
             r.ShowDialog();
+        }
+
+        private void btn_cashcalc_Click(object sender, EventArgs e)
+        {
+            CashChangeCalc ccc = new CashChangeCalc();
+
+            int iPrice = int.Parse(txt_total.Text);
+
+            ccc.CashChangeCalculation(iPrice);
+
+            ccc.ShowDialog();
         }
     }
 }
