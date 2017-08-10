@@ -1344,135 +1344,78 @@ namespace KKCSInvoiceProject
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!SearchLongTerm())
+            try
             {
-                try
+                //if (chkbox_onaccount.Checked)
+                //{
+                //    chkbox_onaccount.Checked = false;
+                //}
+
+                CurrentTime = DateTime.Now;
+
+                if (!m_bIsFromCarReturns)
                 {
-                    //if (chkbox_onaccount.Checked)
-                    //{
-                    //    chkbox_onaccount.Checked = false;
-                    //}
-
-                    CurrentTime = DateTime.Now;
-
-                    if (!m_bIsFromCarReturns)
-                    {
-                        cmb_timeinhours.Text = CurrentTime.Hour.ToString("00");
-                        cmb_timeinminutes.Text = CurrentTime.Minute.ToString("00");
-                    }
-
-                    // Opens the connection to the database
-                    if (connection.State == ConnectionState.Closed)
-                    {
-                        connection.Open();
-                    }
-
-                    OleDbCommand command = new OleDbCommand();
-
-                    command.Connection = connection;
-
-                    string query = @"select * from NumberPlates where NumberPlates= '" + cmb_rego.Text + "'";
-
-                    command.CommandText = query;
-
-                    OleDbDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        txt_firstname.Text = reader["ClientName"].ToString();
-                        txt_lastname.Text = reader["LastName"].ToString();
-                        cmb_makemodel.Text = reader["MakeModel"].ToString();
-                        txt_ph.Text = reader["Ph"].ToString();
-                        txt_alerts.Text = reader["Alerts"].ToString();
-
-                        m_sTempStoreRego = cmb_rego.Text;
-                    }
-
-                    this.Text = cmb_rego.Text;
-
-                    // Closes the connection to the database
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-
-                    //lbl_particulars.Visible = true;
-                    //txt_particulars.Visible = true;
-
-                    //lbl_accountname.Visible = true;
-                    //txt_account.Visible = true;
-
-                    //if (CheckIfAccount())
-                    //{
-                    //    chkbox_onaccount.Checked = true;
-                    //}
-                    //else
-                    //{
-                    //    lbl_particulars.Visible = false;
-                    //    txt_particulars.Visible = false;
-
-                    //    lbl_accountname.Visible = false;
-                    //    txt_account.Visible = false;
-                    //}
+                    cmb_timeinhours.Text = CurrentTime.Hour.ToString("00");
+                    cmb_timeinminutes.Text = CurrentTime.Minute.ToString("00");
                 }
-                catch (Exception ex)
+
+                // Opens the connection to the database
+                if (connection.State == ConnectionState.Closed)
                 {
-                    MessageBox.Show("Error " + ex);
+                    connection.Open();
                 }
+
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                string query = @"select * from NumberPlates where NumberPlates= '" + cmb_rego.Text + "'";
+
+                command.CommandText = query;
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    txt_firstname.Text = reader["ClientName"].ToString();
+                    txt_lastname.Text = reader["LastName"].ToString();
+                    cmb_makemodel.Text = reader["MakeModel"].ToString();
+                    txt_ph.Text = reader["Ph"].ToString();
+                    txt_alerts.Text = reader["Alerts"].ToString();
+
+                    m_sTempStoreRego = cmb_rego.Text;
+                }
+
+                this.Text = cmb_rego.Text;
+
+                // Closes the connection to the database
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+
+                //lbl_particulars.Visible = true;
+                //txt_particulars.Visible = true;
+
+                //lbl_accountname.Visible = true;
+                //txt_account.Visible = true;
+
+                //if (CheckIfAccount())
+                //{
+                //    chkbox_onaccount.Checked = true;
+                //}
+                //else
+                //{
+                //    lbl_particulars.Visible = false;
+                //    txt_particulars.Visible = false;
+
+                //    lbl_accountname.Visible = false;
+                //    txt_account.Visible = false;
+                //}
             }
-        }
-
-        private bool SearchLongTerm()
-        {
-            // Opens the connection to the database
-            if (connection.State == ConnectionState.Closed)
+            catch (Exception ex)
             {
-                connection.Open();
-            }
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = @"select * from LongTermAccounts
-                            where Rego1= '" + cmb_rego.Text + "' OR Rego2 = '" + cmb_rego.Text + "'";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            bool bIsLongTerm = false;
-
-            while (reader.Read())
-            {
-                int iLongTermKey = (int)reader["LongTermKey"];
-
-                LongTermForm ltf = new LongTermForm();
-
-                ltf.LongTermPick(iLongTermKey);
-
-                ltf.Show();
-
-                bIsLongTerm = true;
-            }
-
-            this.Text = cmb_rego.Text;
-
-            // Closes the connection to the database
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-
-            if (bIsLongTerm)
-            {
-                cmb_rego.Text = "";
-
-                return (true);
-            }
-            else
-            {
-                return (false);
+                MessageBox.Show("Error " + ex);
             }
         }
 

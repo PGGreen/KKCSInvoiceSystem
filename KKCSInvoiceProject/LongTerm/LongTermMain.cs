@@ -67,7 +67,7 @@ namespace KKCSInvoiceProject
                     butLongTerm.BackColor = Color.PaleVioletRed;
                 }
                 
-                butLongTerm.Click += new EventHandler(LongTermKey_Click);
+                //butLongTerm.Click += new EventHandler(LongTermKey_Click);
 
                 LocationX += 222;
 
@@ -83,20 +83,6 @@ namespace KKCSInvoiceProject
             }
 
             connection.Close();
-        }
-
-        private void LongTermKey_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-
-            int x = 0;
-            Int32.TryParse(btn.Name, out x);
-
-            LongTermForm ltf = new LongTermForm();
-
-            ltf.LongTermPick(x);
-
-            ltf.Show();
         }
     }
 }

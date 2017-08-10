@@ -483,24 +483,117 @@ namespace KKCSInvoiceProject
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Form fm = Application.OpenForms["NewCarReturns"];
+            //PrintTest();
 
-            //if (fm != null)
-            //{
-            //    fm.Close();
-            //}
-
-            //NewCarReturns ncr = new NewCarReturns();
-            //ncr.Show();
-
-            //ncr.PrintReturns();
-            //ncr.TestPrint();
-
-            //PrintReturns();
-            PrintTest();
+            PrintLongTerm();
         }
 
         #region Printing
+
+        private void PrintLongTerm()
+        {
+            PrintDocument printDocument = new PrintDocument();
+
+            PaperSize ps = new PaperSize();
+            ps.RawKind = (int)PaperKind.A4;
+
+            printDocument.DefaultPageSettings.PaperSize = ps;
+
+            //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            printDocument.OriginAtMargins = false;
+            printDocument.DefaultPageSettings.Landscape = true;
+            printDocument.PrintPage += new PrintPageEventHandler(PrintLongTerm);
+
+            printDocument.Print();
+
+            printDocument.Dispose();
+        }
+
+        public void PrintLongTerm(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime dtNow = DateTime.Now;
+            DateTime dtDate = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
+
+            string sTodaysQuerys = "select * from LongTermAccounts ORDER BY LongTermKey ASC";
+
+            command.CommandText = sTodaysQuerys;
+
+            Graphics graphic = e.Graphics;
+
+            Font font = new Font("Times New Roman", 10); //must use a mono spaced font as the spaces need to line up
+
+            float fontHeight = font.GetHeight();
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            int startX = 10;
+            int startY = 10;
+            int offset = 30;
+
+            string sLine = "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+
+            DateTime dt = DateTime.Now;
+
+            graphic.DrawString("Long Term Check Sheet " + dt, new Font("Courier New", 18), new SolidBrush(Color.Black), startX, startY);
+            offset = offset + (int)fontHeight * 2;
+
+            string sHeaders = "LT Key No                 Rego                              Name                                                                                   Is Key Here?                    Is Car Here?";
+            graphic.DrawString(sHeaders, font, new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)fontHeight;
+
+            graphic.DrawString(sLine, font, new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)fontHeight;
+
+            while (reader.Read())
+            {
+                int iLT = 0;
+                int.TryParse(reader["LongTermKey"].ToString(), out iLT);
+
+                string sRego1 = reader["Rego1"].ToString();
+                string sRego2 = reader["Rego2"].ToString();
+                string sCombined = "";
+
+                if (sRego2 != "")
+                {
+                    sCombined = sRego1 + "/" + sRego2;
+                }
+                else
+                {
+                    sCombined = sRego1;
+                }
+
+                string sLongTerm = "LT-" + iLT.ToString("00") + "                 " + sCombined + "                           " + reader["ClientName"].ToString();
+                graphic.DrawString(sLongTerm, font, new SolidBrush(Color.Black), startX, startY + offset);
+                offset = offset + (int)fontHeight;
+
+                graphic.DrawString(sLine, font, new SolidBrush(Color.Black), startX, startY + offset);
+                offset = offset + (int)fontHeight;
+            }
+
+            offset = offset + (int)fontHeight * 2;
+
+            offset = offset + (int)fontHeight * 2;
+
+            offset = offset + (int)fontHeight * 7;
+
+            offset = offset + (int)fontHeight * 3;
+
+            graphic.DrawString("Thank You for Parking with Us!", font, new SolidBrush(Color.Black), startX, startY + offset);
+        }
+
+
+
+
 
         private void PrintReturns()
         {

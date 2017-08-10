@@ -168,12 +168,6 @@
     <Compile Include="Warning\DrivingBack.Designer.cs">
       <DependentUpon>DrivingBack.cs</DependentUpon>
     </Compile>
-    <Compile Include="LongTerm\LongTerm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LongTerm\LongTerm.Designer.cs">
-      <DependentUpon>LongTerm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Stats\DailyCarsStats.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,12 +252,6 @@
     </Compile>
     <Compile Include="KeyBox\KeyBox.Designer.cs">
       <DependentUpon>KeyBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LongTerm\LongTermForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LongTerm\LongTermForm.Designer.cs">
-      <DependentUpon>LongTermForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LongTerm\LongTermMain.cs">
       <SubType>Form</SubType>
@@ -399,9 +387,6 @@
     <EmbeddedResource Include="Invoice\Refund.resx">
       <DependentUpon>Refund.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LongTerm\LongTerm.resx">
-      <DependentUpon>LongTerm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="RentalCars.resx">
       <DependentUpon>RentalCars.cs</DependentUpon>
     </EmbeddedResource>
@@ -446,9 +431,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="KeyBox\KeyBox.resx">
       <DependentUpon>KeyBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LongTerm\LongTermForm.resx">
-      <DependentUpon>LongTermForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LongTerm\LongTermMain.resx">
       <DependentUpon>LongTermMain.cs</DependentUpon>
