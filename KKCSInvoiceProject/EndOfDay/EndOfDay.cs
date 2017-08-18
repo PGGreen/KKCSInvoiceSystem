@@ -86,7 +86,7 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of dat
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            //dtTodaysDate = new DateTime(2017, 7, 26, 12, 0, 0);
+            dtTodaysDate = new DateTime(2017, 8, 15, 12, 0, 0);
 
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
@@ -772,7 +772,7 @@ namespace KKCSInvoiceProject
 
                 fEftposTotal += fEftpos;
 
-                sEftpos = "Inv:                        " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
+                sEftpos = "Inv: " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
 
                 if (reader["PaidStatus"].ToString() == "Eftpos")
                 {

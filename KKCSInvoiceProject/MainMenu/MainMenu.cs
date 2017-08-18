@@ -580,20 +580,8 @@ namespace KKCSInvoiceProject
                 offset = offset + (int)fontHeight;
             }
 
-            offset = offset + (int)fontHeight * 2;
-
-            offset = offset + (int)fontHeight * 2;
-
-            offset = offset + (int)fontHeight * 7;
-
-            offset = offset + (int)fontHeight * 3;
-
             graphic.DrawString("Thank You for Parking with Us!", font, new SolidBrush(Color.Black), startX, startY + offset);
         }
-
-
-
-
 
         private void PrintReturns()
         {

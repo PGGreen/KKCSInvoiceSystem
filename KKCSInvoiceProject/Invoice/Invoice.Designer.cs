@@ -101,9 +101,9 @@
             this.cmb_carlocation = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_datepaid = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.btn_refund = new System.Windows.Forms.Button();
             this.btn_cashcalc = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -372,7 +372,6 @@
             this.txt_alerts.Location = new System.Drawing.Point(319, 519);
             this.txt_alerts.Multiline = true;
             this.txt_alerts.Name = "txt_alerts";
-            this.txt_alerts.ReadOnly = true;
             this.txt_alerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_alerts.Size = new System.Drawing.Size(254, 208);
             this.txt_alerts.TabIndex = 58;
@@ -981,6 +980,7 @@
             this.btn_addcustalert.TabIndex = 172;
             this.btn_addcustalert.Text = "Add Customer Alert";
             this.btn_addcustalert.UseVisualStyleBackColor = true;
+            this.btn_addcustalert.Click += new System.EventHandler(this.btn_addcustalert_Click);
             // 
             // cmb_paidstatus
             // 
@@ -1062,18 +1062,6 @@
             this.btn_datepaid.Text = "Paid: 17/06/17 (Click to Change)";
             this.btn_datepaid.UseVisualStyleBackColor = false;
             // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.textBox4.Location = new System.Drawing.Point(600, 519);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(254, 208);
-            this.textBox4.TabIndex = 178;
-            this.textBox4.Visible = false;
-            // 
             // btn_refund
             // 
             this.btn_refund.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1098,6 +1086,18 @@
             this.btn_cashcalc.UseVisualStyleBackColor = false;
             this.btn_cashcalc.Visible = false;
             this.btn_cashcalc.Click += new System.EventHandler(this.btn_cashcalc_Click);
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.textBox4.Location = new System.Drawing.Point(600, 519);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox4.Size = new System.Drawing.Size(254, 208);
+            this.textBox4.TabIndex = 178;
+            this.textBox4.Visible = false;
             // 
             // Invoice
             // 
@@ -1258,8 +1258,8 @@
         private System.Windows.Forms.ComboBox cmb_carlocation;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_datepaid;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button btn_refund;
         private System.Windows.Forms.Button btn_cashcalc;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

@@ -636,28 +636,47 @@ namespace KKCSInvoiceProject
 
         void FindFlightTimes()
         {
-            string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
+            DateTime dtOct30 = new DateTime(2017, 10, 30);
+            DateTime dtToday = DateTime.Now;
+            DateTime dtCompare = new DateTime(dtToday.Year, dtToday.Month, dtToday.Day);
+            //dtCompare = new DateTime(2017, 11, 5);
 
-            txt_flighttimes.Items.Clear();
-
-            string sTxtFileLocation = "";
-
-            if (sTodaysDay == "Saturday")
+            if (false)//dtOct30 <= dtCompare)
             {
-                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
-            }
-            else if (sTodaysDay == "Sunday")
-            {
-                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
+                // Opens the connection to the database
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
             }
             else
             {
-                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
-            }
+                //if(dtCompareToday.Month > 
+                //string sMonth = dtCompareToday.Month.ToString();
 
-            using (StreamReader sr = new StreamReader(sTxtFileLocation))
-            {
-                txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
+                string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
+
+                txt_flighttimes.Items.Clear();
+
+                string sTxtFileLocation = "";
+
+                if (sTodaysDay == "Saturday")
+                {
+                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
+                }
+                else if (sTodaysDay == "Sunday")
+                {
+                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
+                }
+                else
+                {
+                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
+                }
+
+                using (StreamReader sr = new StreamReader(sTxtFileLocation))
+                {
+                    txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
+                }
             }
         }
 
@@ -2572,6 +2591,11 @@ Number: 02-0800-0493229-00
             ccc.CashChangeCalculation(iPrice);
 
             ccc.ShowDialog();
+        }
+
+        private void btn_addcustalert_Click(object sender, EventArgs e)
+        {
+            txt_alerts.Visible = true;
         }
     }
 }
