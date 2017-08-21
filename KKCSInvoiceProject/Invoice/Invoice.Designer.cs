@@ -104,6 +104,8 @@
             this.btn_refund = new System.Windows.Forms.Button();
             this.btn_cashcalc = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -157,7 +159,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Green;
-            this.label6.Location = new System.Drawing.Point(56, 354);
+            this.label6.Location = new System.Drawing.Point(52, 336);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(169, 31);
             this.label6.TabIndex = 15;
@@ -166,7 +168,7 @@
             // dt_returndate
             // 
             this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_returndate.Location = new System.Drawing.Point(243, 349);
+            this.dt_returndate.Location = new System.Drawing.Point(239, 331);
             this.dt_returndate.Name = "dt_returndate";
             this.dt_returndate.Size = new System.Drawing.Size(453, 38);
             this.dt_returndate.TabIndex = 16;
@@ -187,7 +189,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Green;
-            this.label10.Location = new System.Drawing.Point(20, 414);
+            this.label10.Location = new System.Drawing.Point(16, 396);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(204, 31);
             this.label10.TabIndex = 20;
@@ -474,7 +476,7 @@
             "1710",
             "1840",
             "1930"});
-            this.txt_flighttimes.Location = new System.Drawing.Point(243, 411);
+            this.txt_flighttimes.Location = new System.Drawing.Point(239, 393);
             this.txt_flighttimes.Name = "txt_flighttimes";
             this.txt_flighttimes.Size = new System.Drawing.Size(96, 37);
             this.txt_flighttimes.TabIndex = 85;
@@ -955,7 +957,7 @@
             "Bus",
             "Non-Flight",
             "Other"});
-            this.cmb_carstatus.Location = new System.Drawing.Point(362, 416);
+            this.cmb_carstatus.Location = new System.Drawing.Point(358, 398);
             this.cmb_carstatus.Name = "cmb_carstatus";
             this.cmb_carstatus.Size = new System.Drawing.Size(334, 28);
             this.cmb_carstatus.TabIndex = 170;
@@ -1099,12 +1101,36 @@
             this.textBox4.TabIndex = 178;
             this.textBox4.Visible = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Green;
+            this.label2.Location = new System.Drawing.Point(122, 439);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 31);
+            this.label2.TabIndex = 181;
+            this.label2.Text = "STAY:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Blue;
+            this.label4.Location = new System.Drawing.Point(233, 439);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(121, 31);
+            this.label4.TabIndex = 182;
+            this.label4.Text = "10 Days";
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_cashcalc);
             this.Controls.Add(this.btn_refund);
             this.Controls.Add(this.textBox4);
@@ -1261,5 +1287,7 @@
         private System.Windows.Forms.Button btn_refund;
         private System.Windows.Forms.Button btn_cashcalc;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
     }
 }
