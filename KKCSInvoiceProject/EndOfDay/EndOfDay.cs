@@ -86,7 +86,7 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of dat
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            dtTodaysDate = new DateTime(2017, 8, 15, 12, 0, 0);
+            //dtTodaysDate = new DateTime(2017, 7, 26, 12, 0, 0);
 
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
@@ -264,7 +264,7 @@ namespace KKCSInvoiceProject
 
             DateTime dtDate = DateTime.Today;
             //string query = @"SELECT * FROM Invoice WHERE ReturnMonth = '" + 02 + "' AND ReturnYear = '" + 2017 + "' AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DateInInvisible DESC";
-            dtDate = new DateTime(2017, 5, dtDate.Day, 12, 0, 0);
+            dtDate = new DateTime(2017, 7, dtDate.Day, 12, 0, 0);
 
             string query = "select * from CustomerInvoices WHERE year(DTReturnDate) = year(@dtDate) AND month(DTDatePaid) = month(@dtDate) AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DTDateIn ASC";
             command.Parameters.AddWithValue("@dtDate", dtDate);
@@ -286,7 +286,7 @@ namespace KKCSInvoiceProject
             //sCombinedAccount += "Date In" + Padding.Left(5);
 
             //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
-            sTitle = "BOI Car Storage Yard - May 2017 Accounts";
+            sTitle = "BOI Car Storage Yard - July 2017 Accounts";
 
             int iPadLength = 25;
 
@@ -371,8 +371,7 @@ namespace KKCSInvoiceProject
                 client.Timeout = 100000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new NetworkCredential(
-                  "pg8472@hotmail.com", "Voyger300");
+                client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
                 MailMessage msg = new MailMessage();
                 //msg.To.Add("peter.george.green@gmail.com");
                 msg.To.Add("ar.boiairportcarstorage@outlook.com");
@@ -772,7 +771,7 @@ namespace KKCSInvoiceProject
 
                 fEftposTotal += fEftpos;
 
-                sEftpos = "Inv: " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
+                sEftpos = "Inv:                        " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
 
                 if (reader["PaidStatus"].ToString() == "Eftpos")
                 {
@@ -1166,5 +1165,16 @@ namespace KKCSInvoiceProject
         }
 
         #endregion Checkboxes
+
+        private void btn_email_Click(object sender, EventArgs e)
+        {
+            connection.Open();
+
+            AccountsTest();
+
+            SendEmailTest();
+
+            connection.Close();
+        }
     }
 }

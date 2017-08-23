@@ -25,7 +25,7 @@ namespace KKCSInvoiceProject
 
         int iFormNumberCount = 0;
 
-        int g_iInitialLocationX = 260;
+        int g_iInitialLocationX = 107;
         int g_iInitialLocationY = 12;
 
         List<Form> g_listInvoiceFormList;

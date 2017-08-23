@@ -105,7 +105,7 @@
             this.btn_cashcalc = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbl_stay = new System.Windows.Forms.Label();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -1112,16 +1112,16 @@
             this.label2.TabIndex = 181;
             this.label2.Text = "STAY:";
             // 
-            // label4
+            // lbl_stay
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Blue;
-            this.label4.Location = new System.Drawing.Point(233, 439);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 31);
-            this.label4.TabIndex = 182;
-            this.label4.Text = "10 Days";
+            this.lbl_stay.AutoSize = true;
+            this.lbl_stay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_stay.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_stay.Location = new System.Drawing.Point(228, 439);
+            this.lbl_stay.Name = "lbl_stay";
+            this.lbl_stay.Size = new System.Drawing.Size(121, 31);
+            this.lbl_stay.TabIndex = 182;
+            this.lbl_stay.Text = "00 Days";
             // 
             // Invoice
             // 
@@ -1129,7 +1129,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbl_stay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_cashcalc);
             this.Controls.Add(this.btn_refund);
@@ -1288,6 +1288,6 @@
         private System.Windows.Forms.Button btn_cashcalc;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbl_stay;
     }
 }

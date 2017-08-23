@@ -70,6 +70,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.lbl_dailynotyetprinted = new System.Windows.Forms.Label();
             this.btn_endday = new System.Windows.Forms.Button();
+            this.btn_email = new System.Windows.Forms.Button();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepthree.SuspendLayout();
             this.pnl_stepfour.SuspendLayout();
@@ -557,12 +558,25 @@
             this.btn_endday.Visible = false;
             this.btn_endday.Click += new System.EventHandler(this.btn_endday_Click);
             // 
+            // btn_email
+            // 
+            this.btn_email.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btn_email.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_email.Location = new System.Drawing.Point(98, 12);
+            this.btn_email.Name = "btn_email";
+            this.btn_email.Size = new System.Drawing.Size(118, 40);
+            this.btn_email.TabIndex = 134;
+            this.btn_email.Text = "Email";
+            this.btn_email.UseVisualStyleBackColor = false;
+            this.btn_email.Click += new System.EventHandler(this.btn_email_Click);
+            // 
             // EndOfDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1290, 697);
+            this.Controls.Add(this.btn_email);
             this.Controls.Add(this.btn_endday);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label8);
@@ -632,5 +646,6 @@
         private System.Windows.Forms.ComboBox cmb_StepThree;
         private System.Windows.Forms.Label lbl_confirmationnotyetprinted;
         private System.Windows.Forms.Button btn_endday;
+        private System.Windows.Forms.Button btn_email;
     }
 }

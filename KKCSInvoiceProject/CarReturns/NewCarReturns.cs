@@ -54,6 +54,8 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
+            cmb_searchby.SelectedIndex = 0;
+
             RefreshReturnDate();
         }
 
@@ -114,7 +116,7 @@ namespace KKCSInvoiceProject
             dtDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0);
 
             // Creates a query for todays returns
-            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDateIn = @dtDate ORDER BY ReturnTime ASC";
+            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDateIn = @dtDate ORDER BY TimeIn ASC";
             CreateReturns(sTodaysQuerys);
 
             iInitialPanelLocationY += 10;
@@ -139,7 +141,7 @@ namespace KKCSInvoiceProject
             dtDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0);
 
             // Creates a query for todays returns
-            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDatePaid = @dtDate ORDER BY ReturnTime ASC";
+            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDatePaid = @dtDate ORDER BY TimeIn ASC";
             CreateReturns(sTodaysQuerys);
 
             iInitialPanelLocationY += 10;
@@ -201,7 +203,7 @@ namespace KKCSInvoiceProject
 
         void TitleHeaders(int _iPickTitle)
         {
-            DateTime now = DateTime.Now;
+            DateTime now = dt_timepicked.Value;
 
             Label lblTitle = new Label();
             lblTitle.Location = new Point(pnl_template.Location.X, iInitialPanelLocationY);
@@ -273,15 +275,28 @@ namespace KKCSInvoiceProject
             // Skips the very first check as there is no time to compare on the first
             bool bSkipFirstCheck = true;
 
+            int iCars = 0;
+
             while (reader.Read())
             {
                 // Gets the current time of the record
-                StoreTime = reader["ReturnTime"].ToString();
-
+                if(chk_datebroughtin.Checked || chk_datepaid.Checked)
+                {
+                    //StoreTime = reader["TimeIn"].ToString();
+                }
+                else
+                {
+                    StoreTime = reader["ReturnTime"].ToString();
+                }
+                
                 // Compares the 2 times together to see if they are different or not
                 // Skips the first check
                 if (StoreTime != StoreTimeSecond && !bSkipFirstCheck)
                 {
+                    AmountOfCars(iCars);
+
+                    iCars = 0;
+
                     iInitialPanelLocationY += 50;
 
                     if (sList == "TodaysReturns" && bFirstTimeDividier && iNoMoreThan1Divider < 1)
@@ -303,15 +318,32 @@ namespace KKCSInvoiceProject
                     }
                 }
 
+
                 // Creates the labels for that record
                 CreateIndividualPanel();
 
                 // Makes the Second time = the first time for comparision purposes
                 StoreTimeSecond = StoreTime;
 
+                iCars++;
+
                 // Makes the first check to false for using
                 bSkipFirstCheck = false;
             }
+
+            AmountOfCars(iCars);
+        }
+
+        void AmountOfCars(int _iCars)
+        {
+            Label lbls = new Label();
+            lbls.Location = new Point(lbl_amountofcars.Location.X, iInitialPanelLocationY - 7);
+            lbls.Font = lbl_amountofcars.Font;
+            lbls.Size = lbl_amountofcars.Size;
+            lbls.Name = "lbl_NumberOfCars";
+            lbls.BackColor = lbl_amountofcars.BackColor;
+            lbls.Text = _iCars.ToString("00") + " Cars";
+            Controls.Add(lbls);
         }
 
         void CreateIndividualPanel()
@@ -558,16 +590,48 @@ namespace KKCSInvoiceProject
                 }
 
                 lbl.Text = reader["ReturnTime"].ToString();
+
+                if (chk_returndate.Checked)
+                {
+                    lbl.Text = reader["ReturnTime"].ToString();
+                    lbl_returntimeheader.Text = "Return Time";
+                }
+                else if (chk_datebroughtin.Checked)
+                {
+                    lbl.Text = reader["TimeIn"].ToString();
+                    lbl_returntimeheader.Text = "Time In";
+                }
+                else if (chk_datepaid.Checked)
+                {
+                    lbl.Text = reader["TimeIn"].ToString();
+                    lbl_returntimeheader.Text = "Time Paid";
+                }
             }
 
             if (_p.Name == "lbl_returndate")
             {
+                DateTime dt = new DateTime();
+
+                if (chk_returndate.Checked)
+                {
+                    dt = (DateTime)reader["DTReturnDate"];
+                    lbl_returndateheader.Text = "Return Date";
+                }
+                else if(chk_datebroughtin.Checked)
+                {
+                    dt = (DateTime)reader["DTDateIn"];
+                    lbl_returndateheader.Text = "Date In";
+                }
+                else if(chk_datepaid.Checked)
+                {
+                    dt = (DateTime)reader["DTDatePaid"];
+                    lbl_returndateheader.Text = "Date Paid";
+                }
+
                 bool bIsUnknown = (bool)reader["UnknownDate"];
 
                 if (!bIsUnknown)
                 {
-                    DateTime dt = (DateTime)reader["DTReturnDate"];
-
                     string Date = dt.ToString("ddd").ToUpper() + ", " +
                     dt.Day.ToString() + "-" +
                     dt.ToString("MM") + "-" +
@@ -926,7 +990,6 @@ namespace KKCSInvoiceProject
 
         void DeleteControls()
         {
-            // Deletes all the buttons in the table apart from the Load button
             foreach (Panel pnl in this.Controls.OfType<Panel>().ToArray())
             {
                 if (pnl.Name == "pnl_template")
@@ -939,11 +1002,10 @@ namespace KKCSInvoiceProject
                 }
             }
 
-            // Deletes all the buttons in the table apart from the Load button
-            foreach (Label lbl in this.Controls.OfType <Label>().ToArray())
+            foreach (Label lbl in this.Controls.OfType<Label>().ToArray())
             {
-                if (lbl.Text == "Unknown/Overdue" || lbl.Name == "lbl_blank" || lbl.Name == "lbl_returndate" 
-                    || lbl.Name == "lbl_unknown" || lbl.Name == "lbl_title")
+                if (lbl.Text == "Unknown/Overdue" || lbl.Name == "lbl_blank" || lbl.Name == "lbl_returndate"
+                    || lbl.Name == "lbl_unknown" || lbl.Name == "lbl_title" || lbl.Name == "lbl_NumberOfCars")
                 {
                     Controls.Remove(lbl);
                 }
@@ -1542,21 +1604,108 @@ namespace KKCSInvoiceProject
         }
 
         #endregion BadDebotors
-        
+
         #endregion
 
+        #region Search
+
+        private void cmb_searchby_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmb_items.Text = "";
+
+            if (cmb_searchby.Text == "Invoice No")
+            {
+                cmb_items.Items.Clear();
+            }
+            else
+            {
+                connection.Open();
+
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                string query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY DTReturnDate ASC";
+
+                command.CommandText = query;
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                cmb_items.Items.Clear();
+
+                while (reader.Read())
+                {
+                    if (cmb_searchby.Text == "Car Rego")
+                    {
+                        cmb_items.Items.Add(reader["Rego"].ToString());
+                    }
+                    else if (cmb_searchby.Text == "First Name")
+                    {
+                        cmb_items.Items.Add(reader["FirstName"].ToString());
+                    }
+                    else if (cmb_searchby.Text == "Last Name")
+                    {
+                        cmb_items.Items.Add(reader["LastName"].ToString());
+                    }
+                }
+
+                cmb_items.Sorted = true;
+
+                connection.Close();
+            }
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            if(cmb_items.Text == "")
+            {
+                return;
+            }
+
+            DeleteControls();
+
+            // Set the initial location for the title
+            iInitialPanelLocationY = pnl_template.Location.Y;
+
+            // Creates the Title Header
+            TitleHeaders(2);
+
+            // Create todays date for the query
+            DateTime now = dt_timepicked.Value;
+            //now = now.AddDays(-1);
+            dtDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0);
+
+            // Creates a query for todays returns
+            //string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDateIn = @dtDate ORDER BY TimeIn ASC";
+            string sTodaysQuerys = "";
+
+            if(cmb_searchby.Text == "Invoice No")
+            {
+                sTodaysQuerys = "select * from CustomerInvoices WHERE InvoiceNumber = "+ cmb_items.Text + "";
+            }
+            else if (cmb_searchby.Text == "Car Rego")
+            {
+                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = False AND Rego = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+            }
+            else if (cmb_searchby.Text == "First Name")
+            {
+                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = False AND FirstName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+            }
+            else if (cmb_searchby.Text == "Last Name")
+            {
+                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = False AND LastName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+            }
+
+            CreateReturns(sTodaysQuerys);
+
+            iInitialPanelLocationY += 10;
+
+            Label lblBlank = new Label();
+            lblBlank.Name = "lbl_blank";
+            lblBlank.Location = new Point(0, iInitialPanelLocationY);
+            Controls.Add(lblBlank);
+        }
+
+        #endregion Search
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2323,6 +2323,17 @@ Number: 02-0800-0493229-00
 
                 txt_total.Text = iTotalMoney.ToString();
             }
+
+            if(iDays > 1)
+            {
+                lbl_stay.Text =  iDays.ToString("0") + " Days";
+            }
+            else
+            {
+                lbl_stay.Text = iDays.ToString("0") + " Day";
+            }
+
+            txt_total.Text = "−2147483648";
         }
 
         #endregion
