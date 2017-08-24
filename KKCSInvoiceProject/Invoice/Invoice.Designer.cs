@@ -74,8 +74,8 @@
             this.label45 = new System.Windows.Forms.Label();
             this.txt_account = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.chk_split = new System.Windows.Forms.CheckBox();
+            this.chk_overdue = new System.Windows.Forms.CheckBox();
             this.pnl_overdue = new System.Windows.Forms.Panel();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -83,6 +83,8 @@
             this.label46 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.pnl_splitpayment = new System.Windows.Forms.Panel();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -718,29 +720,29 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Visible = false;
             // 
-            // checkBox1
+            // chk_split
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(877, 488);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(122, 20);
-            this.checkBox1.TabIndex = 166;
-            this.checkBox1.Text = "Split Payment";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chk_split.AutoSize = true;
+            this.chk_split.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_split.Location = new System.Drawing.Point(877, 488);
+            this.chk_split.Name = "chk_split";
+            this.chk_split.Size = new System.Drawing.Size(122, 20);
+            this.chk_split.TabIndex = 166;
+            this.chk_split.Text = "Split Payment";
+            this.chk_split.UseVisualStyleBackColor = true;
+            this.chk_split.CheckedChanged += new System.EventHandler(this.chk_split_CheckedChanged);
             // 
-            // checkBox2
+            // chk_overdue
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(1151, 489);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(86, 20);
-            this.checkBox2.TabIndex = 167;
-            this.checkBox2.Text = "Overdue";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chk_overdue.AutoSize = true;
+            this.chk_overdue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_overdue.Location = new System.Drawing.Point(1151, 489);
+            this.chk_overdue.Name = "chk_overdue";
+            this.chk_overdue.Size = new System.Drawing.Size(86, 20);
+            this.chk_overdue.TabIndex = 167;
+            this.chk_overdue.Text = "Overdue";
+            this.chk_overdue.UseVisualStyleBackColor = true;
+            this.chk_overdue.CheckedChanged += new System.EventHandler(this.chk_overdue_CheckedChanged);
             // 
             // pnl_overdue
             // 
@@ -815,6 +817,8 @@
             // 
             this.pnl_splitpayment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.pnl_splitpayment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_splitpayment.Controls.Add(this.textBox5);
+            this.pnl_splitpayment.Controls.Add(this.label4);
             this.pnl_splitpayment.Controls.Add(this.label27);
             this.pnl_splitpayment.Controls.Add(this.textBox1);
             this.pnl_splitpayment.Controls.Add(this.textBox2);
@@ -827,6 +831,25 @@
             this.pnl_splitpayment.Size = new System.Drawing.Size(254, 208);
             this.pnl_splitpayment.TabIndex = 153;
             this.pnl_splitpayment.Visible = false;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.Location = new System.Drawing.Point(143, 98);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(98, 22);
+            this.textBox5.TabIndex = 155;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(14, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 20);
+            this.label4.TabIndex = 154;
+            this.label4.Text = "Split:";
             // 
             // label27
             // 
@@ -853,7 +876,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(140, 97);
+            this.textBox2.Location = new System.Drawing.Point(143, 137);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(98, 22);
             this.textBox2.TabIndex = 149;
@@ -864,7 +887,7 @@
             this.comboBox3.Items.AddRange(new object[] {
             "Till",
             "Plastic Box"});
-            this.comboBox3.Location = new System.Drawing.Point(140, 140);
+            this.comboBox3.Location = new System.Drawing.Point(143, 180);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(99, 21);
             this.comboBox3.TabIndex = 149;
@@ -874,18 +897,18 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(10, 137);
+            this.label17.Location = new System.Drawing.Point(13, 177);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(129, 20);
+            this.label17.Size = new System.Drawing.Size(107, 20);
             this.label17.TabIndex = 150;
-            this.label17.Text = "From Location:";
+            this.label17.Text = "Paid Status:";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.ForeColor = System.Drawing.Color.White;
-            this.label26.Location = new System.Drawing.Point(11, 97);
+            this.label26.Location = new System.Drawing.Point(14, 137);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(76, 20);
             this.label26.TabIndex = 149;
@@ -1146,8 +1169,8 @@
             this.Controls.Add(this.btn_namesearch);
             this.Controls.Add(this.pnl_splitpayment);
             this.Controls.Add(this.pnl_overdue);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chk_overdue);
+            this.Controls.Add(this.chk_split);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.txt_account);
             this.Controls.Add(this.label45);
@@ -1257,8 +1280,8 @@
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.TextBox txt_account;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox chk_split;
+        private System.Windows.Forms.CheckBox chk_overdue;
         private System.Windows.Forms.Panel pnl_overdue;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox6;
@@ -1289,5 +1312,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_stay;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -114,6 +114,18 @@
     <Compile Include="CarReturns\CarReturns.Designer.cs">
       <DependentUpon>CarReturns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\InvoiceAlerts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoice\InvoiceAlerts.Designer.cs">
+      <DependentUpon>InvoiceAlerts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MoneyInYard\Finances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MoneyInYard\Finances.Designer.cs">
+      <DependentUpon>Finances.cs</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\InvoiceNotes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -369,6 +381,9 @@
     <EmbeddedResource Include="CarReturns\CarReturns.resx">
       <DependentUpon>CarReturns.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\InvoiceAlerts.resx">
+      <DependentUpon>InvoiceAlerts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Invoice\InvoiceNotes.resx">
       <DependentUpon>InvoiceNotes.cs</DependentUpon>
     </EmbeddedResource>
@@ -386,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Invoice\Refund.resx">
       <DependentUpon>Refund.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MoneyInYard\Finances.resx">
+      <DependentUpon>Finances.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RentalCars.resx">
       <DependentUpon>RentalCars.cs</DependentUpon>

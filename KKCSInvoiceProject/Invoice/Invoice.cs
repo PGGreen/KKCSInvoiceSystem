@@ -34,6 +34,7 @@ namespace KKCSInvoiceProject
         DateTime dtDatePaid = DateTime.Now;
 
         InvoiceNotes iv;
+        InvoiceAlerts ia;
         SearchByName sbn;
 
         private bool bIsAlreadySaved = false;
@@ -1724,37 +1725,29 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void chk_split_CheckedChanged(object sender, EventArgs e)
         {
-            /*
-            if (chk_nokey.Checked == true)
+            if(chk_split.Checked)
             {
-                txt_keyno.Text = "NK";
-                //txt_keyno.Enabled = false;
-                //txt_keyno.Visible = false;
-
-            */
+                pnl_splitpayment.Visible = true;
+            }
+            else
+            {
+                pnl_splitpayment.Visible = false;
+            }
+            
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        private void chk_overdue_CheckedChanged(object sender, EventArgs e)
         {
-            //chkbox_cash.Enabled = true;
-            //chkbox_eftpos.Enabled = true;
-            //chkbox_cheque.Enabled = true;
-            //chkbox_internet.Enabled = true;
-            //chkbox_stilltopay.Enabled = true;
-            //chkbox_onaccount.Enabled = true;
-            //chkbox_nocharge.Enabled = true;
-
-            //chkbox_cash.Visible = true;
-            //chkbox_eftpos.Visible = true;
-            //chkbox_cheque.Visible = true;
-            //chkbox_internet.Visible = true;
-            //chkbox_stilltopay.Visible = true;
-            //chkbox_onaccount.Visible = true;
-            //chkbox_nocharge.Visible = true;
-
-            txt_paidstatus.Visible = true;
+            if (chk_overdue.Checked)
+            {
+                pnl_overdue.Visible = true;
+            }
+            else
+            {
+                pnl_overdue.Visible = false;
+            }
         }
 
         private void chk_keypolicy_CheckedChanged(object sender, EventArgs e)
@@ -2533,6 +2526,17 @@ Number: 02-0800-0493229-00
             }
         }
 
+        private void CloseAlertNotes(object sender, CancelEventArgs e)
+        {
+            string sGetCurrentNotes = iv.GetCurrentNotes();
+
+            if (sGetCurrentNotes != "")
+            {
+                txt_notes.Visible = true;
+                txt_notes.Text = sGetCurrentNotes;
+            }
+        }
+
         private void CloseCustomerSearch(object sender, CancelEventArgs e)
         {
             string sCustomerID = sbn.GetCustomerID();
@@ -2606,7 +2610,9 @@ Number: 02-0800-0493229-00
 
         private void btn_addcustalert_Click(object sender, EventArgs e)
         {
-            txt_alerts.Visible = true;
+            ia = new InvoiceAlerts();
+            ia.GetInvoiceNumber(iInvoiceNumber);
+            ia.FormClosing += CloseAlertNotes;
+            ia.ShowDialog();
         }
     }
-}

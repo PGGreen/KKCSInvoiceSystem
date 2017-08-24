@@ -57,23 +57,25 @@ namespace KKCSInvoiceProject
 
             //YTDMoney();
 
+            MonthByMonthMoney();
+
             //TextYard();
 
-            CarStats();
+            //CarStats();
         }
 
         void CarStats()
         {
             connection.Open();
 
-            DateTime dtTodaysDate = new DateTime(2016, 1, 1, 12, 0, 0);
+            DateTime dtTodaysDate = new DateTime(2017, 1, 1, 12, 0, 0);
 
             command = new OleDbCommand();
 
             command.Connection = connection;
 
-            //string query = "select * from CustomerInvoices WHERE year(DTDatePaid) = year(@dtDate) ORDER BY InvoiceNumber ASC";
-            string query = "select * from CustomerInvoices ORDER BY InvoiceNumber ASC";
+            string query = "select * from CustomerInvoices WHERE year(DTDateIn) = year(@dtTodaysDate) ORDER BY InvoiceNumber ASC";
+            //string query = "select * from CustomerInvoices ORDER BY InvoiceNumber ASC";
 
             command.CommandText = query;
             command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
@@ -82,8 +84,6 @@ namespace KKCSInvoiceProject
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
-
-
             // Put the difference of days into the variable
 
             List<int> lstDays = new List<int>();
@@ -115,7 +115,7 @@ namespace KKCSInvoiceProject
             // Skips the very first check as there is no time to compare on the first
             bool bSkipFirstCheck = true;
 
-            lbl_money.Text = lstDays[0].ToString() + "\r\n";
+            lbl_money.Text = "";// lstDays[0].ToString() + "\r\n";
 
             int iAmountOfDaysCount = 0;
 
@@ -124,7 +124,7 @@ namespace KKCSInvoiceProject
                 // Gets the current time of the record
                 StoreDays = lstDays[iCount];
 
-                if (StoreDays != StoreDaysSecond && !bSkipFirstCheck)
+                if (StoreDays != StoreDaysSecond && !bSkipFirstCheck && StoreDays > 0)
                 {
                     lbl_money.Text += StoreDays.ToString("00") + " Days = " + iAmountOfDaysCount.ToString() + "x" + "\r\n";
 
@@ -258,6 +258,110 @@ namespace KKCSInvoiceProject
             string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard + fAccount).ToString("N") + "/r/n";
 
             lbl_money.Text = sCashTotal + sEftposTotal + sCreditCardTotal + sAccountTotal + sTotal;
+
+            connection.Close();
+        }
+
+        void MonthByMonthMoney()
+        {
+            connection.Open();
+
+            DateTime dtTodaysDate = new DateTime(2016, 1, 1, 12, 0, 0);
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from CustomerInvoices WHERE year(DTDatePaid) = year(@dtDate) AND PaidStatus <> 'To Pay' ORDER BY DTDatePaid ASC";
+            query = "SELECT * FROM CustomerInvoices ORDER BY DTDatePaid ASC";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            int iCash = 0;
+            float fEftpos = 0.0f;
+            float fCreditCard = 0.0f;
+            float fAccount = 0.0f;
+
+            float fTotalMonthly = 0.0f;
+
+            DateTime DTStoreDate = new DateTime();
+            DateTime DTStoreDateSecond = new DateTime();
+            bool bSkipFirstTime = true;
+
+            lbl_money.Text = "";
+
+            while (reader.Read())
+            {
+                DTStoreDate = (DateTime)reader["DTDatePaid"];
+
+                if (DTStoreDate.Month != DTStoreDateSecond.Month && !bSkipFirstTime)
+                {
+                    lbl_money.Text += DTStoreDate.ToString("MMM").ToUpper() + " " + DTStoreDate.ToString("yy") +":      $" + fTotalMonthly.ToString("00.00") + "\r\n";
+
+                    fTotalMonthly = 0.0f;
+                }
+
+
+                float fTotal = 0.0f;
+                float.TryParse(reader["TotalPay"].ToString(), out fTotal);
+
+                fTotalMonthly += fTotal;
+
+                bSkipFirstTime = false;
+
+                DTStoreDateSecond = DTStoreDate;
+
+                switch (reader["PaidStatus"].ToString())
+                {
+                    case "Cash":
+                        {
+                            int iCashDatabase = 0;
+                            int.TryParse(reader["TotalPay"].ToString(), out iCashDatabase);
+
+                            iCash += iCashDatabase;
+                            break;
+                        }
+                    case "Eftpos":
+                        {
+                            float fEftposDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fEftposDatabase);
+
+                            fEftpos += fEftposDatabase;
+                            break;
+                        }
+                    case "Credit Card":
+                        {
+                            float fCreditCardDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fCreditCardDatabase);
+
+                            fCreditCard += fCreditCardDatabase;
+                            break;
+                        }
+                    case "OnAcc":
+                        {
+                            float fAccountDatabase = 0.0f;
+                            float.TryParse(reader["TotalPay"].ToString(), out fAccountDatabase);
+
+                            fAccount += fAccountDatabase;
+                            break;
+                        }
+                }
+            }
+
+            //string sCashTotal = "YTD Cash Total: $" + iCash.ToString("N") + "\r\n";
+
+            //string sEftposTotal = "YTD Eftpos Total: $" + fEftpos.ToString("N") + "\r\n";
+
+            //string sCreditCardTotal = "YTD Credit Card Total: $" + fCreditCard.ToString("N") + "\r\n";
+
+            //string sAccountTotal = "YTD Account Total: $" + fAccount.ToString("N") + "\r\n";
+
+            //string sTotal = "YTD Total: $" + ((float)iCash + fEftpos + fCreditCard + fAccount).ToString("N") + "/r/n";
+
+            //lbl_money.Text = sCashTotal + sEftposTotal + sCreditCardTotal + sAccountTotal + sTotal;
 
             connection.Close();
         }
