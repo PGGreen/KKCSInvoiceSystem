@@ -376,6 +376,7 @@
             this.txt_alerts.Location = new System.Drawing.Point(319, 519);
             this.txt_alerts.Multiline = true;
             this.txt_alerts.Name = "txt_alerts";
+            this.txt_alerts.ReadOnly = true;
             this.txt_alerts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_alerts.Size = new System.Drawing.Size(254, 208);
             this.txt_alerts.TabIndex = 58;
@@ -1001,9 +1002,9 @@
             this.btn_addcustalert.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_addcustalert.Location = new System.Drawing.Point(319, 484);
             this.btn_addcustalert.Name = "btn_addcustalert";
-            this.btn_addcustalert.Size = new System.Drawing.Size(178, 29);
+            this.btn_addcustalert.Size = new System.Drawing.Size(218, 29);
             this.btn_addcustalert.TabIndex = 172;
-            this.btn_addcustalert.Text = "Add Customer Alert";
+            this.btn_addcustalert.Text = "Add/Edit Customer Alert";
             this.btn_addcustalert.UseVisualStyleBackColor = true;
             this.btn_addcustalert.Click += new System.EventHandler(this.btn_addcustalert_Click);
             // 

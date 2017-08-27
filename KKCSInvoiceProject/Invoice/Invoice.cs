@@ -102,7 +102,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                if(NewCarReturns != null)
+                if (NewCarReturns != null)
                 {
                     NewCarReturns.ReloadPageFromInvoice();
                 }
@@ -266,10 +266,10 @@ namespace KKCSInvoiceProject
                 txt_notes.Text = reader["Notes"].ToString();
                 txt_alerts.Text = reader["Alerts"].ToString();
 
-                if(txt_notes.Text != "")
+                if (txt_notes.Text != "")
                 {
                     txt_notes.Visible = true;
-                    btn_addinv.Text = "Delete " + txt_invoiceno.Text + " Note"; 
+                    btn_addinv.Text = "Delete " + txt_invoiceno.Text + " Note";
                 }
                 if (txt_alerts.Text != "")
                 {
@@ -394,11 +394,11 @@ namespace KKCSInvoiceProject
                 }
             }
 
-            if(bIsOnAccount)
+            if (bIsOnAccount)
             {
                 //chkbox_onaccount.Checked = true;
             }
-             
+
             WarningsStoreOriginalValues();
 
             m_bInitialSetUpFromCarReturns = false;
@@ -695,7 +695,7 @@ namespace KKCSInvoiceProject
 
             // Make the command equal the physical location of the database (connection)
             command.Connection = connection;
-            
+
             // Insert the new Number Plate into the Database
             string cmd1 = @"INSERT into CustomerInvoices (InvoiceNumber,KeyNumber) values (" + iInvoiceNumber + ",'" + txt_keyno.Text + "')";
 
@@ -1601,19 +1601,19 @@ namespace KKCSInvoiceProject
             //}
             //else
             //{
-                if (txt_total.Text == "")
-                {
-                    txt_total.BackColor = LabelBackColour;
-                }
-                else
-                {
-                    txt_total.BackColor = System.Drawing.Color.Yellow;
-                }
+            if (txt_total.Text == "")
+            {
+                txt_total.BackColor = LabelBackColour;
+            }
+            else
+            {
+                txt_total.BackColor = System.Drawing.Color.Yellow;
+            }
 
-                if (!m_bInitialSetUpFromCarReturns)
-                {
-                    WarningsChangesMade();
-                }
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
             //}
         }
 
@@ -1727,7 +1727,7 @@ namespace KKCSInvoiceProject
 
         private void chk_split_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_split.Checked)
+            if (chk_split.Checked)
             {
                 pnl_splitpayment.Visible = true;
             }
@@ -1735,7 +1735,7 @@ namespace KKCSInvoiceProject
             {
                 pnl_splitpayment.Visible = false;
             }
-            
+
         }
 
         private void chk_overdue_CheckedChanged(object sender, EventArgs e)
@@ -1766,11 +1766,11 @@ namespace KKCSInvoiceProject
 
         private void cmb_returntimeminutes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!bIsAlreadySaved)
+            if (!bIsAlreadySaved)
             {
                 //txt_total.Text = "";
             }
-            
+
             if (!m_bInitialSetUpFromCarReturns)
             {
                 WarningsChangesMade();
@@ -1847,10 +1847,16 @@ namespace KKCSInvoiceProject
         {
             SetUpPrice();
 
+            if(txt_flighttimes.Text == "2025")
+            {
+                DrivingBack db = new DrivingBack();
+                db.ShowDialog();
+            }
+
             if (!bIsAlreadySaved)
             {
                 //txt_total.Text = "";
-                
+
             }
 
             if (!m_bInitialSetUpFromCarReturns)
@@ -1955,7 +1961,7 @@ namespace KKCSInvoiceProject
                 printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
                 printDocument.DefaultPageSettings.PaperSize = oPS;
                 printDocument.DefaultPageSettings.PaperSource = oPSource;
-                
+
                 printDialog.Document = printDocument; //add the document to the dialog box...        
 
                 printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
@@ -2196,7 +2202,7 @@ Number: 02-0800-0493229-00
             {
                 sFirstName = reader["Account"].ToString();
 
-                if(sFirstName != sSecondName)
+                if (sFirstName != sSecondName)
                 {
                     sSecondName = sFirstName;
 
@@ -2241,7 +2247,7 @@ Number: 02-0800-0493229-00
             {
                 iDays++;
             }
-            
+
             // Gets the time the customer brought the car in
             iTimeInHours = int.Parse(cmb_timeinhours.Text);
 
@@ -2256,7 +2262,7 @@ Number: 02-0800-0493229-00
             // Checks to see if the pricing is within a month, or over
 
             // This means they are staying less than a month
-            if(iDays < 28)
+            if (iDays < 28)
             {
                 // If the days are less than 0, this is impossible so give an error
                 if (iDays < 0)
@@ -2283,13 +2289,13 @@ Number: 02-0800-0493229-00
 
                 else
                 {
-                    int iCalculateTotal = (87 + (iDays7Plus * (iDays -7)));
+                    int iCalculateTotal = (87 + (iDays7Plus * (iDays - 7)));
 
                     iTotalMoney = iCalculateTotal;
                 }
             }
             // This calculates prices if the customer are staying over 1 month or more
-            else if(iDays >= 28)
+            else if (iDays >= 28)
             {
                 float fWorkOutWeeks = (float)iDays / 7;
 
@@ -2317,16 +2323,14 @@ Number: 02-0800-0493229-00
                 txt_total.Text = iTotalMoney.ToString();
             }
 
-            if(iDays > 1)
+            if (iDays > 1)
             {
-                lbl_stay.Text =  iDays.ToString("0") + " Days";
+                lbl_stay.Text = iDays.ToString("0") + " Days";
             }
             else
             {
                 lbl_stay.Text = iDays.ToString("0") + " Day";
             }
-
-            txt_total.Text = "−2147483648";
         }
 
         #endregion
@@ -2411,7 +2415,7 @@ Number: 02-0800-0493229-00
                     }
                 }
 
-                if(iCount > 0)
+                if (iCount > 0)
                 {
                     this.BackColor = Color.Yellow;
                     lbl_changesmade.Visible = true;
@@ -2456,7 +2460,7 @@ Number: 02-0800-0493229-00
 
                         break;
                     }
-                case "Cash": 
+                case "Cash":
                     {
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
@@ -2479,14 +2483,16 @@ Number: 02-0800-0493229-00
 
                         break;
                     }
-                case "Eftpos": case "Internet": case "Cheque":
+                case "Eftpos":
+                case "Internet":
+                case "Cheque":
                     {
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
                         break;
                     }
                 case "On Account":
-                
+
                     {
                         cmb_paidstatus.BackColor = Color.PaleVioletRed;
 
@@ -2519,7 +2525,7 @@ Number: 02-0800-0493229-00
         {
             string sGetCurrentNotes = iv.GetCurrentNotes();
 
-            if(sGetCurrentNotes != "")
+            if (sGetCurrentNotes != "")
             {
                 txt_notes.Visible = true;
                 txt_notes.Text = sGetCurrentNotes;
@@ -2616,3 +2622,4 @@ Number: 02-0800-0493229-00
             ia.ShowDialog();
         }
     }
+}

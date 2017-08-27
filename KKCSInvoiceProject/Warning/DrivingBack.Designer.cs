@@ -65,7 +65,6 @@
             this.Controls.Add(this.lbl_drivingback);
             this.Name = "DrivingBack";
             this.Text = "DrivingBack";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 
