@@ -388,7 +388,6 @@ namespace KKCSInvoiceProject
             return (g_bIsWithRego);
         }
 
-
         #region TextChanged
 
         private void cmb_firstname_SelectedIndexChanged(object sender, EventArgs e)
