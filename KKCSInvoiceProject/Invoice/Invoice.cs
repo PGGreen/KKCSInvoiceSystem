@@ -75,6 +75,8 @@ namespace KKCSInvoiceProject
 
         private void chkbox_topay_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            System.Media.SystemSounds.Exclamation.Play();
+
             if (!m_bIsFromCarReturns)
             {
                 if (bIsAlreadySaved)
@@ -89,7 +91,9 @@ namespace KKCSInvoiceProject
                     ws.ShowDialog();
 
                     if (ws.DialogResult == DialogResult.OK)
-                    {
+                    { 
+                        //System.Media.SystemSounds.Exclamation.Play();
+
                         DestroyInvUnsaved();
 
                         invManager.DeleteTab(iTabNumberFromManager);
