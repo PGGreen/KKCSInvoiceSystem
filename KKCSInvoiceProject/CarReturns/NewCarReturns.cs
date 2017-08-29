@@ -342,7 +342,16 @@ namespace KKCSInvoiceProject
             lbls.Size = lbl_amountofcars.Size;
             lbls.Name = "lbl_NumberOfCars";
             lbls.BackColor = lbl_amountofcars.BackColor;
-            lbls.Text = _iCars.ToString("00") + " Cars";
+
+            if(_iCars == 1)
+            {
+                lbls.Text = _iCars.ToString("0") + " Car";
+            }
+            else
+            {
+                lbls.Text = _iCars.ToString("0") + " Cars";
+            }
+            
             Controls.Add(lbls);
         }
 

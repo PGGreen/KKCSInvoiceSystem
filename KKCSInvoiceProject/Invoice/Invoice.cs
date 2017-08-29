@@ -36,6 +36,7 @@ namespace KKCSInvoiceProject
         InvoiceNotes iv;
         InvoiceAlerts ia;
         SearchByName sbn;
+        DrivingBack db;
 
         private bool bIsAlreadySaved = false;
 
@@ -198,7 +199,7 @@ namespace KKCSInvoiceProject
                 cmb_timeinminutes.Text = CurrentTime.Minute.ToString("00");
 
                 cmb_paidstatus.SelectedIndex = 0;
-                cmb_carstatus.SelectedIndex = 0;
+                cmb_returnstatus.SelectedIndex = 0;
                 cmb_pickedup.SelectedIndex = 0;
                 cmb_carlocation.SelectedIndex = 0;
 
@@ -2624,6 +2625,24 @@ Number: 02-0800-0493229-00
             ia.GetInvoiceNumber(iInvoiceNumber);
             ia.FormClosing += CloseAlertNotes;
             ia.ShowDialog();
+        }
+
+        private void cmb_returnstatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmb_returnstatus.Text != "Standard - Coming In On Flight")
+            {
+                btn_warningagain.Visible = true;
+            }
+            else
+            {
+                btn_warningagain.Visible = false;
+            }
+        }
+
+        private void btn_warningagain_Click(object sender, EventArgs e)
+        {
+            DrivingBack db = new DrivingBack();
+            db.ShowDialog();
         }
     }
 }

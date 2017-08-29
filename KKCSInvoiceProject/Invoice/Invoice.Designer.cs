@@ -35,7 +35,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dt_returndate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbl_flighttime = new System.Windows.Forms.Label();
             this.txt_ph = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cmb_timeinhours = new System.Windows.Forms.ComboBox();
@@ -95,7 +95,7 @@
             this.lbl_pickreturn = new System.Windows.Forms.Label();
             this.btn_namesearch = new System.Windows.Forms.Button();
             this.cmb_makemodel = new System.Windows.Forms.ComboBox();
-            this.cmb_carstatus = new System.Windows.Forms.ComboBox();
+            this.cmb_returnstatus = new System.Windows.Forms.ComboBox();
             this.btn_addinv = new System.Windows.Forms.Button();
             this.btn_addcustalert = new System.Windows.Forms.Button();
             this.cmb_paidstatus = new System.Windows.Forms.ComboBox();
@@ -108,6 +108,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_stay = new System.Windows.Forms.Label();
+            this.btn_warningagain = new System.Windows.Forms.Button();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -186,16 +187,16 @@
             this.label7.TabIndex = 17;
             this.label7.Text = "TIME IN:";
             // 
-            // label10
+            // lbl_flighttime
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Green;
-            this.label10.Location = new System.Drawing.Point(16, 396);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(204, 31);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "FLIGHT TIME:";
+            this.lbl_flighttime.AutoSize = true;
+            this.lbl_flighttime.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_flighttime.ForeColor = System.Drawing.Color.Green;
+            this.lbl_flighttime.Location = new System.Drawing.Point(16, 396);
+            this.lbl_flighttime.Name = "lbl_flighttime";
+            this.lbl_flighttime.Size = new System.Drawing.Size(204, 31);
+            this.lbl_flighttime.TabIndex = 20;
+            this.lbl_flighttime.Text = "FLIGHT TIME:";
             // 
             // txt_ph
             // 
@@ -963,28 +964,28 @@
             this.cmb_makemodel.TabIndex = 169;
             this.cmb_makemodel.TextChanged += new System.EventHandler(this.cmb_makemodel_TextChanged);
             // 
-            // cmb_carstatus
+            // cmb_returnstatus
             // 
-            this.cmb_carstatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cmb_carstatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_carstatus.BackColor = System.Drawing.SystemColors.Window;
-            this.cmb_carstatus.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cmb_carstatus.DropDownWidth = 121;
-            this.cmb_carstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_carstatus.FormattingEnabled = true;
-            this.cmb_carstatus.Items.AddRange(new object[] {
+            this.cmb_returnstatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_returnstatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_returnstatus.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_returnstatus.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_returnstatus.DropDownWidth = 121;
+            this.cmb_returnstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_returnstatus.FormattingEnabled = true;
+            this.cmb_returnstatus.Items.AddRange(new object[] {
             "Standard - Coming In On Flight",
             "Unknown Date & Time",
             "Unknown Date",
             "Unknown Time",
             "Driving Back",
             "Bus",
-            "Non-Flight",
             "Other"});
-            this.cmb_carstatus.Location = new System.Drawing.Point(358, 398);
-            this.cmb_carstatus.Name = "cmb_carstatus";
-            this.cmb_carstatus.Size = new System.Drawing.Size(334, 28);
-            this.cmb_carstatus.TabIndex = 170;
+            this.cmb_returnstatus.Location = new System.Drawing.Point(358, 398);
+            this.cmb_returnstatus.Name = "cmb_returnstatus";
+            this.cmb_returnstatus.Size = new System.Drawing.Size(334, 28);
+            this.cmb_returnstatus.TabIndex = 170;
+            this.cmb_returnstatus.SelectedIndexChanged += new System.EventHandler(this.cmb_returnstatus_SelectedIndexChanged);
             // 
             // btn_addinv
             // 
@@ -1147,12 +1148,24 @@
             this.lbl_stay.TabIndex = 182;
             this.lbl_stay.Text = "00 Days";
             // 
+            // btn_warningagain
+            // 
+            this.btn_warningagain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_warningagain.Location = new System.Drawing.Point(457, 432);
+            this.btn_warningagain.Name = "btn_warningagain";
+            this.btn_warningagain.Size = new System.Drawing.Size(148, 25);
+            this.btn_warningagain.TabIndex = 183;
+            this.btn_warningagain.Text = "(Open Procedure Again)";
+            this.btn_warningagain.UseVisualStyleBackColor = true;
+            this.btn_warningagain.Click += new System.EventHandler(this.btn_warningagain_Click);
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.btn_warningagain);
             this.Controls.Add(this.lbl_stay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_cashcalc);
@@ -1165,7 +1178,7 @@
             this.Controls.Add(this.cmb_paidstatus);
             this.Controls.Add(this.btn_addcustalert);
             this.Controls.Add(this.btn_addinv);
-            this.Controls.Add(this.cmb_carstatus);
+            this.Controls.Add(this.cmb_returnstatus);
             this.Controls.Add(this.cmb_makemodel);
             this.Controls.Add(this.btn_namesearch);
             this.Controls.Add(this.pnl_splitpayment);
@@ -1209,7 +1222,7 @@
             this.Controls.Add(this.txt_total);
             this.Controls.Add(this.lbl_pickreturn);
             this.Controls.Add(this.txt_ph);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.lbl_flighttime);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dt_returndate);
             this.Controls.Add(this.label6);
@@ -1242,7 +1255,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dt_returndate;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbl_flighttime;
         private System.Windows.Forms.TextBox txt_ph;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox cmb_timeinhours;
@@ -1300,7 +1313,7 @@
         private System.Windows.Forms.Label lbl_pickreturn;
         private System.Windows.Forms.Button btn_namesearch;
         private System.Windows.Forms.ComboBox cmb_makemodel;
-        private System.Windows.Forms.ComboBox cmb_carstatus;
+        private System.Windows.Forms.ComboBox cmb_returnstatus;
         private System.Windows.Forms.Button btn_addinv;
         private System.Windows.Forms.Button btn_addcustalert;
         private System.Windows.Forms.ComboBox cmb_paidstatus;
@@ -1315,5 +1328,6 @@
         private System.Windows.Forms.Label lbl_stay;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btn_warningagain;
     }
 }

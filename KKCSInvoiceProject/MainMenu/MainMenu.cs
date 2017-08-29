@@ -100,7 +100,7 @@ namespace KKCSInvoiceProject
                 iCountNumberPlates++;
             }
 
-            lbl_carsindatabase.Text += " " + iCountNumberPlates.ToString();
+            //lbl_carsindatabase.Text += " " + iCountNumberPlates.ToString();
 
             connection.Close();
         }
@@ -1242,9 +1242,29 @@ namespace KKCSInvoiceProject
             }
         }
 
+        private void btn_leftdt_Click(object sender, EventArgs e)
+        {
+            dt_flights.Value = dt_flights.Value.AddDays(-1);
+        }
 
-#endregion
-        
+        private void btn_rightdt_Click(object sender, EventArgs e)
+        {
+            dt_flights.Value = dt_flights.Value.AddDays(1);
+        }
+
+        private void dt_flights_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        void SetUpFlightTimes()
+        {
+
+        }
+
+
+        #endregion
+
 
         // This Function handles the printing of the Daily Car Returns print out
         // TODO: -Clean up in general
