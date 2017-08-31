@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1259,7 +1260,29 @@ namespace KKCSInvoiceProject
 
         void SetUpFlightTimes()
         {
+            string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
 
+            txt_flighttimes.Items.Clear();
+            
+            string sTxtFileLocation = "";
+
+            if (sTodaysDay == "Saturday")
+            {
+                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
+            }
+            else if (sTodaysDay == "Sunday")
+            {
+                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
+            }
+            else
+            {
+                sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
+            }
+
+            using (StreamReader sr = new StreamReader(sTxtFileLocation))
+            {
+                txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
+            }
         }
 
 

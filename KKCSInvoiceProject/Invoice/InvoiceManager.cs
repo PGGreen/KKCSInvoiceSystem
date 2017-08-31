@@ -181,11 +181,7 @@ namespace KKCSInvoiceProject
 
         private void btn_new_Click(object sender, EventArgs e)
         {
-
             //System.Media.SystemSounds.Exclamation.Play();
-
-            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Drive D\GITKKCSInvoiceSystem\KKCSInvoiceSystem\KKCSInvoiceProject\Resources\No.wav");
-            //player.Play();
 
             InvoiceChildForms();
 

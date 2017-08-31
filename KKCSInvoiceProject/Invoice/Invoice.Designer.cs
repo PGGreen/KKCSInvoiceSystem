@@ -429,7 +429,7 @@
             this.btn_print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btn_print.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_print.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_print.Location = new System.Drawing.Point(956, 416);
+            this.btn_print.Location = new System.Drawing.Point(962, 416);
             this.btn_print.Name = "btn_print";
             this.btn_print.Size = new System.Drawing.Size(145, 41);
             this.btn_print.TabIndex = 71;

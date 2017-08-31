@@ -78,6 +78,9 @@ namespace KKCSInvoiceProject
         {
             System.Media.SystemSounds.Exclamation.Play();
 
+            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Drive D\GITKKCSInvoiceSystem\KKCSInvoiceSystem\KKCSInvoiceProject\Resources\No.wav");
+            //player.Play();
+
             if (!m_bIsFromCarReturns)
             {
                 if (bIsAlreadySaved)
@@ -93,8 +96,6 @@ namespace KKCSInvoiceProject
 
                     if (ws.DialogResult == DialogResult.OK)
                     { 
-                        //System.Media.SystemSounds.Exclamation.Play();
-
                         DestroyInvUnsaved();
 
                         invManager.DeleteTab(iTabNumberFromManager);
