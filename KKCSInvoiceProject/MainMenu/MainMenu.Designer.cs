@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.btn_invoice = new System.Windows.Forms.Button();
             this.btn_returns = new System.Windows.Forms.Button();
             this.btn_keybox = new System.Windows.Forms.Button();
             this.btn_moneyinyard = new System.Windows.Forms.Button();
             this.btn_build = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.btn_accounts = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.btn_eod = new System.Windows.Forms.Button();
             this.btn_pettycash = new System.Windows.Forms.Button();
@@ -43,7 +41,6 @@
             this.btn_exit = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -70,25 +67,33 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.ms_mainstrip = new System.Windows.Forms.MenuStrip();
+            this.invoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.returnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keyBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.longTermToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pettyCashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bankingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bookingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_accounts = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tillPBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            this.ms_mainstrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Footlight MT Light", 20.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(296, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(412, 29);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Kerikeri Car Storage Invoice System";
             // 
             // btn_invoice
             // 
             this.btn_invoice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_invoice.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_invoice.Location = new System.Drawing.Point(283, 87);
+            this.btn_invoice.Location = new System.Drawing.Point(12, 289);
             this.btn_invoice.Name = "btn_invoice";
             this.btn_invoice.Size = new System.Drawing.Size(203, 45);
             this.btn_invoice.TabIndex = 1;
@@ -100,7 +105,7 @@
             // 
             this.btn_returns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_returns.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_returns.Location = new System.Drawing.Point(505, 87);
+            this.btn_returns.Location = new System.Drawing.Point(269, 289);
             this.btn_returns.Name = "btn_returns";
             this.btn_returns.Size = new System.Drawing.Size(203, 45);
             this.btn_returns.TabIndex = 2;
@@ -112,7 +117,7 @@
             // 
             this.btn_keybox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btn_keybox.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_keybox.Location = new System.Drawing.Point(724, 87);
+            this.btn_keybox.Location = new System.Drawing.Point(511, 289);
             this.btn_keybox.Name = "btn_keybox";
             this.btn_keybox.Size = new System.Drawing.Size(203, 45);
             this.btn_keybox.TabIndex = 3;
@@ -123,7 +128,7 @@
             // btn_moneyinyard
             // 
             this.btn_moneyinyard.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btn_moneyinyard.Location = new System.Drawing.Point(16, 345);
+            this.btn_moneyinyard.Location = new System.Drawing.Point(877, 255);
             this.btn_moneyinyard.Name = "btn_moneyinyard";
             this.btn_moneyinyard.Size = new System.Drawing.Size(250, 45);
             this.btn_moneyinyard.TabIndex = 5;
@@ -134,7 +139,7 @@
             // btn_build
             // 
             this.btn_build.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btn_build.Location = new System.Drawing.Point(932, 662);
+            this.btn_build.Location = new System.Drawing.Point(924, 612);
             this.btn_build.Name = "btn_build";
             this.btn_build.Size = new System.Drawing.Size(53, 28);
             this.btn_build.TabIndex = 6;
@@ -145,7 +150,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button5.Location = new System.Drawing.Point(16, 141);
+            this.button5.Location = new System.Drawing.Point(877, 459);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(250, 45);
             this.button5.TabIndex = 7;
@@ -153,21 +158,10 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // btn_accounts
-            // 
-            this.btn_accounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btn_accounts.Location = new System.Drawing.Point(16, 192);
-            this.btn_accounts.Name = "btn_accounts";
-            this.btn_accounts.Size = new System.Drawing.Size(250, 45);
-            this.btn_accounts.TabIndex = 8;
-            this.btn_accounts.Text = "Monthly Accounts";
-            this.btn_accounts.UseVisualStyleBackColor = true;
-            this.btn_accounts.Click += new System.EventHandler(this.btn_accounts_Click);
-            // 
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button7.Location = new System.Drawing.Point(16, 243);
+            this.button7.Location = new System.Drawing.Point(877, 561);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(250, 45);
             this.button7.TabIndex = 9;
@@ -179,9 +173,9 @@
             // 
             this.btn_eod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btn_eod.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_eod.Location = new System.Drawing.Point(16, 602);
+            this.btn_eod.Location = new System.Drawing.Point(174, 831);
             this.btn_eod.Name = "btn_eod";
-            this.btn_eod.Size = new System.Drawing.Size(250, 45);
+            this.btn_eod.Size = new System.Drawing.Size(98, 45);
             this.btn_eod.TabIndex = 11;
             this.btn_eod.Text = "End Day";
             this.btn_eod.UseVisualStyleBackColor = false;
@@ -190,7 +184,7 @@
             // btn_pettycash
             // 
             this.btn_pettycash.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btn_pettycash.Location = new System.Drawing.Point(16, 294);
+            this.btn_pettycash.Location = new System.Drawing.Point(877, 204);
             this.btn_pettycash.Name = "btn_pettycash";
             this.btn_pettycash.Size = new System.Drawing.Size(125, 45);
             this.btn_pettycash.TabIndex = 12;
@@ -201,7 +195,7 @@
             // btn_notesbookings
             // 
             this.btn_notesbookings.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_notesbookings.Location = new System.Drawing.Point(16, 396);
+            this.btn_notesbookings.Location = new System.Drawing.Point(877, 306);
             this.btn_notesbookings.Name = "btn_notesbookings";
             this.btn_notesbookings.Size = new System.Drawing.Size(250, 45);
             this.btn_notesbookings.TabIndex = 13;
@@ -212,7 +206,7 @@
             // btn_exit
             // 
             this.btn_exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_exit.Location = new System.Drawing.Point(12, 664);
+            this.btn_exit.Location = new System.Drawing.Point(880, 612);
             this.btn_exit.Name = "btn_exit";
             this.btn_exit.Size = new System.Drawing.Size(38, 28);
             this.btn_exit.TabIndex = 16;
@@ -225,18 +219,18 @@
             this.button3.BackColor = System.Drawing.Color.Black;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(16, 551);
+            this.button3.Location = new System.Drawing.Point(12, 831);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(250, 45);
+            this.button3.Size = new System.Drawing.Size(156, 45);
             this.button3.TabIndex = 17;
-            this.button3.Text = "Print Todays Car Returns";
+            this.button3.Text = "Print Car Returns";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button4.Location = new System.Drawing.Point(16, 447);
+            this.button4.Location = new System.Drawing.Point(877, 357);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(250, 45);
             this.button4.TabIndex = 20;
@@ -244,21 +238,10 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Footlight MT Light", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(427, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 29);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Main Menu";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackColor = System.Drawing.Color.Azure;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.label19);
             this.panel1.Controls.Add(this.label20);
@@ -283,9 +266,9 @@
             this.panel1.Controls.Add(this.btn_leftdt);
             this.panel1.Controls.Add(this.dt_flights);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(283, 138);
+            this.panel1.Location = new System.Drawing.Point(12, 344);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(702, 509);
+            this.panel1.Size = new System.Drawing.Size(702, 481);
             this.panel1.TabIndex = 24;
             // 
             // label19
@@ -357,7 +340,7 @@
             this.button9.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button9.Location = new System.Drawing.Point(351, 134);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(10, 368);
+            this.button9.Size = new System.Drawing.Size(10, 334);
             this.button9.TabIndex = 21;
             this.button9.UseVisualStyleBackColor = false;
             // 
@@ -517,18 +500,18 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Lithos Pro Regular", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(270, 12);
+            this.label3.Location = new System.Drawing.Point(271, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 37);
+            this.label3.Size = new System.Drawing.Size(151, 41);
             this.label3.TabIndex = 0;
             this.label3.Text = "Flights";
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button1.Location = new System.Drawing.Point(147, 294);
+            this.button1.Location = new System.Drawing.Point(1008, 204);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 45);
             this.button1.TabIndex = 14;
@@ -539,22 +522,155 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button2.Location = new System.Drawing.Point(16, 500);
+            this.button2.Location = new System.Drawing.Point(877, 411);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(250, 45);
             this.button2.TabIndex = 25;
             this.button2.Text = "DOC Only Pre-Booking";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // ms_mainstrip
+            // 
+            this.ms_mainstrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ms_mainstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.invoiceToolStripMenuItem,
+            this.returnsToolStripMenuItem,
+            this.keyBoxToolStripMenuItem,
+            this.searchToolStripMenuItem,
+            this.longTermToolStripMenuItem,
+            this.pettyCashToolStripMenuItem,
+            this.bankingToolStripMenuItem,
+            this.bookingsToolStripMenuItem,
+            this.statisticsToolStripMenuItem,
+            this.tillPBToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
+            this.ms_mainstrip.Name = "ms_mainstrip";
+            this.ms_mainstrip.Size = new System.Drawing.Size(1166, 25);
+            this.ms_mainstrip.TabIndex = 26;
+            this.ms_mainstrip.Text = "menuStrip1";
+            // 
+            // invoiceToolStripMenuItem
+            // 
+            this.invoiceToolStripMenuItem.Name = "invoiceToolStripMenuItem";
+            this.invoiceToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
+            this.invoiceToolStripMenuItem.Text = "Invoice";
+            // 
+            // returnsToolStripMenuItem
+            // 
+            this.returnsToolStripMenuItem.Name = "returnsToolStripMenuItem";
+            this.returnsToolStripMenuItem.Size = new System.Drawing.Size(64, 21);
+            this.returnsToolStripMenuItem.Text = "Returns";
+            // 
+            // keyBoxToolStripMenuItem
+            // 
+            this.keyBoxToolStripMenuItem.Name = "keyBoxToolStripMenuItem";
+            this.keyBoxToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
+            this.keyBoxToolStripMenuItem.Text = "Key Box";
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
+            this.searchToolStripMenuItem.Text = "Search";
+            // 
+            // longTermToolStripMenuItem
+            // 
+            this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
+            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
+            this.longTermToolStripMenuItem.Text = "Long Term";
+            // 
+            // pettyCashToolStripMenuItem
+            // 
+            this.pettyCashToolStripMenuItem.Name = "pettyCashToolStripMenuItem";
+            this.pettyCashToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
+            this.pettyCashToolStripMenuItem.Text = "Petty Cash";
+            this.pettyCashToolStripMenuItem.Click += new System.EventHandler(this.pettyCashToolStripMenuItem_Click);
+            // 
+            // bankingToolStripMenuItem
+            // 
+            this.bankingToolStripMenuItem.Name = "bankingToolStripMenuItem";
+            this.bankingToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
+            this.bankingToolStripMenuItem.Text = "Banking";
+            // 
+            // bookingsToolStripMenuItem
+            // 
+            this.bookingsToolStripMenuItem.Name = "bookingsToolStripMenuItem";
+            this.bookingsToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
+            this.bookingsToolStripMenuItem.Text = "Bookings";
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(70, 21);
+            this.statisticsToolStripMenuItem.Text = "Statistics";
+            // 
+            // btn_accounts
+            // 
+            this.btn_accounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.btn_accounts.Location = new System.Drawing.Point(877, 510);
+            this.btn_accounts.Name = "btn_accounts";
+            this.btn_accounts.Size = new System.Drawing.Size(250, 45);
+            this.btn_accounts.TabIndex = 8;
+            this.btn_accounts.Text = "Monthly Accounts";
+            this.btn_accounts.UseVisualStyleBackColor = true;
+            this.btn_accounts.Click += new System.EventHandler(this.btn_accounts_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::KKCSInvoiceProject.Properties.Resources.Car_Storage_Logo;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(250, 40);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(241, 229);
+            this.pictureBox1.TabIndex = 28;
+            this.pictureBox1.TabStop = false;
+            // 
+            // tillPBToolStripMenuItem
+            // 
+            this.tillPBToolStripMenuItem.Name = "tillPBToolStripMenuItem";
+            this.tillPBToolStripMenuItem.Size = new System.Drawing.Size(81, 21);
+            this.tillPBToolStripMenuItem.Text = "Till <-> PB";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.versionToolStripMenuItem});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(55, 21);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // versionToolStripMenuItem
+            // 
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.versionToolStripMenuItem.Text = "Version";
+            this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(39, 21);
+            this.toolStripMenuItem1.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Cornsilk;
-            this.ClientSize = new System.Drawing.Size(1000, 702);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1166, 901);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btn_exit);
@@ -570,26 +686,27 @@
             this.Controls.Add(this.btn_keybox);
             this.Controls.Add(this.btn_returns);
             this.Controls.Add(this.btn_invoice);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ms_mainstrip);
+            this.MainMenuStrip = this.ms_mainstrip;
             this.Name = "MainMenu";
             this.Text = "Main Menu";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.ms_mainstrip.ResumeLayout(false);
+            this.ms_mainstrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_invoice;
         private System.Windows.Forms.Button btn_returns;
         private System.Windows.Forms.Button btn_keybox;
         private System.Windows.Forms.Button btn_moneyinyard;
         private System.Windows.Forms.Button btn_build;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button btn_accounts;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btn_eod;
         private System.Windows.Forms.Button btn_pettycash;
@@ -597,7 +714,6 @@
         private System.Windows.Forms.Button btn_exit;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
@@ -624,5 +740,22 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.MenuStrip ms_mainstrip;
+        private System.Windows.Forms.ToolStripMenuItem invoiceToolStripMenuItem;
+        private System.Windows.Forms.Button btn_accounts;
+        private System.Windows.Forms.ToolStripMenuItem returnsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem keyBoxToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem longTermToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pettyCashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bankingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bookingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem tillPBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
     }
 }

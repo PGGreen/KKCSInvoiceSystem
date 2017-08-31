@@ -578,7 +578,7 @@ namespace KKCSInvoiceProject
                 int.TryParse(reader["KeyNumber"].ToString(), out iFirstNumber);
             }
 
-            txt_keyno.Text = (iFirstNumber + 1).ToString();
+            txt_keyno.Text = (iFirstNumber + 1).ToString("00");
 
             // Closes the connection to the database
             if (connection.State == ConnectionState.Open)
@@ -1015,6 +1015,8 @@ namespace KKCSInvoiceProject
                     m_bAlreadyPaid = false;
                 }
 
+                
+
                 // Checks to see if the customer has already paid or not
                 // Goes in if the customer has not yet paid
                 if (!m_bAlreadyPaid)
@@ -1042,7 +1044,7 @@ namespace KKCSInvoiceProject
                 }
 
                 bool bUnknownDate = false;
-                DateTime dtReturnDate = new DateTime();
+                DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12,0,0);
 
                 int iYearDateIn = dt_datein.Value.Year;
                 int iMonthDateIn = dt_datein.Value.Month;
@@ -2506,6 +2508,7 @@ Number: 02-0800-0493229-00
                     }
                 case "No Charge":
                     {
+                        g_sPaidStatus = "N/C";
                         cmb_paidstatus.BackColor = Color.Orange;
 
                         break;

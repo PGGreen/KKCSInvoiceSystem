@@ -1285,6 +1285,48 @@ namespace KKCSInvoiceProject
             }
         }
 
+        private void pettyCashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["NewPettyCashManager"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                NewPettyCashManager pc = new NewPettyCashManager();
+                pc.Show();
+            }
+        }
+
+        private void versionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ModifierKeys.HasFlag(Keys.Shift) && ModifierKeys.HasFlag(Keys.Control))
+            {
+                AdministratorPassword adp = new AdministratorPassword();
+                adp.Show();
+            }
+            else
+            {
+                Form fm = Application.OpenForms["Changelog"];
+
+                if (fm != null)
+                {
+                    fm.BringToFront();
+                }
+                else
+                {
+                    Changelog cl = new Changelog();
+                    cl.Show();
+                }
+            }
+        }
 
         #endregion
 
