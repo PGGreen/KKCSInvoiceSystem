@@ -1670,6 +1670,11 @@ namespace KKCSInvoiceProject
             {
                 return;
             }
+            else if (cmb_items.Text == "-1")
+            {
+                AdministratorPassword adp = new AdministratorPassword();
+                adp.Show();
+            }
 
             DeleteControls();
 
@@ -1690,7 +1695,7 @@ namespace KKCSInvoiceProject
 
             if(cmb_searchby.Text == "Invoice No")
             {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE InvoiceNumber = "+ cmb_items.Text + "";
+                sTodaysQuerys = "select * from CustomerInvoices WHERE InvoiceNumber = " + cmb_items.Text + "";
             }
             else if (cmb_searchby.Text == "Car Rego")
             {
@@ -1707,12 +1712,12 @@ namespace KKCSInvoiceProject
 
             CreateReturns(sTodaysQuerys);
 
-            iInitialPanelLocationY += 10;
+            //iInitialPanelLocationY += 10;
 
-            Label lblBlank = new Label();
-            lblBlank.Name = "lbl_blank";
-            lblBlank.Location = new Point(0, iInitialPanelLocationY);
-            Controls.Add(lblBlank);
+            //Label lblBlank = new Label();
+            //lblBlank.Name = "lbl_blank";
+            //lblBlank.Location = new Point(0, iInitialPanelLocationY);
+            //Controls.Add(lblBlank);
         }
 
         #endregion Search

@@ -1260,28 +1260,28 @@ namespace KKCSInvoiceProject
 
         void SetUpFlightTimes()
         {
-            string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
+            //string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
 
-            txt_flighttimes.Items.Clear();
+            //txt_flighttimes.Items.Clear();
             
             string sTxtFileLocation = "";
 
-            if (sTodaysDay == "Saturday")
+            //if (sTodaysDay == "Saturday")
             {
                 sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
             }
-            else if (sTodaysDay == "Sunday")
+            //else if (sTodaysDay == "Sunday")
             {
                 sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
             }
-            else
+            //else
             {
                 sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
             }
 
             using (StreamReader sr = new StreamReader(sTxtFileLocation))
             {
-                txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
+                //txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
             }
         }
 

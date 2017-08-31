@@ -86,7 +86,7 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of dat
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            //dtTodaysDate = new DateTime(2017, 7, 26, 12, 0, 0);
+            dtTodaysDate = new DateTime(2017, 8, 30, 12, 0, 0);
 
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
@@ -361,10 +361,14 @@ namespace KKCSInvoiceProject
             }
         }
 
+        WarningSystem test = new WarningSystem("Please Wait... \r\nSending Account Emails", false);
+
         void SendEmailTest()
         {
             try
             {
+                test.Show();
+
                 SmtpClient client = new SmtpClient("smtp.live.com");
                 client.Port = 25;
                 client.EnableSsl = true;
@@ -374,18 +378,28 @@ namespace KKCSInvoiceProject
                 client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
                 MailMessage msg = new MailMessage();
                 //msg.To.Add("peter.george.green@gmail.com");
-                msg.To.Add("ar.boiairportcarstorage@outlook.com");
-                msg.CC.Add("peter.george.green@gmail.com");
+                msg.To.Add("kerikericarstorage@gmail.com");
+                //msg.To.Add("ar.boiairportcarstorage@outlook.com");
+                //msg.CC.Add("peter.george.green@gmail.com");
+                //msg.CC.Add("deborah.green@hertz.com");
                 msg.From = new MailAddress("pg8472@hotmail.com");
                 msg.Subject = sTitle;
                 msg.Body = sCombinedAccount;
-                client.Send(msg);
-                MessageBox.Show("Accounts Email Sent Successfully", "Account Email");
+                //client.Send(msg);
+                Object state = msg;
+                client.SendAsync(msg, state);
+                //MessageBox.Show("Accounts Email Sent Successfully", "Account Email");
+                client.SendCompleted += new SendCompletedEventHandler(smtpClient_SendCompleted);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        void smtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            test.Close();
         }
 
         #endregion
@@ -442,8 +456,8 @@ namespace KKCSInvoiceProject
 
                     connection.Open();
 
-                    SendEndOfDayToDatabase();
-                    SendNextDayToDatabase();
+                    //SendEndOfDayToDatabase();
+                    //SendNextDayToDatabase();
 
                     connection.Close();
                 }
@@ -1080,7 +1094,7 @@ namespace KKCSInvoiceProject
 
         private void btn_printdailytotal_Click(object sender, EventArgs e)
         {
-            PrintTodaysReport();
+            //PrintTodaysReport();
 
             btn_printdailytotal.Text = "Print Again";
             btn_printdailytotal.BackColor = Color.Green;
@@ -1121,7 +1135,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                PrintConfirmationSheet();
+                //PrintConfirmationSheet();
 
                 btn_printconfirmation.Text = "Print Again";
                 btn_printconfirmation.BackColor = Color.Green;
@@ -1141,13 +1155,34 @@ namespace KKCSInvoiceProject
             WarningSystem ws = new WarningSystem(sEndDay, true);
             ws.ShowDialog();
 
-            if(ws.DialogResult == DialogResult.OK)
+            DateTime dtTodaysDateCompare = DateTime.Now;
+            DateTime dtTomorrowsDateCompare = dtTodaysDateCompare.AddDays(1);
+
+            if (ws.DialogResult == DialogResult.OK)
             {
+                if (dtTodaysDateCompare.Month != dtTomorrowsDateCompare.Month)
+                {
+                    //WarningSystem test = new WarningSystem("F", false);
+                    //test.Show();
+
+                    connection.Open();
+
+                    AccountsTest();
+
+                    SendEmailTest();
+
+                    connection.Close();
+
+                    //lbl_lastdayofmonth.Visible = false;
+
+                    //test.Close();
+                }
+
                 this.BackColor = Color.LightGreen;
 
                 btn_endday.BackColor = Color.Green;
                 btn_endday.Text = "Day Ended";
-                btn_endday.Enabled = false;
+                //btn_endday.Enabled = false;
             }
         }
 

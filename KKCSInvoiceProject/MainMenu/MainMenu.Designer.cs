@@ -68,6 +68,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.ms_mainstrip = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.returnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,13 +79,11 @@
             this.bankingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bookingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_accounts = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tillPBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_accounts = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -93,7 +93,7 @@
             // 
             this.btn_invoice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_invoice.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_invoice.Location = new System.Drawing.Point(12, 289);
+            this.btn_invoice.Location = new System.Drawing.Point(58, 238);
             this.btn_invoice.Name = "btn_invoice";
             this.btn_invoice.Size = new System.Drawing.Size(203, 45);
             this.btn_invoice.TabIndex = 1;
@@ -105,7 +105,7 @@
             // 
             this.btn_returns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_returns.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_returns.Location = new System.Drawing.Point(269, 289);
+            this.btn_returns.Location = new System.Drawing.Point(315, 238);
             this.btn_returns.Name = "btn_returns";
             this.btn_returns.Size = new System.Drawing.Size(203, 45);
             this.btn_returns.TabIndex = 2;
@@ -117,7 +117,7 @@
             // 
             this.btn_keybox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btn_keybox.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_keybox.Location = new System.Drawing.Point(511, 289);
+            this.btn_keybox.Location = new System.Drawing.Point(557, 238);
             this.btn_keybox.Name = "btn_keybox";
             this.btn_keybox.Size = new System.Drawing.Size(203, 45);
             this.btn_keybox.TabIndex = 3;
@@ -173,7 +173,7 @@
             // 
             this.btn_eod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btn_eod.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_eod.Location = new System.Drawing.Point(174, 831);
+            this.btn_eod.Location = new System.Drawing.Point(218, 731);
             this.btn_eod.Name = "btn_eod";
             this.btn_eod.Size = new System.Drawing.Size(98, 45);
             this.btn_eod.TabIndex = 11;
@@ -219,7 +219,7 @@
             this.button3.BackColor = System.Drawing.Color.Black;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(12, 831);
+            this.button3.Location = new System.Drawing.Point(56, 731);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(156, 45);
             this.button3.TabIndex = 17;
@@ -266,9 +266,9 @@
             this.panel1.Controls.Add(this.btn_leftdt);
             this.panel1.Controls.Add(this.dt_flights);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(12, 344);
+            this.panel1.Location = new System.Drawing.Point(58, 289);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(702, 481);
+            this.panel1.Size = new System.Drawing.Size(702, 436);
             this.panel1.TabIndex = 24;
             // 
             // label19
@@ -340,7 +340,7 @@
             this.button9.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button9.Location = new System.Drawing.Point(351, 134);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(10, 334);
+            this.button9.Size = new System.Drawing.Size(10, 289);
             this.button9.TabIndex = 21;
             this.button9.UseVisualStyleBackColor = false;
             // 
@@ -500,11 +500,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Lithos Pro Regular", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
             this.label3.Location = new System.Drawing.Point(271, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(151, 41);
+            this.label3.Size = new System.Drawing.Size(119, 37);
             this.label3.TabIndex = 0;
             this.label3.Text = "Flights";
             // 
@@ -547,9 +547,23 @@
             this.aboutToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
-            this.ms_mainstrip.Size = new System.Drawing.Size(1166, 25);
+            this.ms_mainstrip.Size = new System.Drawing.Size(813, 25);
             this.ms_mainstrip.TabIndex = 26;
             this.ms_mainstrip.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(39, 21);
+            this.toolStripMenuItem1.Text = "File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // invoiceToolStripMenuItem
             // 
@@ -578,7 +592,7 @@
             // longTermToolStripMenuItem
             // 
             this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
-            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
+            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
             this.longTermToolStripMenuItem.Text = "Long Term";
             // 
             // pettyCashToolStripMenuItem
@@ -606,27 +620,6 @@
             this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(70, 21);
             this.statisticsToolStripMenuItem.Text = "Statistics";
             // 
-            // btn_accounts
-            // 
-            this.btn_accounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btn_accounts.Location = new System.Drawing.Point(877, 510);
-            this.btn_accounts.Name = "btn_accounts";
-            this.btn_accounts.Size = new System.Drawing.Size(250, 45);
-            this.btn_accounts.TabIndex = 8;
-            this.btn_accounts.Text = "Monthly Accounts";
-            this.btn_accounts.UseVisualStyleBackColor = true;
-            this.btn_accounts.Click += new System.EventHandler(this.btn_accounts_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::KKCSInvoiceProject.Properties.Resources.Car_Storage_Logo;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(250, 40);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(241, 229);
-            this.pictureBox1.TabIndex = 28;
-            this.pictureBox1.TabStop = false;
-            // 
             // tillPBToolStripMenuItem
             // 
             this.tillPBToolStripMenuItem.Name = "tillPBToolStripMenuItem";
@@ -644,30 +637,37 @@
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
+            // btn_accounts
             // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(39, 21);
-            this.toolStripMenuItem1.Text = "File";
+            this.btn_accounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.btn_accounts.Location = new System.Drawing.Point(877, 510);
+            this.btn_accounts.Name = "btn_accounts";
+            this.btn_accounts.Size = new System.Drawing.Size(250, 45);
+            this.btn_accounts.TabIndex = 8;
+            this.btn_accounts.Text = "Monthly Accounts";
+            this.btn_accounts.UseVisualStyleBackColor = true;
+            this.btn_accounts.Click += new System.EventHandler(this.btn_accounts_Click);
             // 
-            // exitToolStripMenuItem
+            // pictureBox1
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.pictureBox1.BackgroundImage = global::KKCSInvoiceProject.Properties.Resources.Car_Storage_Logo;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(315, 41);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(206, 189);
+            this.pictureBox1.TabIndex = 28;
+            this.pictureBox1.TabStop = false;
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1166, 901);
+            this.ClientSize = new System.Drawing.Size(813, 783);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
