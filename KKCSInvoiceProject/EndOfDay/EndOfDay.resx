@@ -117,12 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label27.Text" xml:space="preserve">
-    <value>NOTE: If any of money or petty cash is wrong,
-please attempt to correct the problem before ending
-the day.
-
-If that is not possible please leave a note in the "Notes"
-section to be looked at the next day.</value>
-  </data>
 </root>

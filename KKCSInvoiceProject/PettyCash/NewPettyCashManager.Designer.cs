@@ -30,7 +30,6 @@
         {
             this.btn_new = new System.Windows.Forms.Button();
             this.bnt_right = new System.Windows.Forms.Button();
-            this.btn_left = new System.Windows.Forms.Button();
             this.btn_reload = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txt_year = new System.Windows.Forms.TextBox();
@@ -50,6 +49,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,21 +67,14 @@
             // 
             // bnt_right
             // 
-            this.bnt_right.Location = new System.Drawing.Point(310, 37);
+            this.bnt_right.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_right.Location = new System.Drawing.Point(310, 33);
             this.bnt_right.Name = "bnt_right";
-            this.bnt_right.Size = new System.Drawing.Size(32, 23);
+            this.bnt_right.Size = new System.Drawing.Size(42, 33);
             this.bnt_right.TabIndex = 15;
             this.bnt_right.Text = "--->";
             this.bnt_right.UseVisualStyleBackColor = true;
-            // 
-            // btn_left
-            // 
-            this.btn_left.Location = new System.Drawing.Point(108, 37);
-            this.btn_left.Name = "btn_left";
-            this.btn_left.Size = new System.Drawing.Size(32, 23);
-            this.btn_left.TabIndex = 14;
-            this.btn_left.Text = "<---";
-            this.btn_left.UseVisualStyleBackColor = true;
+            this.bnt_right.Click += new System.EventHandler(this.bnt_right_Click);
             // 
             // btn_reload
             // 
@@ -142,6 +135,7 @@
             this.cmb_month.Name = "cmb_month";
             this.cmb_month.Size = new System.Drawing.Size(157, 33);
             this.cmb_month.TabIndex = 9;
+            this.cmb_month.SelectedIndexChanged += new System.EventHandler(this.cmb_month_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -291,12 +285,24 @@
             this.label8.TabIndex = 33;
             this.label8.Text = "Edit";
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(99, 33);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(42, 33);
+            this.button2.TabIndex = 34;
+            this.button2.Text = "<--";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // NewPettyCashManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1121, 736);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -307,7 +313,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_new);
             this.Controls.Add(this.bnt_right);
-            this.Controls.Add(this.btn_left);
             this.Controls.Add(this.btn_reload);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_year);
@@ -326,7 +331,6 @@
 
         private System.Windows.Forms.Button btn_new;
         private System.Windows.Forms.Button bnt_right;
-        private System.Windows.Forms.Button btn_left;
         private System.Windows.Forms.Button btn_reload;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_year;
@@ -346,5 +350,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button2;
     }
 }

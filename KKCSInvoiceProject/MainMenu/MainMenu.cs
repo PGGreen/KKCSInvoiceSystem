@@ -60,20 +60,13 @@ namespace KKCSInvoiceProject
 
         void Debug()
         {
-            btn_build.BackColor = Color.Black;
-            btn_build.ForeColor = Color.White;
-            btn_build.Text = "d" + sVersionNumber;
+            versionToolStripMenuItem.BackColor = Color.Black;
+            versionToolStripMenuItem.ForeColor = Color.White;
+            versionToolStripMenuItem.Text = "dVersion";
 
-            Label lblDebug = new Label();
+            lbl_debug.Visible = true;
+            lbl_debug.Location = new Point(100, 100);
 
-            lblDebug.Location = new Point(400, 400);
-            lblDebug.Text = "WARNING: TEST MODE";
-            lblDebug.Font = new Font("Microsoft San Serif", 24, FontStyle.Bold);
-            lblDebug.Size = new Size(400, 37);
-            lblDebug.BackColor = Color.Black;
-            lblDebug.ForeColor = Color.White;
-
-            Controls.Add(lblDebug);
         }
 
         public void SetUpRegoComboBox()

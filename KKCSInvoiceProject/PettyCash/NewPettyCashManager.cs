@@ -32,10 +32,10 @@ namespace KKCSInvoiceProject
 
             InitializeComponent();
 
-            SetUpInitialMonthAndYear();
+            cmb_month.SelectedIndex = 1;
         }
 
-        void SetUpInitialMonthAndYear()
+        void SetUpInitialMonthAndYear(DateTime _dt)
         {
             connection.Open();
 
@@ -43,7 +43,8 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"SELECT * FROM NewPettyCash ORDER BY DatePetty ASC";
+            string query = @"SELECT * FROM NewPettyCash WHERE month(DatePetty) = month(@_dt) ORDER BY DatePetty ASC";
+            command.Parameters.AddWithValue("@_dt", _dt);
 
             command.CommandText = query;
 
@@ -57,6 +58,7 @@ namespace KKCSInvoiceProject
 
                 pnl = new Panel();
                 pnl.Location = new Point(pnl_template.Location.X, iInitialPanelLocationY);
+                pnl.Name = "F";
 
                 pnl.Size = pnl_template.Size;
 
@@ -89,6 +91,8 @@ namespace KKCSInvoiceProject
 
                 iInitialPanelLocationY += 60;
             }
+
+            connection.Close();
         }
 
         void ControlLabels(Control _p)
@@ -191,5 +195,56 @@ namespace KKCSInvoiceProject
         }
 
         #endregion Buttons
+
+        private void cmb_month_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DeleteControls();
+
+            DateTime dt = new DateTime();
+
+            if (cmb_month.SelectedIndex != 0)
+            {
+                dt = new DateTime(DateTime.Now.Year, cmb_month.SelectedIndex, DateTime.Now.Day, 12, 0, 0);
+
+                //txt_year.Text = dt.Year.ToString();
+
+                SetUpInitialMonthAndYear(dt);
+            }
+            txt_year.Focus();
+        }
+
+        void DeleteControls()
+        {
+            foreach (Panel pnl in this.Controls.OfType<Panel>().ToArray())
+            {
+                if (pnl.Name == "pnl_template")
+                {
+                    // Do Nothing
+                }
+                else
+                {
+                    Controls.Remove(pnl);
+                }
+            }
+
+            foreach (Label lbl in this.Controls.OfType<Label>().ToArray())
+            {
+                if (lbl.Text == "Unknown/Overdue" || lbl.Name == "lbl_blank" || lbl.Name == "lbl_returndate"
+                    || lbl.Name == "lbl_unknown" || lbl.Name == "lbl_title" || lbl.Name == "lbl_NumberOfCars")
+                {
+                    Controls.Remove(lbl);
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            cmb_month.SelectedIndex -= 1;
+        }
+
+        private void bnt_right_Click(object sender, EventArgs e)
+        {
+            cmb_month.SelectedIndex += 1;
+        }
     }
 }

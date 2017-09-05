@@ -84,6 +84,7 @@
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_accounts = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbl_debug = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -134,6 +135,7 @@
             this.btn_moneyinyard.TabIndex = 5;
             this.btn_moneyinyard.Text = "Accounting";
             this.btn_moneyinyard.UseVisualStyleBackColor = true;
+            this.btn_moneyinyard.Visible = false;
             this.btn_moneyinyard.Click += new System.EventHandler(this.btn_moneyinyard_Click);
             // 
             // btn_build
@@ -145,6 +147,7 @@
             this.btn_build.TabIndex = 6;
             this.btn_build.Text = "v1.00";
             this.btn_build.UseVisualStyleBackColor = true;
+            this.btn_build.Visible = false;
             this.btn_build.Click += new System.EventHandler(this.btn_build_Click);
             // 
             // button5
@@ -156,6 +159,7 @@
             this.button5.TabIndex = 7;
             this.button5.Text = "Customer/Rego Search";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button7
@@ -167,6 +171,7 @@
             this.button7.TabIndex = 9;
             this.button7.Text = "Long Term";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // btn_eod
@@ -190,6 +195,7 @@
             this.btn_pettycash.TabIndex = 12;
             this.btn_pettycash.Text = "Petty Cash";
             this.btn_pettycash.UseVisualStyleBackColor = true;
+            this.btn_pettycash.Visible = false;
             this.btn_pettycash.Click += new System.EventHandler(this.btn_pettycash_Click);
             // 
             // btn_notesbookings
@@ -201,6 +207,7 @@
             this.btn_notesbookings.TabIndex = 13;
             this.btn_notesbookings.Text = "Notes/Bookings";
             this.btn_notesbookings.UseVisualStyleBackColor = true;
+            this.btn_notesbookings.Visible = false;
             this.btn_notesbookings.Click += new System.EventHandler(this.btn_notesbookings_Click);
             // 
             // btn_exit
@@ -212,6 +219,7 @@
             this.btn_exit.TabIndex = 16;
             this.btn_exit.Text = "Exit";
             this.btn_exit.UseVisualStyleBackColor = true;
+            this.btn_exit.Visible = false;
             this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
             // 
             // button3
@@ -236,6 +244,7 @@
             this.button4.TabIndex = 20;
             this.button4.Text = "Statistics";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // panel1
@@ -500,11 +509,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Eras Bold ITC", 24F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(271, 9);
+            this.label3.Location = new System.Drawing.Point(291, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 37);
+            this.label3.Size = new System.Drawing.Size(127, 36);
             this.label3.TabIndex = 0;
             this.label3.Text = "Flights";
             // 
@@ -517,6 +526,7 @@
             this.button1.TabIndex = 14;
             this.button1.Text = "Banking";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
@@ -528,6 +538,7 @@
             this.button2.TabIndex = 25;
             this.button2.Text = "DOC Only Pre-Booking";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // ms_mainstrip
             // 
@@ -547,7 +558,7 @@
             this.aboutToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
-            this.ms_mainstrip.Size = new System.Drawing.Size(813, 25);
+            this.ms_mainstrip.Size = new System.Drawing.Size(818, 25);
             this.ms_mainstrip.TabIndex = 26;
             this.ms_mainstrip.Text = "menuStrip1";
             // 
@@ -650,6 +661,7 @@
             this.btn_accounts.TabIndex = 8;
             this.btn_accounts.Text = "Monthly Accounts";
             this.btn_accounts.UseVisualStyleBackColor = true;
+            this.btn_accounts.Visible = false;
             this.btn_accounts.Click += new System.EventHandler(this.btn_accounts_Click);
             // 
             // pictureBox1
@@ -662,12 +674,26 @@
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
             // 
+            // lbl_debug
+            // 
+            this.lbl_debug.AutoSize = true;
+            this.lbl_debug.BackColor = System.Drawing.Color.Black;
+            this.lbl_debug.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_debug.ForeColor = System.Drawing.Color.White;
+            this.lbl_debug.Location = new System.Drawing.Point(879, 106);
+            this.lbl_debug.Name = "lbl_debug";
+            this.lbl_debug.Size = new System.Drawing.Size(629, 55);
+            this.lbl_debug.TabIndex = 29;
+            this.lbl_debug.Text = "WARNING: DEBUG MODE";
+            this.lbl_debug.Visible = false;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(813, 783);
+            this.ClientSize = new System.Drawing.Size(818, 783);
+            this.Controls.Add(this.lbl_debug);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
@@ -757,5 +783,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
+        private System.Windows.Forms.Label lbl_debug;
     }
 }

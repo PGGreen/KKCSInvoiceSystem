@@ -74,6 +74,8 @@ namespace KKCSInvoiceProject
             // Makes the connection string the database path
             connection.ConnectionString = m_strDataBaseFilePath;
 
+            cmb_worker.SelectedIndex = 0;
+
             connection.Open();
 
             //PrintYTDReport();
@@ -212,20 +214,20 @@ namespace KKCSInvoiceProject
 
         private void cmb_Step2Correct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmb_Step2Correct.Text == "Yes")
-            {
-                pnl_stepthree.Enabled = true;
-                cmb_Step2Correct.BackColor = Color.LightGreen;
+            //if (cmb_Step2Correct.Text == "Yes")
+            //{
+            //    pnl_stepthree.Enabled = true;
+            //    cmb_Step2Correct.BackColor = Color.LightGreen;
 
-                g_bStepTwoCash = true;
-            }
-            else if (cmb_Step2Correct.Text == "No")
-            {
-                pnl_stepthree.Enabled = true;
-                cmb_Step2Correct.BackColor = Color.Red;
+            //    g_bStepTwoCash = true;
+            //}
+            //else if (cmb_Step2Correct.Text == "No")
+            //{
+            //    pnl_stepthree.Enabled = true;
+            //    cmb_Step2Correct.BackColor = Color.Red;
 
-                g_bStepTwoCash = true;
-            }
+            //    g_bStepTwoCash = true;
+            //}
         }
 
         private void cmb_StepThree_SelectedIndexChanged(object sender, EventArgs e)
@@ -438,7 +440,7 @@ namespace KKCSInvoiceProject
 
                         connection.Close();
 
-                        lbl_lastdayofmonth.Visible = false;
+                        //lbl_lastdayofmonth.Visible = false;
                     }
 
                     //lbl_dayendstatus.Text = "Day Closed";
@@ -451,7 +453,7 @@ namespace KKCSInvoiceProject
 
                     btn_eod.Visible = false;
                     btn_eod.Enabled = false;
-                    cmb_Step2Correct.Enabled = false;
+                    //cmb_Step2Correct.Enabled = false;
                     //chk_printed.Enabled = false;
 
                     connection.Open();
@@ -480,7 +482,7 @@ namespace KKCSInvoiceProject
             //                values ('" + EODDate + "', '" + cmb_reciept.Text + "', " + chk_printed.Checked + ", '" + txtbox_reason.Text + "', True)";
 
             string query = @"UPDATE MoneyInYard SET 
-                                    TotalCashCorrect = '" + cmb_Step2Correct.Text +
+                                    TotalCashCorrect = '" + sTrue +
                                     //"', EftposTotalPrinted = " + chk_printed.Checked + 
                                     "', Reason = '" + txtbox_notes.Text +
                                     "', DayEnded = " + sTrue +
@@ -572,7 +574,7 @@ namespace KKCSInvoiceProject
             NextLine(1);
             string sTillTotal = "Total Cash Taken Today: " + g_iTotalCash.ToString("$0.00");
             graphic.DrawString(sTillTotal, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
-            graphic.DrawString(cmb_Step2Correct.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
+            //graphic.DrawString(cmb_Step2Correct.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
             NextLine(4);
 
             // All the Eftpos information
@@ -1099,9 +1101,6 @@ namespace KKCSInvoiceProject
             btn_printdailytotal.Text = "Print Again";
             btn_printdailytotal.BackColor = Color.Green;
 
-            lbl_dailynotyetprinted.Text = "Printed";
-            lbl_dailynotyetprinted.ForeColor = Color.LightGreen;
-
             g_bStepOneDailyTotalPrinted = true;
 
             pnl_steptwo.Enabled = true;
@@ -1112,12 +1111,12 @@ namespace KKCSInvoiceProject
             int iCountWarnings = 0;
             string sWarning = "You have selected 'No' for:\r\n";
 
-            if (cmb_Step2Correct.Text == "No")
-            {
-                sWarning += "-Cash Totals\r\n";
+            //if (cmb_Step2Correct.Text == "No")
+            //{
+            //    sWarning += "-Cash Totals\r\n";
 
-                iCountWarnings++;
-            }
+            //    iCountWarnings++;
+            //}
 
             if(cmb_StepThree.Text == "No")
             {
@@ -1140,8 +1139,8 @@ namespace KKCSInvoiceProject
                 btn_printconfirmation.Text = "Print Again";
                 btn_printconfirmation.BackColor = Color.Green;
 
-                lbl_confirmationnotyetprinted.Text = "Printed";
-                lbl_confirmationnotyetprinted.ForeColor = Color.LightGreen;
+                //lbl_confirmationnotyetprinted.Text = "Printed";
+                //lbl_confirmationnotyetprinted.ForeColor = Color.LightGreen;
 
                 lbl_haveyousigned.Visible = true;
                 chk_signedform.Visible = true;
