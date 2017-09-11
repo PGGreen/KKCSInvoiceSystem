@@ -15,12 +15,12 @@ namespace KKCSInvoiceProject
         [STAThread]
         static void Main()
         {
-            if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
-            {
+            //if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length > 1)
+            //{
                 //AppLog.Write("Application XXXX already running. Only one instance of this application is allowed", AppLog.LogMessageType.Warn);
-                return;
-            }
-            else
+                //return; 
+            //}
+            //else
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

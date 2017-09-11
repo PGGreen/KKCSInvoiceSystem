@@ -88,7 +88,7 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of dat
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            //dtTodaysDate = new DateTime(2017, 8, 30, 12, 0, 0);
+            dtTodaysDate = new DateTime(2017, 9, 6, 12, 0, 0);
 
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
@@ -1096,7 +1096,7 @@ namespace KKCSInvoiceProject
 
         private void btn_printdailytotal_Click(object sender, EventArgs e)
         {
-            //PrintTodaysReport();
+            PrintTodaysReport();
 
             btn_printdailytotal.Text = "Print Again";
             btn_printdailytotal.BackColor = Color.Green;
@@ -1134,7 +1134,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                //PrintConfirmationSheet();
+                PrintConfirmationSheet();
 
                 btn_printconfirmation.Text = "Print Again";
                 btn_printconfirmation.BackColor = Color.Green;

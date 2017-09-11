@@ -483,6 +483,23 @@ namespace KKCSInvoiceProject
             PrintLongTerm();
         }
 
+        public void MinimiseForm()
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        public FormWindowState GetWindowsState()
+        {
+            return (this.WindowState);
+        }
+        
+        private void MainMenu_GotFocus(Object sender, EventArgs e)
+        {
+            int i = 0;
+            this.WindowState = FormWindowState.Minimized;
+            //MessageBox.Show("Got Focus");
+        } 
+
         #region Printing
 
         private void PrintLongTerm()
@@ -1320,6 +1337,24 @@ namespace KKCSInvoiceProject
                 }
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string sTabsStillOpen = "If you close the Main Menu, all other forms will also close, Any unsaved data WILL be lost. Is this ok?";
+
+            DialogResult dialogResult = MessageBox.Show(sTabsStillOpen, "WARNING", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                //Close();
+
+                m_bUserExit = true;
+
+                Close();
+            }
+        }
+
+        
 
         #endregion
 

@@ -558,7 +558,7 @@
             this.aboutToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
-            this.ms_mainstrip.Size = new System.Drawing.Size(818, 25);
+            this.ms_mainstrip.Size = new System.Drawing.Size(820, 25);
             this.ms_mainstrip.TabIndex = 26;
             this.ms_mainstrip.Text = "menuStrip1";
             // 
@@ -573,8 +573,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // invoiceToolStripMenuItem
             // 
@@ -692,7 +693,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(818, 783);
+            this.ClientSize = new System.Drawing.Size(820, 783);
             this.Controls.Add(this.lbl_debug);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button2);
@@ -716,6 +717,7 @@
             this.MainMenuStrip = this.ms_mainstrip;
             this.Name = "MainMenu";
             this.Text = "Main Menu";
+            this.Deactivate += new System.EventHandler(MainMenu_GotFocus);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ms_mainstrip.ResumeLayout(false);
