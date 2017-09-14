@@ -204,7 +204,7 @@ namespace KKCSInvoiceProject
                 cmb_pickedup.SelectedIndex = 0;
                 cmb_carlocation.SelectedIndex = 0;
 
-                btn_addinv.Text = "Add Invoice " + txt_invoiceno.Text + " Note";
+                btn_addinv.Text = "Add/Edit Invoice " + txt_invoiceno.Text + " Note";
 
                 txt_total.Text = "";
             }
@@ -836,6 +836,8 @@ namespace KKCSInvoiceProject
                     btn_save.BackColor = Color.Green;
                     btn_save.Text = "SAVED";
                     this.BackColor = Color.LightGreen;
+
+                    btn_refund.Enabled = true;
                 }
                 else
                 {
@@ -2543,13 +2545,13 @@ Number: 02-0800-0493229-00
 
         private void CloseAlertNotes(object sender, CancelEventArgs e)
         {
-            string sGetCurrentNotes = iv.GetCurrentNotes();
+            //string sGetCurrentNotes = iv.GetCurrentNotes();
 
-            if (sGetCurrentNotes != "")
-            {
-                txt_notes.Visible = true;
-                txt_notes.Text = sGetCurrentNotes;
-            }
+            //if (sGetCurrentNotes != "")
+            //{
+            //    txt_notes.Visible = true;
+            //    txt_notes.Text = sGetCurrentNotes;
+            //}
         }
 
         private void CloseCustomerSearch(object sender, CancelEventArgs e)
@@ -2609,6 +2611,8 @@ Number: 02-0800-0493229-00
         private void btn_refund_Click(object sender, EventArgs e)
         {
             Refund r = new Refund();
+            string sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
+            r.LoadInfoFromInvoice(dt_datein.Value, dt_returndate.Value, txt_total.Text, txt_invoiceno.Text, sTimeIn, txt_flighttimes.Text, lbl_stay.Text);
             r.ShowDialog();
         }
 
@@ -2626,7 +2630,7 @@ Number: 02-0800-0493229-00
         private void btn_addcustalert_Click(object sender, EventArgs e)
         {
             ia = new InvoiceAlerts();
-            ia.GetInvoiceNumber(iInvoiceNumber);
+            ia.GetRego(cmb_rego.Text);
             ia.FormClosing += CloseAlertNotes;
             ia.ShowDialog();
         }

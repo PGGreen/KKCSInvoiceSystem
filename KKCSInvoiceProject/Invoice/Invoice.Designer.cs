@@ -364,7 +364,6 @@
             this.txt_notes.Location = new System.Drawing.Point(25, 519);
             this.txt_notes.Multiline = true;
             this.txt_notes.Name = "txt_notes";
-            this.txt_notes.ReadOnly = true;
             this.txt_notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_notes.Size = new System.Drawing.Size(254, 208);
             this.txt_notes.TabIndex = 39;
@@ -992,16 +991,16 @@
             this.btn_addinv.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_addinv.Location = new System.Drawing.Point(25, 483);
             this.btn_addinv.Name = "btn_addinv";
-            this.btn_addinv.Size = new System.Drawing.Size(215, 29);
+            this.btn_addinv.Size = new System.Drawing.Size(254, 29);
             this.btn_addinv.TabIndex = 171;
-            this.btn_addinv.Text = "Add Invoice 00000 Note";
+            this.btn_addinv.Text = "Add/Edit Invoice 00000 Note";
             this.btn_addinv.UseVisualStyleBackColor = true;
             this.btn_addinv.Click += new System.EventHandler(this.btn_addinv_Click);
             // 
             // btn_addcustalert
             // 
             this.btn_addcustalert.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_addcustalert.Location = new System.Drawing.Point(319, 484);
+            this.btn_addcustalert.Location = new System.Drawing.Point(316, 484);
             this.btn_addcustalert.Name = "btn_addcustalert";
             this.btn_addcustalert.Size = new System.Drawing.Size(218, 29);
             this.btn_addcustalert.TabIndex = 172;
@@ -1091,6 +1090,7 @@
             // 
             // btn_refund
             // 
+            this.btn_refund.Enabled = false;
             this.btn_refund.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_refund.Location = new System.Drawing.Point(600, 484);
             this.btn_refund.Name = "btn_refund";

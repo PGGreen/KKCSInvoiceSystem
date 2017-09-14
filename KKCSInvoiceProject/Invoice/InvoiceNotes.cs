@@ -35,6 +35,8 @@ namespace KKCSInvoiceProject
 
         private void btn_addnote_Click(object sender, EventArgs e)
         {
+            DeleteControls();
+
             if (cmb_worker.Text == "Please Pick...")
             {
                 WarningSystem ws = new WarningSystem("Please pick Staff Memeber", false);
@@ -73,30 +75,80 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sQuery = @"SELECT * FROM InvoiceNotes WHERE InvoiceNumber = "+ g_iInoviceNumber + "";
+            string sQuery = @"SELECT * FROM InvoiceNotes WHERE InvoiceNumber = "+ g_iInoviceNumber + " ORDER BY DateAndTime DESC";
 
             command.CommandText = sQuery;
 
             reader = command.ExecuteReader();
 
-            string sNotes = "";
-            txtbox_currentnotes.Text = "";
+            int iLocX = label4.Location.X;
+            int iLocY = label4.Location.Y;
+
+            int iButtonLocX = button1.Location.X;
 
             while (reader.Read())
             {
                 DateTime dtNoteTime = (DateTime)reader["DateAndTime"];
                 string sDate = dtNoteTime.Day.ToString() + "/" + dtNoteTime.Month + "/" + dtNoteTime.ToString("yy") + " - " + dtNoteTime.ToString("h:mm tt");
 
-                sNotes += reader["Notes"].ToString();
+                Label lbl = new Label();
+                Button btn = new Button();
 
-                sNotes += "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+                lbl.Location = new Point(iLocX, iLocY);
+                lbl.Text = reader["Notes"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+                lbl.AutoSize = true;
+                lbl.MaximumSize = new Size(400, 0);
+                lbl.Font = label4.Font;
 
-                sNotes += "\r\n\r\n";
+                btn.Location = new Point(iButtonLocX, iLocY);
+                btn.Name = reader["ID"].ToString();
+                btn.Text = "Delete";
+
+                btn.Click += new EventHandler(InvoiceButton_Click);
+
+                panel1.Controls.Add(lbl);
+                panel1.Controls.Add(btn);
+
+                iLocY += 100;
             }
 
-            txtbox_currentnotes.Text = sNotes;
+            CloseDBCon();
+        }
+
+        private void InvoiceButton_Click(object sender, EventArgs e)
+        {
+            DeleteControls();
+
+            Button btn = (Button)sender;
+
+            OpenDBCon();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string sQuery = @"DELETE * FROM InvoiceNotes WHERE ID = " + btn.Name + "";
+
+            command.CommandText = sQuery;
+
+            reader = command.ExecuteReader();
 
             CloseDBCon();
+
+            LoadNotes();
+        }
+
+        void DeleteControls()
+        {
+            foreach (Label lbl in panel1.Controls.OfType<Label>().ToArray())
+            {
+                panel1.Controls.Remove(lbl);
+            }
+
+            foreach (Button lbl in panel1.Controls.OfType<Button>().ToArray())
+            {
+                panel1.Controls.Remove(lbl);
+            }
         }
 
         private void OpenDBCon()
@@ -126,7 +178,7 @@ namespace KKCSInvoiceProject
 
         public string GetCurrentNotes()
         {
-            return (txtbox_currentnotes.Text);
+            return (label4.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -1670,11 +1670,6 @@ namespace KKCSInvoiceProject
             {
                 return;
             }
-            else if (cmb_items.Text == "-1")
-            {
-                AdministratorPassword adp = new AdministratorPassword();
-                adp.Show();
-            }
 
             DeleteControls();
 
@@ -1711,6 +1706,13 @@ namespace KKCSInvoiceProject
             }
 
             CreateReturns(sTodaysQuerys);
+
+            if (cmb_items.Text == "-1")
+            {
+                cmb_items.Text = "";
+                AdministratorPassword adp = new AdministratorPassword();
+                adp.Show();
+            }
 
             //iInitialPanelLocationY += 10;
 

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtbox_currentnotes = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.lbl_invoice = new System.Windows.Forms.Label();
@@ -36,18 +35,12 @@
             this.btn_addnote = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_newnote = new System.Windows.Forms.TextBox();
+            this.txt_newalert = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtbox_currentnotes
-            // 
-            this.txtbox_currentnotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbox_currentnotes.Location = new System.Drawing.Point(476, 121);
-            this.txtbox_currentnotes.Multiline = true;
-            this.txtbox_currentnotes.Name = "txtbox_currentnotes";
-            this.txtbox_currentnotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtbox_currentnotes.Size = new System.Drawing.Size(459, 332);
-            this.txtbox_currentnotes.TabIndex = 19;
             // 
             // label3
             // 
@@ -96,6 +89,7 @@
             this.button2.TabIndex = 15;
             this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btn_addnote
             // 
@@ -105,18 +99,19 @@
             this.btn_addnote.Name = "btn_addnote";
             this.btn_addnote.Size = new System.Drawing.Size(137, 39);
             this.btn_addnote.TabIndex = 14;
-            this.btn_addnote.Text = "Add Note";
+            this.btn_addnote.Text = "Add Alert";
             this.btn_addnote.UseVisualStyleBackColor = false;
+            this.btn_addnote.Click += new System.EventHandler(this.btn_addnote_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(536, 81);
+            this.label2.Location = new System.Drawing.Point(658, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 24);
+            this.label2.Size = new System.Drawing.Size(138, 24);
             this.label2.TabIndex = 13;
-            this.label2.Text = "Current Notes";
+            this.label2.Text = "Current Alerts";
             // 
             // label1
             // 
@@ -124,26 +119,59 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(121, 81);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 24);
+            this.label1.Size = new System.Drawing.Size(101, 24);
             this.label1.TabIndex = 12;
-            this.label1.Text = "New Note";
+            this.label1.Text = "New Alert";
             // 
-            // txt_newnote
+            // txt_newalert
             // 
-            this.txt_newnote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_newnote.Location = new System.Drawing.Point(21, 121);
-            this.txt_newnote.Multiline = true;
-            this.txt_newnote.Name = "txt_newnote";
-            this.txt_newnote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_newnote.Size = new System.Drawing.Size(328, 295);
-            this.txt_newnote.TabIndex = 11;
+            this.txt_newalert.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_newalert.Location = new System.Drawing.Point(21, 121);
+            this.txt_newalert.Multiline = true;
+            this.txt_newalert.Name = "txt_newalert";
+            this.txt_newalert.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_newalert.Size = new System.Drawing.Size(328, 295);
+            this.txt_newalert.TabIndex = 11;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Location = new System.Drawing.Point(476, 121);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(545, 295);
+            this.panel1.TabIndex = 19;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(454, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Delete";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(15, 8);
+            this.label4.MaximumSize = new System.Drawing.Size(400, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "label4";
+            this.label4.Visible = false;
             // 
             // InvoiceAlerts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1066, 548);
-            this.Controls.Add(this.txtbox_currentnotes);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmb_worker);
             this.Controls.Add(this.lbl_invoice);
@@ -151,17 +179,17 @@
             this.Controls.Add(this.btn_addnote);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txt_newnote);
+            this.Controls.Add(this.txt_newalert);
             this.Name = "InvoiceAlerts";
             this.Text = "InvoiceAlerts";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtbox_currentnotes;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmb_worker;
         private System.Windows.Forms.Label lbl_invoice;
@@ -169,6 +197,9 @@
         private System.Windows.Forms.Button btn_addnote;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txt_newnote;
+        private System.Windows.Forms.TextBox txt_newalert;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label4;
     }
 }

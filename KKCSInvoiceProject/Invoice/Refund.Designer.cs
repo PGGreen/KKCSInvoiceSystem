@@ -34,7 +34,7 @@
             this.label43 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbl_daysearly = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -116,15 +116,15 @@
             this.label2.TabIndex = 147;
             this.label2.Text = "Customer Name";
             // 
-            // label3
+            // lbl_daysearly
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 47);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 24);
-            this.label3.TabIndex = 153;
-            this.label3.Text = "Days Early:";
+            this.lbl_daysearly.AutoSize = true;
+            this.lbl_daysearly.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_daysearly.Location = new System.Drawing.Point(10, 47);
+            this.lbl_daysearly.Name = "lbl_daysearly";
+            this.lbl_daysearly.Size = new System.Drawing.Size(103, 24);
+            this.lbl_daysearly.TabIndex = 153;
+            this.lbl_daysearly.Text = "Days Early:";
             // 
             // label4
             // 
@@ -210,7 +210,7 @@
             // pnl_refund
             // 
             this.pnl_refund.BackColor = System.Drawing.Color.White;
-            this.pnl_refund.Controls.Add(this.label3);
+            this.pnl_refund.Controls.Add(this.lbl_daysearly);
             this.pnl_refund.Controls.Add(this.label4);
             this.pnl_refund.Controls.Add(this.label5);
             this.pnl_refund.Controls.Add(this.txt_refundowed);
@@ -278,7 +278,7 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbl_daysearly;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
