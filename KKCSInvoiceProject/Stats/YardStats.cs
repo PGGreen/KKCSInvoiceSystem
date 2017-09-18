@@ -190,7 +190,7 @@ namespace KKCSInvoiceProject
         {
             connection.Open();
 
-            DateTime dtTodaysDate = new DateTime(2016, 1, 1, 12, 0, 0);
+            DateTime dtTodaysDate = new DateTime(2017, 1, 1, 12, 0, 0);
 
             command = new OleDbCommand();
 
@@ -292,6 +292,7 @@ namespace KKCSInvoiceProject
             bool bSkipFirstTime = true;
 
             lbl_money.Text = "";
+            lbl_daily.Text = "";
 
             while (reader.Read())
             {
@@ -299,7 +300,16 @@ namespace KKCSInvoiceProject
 
                 if (DTStoreDate.Month != DTStoreDateSecond.Month && !bSkipFirstTime)
                 {
-                    lbl_money.Text += DTStoreDate.ToString("MMM").ToUpper() + " " + DTStoreDate.ToString("yy") +":      $" + fTotalMonthly.ToString("00.00") + "\r\n";
+                    lbl_money.Text += DTStoreDate.ToString("MMM").ToUpper() + " " + DTStoreDate.ToString("yy") +":    $" + fTotalMonthly.ToString("00.00") + "\r\n";
+
+                    if (DTStoreDate.Month == 9 && DTStoreDate.Year == 2017)
+                    {
+                        lbl_daily.Text += "$" + (fTotalMonthly / 15).ToString("00.00") + " (Per Day)" + "\r\n";
+                    }
+                    else
+                    {
+                        lbl_daily.Text += "$" + (fTotalMonthly / 30).ToString("00.00") + " (Per Day)" + "\r\n";
+                    }
 
                     fTotalMonthly = 0.0f;
                 }

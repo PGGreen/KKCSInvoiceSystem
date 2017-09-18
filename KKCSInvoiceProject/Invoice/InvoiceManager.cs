@@ -31,6 +31,8 @@ namespace KKCSInvoiceProject
         List<Form> g_listInvoiceFormList;
         List<Label> g_listTabLabelList;
 
+        MainMenu mm;
+
         public InvoiceManager()
         {
             InitializeComponent();
@@ -53,6 +55,16 @@ namespace KKCSInvoiceProject
             }
 
             InvoiceChildForms();
+        }
+
+        public void SetMainMenuObject(MainMenu _mm)
+        {
+            mm = _mm;
+        }
+
+        public MainMenu GetMainMenuObject()
+        {
+            return (mm);
         }
 
         private void InvoiceManager_Closing(object sender, System.ComponentModel.CancelEventArgs e)

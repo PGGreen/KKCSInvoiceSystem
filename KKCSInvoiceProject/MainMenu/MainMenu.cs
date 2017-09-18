@@ -221,6 +221,7 @@ namespace KKCSInvoiceProject
             else
             {
                 InvoiceManager ip = new InvoiceManager();
+                ip.SetMainMenuObject(this);
                 ip.Show();
             }
         }
@@ -301,6 +302,26 @@ namespace KKCSInvoiceProject
             else
             {
                 NewPettyCashManager pc = new NewPettyCashManager();
+                pc.Show();
+            }
+        }
+
+        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["YardStats"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                YardStats pc = new YardStats();
                 pc.Show();
             }
         }
@@ -493,12 +514,12 @@ namespace KKCSInvoiceProject
             return (this.WindowState);
         }
         
-        private void MainMenu_GotFocus(Object sender, EventArgs e)
-        {
-            int i = 0;
-            this.WindowState = FormWindowState.Minimized;
-            //MessageBox.Show("Got Focus");
-        } 
+        //private void MainMenu_Deactivate(Object sender, EventArgs e)
+        //{
+        //    int i = 0;
+        //    this.WindowState = FormWindowState.Minimized;
+        //    //MessageBox.Show("Got Focus");
+        //} 
 
         #region Printing
 
@@ -1354,7 +1375,9 @@ namespace KKCSInvoiceProject
             }
         }
 
-        
+
+
+
 
         #endregion
 

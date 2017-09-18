@@ -1958,6 +1958,8 @@ namespace KKCSInvoiceProject
             }
             else
             {
+                invManager.GetMainMenuObject().MinimiseForm();
+
                 PrintDialog printDialog = new PrintDialog();
 
                 PrintDocument printDocument = new PrintDocument();
@@ -2249,7 +2251,7 @@ Number: 02-0800-0493229-00
             // brought in, and when they are returning
             TimeSpan TimeDifference = dt_returndate.Value - dt_datein.Value;
 
-            // Put the difference of days into the variable
+            // Puts the difference of days into the variable
             iDays = TimeDifference.Days;
 
             // Works out if the hours are above 20. If they are, add 1 day to the price

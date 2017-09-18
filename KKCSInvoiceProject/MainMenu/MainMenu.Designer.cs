@@ -573,7 +573,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -631,6 +631,7 @@
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
             this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(70, 21);
             this.statisticsToolStripMenuItem.Text = "Statistics";
+            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
             // tillPBToolStripMenuItem
             // 
@@ -717,7 +718,7 @@
             this.MainMenuStrip = this.ms_mainstrip;
             this.Name = "MainMenu";
             this.Text = "Main Menu";
-            this.Deactivate += new System.EventHandler(MainMenu_GotFocus);
+            //this.Deactivate += new System.EventHandler(this.MainMenu_Deactivate);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ms_mainstrip.ResumeLayout(false);
