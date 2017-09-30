@@ -36,6 +36,8 @@ namespace KKCSInvoiceProject
 
         DateTime dtDate;
 
+        Label lblTitle;
+
         //Checks to see if the car has already been picked up
         bool bPickedUp = false;
 
@@ -205,7 +207,7 @@ namespace KKCSInvoiceProject
         {
             DateTime now = dt_timepicked.Value;
 
-            Label lblTitle = new Label();
+            lblTitle = new Label();
             lblTitle.Location = new Point(pnl_template.Location.X, iInitialPanelLocationY);
 
             lblTitle.Font = new Font("Arial", 20, FontStyle.Bold);
@@ -228,7 +230,7 @@ namespace KKCSInvoiceProject
 
                 lblTitle.Text = g_strDatePicked;
             }
-            else if(_iPickTitle == 1)
+            else if (_iPickTitle == 1)
             {
 
                 lblTitle.BackColor = System.Drawing.Color.LightSalmon;
@@ -238,7 +240,7 @@ namespace KKCSInvoiceProject
 
                 lblTitle.Text = "Unknown/Overdue";
             }
-            else if(_iPickTitle == 2)
+            else if (_iPickTitle == 2)
             {
                 lblTitle.BackColor = System.Drawing.Color.LightBlue;
                 lblTitle.ForeColor = System.Drawing.Color.Black;
@@ -276,11 +278,12 @@ namespace KKCSInvoiceProject
             bool bSkipFirstCheck = true;
 
             int iCars = 0;
+            int iTotalCars = 0;
 
             while (reader.Read())
             {
                 // Gets the current time of the record
-                if(chk_datebroughtin.Checked || chk_datepaid.Checked)
+                if (chk_datebroughtin.Checked || chk_datepaid.Checked)
                 {
                     //StoreTime = reader["TimeIn"].ToString();
                 }
@@ -288,7 +291,7 @@ namespace KKCSInvoiceProject
                 {
                     StoreTime = reader["ReturnTime"].ToString();
                 }
-                
+
                 // Compares the 2 times together to see if they are different or not
                 // Skips the first check
                 if (StoreTime != StoreTimeSecond && !bSkipFirstCheck)
@@ -326,12 +329,15 @@ namespace KKCSInvoiceProject
                 StoreTimeSecond = StoreTime;
 
                 iCars++;
+                iTotalCars++;
 
                 // Makes the first check to false for using
                 bSkipFirstCheck = false;
             }
 
             AmountOfCars(iCars);
+
+            lblTitle.Text += "                                                                        Total Cars: " + iTotalCars;
         }
 
         void AmountOfCars(int _iCars)
@@ -343,7 +349,7 @@ namespace KKCSInvoiceProject
             lbls.Name = "lbl_NumberOfCars";
             lbls.BackColor = lbl_amountofcars.BackColor;
 
-            if(_iCars == 1)
+            if (_iCars == 1)
             {
                 lbls.Text = _iCars.ToString("0") + " Car";
             }
@@ -351,7 +357,7 @@ namespace KKCSInvoiceProject
             {
                 lbls.Text = _iCars.ToString("0") + " Cars";
             }
-            
+
             Controls.Add(lbls);
         }
 
@@ -389,7 +395,7 @@ namespace KKCSInvoiceProject
 
             if (sList == "TodaysReturns")
             {
-                if(!bPickedUp)
+                if (!bPickedUp)
                 {
                     lstReturnPanels.Add(pnl);
 
@@ -398,7 +404,7 @@ namespace KKCSInvoiceProject
                     iNoMoreThan1Divider = 0;
                 }
             }
-            else if(sList == "UnknownReturns")
+            else if (sList == "UnknownReturns")
             {
                 lstUnknownPanels.Add(pnl);
 
@@ -575,7 +581,7 @@ namespace KKCSInvoiceProject
                 {
                     lbl.BackColor = Color.Violet;
                 }
-                else if(sPaidStatus == "N/C")
+                else if (sPaidStatus == "N/C")
                 {
                     lbl.BackColor = Color.Orange;
                 }
@@ -626,12 +632,12 @@ namespace KKCSInvoiceProject
                     dt = (DateTime)reader["DTReturnDate"];
                     lbl_returndateheader.Text = "Return Date";
                 }
-                else if(chk_datebroughtin.Checked)
+                else if (chk_datebroughtin.Checked)
                 {
                     dt = (DateTime)reader["DTDateIn"];
                     lbl_returndateheader.Text = "Date In";
                 }
-                else if(chk_datepaid.Checked)
+                else if (chk_datepaid.Checked)
                 {
                     dt = (DateTime)reader["DTDatePaid"];
                     lbl_returndateheader.Text = "Date Paid";
@@ -657,7 +663,7 @@ namespace KKCSInvoiceProject
                 lbl.Size = _p.Size;
             }
 
-            if(_p.Name == "lbl_ph")
+            if (_p.Name == "lbl_ph")
             {
                 lbl.Font = _p.Font;
                 lbl.Size = _p.Size;
@@ -670,7 +676,7 @@ namespace KKCSInvoiceProject
                 lbl.Text = reader["PhoneNumber"].ToString();
             }
 
-            if(_p.Name == "lbl_make")
+            if (_p.Name == "lbl_make")
             {
                 lbl.Font = _p.Font;
                 lbl.Size = _p.Size;
@@ -691,7 +697,7 @@ namespace KKCSInvoiceProject
 
                 lbl.Text = reader["CarLocation"].ToString();
 
-                if(reader["CarLocation"].ToString() == "Front")
+                if (reader["CarLocation"].ToString() == "Front")
                 {
                     lbl.BackColor = Color.GreenYellow;
                 }
@@ -809,8 +815,8 @@ namespace KKCSInvoiceProject
 
             // Restores the original location of the vertical scroll bar
             VerticalScroll.Value = iOriPosOfScrollBar;
-        }        
-        
+        }
+
         #endregion
 
         #region AlertAndNotesButton
@@ -830,7 +836,7 @@ namespace KKCSInvoiceProject
             string query = @"SELECT Alerts FROM CustomerInvoices
                              WHERE InvoiceNumber = " + x + "";
 
-             command.CommandText = query;
+            command.CommandText = query;
 
             reader = command.ExecuteReader();
 
@@ -922,7 +928,7 @@ namespace KKCSInvoiceProject
                 WarningSystem ws = new WarningSystem("Would you like to sort the return list by bad debtors?", true);
                 ws.ShowDialog();
 
-                if(ws.DialogResult == DialogResult.OK)
+                if (ws.DialogResult == DialogResult.OK)
                 {
                     DeleteControls();
 
@@ -1035,7 +1041,7 @@ namespace KKCSInvoiceProject
 
                 RefreshCarBroughtIn();
             }
-            else if(chk_datepaid.Checked)
+            else if (chk_datepaid.Checked)
             {
                 DeleteControls();
 
@@ -1124,7 +1130,7 @@ namespace KKCSInvoiceProject
         */
 
         #region PrintingOld
-        
+
         #region GlobalVariables
         int iLocationY = 50;
         int iItemsPerPage = 0;
@@ -1666,7 +1672,7 @@ namespace KKCSInvoiceProject
 
         private void btn_search_Click(object sender, EventArgs e)
         {
-            if(cmb_items.Text == "")
+            if (cmb_items.Text == "")
             {
                 return;
             }
@@ -1688,7 +1694,7 @@ namespace KKCSInvoiceProject
             //string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDateIn = @dtDate ORDER BY TimeIn ASC";
             string sTodaysQuerys = "";
 
-            if(cmb_searchby.Text == "Invoice No")
+            if (cmb_searchby.Text == "Invoice No")
             {
                 sTodaysQuerys = "select * from CustomerInvoices WHERE InvoiceNumber = " + cmb_items.Text + "";
             }
@@ -1707,7 +1713,7 @@ namespace KKCSInvoiceProject
 
             CreateReturns(sTodaysQuerys);
 
-            if (cmb_items.Text == "-1")
+            if (cmb_items.Text == "Admin" || cmb_items.Text == "ADMIN" || cmb_items.Text == "-1")
             {
                 cmb_items.Text = "";
                 AdministratorPassword adp = new AdministratorPassword();

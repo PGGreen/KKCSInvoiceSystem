@@ -204,7 +204,7 @@ namespace KKCSInvoiceProject
 
             if (cmb_month.SelectedIndex != 0)
             {
-                dt = new DateTime(DateTime.Now.Year, cmb_month.SelectedIndex, DateTime.Now.Day, 12, 0, 0);
+                dt = new DateTime(DateTime.Now.Year, cmb_month.SelectedIndex + 1, DateTime.Now.Day, 12, 0, 0);
 
                 //txt_year.Text = dt.Year.ToString();
 

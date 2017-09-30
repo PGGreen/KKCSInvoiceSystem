@@ -43,6 +43,8 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
+            versionToolStripMenuItem.Text = "v" + sVersionNumber;
+
             this.FormClosing += MainMenu_Closing;
 
             btn_build.Text = "v" + sVersionNumber;
@@ -62,7 +64,7 @@ namespace KKCSInvoiceProject
         {
             versionToolStripMenuItem.BackColor = Color.Black;
             versionToolStripMenuItem.ForeColor = Color.White;
-            versionToolStripMenuItem.Text = "dVersion";
+            versionToolStripMenuItem.Text = "dv" + sVersionNumber;
 
             lbl_debug.Visible = true;
             lbl_debug.Location = new Point(100, 100);
@@ -223,6 +225,26 @@ namespace KKCSInvoiceProject
                 InvoiceManager ip = new InvoiceManager();
                 ip.SetMainMenuObject(this);
                 ip.Show();
+            }
+        }
+
+        private void financesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["Finances"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Maximized;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                Finances cr = new Finances();
+                cr.Show();
             }
         }
 
@@ -1374,6 +1396,9 @@ namespace KKCSInvoiceProject
                 Close();
             }
         }
+
+
+
 
 
 

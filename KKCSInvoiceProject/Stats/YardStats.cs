@@ -304,7 +304,7 @@ namespace KKCSInvoiceProject
 
                     if (DTStoreDate.Month == 9 && DTStoreDate.Year == 2017)
                     {
-                        lbl_daily.Text += "$" + (fTotalMonthly / 15).ToString("00.00") + " (Per Day)" + "\r\n";
+                        lbl_daily.Text += "$" + (fTotalMonthly / 21).ToString("00.00") + " (Per Day)" + "\r\n";
                     }
                     else
                     {

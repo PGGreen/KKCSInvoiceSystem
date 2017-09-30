@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lbl_sodtill = new System.Windows.Forms.Label();
+            this.lbl_currenttill = new System.Windows.Forms.Label();
+            this.lbl_cashtaken = new System.Windows.Forms.Label();
+            this.lbl_refundstill = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbl_eodtill = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -52,45 +52,45 @@
             this.label19 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lbl_sodtill
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(9, 137);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "SOD Till Total:";
+            this.lbl_sodtill.AutoSize = true;
+            this.lbl_sodtill.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_sodtill.Location = new System.Drawing.Point(9, 137);
+            this.lbl_sodtill.Name = "lbl_sodtill";
+            this.lbl_sodtill.Size = new System.Drawing.Size(166, 25);
+            this.lbl_sodtill.TabIndex = 0;
+            this.lbl_sodtill.Text = "SOD Till Total:";
             // 
-            // label2
+            // lbl_currenttill
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 290);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(143, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Current Till: ";
+            this.lbl_currenttill.AutoSize = true;
+            this.lbl_currenttill.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_currenttill.Location = new System.Drawing.Point(12, 290);
+            this.lbl_currenttill.Name = "lbl_currenttill";
+            this.lbl_currenttill.Size = new System.Drawing.Size(143, 25);
+            this.lbl_currenttill.TabIndex = 1;
+            this.lbl_currenttill.Text = "Current Till: ";
             // 
-            // label3
+            // lbl_cashtaken
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 187);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 25);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Cash Taken:";
+            this.lbl_cashtaken.AutoSize = true;
+            this.lbl_cashtaken.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cashtaken.Location = new System.Drawing.Point(9, 187);
+            this.lbl_cashtaken.Name = "lbl_cashtaken";
+            this.lbl_cashtaken.Size = new System.Drawing.Size(145, 25);
+            this.lbl_cashtaken.TabIndex = 2;
+            this.lbl_cashtaken.Text = "Cash Taken:";
             // 
-            // label4
+            // lbl_refundstill
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(9, 238);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(174, 25);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Refunds Given:";
+            this.lbl_refundstill.AutoSize = true;
+            this.lbl_refundstill.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_refundstill.Location = new System.Drawing.Point(12, 238);
+            this.lbl_refundstill.Name = "lbl_refundstill";
+            this.lbl_refundstill.Size = new System.Drawing.Size(174, 25);
+            this.lbl_refundstill.TabIndex = 3;
+            this.lbl_refundstill.Text = "Refunds Given:";
             // 
             // label5
             // 
@@ -102,15 +102,15 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Start of Day PB:";
             // 
-            // label6
+            // lbl_eodtill
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 340);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(106, 25);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "EOD Till:";
+            this.lbl_eodtill.AutoSize = true;
+            this.lbl_eodtill.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_eodtill.Location = new System.Drawing.Point(12, 340);
+            this.lbl_eodtill.Name = "lbl_eodtill";
+            this.lbl_eodtill.Size = new System.Drawing.Size(106, 25);
+            this.lbl_eodtill.TabIndex = 5;
+            this.lbl_eodtill.Text = "EOD Till:";
             // 
             // label7
             // 
@@ -291,12 +291,12 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lbl_eodtill);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbl_refundstill);
+            this.Controls.Add(this.lbl_cashtaken);
+            this.Controls.Add(this.lbl_currenttill);
+            this.Controls.Add(this.lbl_sodtill);
             this.Name = "Finances";
             this.Text = "Finances";
             this.ResumeLayout(false);
@@ -306,12 +306,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lbl_sodtill;
+        private System.Windows.Forms.Label lbl_currenttill;
+        private System.Windows.Forms.Label lbl_cashtaken;
+        private System.Windows.Forms.Label lbl_refundstill;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbl_eodtill;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;

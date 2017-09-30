@@ -70,8 +70,6 @@
             this.ms_mainstrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.invoiceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.returnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keyBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.longTermToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +83,7 @@
             this.btn_accounts = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbl_debug = new System.Windows.Forms.Label();
+            this.financesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -545,10 +544,9 @@
             this.ms_mainstrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ms_mainstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.invoiceToolStripMenuItem,
-            this.returnsToolStripMenuItem,
             this.keyBoxToolStripMenuItem,
             this.searchToolStripMenuItem,
+            this.financesToolStripMenuItem,
             this.longTermToolStripMenuItem,
             this.pettyCashToolStripMenuItem,
             this.bankingToolStripMenuItem,
@@ -576,18 +574,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // invoiceToolStripMenuItem
-            // 
-            this.invoiceToolStripMenuItem.Name = "invoiceToolStripMenuItem";
-            this.invoiceToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
-            this.invoiceToolStripMenuItem.Text = "Invoice";
-            // 
-            // returnsToolStripMenuItem
-            // 
-            this.returnsToolStripMenuItem.Name = "returnsToolStripMenuItem";
-            this.returnsToolStripMenuItem.Size = new System.Drawing.Size(64, 21);
-            this.returnsToolStripMenuItem.Text = "Returns";
             // 
             // keyBoxToolStripMenuItem
             // 
@@ -689,6 +675,13 @@
             this.lbl_debug.Text = "WARNING: DEBUG MODE";
             this.lbl_debug.Visible = false;
             // 
+            // financesToolStripMenuItem
+            // 
+            this.financesToolStripMenuItem.Name = "financesToolStripMenuItem";
+            this.financesToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
+            this.financesToolStripMenuItem.Text = "Finances";
+            this.financesToolStripMenuItem.Click += new System.EventHandler(this.financesToolStripMenuItem_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -717,8 +710,8 @@
             this.Controls.Add(this.ms_mainstrip);
             this.MainMenuStrip = this.ms_mainstrip;
             this.Name = "MainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main Menu";
-            //this.Deactivate += new System.EventHandler(this.MainMenu_Deactivate);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ms_mainstrip.ResumeLayout(false);
@@ -770,9 +763,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip ms_mainstrip;
-        private System.Windows.Forms.ToolStripMenuItem invoiceToolStripMenuItem;
         private System.Windows.Forms.Button btn_accounts;
-        private System.Windows.Forms.ToolStripMenuItem returnsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem keyBoxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem longTermToolStripMenuItem;
@@ -787,5 +778,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.Label lbl_debug;
+        private System.Windows.Forms.ToolStripMenuItem financesToolStripMenuItem;
     }
 }
