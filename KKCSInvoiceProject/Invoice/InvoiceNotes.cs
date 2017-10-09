@@ -35,8 +35,6 @@ namespace KKCSInvoiceProject
 
         private void btn_addnote_Click(object sender, EventArgs e)
         {
-            DeleteControls();
-
             if (cmb_worker.Text == "Please Pick...")
             {
                 WarningSystem ws = new WarningSystem("Please pick Staff Memeber", false);
@@ -44,6 +42,8 @@ namespace KKCSInvoiceProject
             }
             else
             {
+                DeleteControls();
+
                 OpenDBCon();
 
                 command = new OleDbCommand();
@@ -67,6 +67,8 @@ namespace KKCSInvoiceProject
             }
         }
 
+        string blah = "";
+
         private void LoadNotes()
         {
             OpenDBCon();
@@ -80,6 +82,8 @@ namespace KKCSInvoiceProject
             command.CommandText = sQuery;
 
             reader = command.ExecuteReader();
+
+            blah = "";
 
             int iLocX = label4.Location.X;
             int iLocY = label4.Location.Y;
@@ -96,6 +100,7 @@ namespace KKCSInvoiceProject
 
                 lbl.Location = new Point(iLocX, iLocY);
                 lbl.Text = reader["Notes"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+                blah += lbl.Text + "\r\n\r\n";
                 lbl.AutoSize = true;
                 lbl.MaximumSize = new Size(400, 0);
                 lbl.Font = label4.Font;
@@ -178,7 +183,7 @@ namespace KKCSInvoiceProject
 
         public string GetCurrentNotes()
         {
-            return (label4.Text);
+            return (blah);
         }
 
         private void button2_Click(object sender, EventArgs e)

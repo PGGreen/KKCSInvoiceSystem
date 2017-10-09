@@ -13,55 +13,93 @@ namespace KKCSInvoiceProject
 {
     public partial class DrivingBack : Form
     {
+        string g_sPrint = "";
         public DrivingBack()
         {
             InitializeComponent();
+        }
 
-            lbl_drivingback.Text = DrivingBackText();
+        public void SetText(string _sPicked)
+        {
+            switch(_sPicked)
+            {
+                case "Driving Back":
+                    {
+                        lbl_drivingback.Text = DrivingBackText();
+                        g_sPrint = DrivingBackText();
+                        break;
+                    }
+                case "Unknown":
+                    {
+                        lbl_drivingback.Text = Unknown();
+                        g_sPrint = Unknown();
+                        break;
+                    }
+                case "Last Flight":
+                    {
+                        lbl_drivingback.Text = LastFlight();
+                        g_sPrint = LastFlight();
+                        break;
+                    }
+                default:
+                    {
+                        lbl_drivingback.Text = "Error";
+                        g_sPrint = "Error";
+                        break;
+                    }
+            }
         }
 
         string DrivingBackText()
         {
-            string sDrivingBack = @"Kerikeri Airport Car Storage Driving Back or 'Not on a Flight' Procedure.
+            string sDrivingBack = @"Kerikeri Airport Car Storage Driving Back or Bus.
 
-If you are driving back instead of coming on the plane, please note our opening times below.
+If you are driving back or are on a bus instead of coming on the plane, 
+please note our opening times below:
 
 -Mon - Fri-           -Sat-                    -Sun-
-0500 - 0600         0545 - 0645        1230 - 1400
-0830 - 1000         0830 - 1000        1600 - 1800
-1230 - 1400         1230 - 1400                                 
-1600 - 1800         1600 - 1800                                 
+0500 - 0600         0545 - 0645         0830 - 1000
+0830 - 1000         0830 - 1000         1230 - 1400
+1230 - 1400         1230 - 1400         1600 - 1800              
+1600 - 1800         1600 - 1800                    
+2025 (See Below)    (NO 2025 on Sat)    2025 (See Below)
 
-2025 (all days except Saturday) - For all of these last flights we are open 5 minutes before 
-                                    the plane arrives, only IF we have customers coming in,
-                                    otherwise we will be closed.
+2025 - For the 2025 flight we are open 5 minutes before the plane
+       only IF we have customers coming in, otherwise we will be closed.
 
-*Please note these times are subject to change in the event such as plane timetable changes
- or cancellations and any other unforeseen circumstances. 
- If you are not sure please give us a call.
+*Please note all these times are subject to change in the event such as plane timetable changes
+ or cancellations and any other unforeseen circumstances outside our control. 
 
-If you are going to be outside these hours, there are a couple of options:
-
--Pick up your car at a later date (charges may apply for extra days)
-
--With your permission we can leave your car out in the public car park or Hertz rank
- (or wherever we can find room), and put your keys into our outside safe.
--------------------------------------------------------------------------------------
-  a. If you choose this option, the safe is up the ramp by the toilets next to the airport.
-  b. To open the safe you press “Start – XXXX – Start” then twist open.
-  c. The XXXX is a 4-Digit Code we will provide for you on the day you come back.
-  d. You need to call us for the safe code and with your approximate return time 
-     on the day as well.
-  e. Please lock the safe using the same sequence as in step b, as there may be other 
-     keys in with yours as well.
--------------------------------------------------------------------------------------
+If you are going to be outside these hours, please let us know, and we can arrange 
+something with you.
+(It is important you call us, or otherwise you might not be able to get your car out.)
 
 *Please note:
--The Airport gates are locked at night after the final plane. We DO NOT have any 
- control over this.
+-The Airport gates are locked at night after the final plane. We DO NOT have any control over this.
 -Please DO NOT ask us to leave your car outside the Airport car gates, this is company policy 
  and we will not do this under any circumstances.
--If you do not get hold of us, we can not leave your car out for you.
+
+Phone: 09-401-6351";
+
+            return (sDrivingBack);
+        }
+
+        string Unknown()
+        {
+            string sDrivingBack = @"Kerikeri Airport Car Storage Unknown Return.
+
+If you do not know your return time, please take note of the following information.
+
+Phone: 09-401-6351";
+
+            return (sDrivingBack);
+        }
+
+        string LastFlight()
+        {
+            string sDrivingBack = @"Kerikeri Airport Car Storage Last Flight.
+
+If you are on the last flight for the day, please take note of the following information.
 
 Phone: 09-401-6351";
 
@@ -82,6 +120,8 @@ Phone: 09-401-6351";
 
             printDocument.PrinterSettings = new PrinterSettings();
             printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            printDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             printDocument.DefaultPageSettings.PaperSize = oPS;
             printDocument.DefaultPageSettings.PaperSource = oPSource;
 
@@ -106,7 +146,7 @@ Phone: 09-401-6351";
             int startY = 10;
             int offset = 30;
 
-            graphic.DrawString(DrivingBackText(), new Font("Times New Roman", 10), new SolidBrush(Color.Black), startX, startY);
+            graphic.DrawString(g_sPrint, new Font("Times New Roman", 10), new SolidBrush(Color.Black), startX, startY);
             
         }
 

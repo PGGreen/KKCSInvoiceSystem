@@ -22,6 +22,8 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
+        int g_iInoviceNumber = 0;
+
         public InvoiceAlerts()
         {
             InitializeComponent();
@@ -31,12 +33,8 @@ namespace KKCSInvoiceProject
             cmb_worker.SelectedIndex = 0;
         }
 
-        string g_sRego = "";
-
         private void btn_addnote_Click(object sender, EventArgs e)
         {
-            DeleteControls();
-
             if (cmb_worker.Text == "Please Pick...")
             {
                 WarningSystem ws = new WarningSystem("Please pick Staff Memeber", false);
@@ -44,6 +42,8 @@ namespace KKCSInvoiceProject
             }
             else
             {
+                DeleteControls();
+
                 OpenDBCon();
 
                 command = new OleDbCommand();
@@ -52,12 +52,12 @@ namespace KKCSInvoiceProject
 
                 DateTime DTNow = DateTime.Now;
 
-                string sNonQuery = @"INSERT INTO InvoiceAlerts (Alert,StaffMember,DateAlert,Rego) values ('" + txt_newalert.Text +
-                                                                                                        "', '" + cmb_worker.Text +
-                                                                                                        "', '" + DTNow +
-                                                                                                        "', '" + g_sRego + "')";
+                //string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,DateAndTime,InvoiceNumber) values ('" + txt_newnote.Text +
+                //                                                                                        "', '" + cmb_worker.Text +
+                //                                                                                        "', '" + DTNow +
+                //                                                                                        "', " + g_iInoviceNumber + ")";
 
-                command.CommandText = sNonQuery;
+                //command.CommandText = sNonQuery;
 
                 command.ExecuteNonQuery();
 
@@ -67,6 +67,8 @@ namespace KKCSInvoiceProject
             }
         }
 
+        string blah = "";
+
         private void LoadNotes()
         {
             OpenDBCon();
@@ -75,11 +77,13 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sQuery = @"SELECT * FROM InvoiceAlerts WHERE Rego = '" + g_sRego + "'";
+            string sQuery = @"SELECT * FROM InvoiceNotes WHERE InvoiceNumber = " + g_iInoviceNumber + " ORDER BY DateAndTime DESC";
 
             command.CommandText = sQuery;
 
             reader = command.ExecuteReader();
+
+            blah = "";
 
             int iLocX = label4.Location.X;
             int iLocY = label4.Location.Y;
@@ -88,14 +92,15 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                DateTime dtNoteTime = (DateTime)reader["DateAlert"];
+                DateTime dtNoteTime = (DateTime)reader["DateAndTime"];
                 string sDate = dtNoteTime.Day.ToString() + "/" + dtNoteTime.Month + "/" + dtNoteTime.ToString("yy") + " - " + dtNoteTime.ToString("h:mm tt");
 
                 Label lbl = new Label();
                 Button btn = new Button();
 
                 lbl.Location = new Point(iLocX, iLocY);
-                lbl.Text = reader["Alert"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+                lbl.Text = reader["Notes"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+                blah += lbl.Text + "\r\n\r\n";
                 lbl.AutoSize = true;
                 lbl.MaximumSize = new Size(400, 0);
                 lbl.Font = label4.Font;
@@ -127,7 +132,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sQuery = @"DELETE * FROM InvoiceAlerts WHERE ID = " + btn.Name + "";
+            string sQuery = @"DELETE * FROM InvoiceNotes WHERE ID = " + btn.Name + "";
 
             command.CommandText = sQuery;
 
@@ -167,18 +172,18 @@ namespace KKCSInvoiceProject
             }
         }
 
-        public void GetRego(string _sRego)
+        public void GetInvoiceNumber(int _iInvoiceNumber)
         {
-            g_sRego = _sRego;
+            g_iInoviceNumber = _iInvoiceNumber;
 
-            //lbl_invoice.Text = "Invoice " + _iInvoiceNumber.ToString() + " Notes";
+            lbl_invoice.Text = "Invoice " + _iInvoiceNumber.ToString() + " Notes";
 
             LoadNotes();
         }
 
         public string GetCurrentNotes()
         {
-            return (label4.Text);
+            return (blah);
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -529,7 +529,10 @@
   <ItemGroup>
     <Content Include="ConfigFiles\CarStorageLogo.ico" />
     <None Include="Resources\Background.png" />
+    <None Include="Resources\A.png" />
     <Content Include="Resources\Car Storage Logo.jpg" />
+    <None Include="Resources\NA.png" />
+    <None Include="Resources\N.png" />
     <Content Include="Resources\TestImg.jpg" />
     <None Include="Resources\12828376_1256949777653879_1940943999102364649_o.jpg" />
     <None Include="Resources\Image1.jpg" />

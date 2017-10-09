@@ -71,6 +71,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepthree.SuspendLayout();
             this.pnl_stepfour.SuspendLayout();
@@ -573,12 +574,23 @@
             this.label18.TabIndex = 85;
             this.label18.Text = "Running Totals";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(923, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 137;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // EndOfDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 882);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -656,5 +668,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button button1;
     }
 }

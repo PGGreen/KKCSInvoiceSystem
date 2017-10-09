@@ -58,10 +58,17 @@ namespace KKCSInvoiceProject
 
             cmb_searchby.SelectedIndex = 0;
 
+            //button1.BackgroundImage = Properties.Resources.NA;
+
             RefreshReturnDate();
         }
 
         #endregion
+
+        void Test()
+        {
+
+        }
 
         #region CreatePanels
 
@@ -84,7 +91,7 @@ namespace KKCSInvoiceProject
             sList = "TodaysReturns";
 
             // Creates a query for todays returns
-            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTReturnDate = @dtDate ORDER BY ReturnTime,KeyNumber ASC";
+            string sTodaysQuerys = @"select * from CustomerInvoices WHERE DTReturnDate = @dtDate ORDER BY ReturnTime,KeyNumber ASC";
             CreateReturns(sTodaysQuerys);
 
             iInitialPanelLocationY += 50;
@@ -705,6 +712,14 @@ namespace KKCSInvoiceProject
                 {
                     lbl.BackColor = Color.Red;
                 }
+            }
+
+            if(_p.Name == "lbl_staffmember")
+            {
+                lbl.Font = _p.Font;
+                lbl.Size = _p.Size;
+
+                lbl.Text = reader["StaffMember"].ToString();
             }
 
             lbl.Location = _p.Location;
@@ -1624,7 +1639,38 @@ namespace KKCSInvoiceProject
 
         #region Search
 
+        string sSearchPickedUp = "False";
+
         private void cmb_searchby_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SearchBy();
+        }
+
+        private void chk_entiredb_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchBy();
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            if (cmb_items.Text == "Admin" || cmb_items.Text == "ADMIN" || cmb_items.Text == "-1")
+            {
+                cmb_items.Text = "";
+                AdministratorPassword adp = new AdministratorPassword();
+                adp.Show();
+            }
+            else
+            {
+                SearchParameters();
+            }
+        }
+
+        private void cmb_items_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SearchParameters();
+        }
+
+        void SearchBy()
         {
             cmb_items.Text = "";
 
@@ -1640,7 +1686,20 @@ namespace KKCSInvoiceProject
 
                 command.Connection = connection;
 
-                string query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY DTReturnDate ASC";
+                string query = "";
+
+                if (chk_entiredb.Checked)
+                {
+                    sSearchPickedUp = "True";
+
+                    query = "select * from CustomerInvoices ORDER BY DTReturnDate ASC";
+                }
+                else
+                {
+                    sSearchPickedUp = "False";
+
+                    query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY DTReturnDate ASC";
+                }
 
                 command.CommandText = query;
 
@@ -1670,11 +1729,24 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void btn_search_Click(object sender, EventArgs e)
+        void SearchParameters()
         {
-            if (cmb_items.Text == "")
+            if (cmb_items.Text == "" && cmb_searchby.Text == "Invoice No")
             {
                 return;
+            }
+
+            if (cmb_searchby.Text == "Invoice No")
+            {
+                bool bCheckIfNumber = int.TryParse(cmb_items.Text, out int iCheckIfNumber);
+
+                if (!bCheckIfNumber)
+                {
+                    WarningSystem ws = new WarningSystem("Please only enter an Invoice Number", false);
+                    ws.ShowDialog();
+
+                    return;
+                }
             }
 
             DeleteControls();
@@ -1700,32 +1772,18 @@ namespace KKCSInvoiceProject
             }
             else if (cmb_searchby.Text == "Car Rego")
             {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = False AND Rego = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = "+ sSearchPickedUp + " AND Rego = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
             }
             else if (cmb_searchby.Text == "First Name")
             {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = False AND FirstName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = " + sSearchPickedUp + " AND FirstName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
             }
             else if (cmb_searchby.Text == "Last Name")
             {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = False AND LastName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = " + sSearchPickedUp + " AND LastName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
             }
 
             CreateReturns(sTodaysQuerys);
-
-            if (cmb_items.Text == "Admin" || cmb_items.Text == "ADMIN" || cmb_items.Text == "-1")
-            {
-                cmb_items.Text = "";
-                AdministratorPassword adp = new AdministratorPassword();
-                adp.Show();
-            }
-
-            //iInitialPanelLocationY += 10;
-
-            //Label lblBlank = new Label();
-            //lblBlank.Name = "lbl_blank";
-            //lblBlank.Location = new Point(0, iInitialPanelLocationY);
-            //Controls.Add(lblBlank);
         }
 
         #endregion Search

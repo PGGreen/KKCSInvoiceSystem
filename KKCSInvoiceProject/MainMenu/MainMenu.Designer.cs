@@ -70,8 +70,8 @@
             this.ms_mainstrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keyBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.financesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.longTermToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pettyCashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bankingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +83,6 @@
             this.btn_accounts = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbl_debug = new System.Windows.Forms.Label();
-            this.financesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -274,6 +273,7 @@
             this.panel1.Controls.Add(this.btn_leftdt);
             this.panel1.Controls.Add(this.dt_flights);
             this.panel1.Controls.Add(this.label3);
+            this.panel1.Enabled = false;
             this.panel1.Location = new System.Drawing.Point(58, 289);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(702, 436);
@@ -544,7 +544,6 @@
             this.ms_mainstrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ms_mainstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.keyBoxToolStripMenuItem,
             this.searchToolStripMenuItem,
             this.financesToolStripMenuItem,
             this.longTermToolStripMenuItem,
@@ -575,22 +574,23 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // keyBoxToolStripMenuItem
-            // 
-            this.keyBoxToolStripMenuItem.Name = "keyBoxToolStripMenuItem";
-            this.keyBoxToolStripMenuItem.Size = new System.Drawing.Size(66, 21);
-            this.keyBoxToolStripMenuItem.Text = "Key Box";
-            // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             this.searchToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.searchToolStripMenuItem.Text = "Search";
             // 
+            // financesToolStripMenuItem
+            // 
+            this.financesToolStripMenuItem.Name = "financesToolStripMenuItem";
+            this.financesToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
+            this.financesToolStripMenuItem.Text = "Finances";
+            this.financesToolStripMenuItem.Click += new System.EventHandler(this.financesToolStripMenuItem_Click);
+            // 
             // longTermToolStripMenuItem
             // 
             this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
-            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
+            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
             this.longTermToolStripMenuItem.Text = "Long Term";
             // 
             // pettyCashToolStripMenuItem
@@ -636,7 +636,7 @@
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
@@ -674,13 +674,6 @@
             this.lbl_debug.TabIndex = 29;
             this.lbl_debug.Text = "WARNING: DEBUG MODE";
             this.lbl_debug.Visible = false;
-            // 
-            // financesToolStripMenuItem
-            // 
-            this.financesToolStripMenuItem.Name = "financesToolStripMenuItem";
-            this.financesToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
-            this.financesToolStripMenuItem.Text = "Finances";
-            this.financesToolStripMenuItem.Click += new System.EventHandler(this.financesToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -764,7 +757,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip ms_mainstrip;
         private System.Windows.Forms.Button btn_accounts;
-        private System.Windows.Forms.ToolStripMenuItem keyBoxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem longTermToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pettyCashToolStripMenuItem;

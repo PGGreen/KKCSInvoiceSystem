@@ -19,6 +19,12 @@ namespace KKCSInvoiceProject
             text_change.Text = "0";
         }
 
+        protected override void OnShown(EventArgs e)
+        {
+            txtbox_entercash.Focus();
+            base.OnShown(e);
+        }
+
         public void CashChangeCalculation(int _iCashChange)
         {
             txt_total.Text = _iCashChange.ToString();

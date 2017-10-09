@@ -170,15 +170,16 @@ namespace KKCSInvoiceProject
         {
             this.FormClosing += chkbox_topay_Closing;
 
-            FindFlightTimes();
-
             // Checks to see if opened from Invoice
             // If not, then it is a new Invoice
             if (!m_bIsFromCarReturns)
             {
+                FindFlightTimes();
+
                 btn_datepaid.Visible = false;
 
                 txt_flighttimes.SelectedIndex = 0;
+                cmb_worker.SelectedIndex = 0;
 
                 PopulateRegoBox();
                 PopulateMakeModel();
@@ -207,6 +208,7 @@ namespace KKCSInvoiceProject
                 btn_addinv.Text = "Add/Edit Invoice " + txt_invoiceno.Text + " Note";
 
                 txt_total.Text = "";
+                lbl_stay.Text = "";
             }
         }
 
@@ -261,6 +263,27 @@ namespace KKCSInvoiceProject
                 cmb_timeinhours.Text = reader["TimeIn"].ToString().Substring(0, 2);
                 cmb_timeinminutes.Text = reader["TimeIn"].ToString().Substring(2, 2);
 
+                txt_total.Text = reader["TotalPay"].ToString();
+
+                cmb_paidstatus.Text = reader["PaidStatus"].ToString();
+                cmb_pickedup.Text = reader["PickUp"].ToString();
+                cmb_carlocation.Text = reader["CarLocation"].ToString();
+                cmb_worker.Text = reader["StaffMember"].ToString();
+                cmb_returnstatus.Text = reader["FlightStatus"].ToString();
+                lbl_stay.Text = reader["Stay"].ToString();
+
+                FindFlightTimes();
+
+                for (int i = 0; i < txt_flighttimes.Items.Count; i++)
+                {
+                    txt_flighttimes.SelectedIndex = i;
+
+                    if(txt_flighttimes.Text.Substring(0, 4) == reader["ReturnTime"].ToString())
+                    {
+                        break;
+                    }
+                }
+
                 // Inserts Customer Data
                 txt_firstname.Text = reader["FirstName"].ToString();
                 txt_lastname.Text = reader["LastName"].ToString();
@@ -268,124 +291,19 @@ namespace KKCSInvoiceProject
                 cmb_makemodel.Text = reader["MakeModel"].ToString();
                 cmb_rego.Text = reader["Rego"].ToString();
 
-                // Inserts any notes or alerts
-                txt_notes.Text = reader["Notes"].ToString();
-                txt_alerts.Text = reader["Alerts"].ToString();
-
-                if (txt_notes.Text != "")
-                {
-                    txt_notes.Visible = true;
-                    btn_addinv.Text = "Delete " + txt_invoiceno.Text + " Note";
-                }
-                if (txt_alerts.Text != "")
-                {
-                    txt_alerts.Visible = true;
-                    btn_addcustalert.Text = "Delete Customer Alert";
-                }
-
-                bool bIsUnknown = (bool)reader["UnknownDate"];
-
-                if (!bIsUnknown)
-                {
-                    DateTime dtReturnDate = (DateTime)reader["DTReturnDate"];
-                    dt_returndate.Value = dtReturnDate;
-                }
-                else
-                {
-                    DateTime dtReturnDate = DateTime.Now;
-                    dt_returndate.Value = dtReturnDate;
-                }
-
-                if (reader["ReturnTime"].ToString() == "Unknown")
-                {
-                    DateTime dtReturnDate = DateTime.Now;
-
-                    //chk_manual.Checked = true;
-
-                    int iHours = dtReturnDate.Hour;
-                    int iMinutes = dtReturnDate.Minute;
-
-                    //cmb_returntimehours.Text = iHours.ToString("00");
-                    //cmb_returntimeminutes.Text = iMinutes.ToString("00");
-
-                }
-                else
-                {
-                    // Checks to see if Flight or Manual time was used
-                    bool FlightOrManual = (bool)reader["FlightOrManual"];
-
-                    // It was flight
-                    if (FlightOrManual)
-                    {
-                        txt_flighttimes.Text = reader["ReturnTime"].ToString();
-                        //chk_flighttimes.Checked = true;
-                    }
-                    else
-                    {
-                        // Inserts the time the customer is picking up their car
-                        string sReturnTimeHours = reader["ReturnTime"].ToString().Substring(0, 2);
-                        string sReturnTimeMinutes = reader["ReturnTime"].ToString().Substring(2, 2);
-
-                        //cmb_returntimehours.Text = sReturnTimeHours;
-                        //cmb_returntimeminutes.Text = sReturnTimeMinutes;
-
-                        //chk_manual.Checked = true;
-                    }
-                }
+                string sReturnTimeHours = reader["ReturnTime"].ToString().Substring(0, 2);
+                string sReturnTimeMinutes = reader["ReturnTime"].ToString().Substring(2, 2);
 
                 // Popluates the paid status
                 bIsOnAccount = PopulatePaidStatus(reader);
 
-                // Inserts the amount paid
-                //txt_total.Text = reader["TotalPay"].ToString();
-
-                bool bPickedUp = (bool)reader["PickUp"];
-
-                //if (bPickedUp)
-                //{
-                //    chk_pickedup.Checked = true;
-                //    chk_carinyard.Checked = false;
-
-                //    chk_pickedup.BackColor = Color.Lime;
-                //}
-                //else
-                //{
-                //    chk_pickedup.Checked = false;
-                //    chk_carinyard.Checked = true;
-
-                //    chk_carinyard.BackColor = Color.Lime;
-                //}
-
                 m_bCarPickedUp = (bool)reader["PickUp"];
 
-                //if (m_bCarPickedUp)
-                //{
-                //    chk_pickedup.Checked = true;
-                //}
-                //else if (!m_bCarPickedUp)
-                //{
-                //    chk_carinyard.Checked = true;
-                //}
-
                 m_sCarLocation = reader["CarLocation"].ToString();
-
-                //if (m_sCarLocation == "Front")
-                //{
-                //    chk_carlocationfront.Checked = true;
-                //}
-                //else if (m_sCarLocation == "Back")
-                //{
-                //    chk_carlocationback.Checked = true;
-                //}
 
                 m_bAlreadyPaid = (bool)reader["YNDatePaid"];
 
                 dtDatePaid = (DateTime)reader["DTDatePaid"];
-
-                //if (g_sPaidStatus != "To Pay")
-                //{
-                //    m_bAlreadyPaid = true;
-                //}
 
                 if (g_sPaidStatus == "To Pay")
                 {
@@ -398,11 +316,6 @@ namespace KKCSInvoiceProject
 
                     btn_datepaid.Text = "Date Paid: " + sDatePaid + "(Click to Change)";
                 }
-            }
-
-            if (bIsOnAccount)
-            {
-                //chkbox_onaccount.Checked = true;
             }
 
             WarningsStoreOriginalValues();
@@ -759,9 +672,17 @@ namespace KKCSInvoiceProject
 
                 iIsThereWarnings++;
             }
+            if(cmb_worker.Text == "Please Pick...")
+            {
+                sWarning += "-Please pick a 'Staff Member'" + sEndLine;
+
+                iIsThereWarnings++;
+            }
 
             if (iIsThereWarnings > 0)
             {
+                //sWarning = "-Please set\r\n-Please Calculate\r\n-Please pick\r\n-Please pick";
+                //sWarning = "TODO (Peter): Need to enter warnings here \r\n for staff to know what sections they have missed";
                 WarningSystem ws = new WarningSystem(sWarning, false);
 
                 ws.ShowDialog();
@@ -1009,58 +930,45 @@ namespace KKCSInvoiceProject
 
                 command.Connection = connection;
 
-                string tempReturnTimeHours = "";
-
-                // If paid status is "To Pay", sets AlreadyPaid to false
+                // Sets up Paid Status & Paid Time
+                //--------------------------------------------------------------------------//
+                // If paid status is "To Pay", sets AlreadyPaid to false and date to 2001
                 if (g_sPaidStatus == "To Pay")
                 {
                     m_bAlreadyPaid = false;
+
+                    btn_datepaid.Visible = false;
+
+                    dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
                 }
-
-                
-
-                // Checks to see if the customer has already paid or not
-                // Goes in if the customer has not yet paid
-                if (!m_bAlreadyPaid)
+                // Sets up the date the customer paid
+                else
                 {
-                    if (g_sPaidStatus != "To Pay")
-                    {
-                        m_bAlreadyPaid = true;
-                    }
+                    DateTime dtNow = DateTime.Now;
+                    dtDatePaid = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
 
-                    if (g_sPaidStatus == "To Pay")
-                    {
-                        btn_datepaid.Visible = false;
+                    string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                        dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
-                    }
-                    else
-                    {
-                        DateTime dtNow = DateTime.Now;
-                        dtDatePaid = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
-
-                        string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
-
-                        btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + "(Click to Change)";
-                    }
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + "(Click to Change)";
                 }
+                //--------------------------------------------------------------------------//
 
-                bool bUnknownDate = false;
+
+                // Sets up Date Customer came in and time they came in
+                //--------------------------------------------------------------------------//
+                DateTime dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
+
+                string sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
+                //--------------------------------------------------------------------------//
+
+
+                // Sets up Retrun Date and Return Time
+                //--------------------------------------------------------------------------//
                 DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12,0,0);
 
-                int iYearDateIn = dt_datein.Value.Year;
-                int iMonthDateIn = dt_datein.Value.Month;
-                int iDayDateIn = dt_datein.Value.Day;
+                string tempReturnTimeHours = txt_flighttimes.Text.Substring(0, 4);
+                //--------------------------------------------------------------------------//
 
-                DateTime dtDateIn = new DateTime(iYearDateIn, iMonthDateIn, iDayDateIn, 12, 0, 0);
-
-                int iTimeHours = 0;
-                int iTimeMinutes = 0;
-
-                Int32.TryParse(cmb_timeinhours.Text, out iTimeHours);
-                Int32.TryParse(cmb_timeinminutes.Text, out iTimeMinutes);
-
-                string sTimeIn = iTimeHours.ToString("00") + iTimeMinutes.ToString("00");
 
                 string UpdateCommand = @"UPDATE CustomerInvoices SET
                                                                     KeyNumber = '" + txt_keyno.Text +
@@ -1077,11 +985,13 @@ namespace KKCSInvoiceProject
                                                                     "', AccountHolder = '" + txt_account.Text +
                                                                     "', AccountParticulars = '" + txt_particulars.Text +
                                                                     "', TotalPay = '" + txt_total.Text +
+                                                                    "', Stay = '" + lbl_stay.Text +
+                                                                    "', FlightStatus = '" + cmb_returnstatus.Text +
+                                                                    "', StaffMember = '" + cmb_worker.Text +
                                                                     "', PaidStatus = '" + g_sPaidStatus +
                                                                     "', CarLocation = '" + m_sCarLocation +
                                                                     "', YNDatePaid  = " + m_bAlreadyPaid +
                                                                     ", PickUp  = " + m_bCarPickedUp +
-                                                                    ", UnknownDate  = " + bUnknownDate +
                                                                     " WHERE InvoiceNumber = " + iInvoiceNumber + "";
 
                 command.CommandText = UpdateCommand;
@@ -1538,11 +1448,14 @@ namespace KKCSInvoiceProject
         {
             FindFlightTimes();
 
-            SetUpPrice();
+            //txt_flighttimes.SelectedIndex = 0;
 
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                SetUpPrice();
+            }
+            
             lbl_pickreturn.Visible = false;
-
-            txt_flighttimes.SelectedIndex = 0;
         }
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
@@ -1855,11 +1768,15 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetUpPrice();
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                SetUpPrice();
+            }
 
-            if(txt_flighttimes.Text == "2025")
+            if (txt_flighttimes.Text == "2025")
             {
                 DrivingBack db = new DrivingBack();
+                db.SetText("Last Flight");
                 db.ShowDialog();
             }
 
@@ -2249,7 +2166,17 @@ Number: 02-0800-0493229-00
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
-            TimeSpan TimeDifference = dt_returndate.Value - dt_datein.Value;
+
+            int.TryParse(cmb_timeinhours.Text, out int iInHours);
+            int.TryParse(cmb_timeinminutes.Text, out int iInMinutes);
+
+            int.TryParse(txt_flighttimes.Text.Substring(0,2), out int iReturnHours);
+            int.TryParse(txt_flighttimes.Text.Substring(2,2), out int iReturnMinutes);
+
+            DateTime dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, iInHours, iInMinutes, 0);
+            DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, iReturnHours, iReturnMinutes, 0);
+
+            TimeSpan TimeDifference = dtReturnDate - dtDateIn;
 
             // Puts the difference of days into the variable
             iDays = TimeDifference.Days;
@@ -2261,7 +2188,7 @@ Number: 02-0800-0493229-00
             }
 
             // Gets the time the customer brought the car in
-            iTimeInHours = int.Parse(cmb_timeinhours.Text);
+            iTimeInHours = int.Parse(cmb_timeinhours.Text); 
 
             iReturnTimeHours = int.Parse(txt_flighttimes.Text.Substring(0, 2));
 
@@ -2279,7 +2206,15 @@ Number: 02-0800-0493229-00
                 // If the days are less than 0, this is impossible so give an error
                 if (iDays < 0)
                 {
-                    MessageBox.Show("ERROR: 'Return Date' Cannot Be Before 'Date In'");
+                    WarningSystem ws = new WarningSystem("'Return Date' Cannot Be Before 'Date In'", false);
+                    ws.ShowDialog();
+
+                    dt_returndate.Value = DateTime.Now;
+
+                    txt_total.Text = "";
+                    lbl_stay.Text = "";
+
+                    return;
                 }
 
                 // If they are only staying for 1 day
@@ -2339,9 +2274,9 @@ Number: 02-0800-0493229-00
             {
                 lbl_stay.Text = iDays.ToString("0") + " Days";
             }
-            else
+            else if(iDays <= 1)
             {
-                lbl_stay.Text = iDays.ToString("0") + " Day";
+                lbl_stay.Text = "1 Day";
             }
         }
 
@@ -2459,8 +2394,11 @@ Number: 02-0800-0493229-00
                 g_sPaidStatus = cmb_paidstatus.Text;
             }
 
-            SetUpPrice();
-
+            if(!m_bInitialSetUpFromCarReturns)
+            {
+                SetUpPrice();
+            }
+            
             btn_cashcalc.Enabled = false;
             btn_cashcalc.Visible = false;
 
@@ -2538,10 +2476,15 @@ Number: 02-0800-0493229-00
         {
             string sGetCurrentNotes = iv.GetCurrentNotes();
 
+            txt_notes.Text = sGetCurrentNotes;
+
             if (sGetCurrentNotes != "")
             {
                 txt_notes.Visible = true;
-                txt_notes.Text = sGetCurrentNotes;
+            }
+            else
+            {
+                txt_notes.Visible = false;
             }
         }
 
@@ -2632,20 +2575,44 @@ Number: 02-0800-0493229-00
         private void btn_addcustalert_Click(object sender, EventArgs e)
         {
             ia = new InvoiceAlerts();
-            ia.GetRego(cmb_rego.Text);
+            //ia.GetRego(cmb_rego.Text);
             ia.FormClosing += CloseAlertNotes;
             ia.ShowDialog();
         }
 
         private void cmb_returnstatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cmb_returnstatus.Text != "Standard - Coming In On Flight")
+            DrivingBack db = new DrivingBack();
+
+            //db.SetText("Last Flight");
+            //db.ShowDialog();
+
+            btn_warningagain.Visible = true;
+
+            switch (cmb_returnstatus.Text)
             {
-                btn_warningagain.Visible = true;
-            }
-            else
-            {
-                btn_warningagain.Visible = false;
+                case "Standard - Coming In On Flight":
+                    {
+                        btn_warningagain.Visible = false;
+
+                        break;
+                    }
+                case "Unknown Date & Time":
+                case "Unknown Date":
+                case "Unknown Time":
+                    {
+                        db.SetText("Unknown");
+                        db.ShowDialog();
+
+                        break;
+                    }
+                case @"Driving Back/Bus":
+                    {
+                        db.SetText("Driving Back");
+                        db.ShowDialog();
+
+                        break;
+                    }
             }
         }
 

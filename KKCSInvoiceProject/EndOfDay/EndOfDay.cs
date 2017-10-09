@@ -266,7 +266,7 @@ namespace KKCSInvoiceProject
 
             DateTime dtDate = DateTime.Today;
             //string query = @"SELECT * FROM Invoice WHERE ReturnMonth = '" + 02 + "' AND ReturnYear = '" + 2017 + "' AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DateInInvisible DESC";
-            dtDate = new DateTime(2017, 8, dtDate.Day, 12, 0, 0);
+            dtDate = new DateTime(2017, 9, dtDate.Day, 12, 0, 0);
 
             string query = "select * from CustomerInvoices WHERE year(DTReturnDate) = year(@dtDate) AND month(DTDatePaid) = month(@dtDate) AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DTDateIn ASC";
             command.Parameters.AddWithValue("@dtDate", dtDate);
@@ -283,12 +283,10 @@ namespace KKCSInvoiceProject
 
             bool bFirstTimeOnly = false;
 
-            //sCombinedAccount += "Please ignore last email, it was in error for January instead of February. This is the correct dates" + sNextLine + sNextLine;
-
             //sCombinedAccount += "Date In" + Padding.Left(5);
 
             //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
-            sTitle = "BOI Car Storage Yard - August 2017 Accounts";
+            sTitle = "BOI Car Storage Yard - September 2017 Accounts";
 
             int iPadLength = 25;
 
@@ -1201,6 +1199,17 @@ namespace KKCSInvoiceProject
         #endregion Checkboxes
 
         private void btn_email_Click(object sender, EventArgs e)
+        {
+            connection.Open();
+
+            AccountsTest();
+
+            SendEmailTest();
+
+            connection.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             connection.Open();
 

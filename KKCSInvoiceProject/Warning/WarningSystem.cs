@@ -18,6 +18,11 @@ namespace KKCSInvoiceProject
         {
             InitializeComponent();
 
+            System.Media.SystemSounds.Asterisk.Play();
+
+            //System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Drive D\GITKKCSInvoiceSystem\KKCSInvoiceSystem\KKCSInvoiceProject\Resources\No.wav");
+            //player.Play();
+
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(600, 300);
 

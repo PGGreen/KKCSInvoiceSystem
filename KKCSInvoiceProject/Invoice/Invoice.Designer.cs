@@ -109,6 +109,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_stay = new System.Windows.Forms.Label();
             this.btn_warningagain = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -160,13 +162,13 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Green;
-            this.label6.Location = new System.Drawing.Point(52, 336);
+            this.label6.Location = new System.Drawing.Point(31, 336);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(169, 31);
+            this.label6.Size = new System.Drawing.Size(202, 29);
             this.label6.TabIndex = 15;
-            this.label6.Text = "DUE DATE:";
+            this.label6.Text = "RETURN DATE:";
             // 
             // dt_returndate
             // 
@@ -190,13 +192,13 @@
             // lbl_flighttime
             // 
             this.lbl_flighttime.AutoSize = true;
-            this.lbl_flighttime.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_flighttime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_flighttime.ForeColor = System.Drawing.Color.Green;
-            this.lbl_flighttime.Location = new System.Drawing.Point(16, 396);
+            this.lbl_flighttime.Location = new System.Drawing.Point(8, 397);
             this.lbl_flighttime.Name = "lbl_flighttime";
-            this.lbl_flighttime.Size = new System.Drawing.Size(204, 31);
+            this.lbl_flighttime.Size = new System.Drawing.Size(225, 29);
             this.lbl_flighttime.TabIndex = 20;
-            this.lbl_flighttime.Text = "FLIGHT TIME:";
+            this.lbl_flighttime.Text = "RETURN FLIGHT:";
             // 
             // txt_ph
             // 
@@ -350,7 +352,7 @@
             this.btn_save.BackColor = System.Drawing.Color.OrangeRed;
             this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save.ForeColor = System.Drawing.Color.Black;
-            this.btn_save.Location = new System.Drawing.Point(1267, 176);
+            this.btn_save.Location = new System.Drawing.Point(1266, 241);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(174, 68);
             this.btn_save.TabIndex = 38;
@@ -364,6 +366,7 @@
             this.txt_notes.Location = new System.Drawing.Point(25, 519);
             this.txt_notes.Multiline = true;
             this.txt_notes.Name = "txt_notes";
+            this.txt_notes.ReadOnly = true;
             this.txt_notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_notes.Size = new System.Drawing.Size(254, 208);
             this.txt_notes.TabIndex = 39;
@@ -467,21 +470,9 @@
             this.txt_flighttimes.DropDownWidth = 121;
             this.txt_flighttimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_flighttimes.FormattingEnabled = true;
-            this.txt_flighttimes.Items.AddRange(new object[] {
-            "0920",
-            "0935",
-            "1110",
-            "1140",
-            "1245",
-            "1350",
-            "1525",
-            "1610",
-            "1710",
-            "1840",
-            "1930"});
             this.txt_flighttimes.Location = new System.Drawing.Point(239, 393);
             this.txt_flighttimes.Name = "txt_flighttimes";
-            this.txt_flighttimes.Size = new System.Drawing.Size(96, 37);
+            this.txt_flighttimes.Size = new System.Drawing.Size(198, 37);
             this.txt_flighttimes.TabIndex = 85;
             this.txt_flighttimes.SelectedIndexChanged += new System.EventHandler(this.txt_flighttimes_SelectedIndexChanged);
             // 
@@ -522,7 +513,7 @@
             this.btn_update.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_update.ForeColor = System.Drawing.Color.White;
-            this.btn_update.Location = new System.Drawing.Point(1366, 363);
+            this.btn_update.Location = new System.Drawing.Point(1374, 416);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(139, 63);
             this.btn_update.TabIndex = 100;
@@ -656,7 +647,7 @@
             this.lbl_changesmade.AutoSize = true;
             this.lbl_changesmade.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_changesmade.ForeColor = System.Drawing.Color.Red;
-            this.lbl_changesmade.Location = new System.Drawing.Point(1234, 276);
+            this.lbl_changesmade.Location = new System.Drawing.Point(1242, 329);
             this.lbl_changesmade.Name = "lbl_changesmade";
             this.lbl_changesmade.Size = new System.Drawing.Size(245, 74);
             this.lbl_changesmade.TabIndex = 154;
@@ -669,7 +660,7 @@
             this.btn_revertchanges.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btn_revertchanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_revertchanges.ForeColor = System.Drawing.Color.Black;
-            this.btn_revertchanges.Location = new System.Drawing.Point(1222, 363);
+            this.btn_revertchanges.Location = new System.Drawing.Point(1230, 416);
             this.btn_revertchanges.Name = "btn_revertchanges";
             this.btn_revertchanges.Size = new System.Drawing.Size(138, 63);
             this.btn_revertchanges.TabIndex = 155;
@@ -973,16 +964,15 @@
             this.cmb_returnstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_returnstatus.FormattingEnabled = true;
             this.cmb_returnstatus.Items.AddRange(new object[] {
-            "Standard - Coming In On Flight",
+            "Standard - On Flight",
             "Unknown Date & Time",
             "Unknown Date",
             "Unknown Time",
-            "Driving Back",
-            "Bus",
+            "Driving Back/Bus",
             "Other"});
-            this.cmb_returnstatus.Location = new System.Drawing.Point(358, 398);
+            this.cmb_returnstatus.Location = new System.Drawing.Point(491, 398);
             this.cmb_returnstatus.Name = "cmb_returnstatus";
-            this.cmb_returnstatus.Size = new System.Drawing.Size(334, 28);
+            this.cmb_returnstatus.Size = new System.Drawing.Size(201, 28);
             this.cmb_returnstatus.TabIndex = 170;
             this.cmb_returnstatus.SelectedIndexChanged += new System.EventHandler(this.cmb_returnstatus_SelectedIndexChanged);
             // 
@@ -1129,11 +1119,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Green;
-            this.label2.Location = new System.Drawing.Point(122, 439);
+            this.label2.Location = new System.Drawing.Point(146, 439);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 31);
+            this.label2.Size = new System.Drawing.Size(87, 29);
             this.label2.TabIndex = 181;
             this.label2.Text = "STAY:";
             // 
@@ -1142,7 +1132,7 @@
             this.lbl_stay.AutoSize = true;
             this.lbl_stay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_stay.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_stay.Location = new System.Drawing.Point(228, 439);
+            this.lbl_stay.Location = new System.Drawing.Point(229, 438);
             this.lbl_stay.Name = "lbl_stay";
             this.lbl_stay.Size = new System.Drawing.Size(121, 31);
             this.lbl_stay.TabIndex = 182;
@@ -1151,7 +1141,7 @@
             // btn_warningagain
             // 
             this.btn_warningagain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_warningagain.Location = new System.Drawing.Point(457, 432);
+            this.btn_warningagain.Location = new System.Drawing.Point(520, 432);
             this.btn_warningagain.Name = "btn_warningagain";
             this.btn_warningagain.Size = new System.Drawing.Size(148, 25);
             this.btn_warningagain.TabIndex = 183;
@@ -1159,12 +1149,41 @@
             this.btn_warningagain.UseVisualStyleBackColor = true;
             this.btn_warningagain.Click += new System.EventHandler(this.btn_warningagain_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(1287, 175);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(138, 24);
+            this.label8.TabIndex = 185;
+            this.label8.Text = "Staff Member:";
+            // 
+            // cmb_worker
+            // 
+            this.cmb_worker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.cmb_worker.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_worker.FormattingEnabled = true;
+            this.cmb_worker.Items.AddRange(new object[] {
+            "Please Pick...",
+            "Jude",
+            "Graham",
+            "Noel",
+            "Peter",
+            "Deb"});
+            this.cmb_worker.Location = new System.Drawing.Point(1259, 202);
+            this.cmb_worker.Name = "cmb_worker";
+            this.cmb_worker.Size = new System.Drawing.Size(188, 33);
+            this.cmb_worker.TabIndex = 184;
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.cmb_worker);
             this.Controls.Add(this.btn_warningagain);
             this.Controls.Add(this.lbl_stay);
             this.Controls.Add(this.label2);
@@ -1329,5 +1348,7 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_warningagain;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cmb_worker;
     }
 }

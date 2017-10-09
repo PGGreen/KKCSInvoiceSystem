@@ -27,8 +27,6 @@ namespace KKCSInvoiceProject
 
         List<Button> lstKeyBox = new List<Button>();
 
-        string[,] strArray;
-
         int iLocationX = 0;
         int iLocationY = 0;
 
@@ -44,20 +42,20 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
-            PopulateRegoButtons();
-            PopulateLongTermButtons();
+            PopulateKeyBoxButtons();
 
-            for (int i = 0; i < lstKeyBox.Count; i++)
-            {
-                Button btn = new Button();
-                btn.BackColor = lstKeyBox[i].BackColor;
+            //for (int i = 0; i < lstKeyBox.Count; i++)
+            //{
+            //    Button btn = new Button();
+            //    btn.BackColor = lstKeyBox[i].BackColor;
 
-                btnTempOriginalButtons.Add(btn);
-            }
+            //    btnTempOriginalButtons.Add(btn);
+            //}
 
             //GetXMLFiles("H:\\Music");
         }
 
+        /*
         public static IEnumerable<string> GetXMLFiles(string directory)
         {
             List<string> files = new List<string>();
@@ -75,12 +73,12 @@ namespace KKCSInvoiceProject
 
             return files;
         }
-
+        */
         #endregion Load
 
         #region CreateRegoButtons
 
-        void PopulateRegoButtons()
+        void PopulateKeyBoxButtons()
         {
             connection.Open();
 
@@ -96,29 +94,27 @@ namespace KKCSInvoiceProject
 
             int iNumberOfCars = 0;
 
-            strArray = new string[70, 2];
-
             for (int i = 0; i < 70; i++)
             {
                 Button RegoButton = CreateRegoButtons();
 
                 RegoButton.Text = (i + 1).ToString() + ". ";
+                RegoButton.BackColor = Color.MistyRose;
 
                 lstKeyBox.Add(RegoButton);
             }
-
+            
             while (reader.Read())
             {
-                int iTempKeyNumber = 0;
                 string sKeyNumber = reader["KeyNumber"].ToString();
 
-                bool bIsNumber = int.TryParse(sKeyNumber, out iTempKeyNumber);
+                bool bIsNumber = int.TryParse(sKeyNumber, out int iTempKeyNumber);
 
                 if(bIsNumber)
                 {
                     lstKeyBox[iTempKeyNumber - 1].Text = iTempKeyNumber.ToString() + ". " + reader["Rego"].ToString();
                     lstKeyBox[iTempKeyNumber - 1].Name = reader["Rego"].ToString();
-                    lstKeyBox[iTempKeyNumber - 1].BackColor = Color.Yellow;
+                    lstKeyBox[iTempKeyNumber - 1].BackColor = Color.LightGreen;
 
                     string sInvoiceNumber = reader["InvoiceNumber"].ToString();
 
@@ -129,10 +125,10 @@ namespace KKCSInvoiceProject
 
                 iNumberOfCars++;
             }
-
+            
             cmb_regos.Sorted = true;
 
-            txt_nocars.Text = iNumberOfCars.ToString() + "/70";
+            txt_nocars.Text = iNumberOfCars.ToString() + "/70 Cars";
 
             connection.Close();
         }
@@ -148,7 +144,7 @@ namespace KKCSInvoiceProject
 
             Controls.Add(btn);
 
-            iLocationX += 130;
+            iLocationX += 150;
 
             iCount++;
 
@@ -162,92 +158,6 @@ namespace KKCSInvoiceProject
         }
 
         #endregion CreateRegoButtons
-
-        #region CreateLongTermButtons
-
-        void PopulateLongTermButtons()
-        {
-            connection.Open();
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = "select * from LongTermAccounts ORDER BY ID ASC";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            iLocationX = 0;
-            iLocationY = 0;
-
-            iCount = 0;
-
-            int iTemp = 0;
-
-            int iNumberOfCars = 0;
-
-            while (reader.Read())
-            {
-                Button LongTermButton = CreateLongTermButtons();
-
-                string sTempLongTerm = reader["Rego1"].ToString();
-                bool bIsCarInYard = (bool)reader["IsCarInYard"];
-
-                if (bIsCarInYard)
-                {
-                    LongTermButton.BackColor = Color.LightGreen;
-
-                    iNumberOfCars++;
-                }
-                else
-                {
-                    LongTermButton.BackColor = Color.MistyRose;
-                }
-
-                LongTermButton.Text = "LT" + iCount.ToString() + ". " + sTempLongTerm;
-
-                iTemp++;
-
-                // Breaks after reaching Key number 70
-                if (iTemp > 69)
-                {
-                    break;
-                }
-            }
-
-            //txt_nocars.Text = iNumberOfCars.ToString() + "/70 Cars";
-
-            connection.Close();
-
-            //CreateReleaseButtons();
-        }
-
-        Button CreateLongTermButtons()
-        {
-            Button btn = new Button();
-            btn.Font = btn_one.Font;
-
-            btn.Location = new Point(btn_longterm.Location.X + iLocationX, btn_longterm.Location.Y + iLocationY);
-            btn.Size = btn_longterm.Size;
-
-            Controls.Add(btn);
-
-            iLocationX += 130;
-
-            iCount++;
-
-            if (iCount % 10 == 0)
-            {
-                iLocationX = 0;
-                iLocationY += 80;
-            }
-
-            return (btn);
-        }
-
-        #endregion CreateLongTermButtons
 
         #region SelectRego
 
@@ -303,6 +213,7 @@ namespace KKCSInvoiceProject
         #endregion Buttons
 
         #region ShortCutButtons
+
         private void btn_mainmenu_Click(object sender, EventArgs e)
         {
             Form fm = Application.OpenForms["MainMenu"];
@@ -362,6 +273,7 @@ namespace KKCSInvoiceProject
                 cr.Show();
             }
         }
+
         #endregion ShortCutButtons
     }
 }

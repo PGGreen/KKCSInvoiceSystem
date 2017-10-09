@@ -266,24 +266,15 @@ namespace KKCSInvoiceProject
         {
             connection.Open();
 
-            DateTime dtTodaysDate = new DateTime(2016, 1, 1, 12, 0, 0);
-
             command = new OleDbCommand();
 
             command.Connection = connection;
 
-            string query = "select * from CustomerInvoices WHERE year(DTDatePaid) = year(@dtDate) AND PaidStatus <> 'To Pay' ORDER BY DTDatePaid ASC";
-            query = "SELECT * FROM CustomerInvoices ORDER BY DTDatePaid ASC";
+            string query = "SELECT * FROM CustomerInvoices ORDER BY DTDatePaid ASC";
 
             command.CommandText = query;
-            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
 
             reader = command.ExecuteReader();
-
-            int iCash = 0;
-            float fEftpos = 0.0f;
-            float fCreditCard = 0.0f;
-            float fAccount = 0.0f;
 
             float fTotalMonthly = 0.0f;
 
@@ -302,14 +293,7 @@ namespace KKCSInvoiceProject
                 {
                     lbl_money.Text += DTStoreDate.ToString("MMM").ToUpper() + " " + DTStoreDate.ToString("yy") +":    $" + fTotalMonthly.ToString("00.00") + "\r\n";
 
-                    if (DTStoreDate.Month == 9 && DTStoreDate.Year == 2017)
-                    {
-                        lbl_daily.Text += "$" + (fTotalMonthly / 21).ToString("00.00") + " (Per Day)" + "\r\n";
-                    }
-                    else
-                    {
-                        lbl_daily.Text += "$" + (fTotalMonthly / 30).ToString("00.00") + " (Per Day)" + "\r\n";
-                    }
+                    lbl_daily.Text += "$" + (fTotalMonthly / 30).ToString("00.00") + " (Per Day)" + "\r\n";
 
                     fTotalMonthly = 0.0f;
                 }
@@ -318,48 +302,21 @@ namespace KKCSInvoiceProject
                 float fTotal = 0.0f;
                 float.TryParse(reader["TotalPay"].ToString(), out fTotal);
 
+                if(fTotal < 0.0f)
+                {
+                    int fgh = 9;
+                }
+
                 fTotalMonthly += fTotal;
 
                 bSkipFirstTime = false;
 
                 DTStoreDateSecond = DTStoreDate;
-
-                switch (reader["PaidStatus"].ToString())
-                {
-                    case "Cash":
-                        {
-                            int iCashDatabase = 0;
-                            int.TryParse(reader["TotalPay"].ToString(), out iCashDatabase);
-
-                            iCash += iCashDatabase;
-                            break;
-                        }
-                    case "Eftpos":
-                        {
-                            float fEftposDatabase = 0.0f;
-                            float.TryParse(reader["TotalPay"].ToString(), out fEftposDatabase);
-
-                            fEftpos += fEftposDatabase;
-                            break;
-                        }
-                    case "Credit Card":
-                        {
-                            float fCreditCardDatabase = 0.0f;
-                            float.TryParse(reader["TotalPay"].ToString(), out fCreditCardDatabase);
-
-                            fCreditCard += fCreditCardDatabase;
-                            break;
-                        }
-                    case "OnAcc":
-                        {
-                            float fAccountDatabase = 0.0f;
-                            float.TryParse(reader["TotalPay"].ToString(), out fAccountDatabase);
-
-                            fAccount += fAccountDatabase;
-                            break;
-                        }
-                }
             }
+
+            lbl_money.Text += DTStoreDate.ToString("MMM").ToUpper() + " " + DTStoreDate.ToString("yy") + ":    $" + fTotalMonthly.ToString("00.00") + "\r\n";
+
+            lbl_daily.Text += "$" + (fTotalMonthly / 30).ToString("00.00") + " (Per Day)" + "\r\n";
 
             //string sCashTotal = "YTD Cash Total: $" + iCash.ToString("N") + "\r\n";
 
