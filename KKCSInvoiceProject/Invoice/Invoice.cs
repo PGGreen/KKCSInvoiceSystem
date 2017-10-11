@@ -969,6 +969,19 @@ namespace KKCSInvoiceProject
                 string tempReturnTimeHours = txt_flighttimes.Text.Substring(0, 4);
                 //--------------------------------------------------------------------------//
 
+                // Checks if Notes and Alerts have text in them
+                bool bIsNotes = false;
+                bool bIsAlerts = false;
+
+                if (txt_notes.Text != "")
+                {
+                    bIsNotes = true;
+                }
+
+                if(txt_alerts.Text != "")
+                {
+                    bIsAlerts = true;
+                }
 
                 string UpdateCommand = @"UPDATE CustomerInvoices SET
                                                                     KeyNumber = '" + txt_keyno.Text +
@@ -992,6 +1005,8 @@ namespace KKCSInvoiceProject
                                                                     "', CarLocation = '" + m_sCarLocation +
                                                                     "', YNDatePaid  = " + m_bAlreadyPaid +
                                                                     ", PickUp  = " + m_bCarPickedUp +
+                                                                    ", IsNotes  = " + bIsNotes +
+                                                                    ", IsAlerts  = " + bIsAlerts +
                                                                     " WHERE InvoiceNumber = " + iInvoiceNumber + "";
 
                 command.CommandText = UpdateCommand;

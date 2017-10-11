@@ -461,43 +461,59 @@ namespace KKCSInvoiceProject
                 btn.Click += new EventHandler(InvoiceButton_Click);
             }
 
-            if (_p.Name == "btn_notes")
+            if(_p.Name == "btn_notesalerts")
             {
-                if (reader["Notes"].ToString() != "")
+                btn.Visible = false;
+
+                if((bool)reader["IsNotes"])
                 {
-                    btn.BackColor = _p.BackColor;
-                    btn.Text = _p.Text;
-                    btn.ForeColor = _p.ForeColor;
                     btn.Visible = true;
+                    btn.BackgroundImage = Properties.Resources.N;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
 
                     btn.Name = reader["InvoiceNumber"].ToString();
 
                     btn.Click += new EventHandler(NotesButton_Click);
                 }
-                else
-                {
-                    btn.Visible = false;
-                }
             }
 
-            if (_p.Name == "btn_alerts")
-            {
-                if (reader["Alerts"].ToString() != "")
-                {
-                    btn.BackColor = _p.BackColor;
-                    btn.Text = _p.Text;
-                    btn.ForeColor = _p.ForeColor;
-                    btn.Visible = true;
+            //if (_p.Name == "btn_notes")
+            //{
+            //    if (reader["Notes"].ToString() != "")
+            //    {
+            //        btn.BackColor = _p.BackColor;
+            //        btn.Text = _p.Text;
+            //        btn.ForeColor = _p.ForeColor;
+            //        btn.Visible = true;
 
-                    btn.Name = reader["InvoiceNumber"].ToString();
+            //        btn.Name = reader["InvoiceNumber"].ToString();
 
-                    btn.Click += new EventHandler(AlertsButton_Click);
-                }
-                else
-                {
-                    btn.Visible = false;
-                }
-            }
+            //        btn.Click += new EventHandler(NotesButton_Click);
+            //    }
+            //    else
+            //    {
+            //        btn.Visible = false;
+            //    }
+            //}
+
+            //if (_p.Name == "btn_alerts")
+            //{
+            //    if (reader["Alerts"].ToString() != "")
+            //    {
+            //        btn.BackColor = _p.BackColor;
+            //        btn.Text = _p.Text;
+            //        btn.ForeColor = _p.ForeColor;
+            //        btn.Visible = true;
+
+            //        btn.Name = reader["InvoiceNumber"].ToString();
+
+            //        btn.Click += new EventHandler(AlertsButton_Click);
+            //    }
+            //    else
+            //    {
+            //        btn.Visible = false;
+            //    }
+            //}
 
             btn.Location = _p.Location;
             btn.Size = _p.Size;
@@ -879,20 +895,23 @@ namespace KKCSInvoiceProject
             int x = 0;
             Int32.TryParse(btn.Name, out x);
 
-            string query = @"SELECT Notes FROM CustomerInvoices
+            string query = @"SELECT Notes FROM InvoiceNotes
                              WHERE InvoiceNumber = " + x + "";
 
             command.CommandText = query;
 
             reader = command.ExecuteReader();
 
+            string tempStr = "";
+
             while (reader.Read())
             {
-                string tempStr = reader["Notes"].ToString();
-                MessageBox.Show(tempStr, "Note");
-
-                break;
+                tempStr += reader["Notes"].ToString();
             }
+
+            ShowNotesAlerts sna = new ShowNotesAlerts();
+            sna.ShowDialog();
+            //MessageBox.Show(tempStr, "Note");
 
             connection.Close();
         }

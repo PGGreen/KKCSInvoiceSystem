@@ -174,6 +174,12 @@
     <Compile Include="SearchByName.Designer.cs">
       <DependentUpon>SearchByName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\ShowNotesAlerts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoice\ShowNotesAlerts.Designer.cs">
+      <DependentUpon>ShowNotesAlerts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Warning\DrivingBack.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -410,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchByName.resx">
       <DependentUpon>SearchByName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\ShowNotesAlerts.resx">
+      <DependentUpon>ShowNotesAlerts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stats\DailyCarsStats.resx">
       <DependentUpon>DailyCarsStats.cs</DependentUpon>
