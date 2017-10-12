@@ -108,7 +108,8 @@ namespace KKCSInvoiceProject
             {
                 string sKeyNumber = reader["KeyNumber"].ToString();
 
-                bool bIsNumber = int.TryParse(sKeyNumber, out int iTempKeyNumber);
+                int iTempKeyNumber = 0;
+                bool bIsNumber = int.TryParse(sKeyNumber, out iTempKeyNumber);
 
                 if(bIsNumber)
                 {

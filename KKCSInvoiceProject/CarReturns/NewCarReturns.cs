@@ -886,32 +886,9 @@ namespace KKCSInvoiceProject
         {
             Button btn = (Button)sender;
 
-            connection.Open();
-
-            command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            int x = 0;
-            Int32.TryParse(btn.Name, out x);
-
-            string query = @"SELECT Notes FROM InvoiceNotes
-                             WHERE InvoiceNumber = " + x + "";
-
-            command.CommandText = query;
-
-            reader = command.ExecuteReader();
-
-            string tempStr = "";
-
-            while (reader.Read())
-            {
-                tempStr += reader["Notes"].ToString();
-            }
-
             ShowNotesAlerts sna = new ShowNotesAlerts();
+            sna.Test(btn.Name);
             sna.ShowDialog();
-            //MessageBox.Show(tempStr, "Note");
 
             connection.Close();
         }
@@ -1757,7 +1734,8 @@ namespace KKCSInvoiceProject
 
             if (cmb_searchby.Text == "Invoice No")
             {
-                bool bCheckIfNumber = int.TryParse(cmb_items.Text, out int iCheckIfNumber);
+                int iCheckIfNumber = 0;
+                bool bCheckIfNumber = int.TryParse(cmb_items.Text, out iCheckIfNumber);
 
                 if (!bCheckIfNumber)
                 {

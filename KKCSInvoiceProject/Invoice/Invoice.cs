@@ -2181,12 +2181,16 @@ Number: 02-0800-0493229-00
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
+            int iInHours = 0;
+            int iInMinutes = 0;
+            int iReturnHours = 0;
+            int iReturnMinutes = 0;
 
-            int.TryParse(cmb_timeinhours.Text, out int iInHours);
-            int.TryParse(cmb_timeinminutes.Text, out int iInMinutes);
+            int.TryParse(cmb_timeinhours.Text, out iInHours);
+            int.TryParse(cmb_timeinminutes.Text, out iInMinutes);
 
-            int.TryParse(txt_flighttimes.Text.Substring(0,2), out int iReturnHours);
-            int.TryParse(txt_flighttimes.Text.Substring(2,2), out int iReturnMinutes);
+            int.TryParse(txt_flighttimes.Text.Substring(0,2), out iReturnHours);
+            int.TryParse(txt_flighttimes.Text.Substring(2,2), out iReturnMinutes);
 
             DateTime dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, iInHours, iInMinutes, 0);
             DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, iReturnHours, iReturnMinutes, 0);
