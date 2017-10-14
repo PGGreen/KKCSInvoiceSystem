@@ -28,6 +28,10 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
+            lbl_notes.Text = "";
+
+            lbl_alerts.Text = "";
+
             //Test();
         }
 

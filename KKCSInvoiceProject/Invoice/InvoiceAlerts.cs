@@ -22,7 +22,7 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
-        int g_iInoviceNumber = 0;
+        string g_sCarRego = "";
 
         public InvoiceAlerts()
         {
@@ -52,24 +52,24 @@ namespace KKCSInvoiceProject
 
                 DateTime DTNow = DateTime.Now;
 
-                //string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,DateAndTime,InvoiceNumber) values ('" + txt_newnote.Text +
-                //                                                                                        "', '" + cmb_worker.Text +
-                //                                                                                        "', '" + DTNow +
-                //                                                                                        "', " + g_iInoviceNumber + ")";
+                string sNonQuery = @"INSERT INTO Alerts (Rego,Alert,StaffMember,DateAndTime) values ('" + g_sCarRego +
+                                                                                                        "', '" + txt_newalert.Text +
+                                                                                                        "', '" + cmb_worker.Text +
+                                                                                                        "', '" + DTNow + "')";
 
-                //command.CommandText = sNonQuery;
+                command.CommandText = sNonQuery;
 
                 command.ExecuteNonQuery();
 
                 CloseDBCon();
 
-                LoadNotes();
+                LoadAlerts();
             }
         }
 
         string blah = "";
 
-        private void LoadNotes()
+        private void LoadAlerts()
         {
             OpenDBCon();
 
@@ -77,7 +77,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sQuery = @"SELECT * FROM InvoiceNotes WHERE InvoiceNumber = " + g_iInoviceNumber + " ORDER BY DateAndTime DESC";
+            string sQuery = @"SELECT * FROM Alerts WHERE Rego = '" + g_sCarRego + "' ORDER BY DateAndTime DESC";
 
             command.CommandText = sQuery;
 
@@ -99,7 +99,7 @@ namespace KKCSInvoiceProject
                 Button btn = new Button();
 
                 lbl.Location = new Point(iLocX, iLocY);
-                lbl.Text = reader["Notes"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+                lbl.Text = reader["Alert"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
                 blah += lbl.Text + "\r\n\r\n";
                 lbl.AutoSize = true;
                 lbl.MaximumSize = new Size(400, 0);
@@ -109,7 +109,7 @@ namespace KKCSInvoiceProject
                 btn.Name = reader["ID"].ToString();
                 btn.Text = "Delete";
 
-                btn.Click += new EventHandler(InvoiceButton_Click);
+                btn.Click += new EventHandler(AlertDelete_Click);
 
                 panel1.Controls.Add(lbl);
                 panel1.Controls.Add(btn);
@@ -120,7 +120,7 @@ namespace KKCSInvoiceProject
             CloseDBCon();
         }
 
-        private void InvoiceButton_Click(object sender, EventArgs e)
+        private void AlertDelete_Click(object sender, EventArgs e)
         {
             DeleteControls();
 
@@ -132,7 +132,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sQuery = @"DELETE * FROM InvoiceNotes WHERE ID = " + btn.Name + "";
+            string sQuery = @"DELETE * FROM Alerts WHERE ID = " + btn.Name + "";
 
             command.CommandText = sQuery;
 
@@ -140,7 +140,7 @@ namespace KKCSInvoiceProject
 
             CloseDBCon();
 
-            LoadNotes();
+            LoadAlerts();
         }
 
         void DeleteControls()
@@ -172,16 +172,16 @@ namespace KKCSInvoiceProject
             }
         }
 
-        public void GetInvoiceNumber(int _iInvoiceNumber)
+        public void GetRego(string _sCarRego)
         {
-            g_iInoviceNumber = _iInvoiceNumber;
+            g_sCarRego = _sCarRego;
 
-            lbl_invoice.Text = "Invoice " + _iInvoiceNumber.ToString() + " Notes";
+            //lbl_invoice.Text = "Invoice " + _iInvoiceNumber.ToString() + " Notes";
 
-            LoadNotes();
+            LoadAlerts();
         }
 
-        public string GetCurrentNotes()
+        public string GetCurrentAlert()
         {
             return (blah);
         }

@@ -114,6 +114,12 @@
     <Compile Include="CarReturns\CarReturns.Designer.cs">
       <DependentUpon>CarReturns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\CustomerShow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoice\CustomerShow.Designer.cs">
+      <DependentUpon>CustomerShow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\InvoiceAlerts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CarReturns\CarReturns.resx">
       <DependentUpon>CarReturns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice\CustomerShow.resx">
+      <DependentUpon>CustomerShow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Invoice\InvoiceAlerts.resx">
       <DependentUpon>InvoiceAlerts.cs</DependentUpon>

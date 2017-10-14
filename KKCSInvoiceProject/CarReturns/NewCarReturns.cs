@@ -465,7 +465,19 @@ namespace KKCSInvoiceProject
             {
                 btn.Visible = false;
 
-                if((bool)reader["IsNotes"])
+
+
+                if((bool)reader["IsNotes"] && (bool)reader["IsAlerts"])
+                {
+                    btn.Visible = true;
+                    btn.BackgroundImage = Properties.Resources.NA;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+
+                    btn.Name = reader["InvoiceNumber"].ToString();
+
+                    btn.Click += new EventHandler(NotesButton_Click);
+                }
+                else if((bool)reader["IsNotes"])
                 {
                     btn.Visible = true;
                     btn.BackgroundImage = Properties.Resources.N;
@@ -475,45 +487,18 @@ namespace KKCSInvoiceProject
 
                     btn.Click += new EventHandler(NotesButton_Click);
                 }
+                else if((bool)reader["IsAlerts"])
+                {
+                    btn.Visible = true;
+                    btn.BackgroundImage = Properties.Resources.A;
+                    btn.BackgroundImageLayout = ImageLayout.Stretch;
+
+                    btn.Name = reader["InvoiceNumber"].ToString();
+
+                    btn.Click += new EventHandler(NotesButton_Click);
+                }
             }
 
-            //if (_p.Name == "btn_notes")
-            //{
-            //    if (reader["Notes"].ToString() != "")
-            //    {
-            //        btn.BackColor = _p.BackColor;
-            //        btn.Text = _p.Text;
-            //        btn.ForeColor = _p.ForeColor;
-            //        btn.Visible = true;
-
-            //        btn.Name = reader["InvoiceNumber"].ToString();
-
-            //        btn.Click += new EventHandler(NotesButton_Click);
-            //    }
-            //    else
-            //    {
-            //        btn.Visible = false;
-            //    }
-            //}
-
-            //if (_p.Name == "btn_alerts")
-            //{
-            //    if (reader["Alerts"].ToString() != "")
-            //    {
-            //        btn.BackColor = _p.BackColor;
-            //        btn.Text = _p.Text;
-            //        btn.ForeColor = _p.ForeColor;
-            //        btn.Visible = true;
-
-            //        btn.Name = reader["InvoiceNumber"].ToString();
-
-            //        btn.Click += new EventHandler(AlertsButton_Click);
-            //    }
-            //    else
-            //    {
-            //        btn.Visible = false;
-            //    }
-            //}
 
             btn.Location = _p.Location;
             btn.Size = _p.Size;

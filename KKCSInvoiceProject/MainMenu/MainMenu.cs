@@ -43,6 +43,14 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
+            Form fm = Application.OpenForms["CustomerShow"];
+
+            if (fm == null)
+            {
+                CustomerShow cs = new CustomerShow();
+                cs.Show();
+            }
+
             versionToolStripMenuItem.Text = "v" + sVersionNumber;
 
             this.FormClosing += MainMenu_Closing;

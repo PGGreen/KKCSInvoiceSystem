@@ -99,6 +99,8 @@ namespace KKCSInvoiceProject
                         DestroyInvUnsaved();
 
                         invManager.DeleteTab(iTabNumberFromManager);
+
+                        DeleteNotesIfUnsaved();
                     }
                     else
                     {
@@ -108,11 +110,63 @@ namespace KKCSInvoiceProject
             }
             else
             {
+                DeleteNotesIfFromCarReturns();
+
                 if (NewCarReturns != null)
                 {
                     NewCarReturns.ReloadPageFromInvoice();
                 }
             }
+        }
+
+        void DeleteNotesIfFromCarReturns()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            bool bIsNotes = false;
+            bool bIsAlerts = false;
+
+            if (txt_notes.Text != "")
+            {
+                bIsNotes = true;
+            }
+
+            if(txt_alerts.Text != "")
+            {
+                bIsAlerts = true;
+            }
+
+
+            string UpdateCommand = @"UPDATE CustomerInvoices SET IsNotes  = " + bIsNotes + ",IsAlerts = " + bIsAlerts + " WHERE InvoiceNumber = " + iInvoiceNumber + "";
+
+            command.CommandText = UpdateCommand;
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        void DeleteNotesIfUnsaved()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            OleDbDataReader reader;
+
+            command.Connection = connection;
+
+            string sQuery = @"DELETE * FROM InvoiceNotes WHERE InvoiceNumber = " + iInvoiceNumber + "";
+
+            command.CommandText = sQuery;
+
+            reader = command.ExecuteReader();
+
+            connection.Close();
         }
 
         void DestroyInvUnsaved()
@@ -318,6 +372,10 @@ namespace KKCSInvoiceProject
                 }
             }
 
+            cmb_worker.Enabled = false;
+
+            btn_refund.Enabled = true;
+
             WarningsStoreOriginalValues();
 
             m_bInitialSetUpFromCarReturns = false;
@@ -327,6 +385,18 @@ namespace KKCSInvoiceProject
             {
                 connection.Close();
             }
+
+            iv = new InvoiceNotes();
+            iv.GetInvoiceNumber(iInvoiceNumber);
+            iv.FormClosing += CloseInvoiceNotes;
+            IntPtr dummyInvoice = iv.Handle;
+            iv.Close();
+
+            ia = new InvoiceAlerts();
+            ia.GetRego(cmb_rego.Text);
+            ia.FormClosing += CloseAlertNotes;
+            IntPtr dummyAlert = ia.Handle;
+            ia.Close();
         }
 
         bool PopulatePaidStatus(OleDbDataReader _reader)
@@ -1232,6 +1302,14 @@ namespace KKCSInvoiceProject
         }
         */
 
+        void UpdateCustomerScreen()
+        {
+            //Form fm = Application.OpenForms["CustomerShow"];
+
+            //CustomerShow cs = (CustomerShow)fm;
+
+            //cs.UpdateInfo(txt_firstname.Text);
+        }
         #endregion
 
         #region MakeTime
@@ -1348,6 +1426,12 @@ namespace KKCSInvoiceProject
                 {
                     connection.Close();
                 }
+
+                ia = new InvoiceAlerts();
+                ia.GetRego(cmb_rego.Text);
+                ia.FormClosing += CloseAlertNotes;
+                IntPtr dummyAlert = ia.Handle;
+                ia.Close();
 
                 //lbl_particulars.Visible = true;
                 //txt_particulars.Visible = true;
@@ -1573,6 +1657,8 @@ namespace KKCSInvoiceProject
             {
                 WarningsChangesMade();
             }
+
+            UpdateCustomerScreen();
         }
 
         private void txt_lastname_TextChanged(object sender, EventArgs e)
@@ -2491,6 +2577,14 @@ Number: 02-0800-0493229-00
             iv.ShowDialog();
         }
 
+        private void btn_addcustalert_Click(object sender, EventArgs e)
+        {
+            ia = new InvoiceAlerts();
+            ia.GetRego(cmb_rego.Text);
+            ia.FormClosing += CloseAlertNotes;
+            ia.ShowDialog();
+        }
+
         private void CloseInvoiceNotes(object sender, CancelEventArgs e)
         {
             string sGetCurrentNotes = iv.GetCurrentNotes();
@@ -2509,13 +2603,18 @@ Number: 02-0800-0493229-00
 
         private void CloseAlertNotes(object sender, CancelEventArgs e)
         {
-            //string sGetCurrentNotes = iv.GetCurrentNotes();
+            string sGetCurrentNotes = ia.GetCurrentAlert();
 
-            //if (sGetCurrentNotes != "")
-            //{
-            //    txt_notes.Visible = true;
-            //    txt_notes.Text = sGetCurrentNotes;
-            //}
+            txt_alerts.Text = sGetCurrentNotes;
+
+            if (sGetCurrentNotes != "")
+            {
+                txt_alerts.Visible = true;
+            }
+            else
+            {
+                txt_alerts.Visible = false;
+            }
         }
 
         private void CloseCustomerSearch(object sender, CancelEventArgs e)
@@ -2589,14 +2688,6 @@ Number: 02-0800-0493229-00
             ccc.CashChangeCalculation(iPrice);
 
             ccc.ShowDialog();
-        }
-
-        private void btn_addcustalert_Click(object sender, EventArgs e)
-        {
-            ia = new InvoiceAlerts();
-            //ia.GetRego(cmb_rego.Text);
-            ia.FormClosing += CloseAlertNotes;
-            ia.ShowDialog();
         }
 
         private void cmb_returnstatus_SelectedIndexChanged(object sender, EventArgs e)

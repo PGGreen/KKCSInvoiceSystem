@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_notes = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_alerts = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.lbl_notes = new System.Windows.Forms.Label();
-            this.lbl_alerts = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -48,6 +48,17 @@
             this.panel1.Size = new System.Drawing.Size(462, 607);
             this.panel1.TabIndex = 0;
             // 
+            // lbl_notes
+            // 
+            this.lbl_notes.AutoSize = true;
+            this.lbl_notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_notes.Location = new System.Drawing.Point(19, 15);
+            this.lbl_notes.MaximumSize = new System.Drawing.Size(400, 0);
+            this.lbl_notes.Name = "lbl_notes";
+            this.lbl_notes.Size = new System.Drawing.Size(399, 20);
+            this.lbl_notes.TabIndex = 0;
+            this.lbl_notes.Text = "000000000000000000000000000000000000000";
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
@@ -56,6 +67,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(462, 607);
             this.panel2.TabIndex = 1;
+            // 
+            // lbl_alerts
+            // 
+            this.lbl_alerts.AutoSize = true;
+            this.lbl_alerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_alerts.Location = new System.Drawing.Point(16, 15);
+            this.lbl_alerts.MaximumSize = new System.Drawing.Size(400, 0);
+            this.lbl_alerts.Name = "lbl_alerts";
+            this.lbl_alerts.Size = new System.Drawing.Size(399, 20);
+            this.lbl_alerts.TabIndex = 1;
+            this.lbl_alerts.Text = "000000000000000000000000000000000000000";
             // 
             // label1
             // 
@@ -88,28 +110,6 @@
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lbl_notes
-            // 
-            this.lbl_notes.AutoSize = true;
-            this.lbl_notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_notes.Location = new System.Drawing.Point(19, 15);
-            this.lbl_notes.MaximumSize = new System.Drawing.Size(400, 0);
-            this.lbl_notes.Name = "lbl_notes";
-            this.lbl_notes.Size = new System.Drawing.Size(399, 20);
-            this.lbl_notes.TabIndex = 0;
-            this.lbl_notes.Text = "000000000000000000000000000000000000000";
-            // 
-            // lbl_alerts
-            // 
-            this.lbl_alerts.AutoSize = true;
-            this.lbl_alerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_alerts.Location = new System.Drawing.Point(16, 15);
-            this.lbl_alerts.MaximumSize = new System.Drawing.Size(400, 0);
-            this.lbl_alerts.Name = "lbl_alerts";
-            this.lbl_alerts.Size = new System.Drawing.Size(399, 20);
-            this.lbl_alerts.TabIndex = 1;
-            this.lbl_alerts.Text = "000000000000000000000000000000000000000";
             // 
             // ShowNotesAlerts
             // 
