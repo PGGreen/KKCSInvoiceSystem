@@ -1373,6 +1373,14 @@ namespace KKCSInvoiceProject
         {
             Form fmCustomerShow = Application.OpenForms["CustomerShow"];
 
+            if(fmCustomerShow == null)
+            {
+                CustomerShow cs = new CustomerShow();
+                cs.Show();
+
+                fmCustomerShow = cs;
+            }
+
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
             objCustomerShow.UpdateInfo(txt_firstname.Text + txt_lastname.Text, cmb_rego.Text, cmb_makemodel.Text);
@@ -1381,6 +1389,14 @@ namespace KKCSInvoiceProject
         void UpdateCustomerShowPrice()
         {
             Form fmCustomerShow = Application.OpenForms ["CustomerShow"];
+
+            if (fmCustomerShow == null)
+            {
+                CustomerShow cs = new CustomerShow();
+                cs.Show();
+
+                fmCustomerShow = cs;
+            }
 
             CustomerShow objCustomerShow = (CustomerShow) fmCustomerShow;
 
