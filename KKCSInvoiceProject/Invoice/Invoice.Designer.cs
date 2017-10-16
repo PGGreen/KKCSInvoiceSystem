@@ -877,8 +877,12 @@
             // 
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
-            "Till",
-            "Plastic Box"});
+            "Cash",
+            "Credit Card",
+            "Eftpos",
+            "Internet",
+            "Cheque",
+            "To Pay"});
             this.comboBox3.Location = new System.Drawing.Point(143, 180);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(99, 21);
@@ -1071,11 +1075,11 @@
             // 
             this.btn_datepaid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btn_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_datepaid.Location = new System.Drawing.Point(787, 109);
+            this.btn_datepaid.Location = new System.Drawing.Point(787, 111);
             this.btn_datepaid.Name = "btn_datepaid";
-            this.btn_datepaid.Size = new System.Drawing.Size(240, 23);
+            this.btn_datepaid.Size = new System.Drawing.Size(314, 23);
             this.btn_datepaid.TabIndex = 177;
-            this.btn_datepaid.Text = "Paid: 17/06/17 (Click to Change)";
+            this.btn_datepaid.Text = "Date Paid: 17/06/17 (Click to Change)";
             this.btn_datepaid.UseVisualStyleBackColor = false;
             // 
             // btn_refund

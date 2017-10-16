@@ -263,6 +263,8 @@ namespace KKCSInvoiceProject
 
                 txt_total.Text = "";
                 lbl_stay.Text = "";
+
+                UpdateCustomerShowPrice();
             }
         }
 
@@ -366,17 +368,17 @@ namespace KKCSInvoiceProject
                 else
                 {
                     //DateTime dtDatePaid = (DateTime)reader["DTDatePaid"];
-                    string sDatePaid = dtDatePaid.Day + "/" + dtDatePaid.Month + "/" + dtDatePaid.ToString("yy");
+                    string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                    btn_datepaid.Text = "Date Paid: " + sDatePaid + "(Click to Change)";
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " (Click to Change)";
                 }
             }
+
+            WarningsStoreOriginalValues();
 
             cmb_worker.Enabled = false;
 
             btn_refund.Enabled = true;
-
-            WarningsStoreOriginalValues();
 
             m_bInitialSetUpFromCarReturns = false;
 
@@ -1019,7 +1021,7 @@ namespace KKCSInvoiceProject
 
                     string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + "(Click to Change)";
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " (Click to Change)";
                 }
                 //--------------------------------------------------------------------------//
 
@@ -1302,14 +1304,6 @@ namespace KKCSInvoiceProject
         }
         */
 
-        void UpdateCustomerScreen()
-        {
-            //Form fm = Application.OpenForms["CustomerShow"];
-
-            //CustomerShow cs = (CustomerShow)fm;
-
-            //cs.UpdateInfo(txt_firstname.Text);
-        }
         #endregion
 
         #region MakeTime
@@ -1373,7 +1367,33 @@ namespace KKCSInvoiceProject
 
         #endregion
 
+        #region CustomerShow
+
+        void UpdateCustomerShow()
+        {
+            Form fmCustomerShow = Application.OpenForms["CustomerShow"];
+
+            CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
+
+            objCustomerShow.UpdateInfo(txt_firstname.Text + txt_lastname.Text, cmb_rego.Text, cmb_makemodel.Text);
+        }
+
+        void UpdateCustomerShowPrice()
+        {
+            Form fmCustomerShow = Application.OpenForms ["CustomerShow"];
+
+            CustomerShow objCustomerShow = (CustomerShow) fmCustomerShow;
+
+            objCustomerShow.UpdatePrice(txt_total.Text, g_sPaidStatus);
+        }
+
+        #endregion CustomerShow
+
+
+
         #region SeclectedTextChanges
+
+
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1433,24 +1453,7 @@ namespace KKCSInvoiceProject
                 IntPtr dummyAlert = ia.Handle;
                 ia.Close();
 
-                //lbl_particulars.Visible = true;
-                //txt_particulars.Visible = true;
-
-                //lbl_accountname.Visible = true;
-                //txt_account.Visible = true;
-
-                //if (CheckIfAccount())
-                //{
-                //    chkbox_onaccount.Checked = true;
-                //}
-                //else
-                //{
-                //    lbl_particulars.Visible = false;
-                //    txt_particulars.Visible = false;
-
-                //    lbl_accountname.Visible = false;
-                //    txt_account.Visible = false;
-                //}
+                UpdateCustomerShow();
             }
             catch (Exception ex)
             {
@@ -1587,6 +1590,8 @@ namespace KKCSInvoiceProject
                 }
             }
 
+            UpdateCustomerShow();
+
             if (!m_bInitialSetUpFromCarReturns)
             {
                 WarningsChangesMade();
@@ -1657,8 +1662,6 @@ namespace KKCSInvoiceProject
             {
                 WarningsChangesMade();
             }
-
-            UpdateCustomerScreen();
         }
 
         private void txt_lastname_TextChanged(object sender, EventArgs e)
@@ -2024,69 +2027,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-        void RevertChanges()
-        {
-            m_bInitialSetUpFromCarReturns = true;
-
-            //if (chk_flighttimes.Checked == true)
-            //{
-            //    txt_flighttimes.Text = lstOriginalValues[17];
-            //}
-            //else
-            //{
-            //    cmb_returntimehours.Text = lstOriginalValues[17].Substring(0, 2);
-            //    cmb_returntimeminutes.Text = lstOriginalValues[17].Substring(2, 2);
-            //}
-
-            txt_firstname.Text = lstOriginalValues[0];
-            txt_lastname.Text = lstOriginalValues[1];
-            txt_ph.Text = lstOriginalValues[2];
-            cmb_makemodel.Text = lstOriginalValues[3];
-            cmb_rego.Text = lstOriginalValues[4];
-            txt_notes.Text = lstOriginalValues[5];
-            txt_alerts.Text = lstOriginalValues[6];
-            //txt_money7.Text = lstOriginalValues[7];
-            //txt_money7plus.Text = lstOriginalValues[8];
-            //txt_monthmoney.Text = lstOriginalValues[9];
-            //txt_creditcharge.Text = lstOriginalValues[10];
-            txt_total.Text = lstOriginalValues[11];
-
-            g_sPaidStatus = lstOriginalValues[12];
-            PopulatePaidStatusWarnings(g_sPaidStatus);
-
-            //cmd_accountlist.Text = lstOriginalValues[13];
-            //txt_particulars.Text = lstOriginalValues[14];
-
-            string sCarPickedUp = lstOriginalValues[15];
-
-            //if(sCarPickedUp == "True")
-            //{
-            //    chk_pickedup.Checked = true;
-            //}
-            //else if(sCarPickedUp == "False")
-            //{
-            //    chk_carinyard.Checked = true;
-            //}
-
-            m_sCarLocation = lstOriginalValues[16];
-
-            //if(m_sCarLocation == "Front")
-            //{
-            //    chk_carlocationfront.Checked = true;
-            //}
-            //else if(m_sCarLocation == "Back")
-            //{
-            //    chk_carlocationback.Checked = true;
-            //}
-
-            m_bInitialSetUpFromCarReturns = false;
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                WarningsChangesMade();
-            }
-        }
-
         #endregion ButtonClicks
 
         #region Printing
@@ -2383,6 +2323,8 @@ Number: 02-0800-0493229-00
             {
                 lbl_stay.Text = "1 Day";
             }
+
+            UpdateCustomerShowPrice();
         }
 
         #endregion
@@ -2391,6 +2333,33 @@ Number: 02-0800-0493229-00
 
         List<string> lstOriginalValues = new List<string>();
         List<string> lstCheckValues = new List<string>();
+
+        void RevertChanges()
+        {
+            m_bInitialSetUpFromCarReturns = true;
+
+            bool bPickedUp = false;
+            bool.TryParse(lstOriginalValues[9], out bPickedUp);
+
+            txt_firstname.Text = lstOriginalValues[0];
+            txt_lastname.Text = lstOriginalValues[1];
+            txt_ph.Text = lstOriginalValues[2];
+            cmb_makemodel.Text = lstOriginalValues[3];
+            cmb_rego.Text = lstOriginalValues[4];
+            txt_account.Text = lstOriginalValues[5];
+            txt_particulars.Text = lstOriginalValues[6];
+            txt_total.Text = lstOriginalValues[7];
+            g_sPaidStatus = lstOriginalValues[8];
+            m_bCarPickedUp = bPickedUp;
+            m_sCarLocation = lstOriginalValues[10];
+
+            m_bInitialSetUpFromCarReturns = false;
+
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
+        }
 
         void WarningsStoreOriginalValues()
         {
@@ -2401,27 +2370,13 @@ Number: 02-0800-0493229-00
             lstOriginalValues.Add(txt_ph.Text);
             lstOriginalValues.Add(cmb_makemodel.Text);
             lstOriginalValues.Add(cmb_rego.Text);
-            lstOriginalValues.Add(txt_notes.Text);
-            lstOriginalValues.Add(txt_alerts.Text);
-            //lstOriginalValues.Add(txt_money7.Text);
-            //lstOriginalValues.Add(txt_money7plus.Text);
-            //lstOriginalValues.Add(txt_monthmoney.Text);
-            //lstOriginalValues.Add(txt_creditcharge.Text);
+            lstOriginalValues.Add(txt_account.Text);
+            lstOriginalValues.Add(txt_particulars.Text);
+            //lstOriginalValues.Add(btn_datepaid.Text);
             lstOriginalValues.Add(txt_total.Text);
             lstOriginalValues.Add(g_sPaidStatus);
-            //lstOriginalValues.Add(cmd_accountlist.Text);
-            //lstOriginalValues.Add(txt_particulars.Text);
             lstOriginalValues.Add(m_bCarPickedUp.ToString());
             lstOriginalValues.Add(m_sCarLocation);
-
-            //if (chk_flighttimes.Checked == true)
-            //{
-            //    lstOriginalValues.Add(txt_flighttimes.Text);
-            //}
-            //else
-            //{
-            //    lstOriginalValues.Add(cmb_returntimehours.Text + cmb_returntimeminutes.Text);
-            //}
         }
 
         void WarningsChangesMade()
@@ -2435,27 +2390,14 @@ Number: 02-0800-0493229-00
                 lstCheckValues.Add(txt_ph.Text);
                 lstCheckValues.Add(cmb_makemodel.Text);
                 lstCheckValues.Add(cmb_rego.Text);
-                lstCheckValues.Add(txt_notes.Text);
-                lstCheckValues.Add(txt_alerts.Text);
-                //lstCheckValues.Add(txt_money7.Text);
-                //lstCheckValues.Add(txt_money7plus.Text);
-                //lstCheckValues.Add(txt_monthmoney.Text);
-                //lstCheckValues.Add(txt_creditcharge.Text);
+                lstCheckValues.Add(txt_account.Text);
+                lstCheckValues.Add(txt_particulars.Text);
+                //lstCheckValues.Add(btn_datepaid.Text);
                 lstCheckValues.Add(txt_total.Text);
                 lstCheckValues.Add(g_sPaidStatus);
-                //lstCheckValues.Add(cmd_accountlist.Text);
-                //lstCheckValues.Add(txt_particulars.Text);
                 lstCheckValues.Add(m_bCarPickedUp.ToString());
                 lstCheckValues.Add(m_sCarLocation);
 
-                //if (chk_flighttimes.Checked == true)
-                //{
-                //    lstCheckValues.Add(txt_flighttimes.Text);
-                //}
-                //else
-                //{
-                //    lstCheckValues.Add(cmb_returntimehours.Text + cmb_returntimeminutes.Text);
-                //}
 
                 int iCount = 0;
 
