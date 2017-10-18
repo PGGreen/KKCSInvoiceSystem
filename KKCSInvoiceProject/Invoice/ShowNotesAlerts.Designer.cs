@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.lbl_sep = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -111,11 +112,21 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // lbl_sep
+            // 
+            this.lbl_sep.AutoSize = true;
+            this.lbl_sep.Location = new System.Drawing.Point(432, 13);
+            this.lbl_sep.Name = "lbl_sep";
+            this.lbl_sep.Size = new System.Drawing.Size(35, 13);
+            this.lbl_sep.TabIndex = 5;
+            this.lbl_sep.Text = "label3";
+            // 
             // ShowNotesAlerts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1151, 759);
+            this.Controls.Add(this.lbl_sep);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -142,5 +153,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lbl_notes;
         private System.Windows.Forms.Label lbl_alerts;
+        private System.Windows.Forms.Label lbl_sep;
     }
 }

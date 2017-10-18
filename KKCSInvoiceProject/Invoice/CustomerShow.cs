@@ -24,6 +24,16 @@ namespace KKCSInvoiceProject
             txt_carmake.Text = _sCarMake;
         }
 
+        public void UpdateDateAndTime(string _sTimeIn, string _sFlightOut, string _sDays)
+        {
+            dt_datein.Text = _sTimeIn;
+            dt_returndate.Text = _sFlightOut;
+            //_dtTimeIn
+            //_dtTimeOut
+            //_sTimeIn
+            //_sFlightOut
+        }
+
         public void UpdatePrice(string _sPrice, string _sPaidStatus)
         {
             lbl_paidby.Text = "Paid By: " + _sPaidStatus;
