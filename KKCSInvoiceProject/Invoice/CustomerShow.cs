@@ -28,10 +28,6 @@ namespace KKCSInvoiceProject
         {
             dt_datein.Text = _sTimeIn;
             dt_returndate.Text = _sFlightOut;
-            //_dtTimeIn
-            //_dtTimeOut
-            //_sTimeIn
-            //_sFlightOut
         }
 
         public void UpdatePrice(string _sPrice, string _sPaidStatus)
@@ -69,13 +65,7 @@ namespace KKCSInvoiceProject
             }
         }
 
-        public void UpdateDateAndTime(DateTime _dtTimeIn, DateTime _dtTimeOut, string _sTimeIn, string _sFlightOut)
-        {
-            //_dtTimeIn
-            //_dtTimeOut
-            //_sTimeIn
-            //_sFlightOut
-        }
+        #region TextChanged
 
         private void txt_name_TextChanged(object sender, EventArgs e)
         {
@@ -112,5 +102,31 @@ namespace KKCSInvoiceProject
                 txt_carmake.BackColor = Color.White;
             }
         }
+
+        private void dt_datein_TextChanged(object sender, EventArgs e)
+        {
+            if (dt_datein.Text != "")
+            {
+                dt_datein.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                dt_datein.BackColor = Color.White;
+            }
+        }
+
+        private void dt_returndate_TextChanged(object sender, EventArgs e)
+        {
+            if (dt_returndate.Text != "")
+            {
+                dt_returndate.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                dt_returndate.BackColor = Color.White;
+            }
+        }
+
+        #endregion TextChanged
     }
 }

@@ -246,6 +246,7 @@
             this.dt_returndate.Name = "dt_returndate";
             this.dt_returndate.Size = new System.Drawing.Size(396, 38);
             this.dt_returndate.TabIndex = 194;
+            this.dt_returndate.TextChanged += new System.EventHandler(this.dt_returndate_TextChanged);
             // 
             // label15
             // 
@@ -264,6 +265,7 @@
             this.dt_datein.Name = "dt_datein";
             this.dt_datein.Size = new System.Drawing.Size(269, 38);
             this.dt_datein.TabIndex = 192;
+            this.dt_datein.TextChanged += new System.EventHandler(this.dt_datein_TextChanged);
             // 
             // txt_carmake
             // 

@@ -2380,6 +2380,11 @@ Number: 02-0800-0493229-00
                 lbl_stay.Text = "1 Day";
             }
 
+            if (g_sPaidStatus == "N/C" || g_sPaidStatus == "No Charge")
+            {
+                txt_total.Text = "";
+            }
+
             UpdateCustomerShowPrice();
         }
 
@@ -2540,11 +2545,6 @@ Number: 02-0800-0493229-00
                         break;
                     }
                 case "Credit Card":
-                    {
-                        cmb_paidstatus.BackColor = Color.LightBlue;
-
-                        break;
-                    }
                 case "Eftpos":
                 case "Internet":
                 case "Cheque":
@@ -2569,10 +2569,11 @@ Number: 02-0800-0493229-00
 
                         break;
                     }
-                default:
+                default: // No Paid Status Picked
                     {
                         g_sPaidStatus = "";
                         cmb_paidstatus.BackColor = Color.White;
+
                         break;
                     }
             }
