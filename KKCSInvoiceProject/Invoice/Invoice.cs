@@ -1383,7 +1383,7 @@ namespace KKCSInvoiceProject
 
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
-            objCustomerShow.UpdateInfo(txt_firstname.Text + txt_lastname.Text, cmb_rego.Text, cmb_makemodel.Text);
+            objCustomerShow.UpdateInfo(txt_firstname.Text + " " + txt_lastname.Text, cmb_rego.Text, cmb_makemodel.Text);
         }
 
         void UpdateCustomerShowPrice()
@@ -1403,9 +1403,12 @@ namespace KKCSInvoiceProject
             objCustomerShow.UpdatePrice(txt_total.Text, g_sPaidStatus);
         }
 
+        void UpdateDateAndTime()
+        {
+
+        }
+
         #endregion CustomerShow
-
-
 
         #region SeclectedTextChanges
 
@@ -1415,11 +1418,6 @@ namespace KKCSInvoiceProject
         {
             try
             {
-                //if (chkbox_onaccount.Checked)
-                //{
-                //    chkbox_onaccount.Checked = false;
-                //}
-
                 CurrentTime = DateTime.Now;
 
                 if (!m_bIsFromCarReturns)
@@ -1463,6 +1461,8 @@ namespace KKCSInvoiceProject
                     connection.Close();
                 }
 
+                CheckIfAccount();
+
                 ia = new InvoiceAlerts();
                 ia.GetRego(cmb_rego.Text);
                 ia.FormClosing += CloseAlertNotes;
@@ -1477,15 +1477,22 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private bool CheckIfAccount()
+        private void CheckIfAccount()
         {
+            txt_account.Visible = false;
+            txt_particulars.Visible = false;
+
+            lbl_accountname.Visible = false;
+            lbl_particulars.Visible = false;
+
+            txt_particulars.Text = "";
+            txt_account.Text = "";
+
             // Opens the connection to the database
             if (connection.State == ConnectionState.Closed)
             {
                 connection.Open();
             }
-
-            bool m_bIsAccount = false;
 
             OleDbCommand command = new OleDbCommand();
 
@@ -1499,7 +1506,14 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                m_bIsAccount = true;
+                txt_account.Visible = true;
+                txt_particulars.Visible = true;
+
+                lbl_accountname.Visible = true;
+                lbl_particulars.Visible = true;
+
+                txt_account.Text = reader["Account"].ToString();
+                txt_particulars.Text = reader["AccountParticulars"].ToString();
             }
 
             // Closes the connection to the database
@@ -1507,8 +1521,6 @@ namespace KKCSInvoiceProject
             {
                 connection.Close();
             }
-
-            return (m_bIsAccount);
         }
 
         private bool PopulateAccountBoxes()
@@ -1625,6 +1637,8 @@ namespace KKCSInvoiceProject
                 cmb_makemodel.BackColor = System.Drawing.Color.White;
             }
 
+            UpdateCustomerShow();
+
             //if (!m_bInitialSetUpFromCarReturns)
             //{
             //    WarningsChangesMade();
@@ -1678,6 +1692,8 @@ namespace KKCSInvoiceProject
             {
                 WarningsChangesMade();
             }
+
+            UpdateCustomerShow();
         }
 
         private void txt_lastname_TextChanged(object sender, EventArgs e)
@@ -2461,7 +2477,16 @@ Number: 02-0800-0493229-00
             {
                 SetUpPrice();
             }
-            
+
+            lbl_particulars.Visible = false;
+            txt_particulars.Visible = false;
+
+            lbl_accountname.Visible = false;
+            txt_account.Visible = false;
+
+            txt_particulars.Text = "";
+            txt_account.Text = "";
+
             btn_cashcalc.Enabled = false;
             btn_cashcalc.Visible = false;
 
@@ -2509,6 +2534,8 @@ Number: 02-0800-0493229-00
                     {
                         cmb_paidstatus.BackColor = Color.PaleVioletRed;
 
+                        SetUpNewAccount();
+
                         break;
                     }
                 case "No Charge":
@@ -2524,6 +2551,44 @@ Number: 02-0800-0493229-00
                         cmb_paidstatus.BackColor = Color.White;
                         break;
                     }
+            }
+        }
+
+        WarningNewAccount wna;
+
+        private void SetUpNewAccount()
+        {
+            wna = new WarningNewAccount();
+            wna.FormClosing += CloseNewAccount;
+            wna.ShowDialog();
+        }
+
+        void CloseNewAccount(object sender, CancelEventArgs e)
+        {
+            int iCount = 0;
+
+            if (wna.sGetIsExistingAccount())
+            {
+                lbl_particulars.Visible = true;
+                txt_particulars.Visible = true;
+
+                lbl_accountname.Visible = true;
+                txt_account.Visible = true;
+
+                txt_account.Text = wna.sGetAccount();
+
+                iCount++;
+            }
+
+            if (wna.sGetIsNewAccount())
+            {
+                lbl_particulars.Visible = true;
+                txt_particulars.Visible = true;
+
+                lbl_accountname.Visible = true;
+                txt_account.Visible = true;
+
+                iCount++;
             }
         }
 

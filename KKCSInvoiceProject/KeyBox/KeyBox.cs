@@ -176,13 +176,15 @@ namespace KKCSInvoiceProject
 
             foreach (Button btn in lstKeyBox)
             {
-                if(btn.Name == cmb_regos.Text)
+                if (btn.Name == cmb_regos.Text)
                 {
-                    btn.BackColor = Color.Red;
+                    //btn.BackColor = Color.Red;
+                    btn.BackColor = Color.White;
                 }
                 else
                 {
-                    btn.BackColor = Color.White;
+                    //btn.BackColor = Color.Red;
+                    btn.BackColor = Color.Red;
                 }
             }
         }

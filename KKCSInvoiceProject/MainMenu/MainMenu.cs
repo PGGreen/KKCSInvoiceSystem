@@ -338,22 +338,24 @@ namespace KKCSInvoiceProject
 
         private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form fm = Application.OpenForms["YardStats"];
+            NewFlightTimes nft = new NewFlightTimes();
+            nft.Show();
+            //Form fm = Application.OpenForms["YardStats"];
 
-            if (fm != null)
-            {
-                if (fm.WindowState == FormWindowState.Minimized)
-                {
-                    fm.WindowState = FormWindowState.Normal;
-                }
+            //if (fm != null)
+            //{
+            //    if (fm.WindowState == FormWindowState.Minimized)
+            //    {
+            //        fm.WindowState = FormWindowState.Normal;
+            //    }
 
-                fm.BringToFront();
-            }
-            else
-            {
-                YardStats pc = new YardStats();
-                pc.Show();
-            }
+            //    fm.BringToFront();
+            //}
+            //else
+            //{
+            //    YardStats pc = new YardStats();
+            //    pc.Show();
+            //}
         }
 
         // Banking

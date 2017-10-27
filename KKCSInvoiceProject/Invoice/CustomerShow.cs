@@ -59,6 +59,14 @@ namespace KKCSInvoiceProject
             }
         }
 
+        public void UpdateDateAndTime(DateTime _dtTimeIn, DateTime _dtTimeOut, string _sTimeIn, string _sFlightOut)
+        {
+            //_dtTimeIn
+            //_dtTimeOut
+            //_sTimeIn
+            //_sFlightOut
+        }
+
         private void txt_name_TextChanged(object sender, EventArgs e)
         {
             if(txt_name.Text != "")
