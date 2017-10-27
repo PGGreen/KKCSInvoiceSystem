@@ -44,9 +44,9 @@
             this.pnl_invoice = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.dt_returndate = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.dt_datein = new System.Windows.Forms.TextBox();
             this.txt_carmake = new System.Windows.Forms.TextBox();
             this.txt_carrego = new System.Windows.Forms.TextBox();
             this.txt_name = new System.Windows.Forms.TextBox();
@@ -198,9 +198,9 @@
             this.pnl_invoice.BackColor = System.Drawing.Color.Linen;
             this.pnl_invoice.Controls.Add(this.label16);
             this.pnl_invoice.Controls.Add(this.label7);
-            this.pnl_invoice.Controls.Add(this.textBox5);
+            this.pnl_invoice.Controls.Add(this.dt_returndate);
             this.pnl_invoice.Controls.Add(this.label15);
-            this.pnl_invoice.Controls.Add(this.textBox4);
+            this.pnl_invoice.Controls.Add(this.dt_datein);
             this.pnl_invoice.Controls.Add(this.label8);
             this.pnl_invoice.Controls.Add(this.lbl_paidby);
             this.pnl_invoice.Controls.Add(this.txt_carmake);
@@ -239,13 +239,13 @@
             this.label7.TabIndex = 195;
             this.label7.Text = "Total Price:";
             // 
-            // textBox5
+            // dt_returndate
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(673, 275);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(396, 38);
-            this.textBox5.TabIndex = 194;
+            this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dt_returndate.Location = new System.Drawing.Point(673, 275);
+            this.dt_returndate.Name = "dt_returndate";
+            this.dt_returndate.Size = new System.Drawing.Size(396, 38);
+            this.dt_returndate.TabIndex = 194;
             // 
             // label15
             // 
@@ -257,13 +257,13 @@
             this.label15.TabIndex = 193;
             this.label15.Text = "Return Date:";
             // 
-            // textBox4
+            // dt_datein
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(170, 276);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(269, 38);
-            this.textBox4.TabIndex = 192;
+            this.dt_datein.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dt_datein.Location = new System.Drawing.Point(170, 276);
+            this.dt_datein.Name = "dt_datein";
+            this.dt_datein.Size = new System.Drawing.Size(269, 38);
+            this.dt_datein.TabIndex = 192;
             // 
             // txt_carmake
             // 
@@ -400,9 +400,9 @@
         private System.Windows.Forms.TextBox txt_carrego;
         private System.Windows.Forms.TextBox txt_name;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox dt_returndate;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox dt_datein;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label17;

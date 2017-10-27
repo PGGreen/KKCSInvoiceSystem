@@ -265,6 +265,8 @@ namespace KKCSInvoiceProject
                 lbl_stay.Text = "";
 
                 UpdateCustomerShowPrice();
+
+                UpdateDateAndTime();
             }
         }
 
@@ -1405,7 +1407,25 @@ namespace KKCSInvoiceProject
 
         void UpdateDateAndTime()
         {
+            Form fmCustomerShow = Application.OpenForms["CustomerShow"];
 
+            if (fmCustomerShow == null)
+            {
+                CustomerShow cs = new CustomerShow();
+                cs.Show();
+
+                fmCustomerShow = cs;
+            }
+
+            CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
+
+            string dateCustomerIn = dt_datein.Value.Day.ToString() + "/" + dt_datein.Value.Month.ToString("00") + "/" + dt_datein.Value.ToString("yy");
+            dateCustomerIn += " - " + cmb_timeinhours.Text + ":" + cmb_timeinminutes.Text;
+
+            string dateCustomerOut = dt_returndate.Value.Day.ToString() + "/" + dt_returndate.Value.Month.ToString("00") + "/" + dt_returndate.Value.ToString("yy");
+            dateCustomerOut += " - " + txt_flighttimes.Text;
+
+            objCustomerShow.UpdateDateAndTime(dateCustomerIn, dateCustomerOut, lbl_stay.Text);
         }
 
         #endregion CustomerShow
@@ -1584,7 +1604,9 @@ namespace KKCSInvoiceProject
             {
                 SetUpPrice();
             }
-            
+
+            UpdateDateAndTime();
+
             lbl_pickreturn.Visible = false;
         }
 
@@ -1926,6 +1948,8 @@ namespace KKCSInvoiceProject
             {
                 WarningsChangesMade();
             }
+
+            UpdateDateAndTime();
         }
 
         #endregion

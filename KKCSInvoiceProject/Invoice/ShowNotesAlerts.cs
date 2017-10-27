@@ -33,6 +33,45 @@ namespace KKCSInvoiceProject
             lbl_alerts.Text = "";
 
             //Test();
+
+            MoneyInSeptember();
+        }
+
+        void MoneyInSeptember()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime dt = new DateTime(2016, 9, 1);
+
+            //Testing
+
+            //
+
+            string query = "SELECT * FROM CustomerInvoices WHERE year(DTDatePaid) = year(@dt) AND month(DTDatePaid) = month(@dt)";
+
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dt", dt);
+
+            reader = command.ExecuteReader();
+
+            float fPrice = 0.0f;
+
+            while (reader.Read())
+            {
+                float fTempPrice = 0.0f;
+                float.TryParse(reader["TotalPay"].ToString(), out fTempPrice);
+
+                fPrice += fTempPrice;
+            }
+
+            lbl_sep.Text = fPrice.ToString();
+
+            connection.Close();
         }
 
         public void Test(string _iInvoiceNumber)

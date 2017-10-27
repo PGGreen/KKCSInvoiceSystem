@@ -34,6 +34,49 @@ namespace KKCSInvoiceProject
             Testing(_DatePicked);
         }
 
+        void MoneyInSeptember()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string g_strDatePicked = "";
+            string PickedReturnValue = "ReturnDate";
+
+            DateTime dt = DateTime.Today;
+
+            //Testing
+            dt = dt.AddDays(-2);
+
+            g_strDatePicked = dt.DayOfWeek.ToString() + ", " +
+            dt.Day.ToString() + " " +
+            dt.ToString("MMMM") + " " +
+            dt.Year.ToString();
+
+            string query = @"select * from Invoice WHERE " + PickedReturnValue + " = '" + g_strDatePicked + "' ORDER BY DisplayedReturnDate,ReturnTime";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            label1.MaximumSize = new Size(1000, 0);
+            label1.AutoSize = true;
+
+            while (reader.Read())
+            {
+                string sStore = reader["Alerts"].ToString();
+
+                if (sStore != "")
+                {
+                    label1.Text = sStore;
+                }
+            }
+
+            connection.Close();
+        }
+
         void Testing(string _DatePicked)
         {
             connection.Open();
