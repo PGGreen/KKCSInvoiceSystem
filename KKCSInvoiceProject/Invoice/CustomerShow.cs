@@ -15,6 +15,28 @@ namespace KKCSInvoiceProject
         public CustomerShow()
         {
             InitializeComponent();
+
+            tim_currentime.Tick += timer1_Tick;
+
+            tim_currentime.Enabled = true;
+            tim_currentime.Interval = 1000;
+        }
+
+        public void WipeInformation()
+        {
+            txt_name.Text = "";
+            txt_carrego.Text = "";
+            txt_carmake.Text = "";
+            dt_datein.Text = "";
+            dt_returndate.Text = "";
+            lbl_price.Text = "";
+            lbl_ccfee.Visible = false;
+            lbl_paidby.Text = "Paid By:";
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label9.Text = DateTime.Now.ToString("dd-MMM-yyyy\r\n  hh:mmtt");
         }
 
         public void UpdateInfo(string _sName, string _sRego, string _sCarMake)

@@ -278,6 +278,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(702, 436);
             this.panel1.TabIndex = 24;
+            this.panel1.Visible = false;
             // 
             // label19
             // 
@@ -590,7 +591,7 @@
             // longTermToolStripMenuItem
             // 
             this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
-            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
+            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
             this.longTermToolStripMenuItem.Text = "Long Term";
             // 
             // pettyCashToolStripMenuItem
@@ -636,7 +637,7 @@
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 

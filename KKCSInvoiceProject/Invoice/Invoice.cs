@@ -95,7 +95,9 @@ namespace KKCSInvoiceProject
                     ws.ShowDialog();
 
                     if (ws.DialogResult == DialogResult.OK)
-                    { 
+                    {
+                        WipeCustomerShow();
+
                         DestroyInvUnsaved();
 
                         invManager.DeleteTab(iTabNumberFromManager);
@@ -111,6 +113,8 @@ namespace KKCSInvoiceProject
             else
             {
                 DeleteNotesIfFromCarReturns();
+
+                WipeCustomerShow();
 
                 if (NewCarReturns != null)
                 {
@@ -765,6 +769,8 @@ namespace KKCSInvoiceProject
             {
                 SaveDataIntoDatabase();
 
+                WipeCustomerShow();
+
                 if (!m_bIsFromCarReturns)
                 {
                     invManager.ChangeColour(iTabNumberFromManager);
@@ -884,112 +890,6 @@ namespace KKCSInvoiceProject
 
             return (true);
         }
-
-        /*
-        void UpdateInvoice()
-        {
-            try
-            {
-                if (connection.State == ConnectionState.Closed)
-                {
-                    connection.Open();
-                }
-
-                OleDbCommand command = new OleDbCommand();
-
-                command.Connection = connection;
-
-                string tempReturnTimeHours = "";
-
-                // If paid status is "To Pay", sets AlreadyPaid to false
-                if (g_sPaidStatus == "To Pay")
-                {
-                    m_bAlreadyPaid = false;
-                }
-
-                // Checks to see if the customer has already paid or not
-                // Goes in if the customer has not yet paid
-                if (!m_bAlreadyPaid)
-                {
-                    if (g_sPaidStatus != "To Pay")
-                    {
-                        m_bAlreadyPaid = true;
-                    }
-
-                    if (g_sPaidStatus == "To Pay")
-                    {
-                        btn_datepaid.Visible = false;
-
-                        dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
-                    }
-                    else
-                    {
-                        DateTime dtNow = DateTime.Now;
-                        dtDatePaid = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
-
-                        string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
-
-                        btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + "(Click to Change)";
-                    }
-                }
-
-                bool bUnknownDate = false;
-                DateTime dtReturnDate = new DateTime();
-
-                int iYearDateIn = dt_datein.Value.Year;
-                int iMonthDateIn = dt_datein.Value.Month;
-                int iDayDateIn = dt_datein.Value.Day;
-
-                DateTime dtDateIn = new DateTime(iYearDateIn, iMonthDateIn, iDayDateIn, 12, 0, 0);
-
-                int iTimeHours = 0;
-                int iTimeMinutes = 0;
-
-                Int32.TryParse(cmb_timeinhours.Text, out iTimeHours);
-                Int32.TryParse(cmb_timeinminutes.Text, out iTimeMinutes);
-
-                string sTimeIn = iTimeHours.ToString("00") + iTimeMinutes.ToString("00");
-
-                string UpdateCommand = @"UPDATE CustomerInvoices SET
-                                                                    KeyNumber = '" + txt_keyno.Text +
-                                                                    "', Rego = '" + cmb_rego.Text +
-                                                                    "', FirstName = '" + txt_firstname.Text +
-                                                                    "', LastName = '" + txt_lastname.Text +
-                                                                    "', PhoneNumber = '" + txt_ph.Text +
-                                                                    "', MakeModel = '" + cmb_makemodel.Text +
-                                                                    "', DTDateIn = '" + dtDateIn +
-                                                                    "', TimeIn = '" + sTimeIn +
-                                                                    "', DTDatePaid = '" + dtDatePaid +
-                                                                    "', DTReturnDate = '" + dtReturnDate +
-                                                                    "', ReturnTime = '" + tempReturnTimeHours +
-                                                                    "', AccountHolder = '" + txt_account.Text +
-                                                                    "', AccountParticulars = '" + txt_particulars.Text +
-                                                                    "', TotalPay = '" + txt_total.Text +
-                                                                    "', PaidStatus = '" + g_sPaidStatus +
-                                                                    "', CarLocation = '" + m_sCarLocation +
-                                                                    "', Notes = '" + txt_notes.Text +
-                                                                    "', Alerts = '" + txt_alerts.Text +
-                                                                    ", YNDatePaid  = " + m_bAlreadyPaid +
-                                                                    ", PickUp  = " + m_bCarPickedUp +
-                                                                    ", UnknownDate  = " + bUnknownDate +
-                                                                    " WHERE InvoiceNumber = " + iInvoiceNumber + "";
-
-                command.CommandText = UpdateCommand;
-
-                command.ExecuteNonQuery();
-
-                // Closes the connection to the database
-                if (connection.State == ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error " + ex);
-            }
-        }
-        */
 
         void UpdateInvoice()
         {
@@ -1428,6 +1328,22 @@ namespace KKCSInvoiceProject
             objCustomerShow.UpdateDateAndTime(dateCustomerIn, dateCustomerOut, lbl_stay.Text);
         }
 
+        void WipeCustomerShow()
+        {
+            Form fmCustomerShow = Application.OpenForms["CustomerShow"];
+
+            if (fmCustomerShow == null)
+            {
+                CustomerShow cs = new CustomerShow();
+                cs.Show();
+
+                fmCustomerShow = cs;
+            }
+
+            CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
+
+            objCustomerShow.WipeInformation();
+        }
         #endregion CustomerShow
 
         #region SeclectedTextChanges
