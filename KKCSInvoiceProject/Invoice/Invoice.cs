@@ -33,6 +33,8 @@ namespace KKCSInvoiceProject
 
         DateTime dtDatePaid = DateTime.Now;
 
+        bool g_bIsAlreadyAccount = false;
+
         InvoiceNotes iv;
         InvoiceAlerts ia;
         SearchByName sbn;
@@ -634,46 +636,51 @@ namespace KKCSInvoiceProject
 
         void FindFlightTimes()
         {
-            DateTime dtOct30 = new DateTime(2017, 10, 30);
+            DateTime dtDec17 = new DateTime(2017, 12, 17);
             DateTime dtToday = DateTime.Now;
             DateTime dtCompare = new DateTime(dtToday.Year, dtToday.Month, dtToday.Day);
-            //dtCompare = new DateTime(2017, 11, 5);
 
-            if (false)//dtOct30 <= dtCompare)
+            string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
+
+            txt_flighttimes.Items.Clear();
+
+            string sTxtFileLocation = "";
+
+            if (dtCompare <= dtDec17)
             {
-                // Opens the connection to the database
-                if (connection.State == ConnectionState.Closed)
+                switch(sTodaysDay)
                 {
-                    connection.Open();
-                }
-            }
-            else
-            {
-                //if(dtCompareToday.Month > 
-                //string sMonth = dtCompareToday.Month.ToString();
+                    case "Monday":
+                    case "Friday":
+                    case "Sunday":
+                        {
+                            sTxtFileLocation = Directory.GetCurrentDirectory() +
+                            @"\Data\Flight Times\01-11-17 - 17-12-17\MON-FRI-SUN.txt";
 
-                string sTodaysDay = dt_returndate.Value.DayOfWeek.ToString();
+                            break;
+                        }
+                    case "Tuesday":
+                    case "Wednesday":
+                    case "Thursday":
+                        {
+                            sTxtFileLocation = Directory.GetCurrentDirectory() +
+                            @"\Data\Flight Times\01-11-17 - 17-12-17\TUE-WED-THUR.txt";
 
-                txt_flighttimes.Items.Clear();
-
-                string sTxtFileLocation = "";
-
-                if (sTodaysDay == "Saturday")
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sat.txt";
-                }
-                else if (sTodaysDay == "Sunday")
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Sun.txt";
-                }
-                else
-                {
-                    sTxtFileLocation = Directory.GetCurrentDirectory() + "\\Data\\Flight Times\\Mon To Fri.txt";
+                            break;
+                        }
+                    case "Saturday":
+                        {
+                            sTxtFileLocation = Directory.GetCurrentDirectory() +
+                            @"\Data\Flight Times\01-11-17 - 17-12-17\SAT.txt";
+                            break;
+                        }
                 }
 
                 using (StreamReader sr = new StreamReader(sTxtFileLocation))
                 {
                     txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
+
+                    txt_flighttimes.SelectedIndex = 0;
                 }
             }
         }
@@ -1440,8 +1447,14 @@ namespace KKCSInvoiceProject
 
             OleDbDataReader reader = command.ExecuteReader();
 
+            g_bIsAlreadyAccount = false;
+
             while (reader.Read())
             {
+                g_bIsAlreadyAccount = true;
+
+                cmb_paidstatus.Text = "On Account";
+
                 txt_account.Visible = true;
                 txt_particulars.Visible = true;
 
@@ -2470,12 +2483,14 @@ Number: 02-0800-0493229-00
                         break;
                     }
                 case "On Account":
-
                     {
                         cmb_paidstatus.BackColor = Color.PaleVioletRed;
-
-                        SetUpNewAccount();
-
+                         
+                        if(!g_bIsAlreadyAccount)
+                        {
+                            SetUpNewAccount();
+                        }
+                        
                         break;
                     }
                 case "No Charge":

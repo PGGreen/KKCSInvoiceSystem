@@ -750,9 +750,19 @@ namespace KKCSInvoiceProject
             string sTimeIn = reader["TimeIn"].ToString();
             string sReturnTime = reader["ReturnTime"].ToString();
 
-            lblDateIn.Text = dtDateIn.Day + "/" + dtDateIn.Month + "/" + dtDateIn.Year + " - " + sTimeIn;
-            lblReturnDate.Text = dtReturnTime.Day + "/" + dtReturnTime.Month + "/" + dtReturnTime.Year + " - " + sReturnTime;
+            lblDateIn.Text = dtDateIn.Day + "/" + dtDateIn.Month + "/" + dtDateIn.ToString("yy") + " - " + sTimeIn;
 
+            string sReturnDate = lblReturnDate.Text = dtReturnTime.Day + "/" + dtReturnTime.Month + "/" + dtReturnTime.ToString("yy");
+
+            if(sReturnDate == "1/1/01")
+            {
+                lblReturnDate.Text = "Unknown";
+            }
+            else
+            {
+                lblReturnDate.Text = sReturnDate + " - " + sReturnTime;
+            }
+            
             pnl.Controls.Add(lblDateIn);
             pnl.Controls.Add(lblReturnDate);
         }
@@ -1158,8 +1168,8 @@ namespace KKCSInvoiceProject
 
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
-            PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
-            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
             PrintDocument.PrintPage += new PrintPageEventHandler(doc_PrintReturnsPage);
@@ -1168,7 +1178,7 @@ namespace KKCSInvoiceProject
 
             pnl_printtitles.Visible = false;
 
-            PrintUnknowns();
+            //PrintUnknowns();
         }
 
         private void doc_PrintReturnsPage(object sender, PrintPageEventArgs e)
@@ -1330,7 +1340,7 @@ namespace KKCSInvoiceProject
         void PrintLines(PrintPageEventArgs _e)
         {
             PrintLineLocations(10, 90, 10, 1600, _e);
-            PrintLineLocations(170, 90, 170, 1600, _e);
+            PrintLineLocations(150, 90, 150, 1600, _e);
 
             PrintLineLocations(280, 90, 280, 1600, _e);
             PrintLineLocations(400, 90, 400, 1600, _e);

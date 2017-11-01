@@ -178,13 +178,11 @@ namespace KKCSInvoiceProject
             {
                 if (btn.Name == cmb_regos.Text)
                 {
-                    //btn.BackColor = Color.Red;
-                    btn.BackColor = Color.White;
+                    btn.BackColor = Color.Red;
                 }
                 else
                 {
-                    //btn.BackColor = Color.Red;
-                    btn.BackColor = Color.Red;
+                    btn.BackColor = Color.White;
                 }
             }
         }

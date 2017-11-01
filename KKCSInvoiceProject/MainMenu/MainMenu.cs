@@ -531,9 +531,21 @@ namespace KKCSInvoiceProject
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Form fm = Application.OpenForms["NewCarReturns"];
+
+            if (fm != null)
+            {
+                fm.Close();
+            }
+
+            NewCarReturns ncr = new NewCarReturns();
+            ncr.Show();
+
+            ncr.PrintReturns();
+
             //PrintTest();
 
-            PrintLongTerm();
+            //PrintLongTerm();
         }
 
         public void MinimiseForm()
