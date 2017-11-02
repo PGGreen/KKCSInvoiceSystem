@@ -30,7 +30,7 @@ namespace KKCSInvoiceProject
 
         private bool m_bUserExit = false;
 
-        string sVersionNumber = "2.00";
+        string sVersionNumber = "3.00";
 
         private OleDbConnection connection = new OleDbConnection();
         OleDbCommand command;
@@ -66,6 +66,8 @@ namespace KKCSInvoiceProject
             SetUpMakeModelComboBox();
 
             SetUpAccountComboBox();
+
+            UpdateAmountOfCars();
         }
 
         void Debug()
@@ -77,6 +79,37 @@ namespace KKCSInvoiceProject
             lbl_debug.Visible = true;
             lbl_debug.Location = new Point(100, 100);
 
+        }
+
+        public void UpdateAmountOfCars()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY KeyNumber";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            int iNumberOfCars = 0;
+
+            while (reader.Read())
+            {
+                iNumberOfCars++;
+            }
+
+            txt_noofcars.Text = iNumberOfCars.ToString() + "/70 Cars";
+
+            connection.Close();
+        }
+
+        public MainMenu GetMainMenu()
+        {
+            return (this);
         }
 
         public void SetUpRegoComboBox()
@@ -231,7 +264,6 @@ namespace KKCSInvoiceProject
             else
             {
                 InvoiceManager ip = new InvoiceManager();
-                ip.SetMainMenuObject(this);
                 ip.Show();
             }
         }
@@ -551,11 +583,6 @@ namespace KKCSInvoiceProject
         public void MinimiseForm()
         {
             this.WindowState = FormWindowState.Minimized;
-        }
-
-        public FormWindowState GetWindowsState()
-        {
-            return (this.WindowState);
         }
         
         //private void MainMenu_Deactivate(Object sender, EventArgs e)

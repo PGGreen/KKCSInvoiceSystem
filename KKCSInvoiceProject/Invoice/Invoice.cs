@@ -330,7 +330,33 @@ namespace KKCSInvoiceProject
                 txt_total.Text = reader["TotalPay"].ToString();
 
                 cmb_paidstatus.Text = reader["PaidStatus"].ToString();
-                cmb_pickedup.Text = reader["PickUp"].ToString();
+
+                if(cmb_paidstatus.Text == "OnAcc")
+                {
+                    cmb_paidstatus.Text = "On Account";
+
+                    lbl_particulars.Visible = true;
+                    txt_particulars.Visible = true;
+
+                    lbl_accountname.Visible = true;
+                    txt_account.Visible = true;
+
+                    txt_account.Text = reader["AccountHolder"].ToString();
+                    txt_particulars.Text = reader["AccountParticulars"].ToString();
+                }                              
+
+                m_bCarPickedUp = (bool)reader["PickUp"];
+
+                if (!m_bCarPickedUp)
+                {
+                    cmb_pickedup.SelectedIndex = 0;
+                    
+                }
+                else
+                {
+                    cmb_pickedup.SelectedIndex = 1;
+                }
+
                 cmb_carlocation.Text = reader["CarLocation"].ToString();
                 cmb_worker.Text = reader["StaffMember"].ToString();
                 cmb_returnstatus.Text = reader["FlightStatus"].ToString();
@@ -360,8 +386,6 @@ namespace KKCSInvoiceProject
 
                 // Popluates the paid status
                 bIsOnAccount = PopulatePaidStatus(reader);
-
-                m_bCarPickedUp = (bool)reader["PickUp"];
 
                 m_sCarLocation = reader["CarLocation"].ToString();
 
@@ -767,8 +791,6 @@ namespace KKCSInvoiceProject
 
             if (iIsThereWarnings > 0)
             {
-                //sWarning = "-Please set\r\n-Please Calculate\r\n-Please pick\r\n-Please pick";
-                //sWarning = "TODO (Peter): Need to enter warnings here \r\n for staff to know what sections they have missed";
                 WarningSystem ws = new WarningSystem(sWarning, false);
 
                 ws.ShowDialog();
@@ -778,6 +800,10 @@ namespace KKCSInvoiceProject
                 SaveDataIntoDatabase();
 
                 WipeCustomerShow();
+
+                Form fm = Application.OpenForms["MainMenu"];
+                MainMenu mm = (MainMenu)fm;
+                mm.UpdateAmountOfCars();
 
                 if (!m_bIsFromCarReturns)
                 {
@@ -1966,7 +1992,17 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                //invManager.GetMainMenuObject().MinimiseForm();
+                Form fm = Application.OpenForms["MainMenu"];
+                MainMenu mm = (MainMenu)fm;
+                mm.MinimiseForm();
+
+                //Form fmcarreturns = Application.OpenForms["NewCarReturns"];
+                //if (fm != null)
+                //{
+                //    NewCarReturns ncr = (NewCarReturns)fmcarreturns;
+                //    ncr.MinimiseForm();
+                //}
+
 
                 PrintDialog printDialog = new PrintDialog();
 
@@ -2367,7 +2403,7 @@ Number: 02-0800-0493229-00
             //lstOriginalValues.Add(btn_datepaid.Text);
             lstOriginalValues.Add(txt_total.Text);
             lstOriginalValues.Add(g_sPaidStatus);
-            lstOriginalValues.Add(m_bCarPickedUp.ToString());
+            lstOriginalValues.Add(cmb_pickedup.Text);
             lstOriginalValues.Add(m_sCarLocation);
         }
 
@@ -2387,7 +2423,7 @@ Number: 02-0800-0493229-00
                 //lstCheckValues.Add(btn_datepaid.Text);
                 lstCheckValues.Add(txt_total.Text);
                 lstCheckValues.Add(g_sPaidStatus);
-                lstCheckValues.Add(m_bCarPickedUp.ToString());
+                lstCheckValues.Add(cmb_pickedup.Text);
                 lstCheckValues.Add(m_sCarLocation);
 
 
@@ -2462,16 +2498,19 @@ Number: 02-0800-0493229-00
                     {
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
-                        CashChangeCalc ccc = new CashChangeCalc();
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            CashChangeCalc ccc = new CashChangeCalc();
 
-                        int iPrice = int.Parse(txt_total.Text);
+                            int iPrice = int.Parse(txt_total.Text);
+
+                            ccc.CashChangeCalculation(iPrice);
+
+                            ccc.ShowDialog();
+                        }
 
                         btn_cashcalc.Enabled = true;
                         btn_cashcalc.Visible = true;
-
-                        ccc.CashChangeCalculation(iPrice);
-
-                        ccc.ShowDialog();
 
                         break;
                     }
@@ -2486,9 +2525,11 @@ Number: 02-0800-0493229-00
                     }
                 case "On Account":
                     {
+                        g_sPaidStatus = "OnAcc";
+
                         cmb_paidstatus.BackColor = Color.PaleVioletRed;
                          
-                        if(!g_bIsAlreadyAccount)
+                        if(!g_bIsAlreadyAccount && !m_bInitialSetUpFromCarReturns)
                         {
                             SetUpNewAccount();
                         }
@@ -2716,6 +2757,48 @@ Number: 02-0800-0493229-00
         {
             DrivingBack db = new DrivingBack();
             db.ShowDialog();
+        }
+
+        private void cmb_pickedup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmb_pickedup.BackColor = Color.FromArgb(192, 192, 255);
+
+            if (cmb_pickedup.SelectedIndex == 0)
+            {
+                m_bCarPickedUp = false;
+            }
+            else
+            {
+                cmb_pickedup.BackColor = Color.LightGreen;
+
+                m_bCarPickedUp = true;
+            }
+
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
+        }
+
+        private void cmb_carlocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmb_carlocation.BackColor = Color.LightGreen;
+
+            if (cmb_carlocation.SelectedIndex == 0)
+            {
+                m_sCarLocation = "Front";
+            }
+            else
+            {
+                cmb_carlocation.BackColor = Color.Red;
+
+                m_sCarLocation = "Back";
+            }
+
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
         }
     }
 }

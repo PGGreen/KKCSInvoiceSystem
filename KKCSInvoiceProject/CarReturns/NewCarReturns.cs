@@ -465,8 +465,6 @@ namespace KKCSInvoiceProject
             {
                 btn.Visible = false;
 
-
-
                 if((bool)reader["IsNotes"] && (bool)reader["IsAlerts"])
                 {
                     btn.Visible = true;
@@ -720,7 +718,14 @@ namespace KKCSInvoiceProject
                 lbl.Font = _p.Font;
                 lbl.Size = _p.Size;
 
+                string sStaffMember = reader["StaffMember"].ToString();
+
                 lbl.Text = reader["StaffMember"].ToString();
+
+                if (sStaffMember == "")
+                {
+                    lbl.Text = "Unknown";
+                } 
             }
 
             lbl.Location = _p.Location;
@@ -730,6 +735,24 @@ namespace KKCSInvoiceProject
 
         void ExtraLabelsForPrinting()
         {
+            Label lblNotesAndAlerts = new Label();
+            lblNotesAndAlerts.Name = "lbl_NotesAndAlerts";
+            if ((bool)reader["IsNotes"] && (bool)reader["IsAlerts"])
+            {
+                lblNotesAndAlerts.Text = "N/A";
+            }
+            else if ((bool)reader["IsNotes"])
+            {
+                lblNotesAndAlerts.Text = "N";
+
+            }
+            else if ((bool)reader["IsAlerts"])
+            {
+                lblNotesAndAlerts.Text = "A";
+            }
+            lblNotesAndAlerts.Location = new Point(-100, -100);
+            pnl.Controls.Add(lblNotesAndAlerts);
+
             Label lblInvNo = new Label();
             lblInvNo.Name = "lbl_InvNo";
             lblInvNo.Text = reader["InvoiceNumber"].ToString();
@@ -787,6 +810,11 @@ namespace KKCSInvoiceProject
             }
         }
 
+        //public void MinimiseForm()
+        //{
+        //    this.WindowState = FormWindowState.Minimized;
+        //}
+
         void SetPickUp()
         {
             string sTabsStillOpen = "";
@@ -810,6 +838,10 @@ namespace KKCSInvoiceProject
                 command.ExecuteNonQuery();
 
                 connection.Close();
+
+                Form fm = Application.OpenForms["MainMenu"];
+                MainMenu mm = (MainMenu)fm;
+                mm.UpdateAmountOfCars();
 
                 ReloadPageFromInvoice();
             }
@@ -1169,7 +1201,8 @@ namespace KKCSInvoiceProject
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
             //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
-            PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
             PrintDocument.PrintPage += new PrintPageEventHandler(doc_PrintReturnsPage);
@@ -1178,7 +1211,7 @@ namespace KKCSInvoiceProject
 
             pnl_printtitles.Visible = false;
 
-            //PrintUnknowns();
+            PrintUnknowns();
         }
 
         private void doc_PrintReturnsPage(object sender, PrintPageEventArgs e)
@@ -1295,6 +1328,14 @@ namespace KKCSInvoiceProject
                             pReturns.Location = new Point(pReturns.Location.X, 10);
                             DrawString(e, pReturns, lbl_printreturndate, false);
                             break;
+                        case "lbl_staffmember":
+                            DrawString(e, pReturns, lbl_staff, false);
+                            break;
+                        case "lbl_NotesAndAlerts":
+                            pReturns.Location = new Point(pReturns.Location.X, 10);
+                            DrawString(e, pReturns, lbl_notesalerts, false);
+                            break;
+
                         default:
                             break;
                     }
@@ -1315,7 +1356,7 @@ namespace KKCSInvoiceProject
 
             if (_bCheckFontSize)
             {
-                if (_pReturns.Text.Length > 10)
+                if (_pReturns.Text.Length > 6)
                 {
                     f = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
                 }
@@ -1342,28 +1383,32 @@ namespace KKCSInvoiceProject
             PrintLineLocations(10, 90, 10, 1600, _e);
             PrintLineLocations(150, 90, 150, 1600, _e);
 
-            PrintLineLocations(280, 90, 280, 1600, _e);
-            PrintLineLocations(400, 90, 400, 1600, _e);
+            PrintLineLocations(230, 90, 230, 1600, _e);
+            PrintLineLocations(320, 90, 320, 1600, _e);
 
-            PrintLineLocations(463, 90, 463, 1600, _e);
-            PrintLineLocations(515, 90, 515, 1600, _e);
+            PrintLineLocations(375, 90, 375, 1600, _e);
+            PrintLineLocations(425, 90, 425, 1600, _e);
 
-            PrintLineLocations(550, 90, 550, 1600, _e);
-            PrintLineLocations(630, 90, 630, 1600, _e);
+            PrintLineLocations(455, 90, 455, 1600, _e);
+            PrintLineLocations(528, 90, 528, 1600, _e);
 
-            PrintLineLocations(705, 90, 705, 1600, _e);
-            PrintLineLocations(865, 90, 865, 1600, _e);
+            PrintLineLocations(600, 90, 600, 1600, _e);
+            PrintLineLocations(725, 90, 725, 1600, _e);
 
-            PrintLineLocations(1020, 90, 1020, 1600, _e);
+            PrintLineLocations(850, 90, 850, 1600, _e);
+            PrintLineLocations(960, 90, 960, 1600, _e);
+
+            PrintLineLocations(1025, 90, 1025, 1600, _e);
+            PrintLineLocations(1120, 90, 1120, 1600, _e);
         }
 
-        void PrintHorizontalLine(PrintPageEventArgs _e, int _iMove)
+        void PrintHorizontalLine(PrintPageEventArgs _e, float _iMove)
         {
             Pen blackPen = new Pen(Color.Black);
             blackPen.Width = 1.5f;
 
             PointF line = new PointF(10, iLocationY + _iMove);
-            PointF line2 = new PointF(1300, iLocationY + _iMove);
+            PointF line2 = new PointF(1120, iLocationY + _iMove);
 
             _e.Graphics.DrawLine(blackPen, line, line2);
         }
@@ -1387,6 +1432,9 @@ namespace KKCSInvoiceProject
 
             PaperSize ps = new PaperSize();
             ps.RawKind = (int)PaperKind.A4;
+
+            //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
 
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
@@ -1486,6 +1534,13 @@ namespace KKCSInvoiceProject
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
                             DrawString(e, pReturns, lbl_printreturndate, false);
+                            break;
+                        case "lbl_staffmember":
+                            DrawString(e, pReturns, lbl_staff, false);
+                            break;
+                        case "lbl_NotesAndAlerts":
+                            pReturns.Location = new Point(pReturns.Location.X, 10);
+                            DrawString(e, pReturns, lbl_notesalerts, false);
                             break;
                         default:
                             break;

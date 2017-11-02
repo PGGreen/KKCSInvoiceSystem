@@ -120,7 +120,7 @@ Phone: 09-401-6351";
 
             printDocument.PrinterSettings = new PrinterSettings();
             printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
-            printDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             printDocument.DefaultPageSettings.PaperSize = oPS;
             printDocument.DefaultPageSettings.PaperSource = oPSource;

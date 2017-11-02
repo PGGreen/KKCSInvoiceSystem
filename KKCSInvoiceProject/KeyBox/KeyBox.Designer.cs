@@ -120,11 +120,11 @@
             // txt_nocars
             // 
             this.txt_nocars.AutoSize = true;
-            this.txt_nocars.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_nocars.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_nocars.ForeColor = System.Drawing.Color.Red;
-            this.txt_nocars.Location = new System.Drawing.Point(614, 43);
+            this.txt_nocars.Location = new System.Drawing.Point(544, 44);
             this.txt_nocars.Name = "txt_nocars";
-            this.txt_nocars.Size = new System.Drawing.Size(196, 39);
+            this.txt_nocars.Size = new System.Drawing.Size(356, 73);
             this.txt_nocars.TabIndex = 230;
             this.txt_nocars.Text = "35/70 Cars";
             // 

@@ -649,7 +649,7 @@ namespace KKCSInvoiceProject
 
             printDocument.PrintPage += new PrintPageEventHandler(TodaysReport);
 
-            printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
 

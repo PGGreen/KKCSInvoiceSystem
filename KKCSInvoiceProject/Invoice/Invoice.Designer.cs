@@ -352,7 +352,7 @@
             this.btn_save.BackColor = System.Drawing.Color.OrangeRed;
             this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save.ForeColor = System.Drawing.Color.Black;
-            this.btn_save.Location = new System.Drawing.Point(1266, 241);
+            this.btn_save.Location = new System.Drawing.Point(1264, 272);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(174, 68);
             this.btn_save.TabIndex = 38;
@@ -513,7 +513,7 @@
             this.btn_update.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_update.ForeColor = System.Drawing.Color.White;
-            this.btn_update.Location = new System.Drawing.Point(1374, 416);
+            this.btn_update.Location = new System.Drawing.Point(1242, 420);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(139, 63);
             this.btn_update.TabIndex = 100;
@@ -647,7 +647,7 @@
             this.lbl_changesmade.AutoSize = true;
             this.lbl_changesmade.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_changesmade.ForeColor = System.Drawing.Color.Red;
-            this.lbl_changesmade.Location = new System.Drawing.Point(1242, 329);
+            this.lbl_changesmade.Location = new System.Drawing.Point(1228, 347);
             this.lbl_changesmade.Name = "lbl_changesmade";
             this.lbl_changesmade.Size = new System.Drawing.Size(245, 74);
             this.lbl_changesmade.TabIndex = 154;
@@ -658,11 +658,11 @@
             // btn_revertchanges
             // 
             this.btn_revertchanges.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btn_revertchanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_revertchanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_revertchanges.ForeColor = System.Drawing.Color.Black;
-            this.btn_revertchanges.Location = new System.Drawing.Point(1230, 416);
+            this.btn_revertchanges.Location = new System.Drawing.Point(1387, 424);
             this.btn_revertchanges.Name = "btn_revertchanges";
-            this.btn_revertchanges.Size = new System.Drawing.Size(138, 63);
+            this.btn_revertchanges.Size = new System.Drawing.Size(72, 54);
             this.btn_revertchanges.TabIndex = 155;
             this.btn_revertchanges.Text = "REVERT CHANGES";
             this.btn_revertchanges.UseVisualStyleBackColor = false;
@@ -1043,6 +1043,7 @@
             this.cmb_pickedup.Name = "cmb_pickedup";
             this.cmb_pickedup.Size = new System.Drawing.Size(231, 28);
             this.cmb_pickedup.TabIndex = 174;
+            this.cmb_pickedup.SelectedIndexChanged += new System.EventHandler(this.cmb_pickedup_SelectedIndexChanged);
             // 
             // cmb_carlocation
             // 
@@ -1060,6 +1061,7 @@
             this.cmb_carlocation.Name = "cmb_carlocation";
             this.cmb_carlocation.Size = new System.Drawing.Size(231, 28);
             this.cmb_carlocation.TabIndex = 175;
+            this.cmb_carlocation.SelectedIndexChanged += new System.EventHandler(this.cmb_carlocation_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -1157,7 +1159,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(1287, 175);
+            this.label8.Location = new System.Drawing.Point(1272, 174);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(138, 24);
             this.label8.TabIndex = 185;
@@ -1166,7 +1168,7 @@
             // cmb_worker
             // 
             this.cmb_worker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.cmb_worker.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_worker.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_worker.FormattingEnabled = true;
             this.cmb_worker.Items.AddRange(new object[] {
             "Please Pick...",
@@ -1175,9 +1177,9 @@
             "Noel",
             "Peter",
             "Deb"});
-            this.cmb_worker.Location = new System.Drawing.Point(1259, 202);
+            this.cmb_worker.Location = new System.Drawing.Point(1235, 207);
             this.cmb_worker.Name = "cmb_worker";
-            this.cmb_worker.Size = new System.Drawing.Size(188, 33);
+            this.cmb_worker.Size = new System.Drawing.Size(238, 47);
             this.cmb_worker.TabIndex = 184;
             // 
             // Invoice
