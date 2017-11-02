@@ -678,6 +678,7 @@ namespace KKCSInvoiceProject
 
                 using (StreamReader sr = new StreamReader(sTxtFileLocation))
                 {
+                    //txt_flighttimes.Items.Add("T")
                     txt_flighttimes.Items.AddRange(System.IO.File.ReadAllLines(sTxtFileLocation));
 
                     txt_flighttimes.SelectedIndex = 0;
@@ -1351,6 +1352,7 @@ namespace KKCSInvoiceProject
 
             objCustomerShow.WipeInformation();
         }
+
         #endregion CustomerShow
 
         #region SeclectedTextChanges
@@ -1964,7 +1966,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                invManager.GetMainMenuObject().MinimiseForm();
+                //invManager.GetMainMenuObject().MinimiseForm();
 
                 PrintDialog printDialog = new PrintDialog();
 
@@ -2507,6 +2509,11 @@ Number: 02-0800-0493229-00
 
                         break;
                     }
+            }
+
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
             }
         }
 

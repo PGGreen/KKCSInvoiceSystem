@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lbl_stay = new System.Windows.Forms.Label();
             this.lbl_price = new System.Windows.Forms.Label();
             this.lbl_ccfee = new System.Windows.Forms.Label();
             this.lbl_paidby = new System.Windows.Forms.Label();
@@ -104,15 +104,14 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Car Make:";
             // 
-            // label8
+            // lbl_stay
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(131, 322);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 33);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "5 Days";
+            this.lbl_stay.AutoSize = true;
+            this.lbl_stay.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_stay.Location = new System.Drawing.Point(131, 322);
+            this.lbl_stay.Name = "lbl_stay";
+            this.lbl_stay.Size = new System.Drawing.Size(0, 33);
+            this.lbl_stay.TabIndex = 7;
             // 
             // lbl_price
             // 
@@ -123,7 +122,7 @@
             this.lbl_price.Name = "lbl_price";
             this.lbl_price.Size = new System.Drawing.Size(343, 108);
             this.lbl_price.TabIndex = 8;
-            this.lbl_price.Text = "$27.00";
+            this.lbl_price.Text = "$00.00";
             this.lbl_price.Visible = false;
             // 
             // lbl_ccfee
@@ -205,7 +204,7 @@
             this.pnl_invoice.Controls.Add(this.dt_returndate);
             this.pnl_invoice.Controls.Add(this.label15);
             this.pnl_invoice.Controls.Add(this.dt_datein);
-            this.pnl_invoice.Controls.Add(this.label8);
+            this.pnl_invoice.Controls.Add(this.lbl_stay);
             this.pnl_invoice.Controls.Add(this.lbl_paidby);
             this.pnl_invoice.Controls.Add(this.txt_carmake);
             this.pnl_invoice.Controls.Add(this.lbl_ccfee);
@@ -417,7 +416,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbl_stay;
         private System.Windows.Forms.Label lbl_price;
         private System.Windows.Forms.Label lbl_ccfee;
         private System.Windows.Forms.Label lbl_paidby;

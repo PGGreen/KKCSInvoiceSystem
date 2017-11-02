@@ -24,6 +24,7 @@ namespace KKCSInvoiceProject
 
         public void WipeInformation()
         {
+            lbl_stay.Text = "";
             txt_name.Text = "";
             txt_carrego.Text = "";
             txt_carmake.Text = "";
@@ -50,6 +51,7 @@ namespace KKCSInvoiceProject
         {
             dt_datein.Text = _sTimeIn;
             dt_returndate.Text = _sFlightOut;
+            lbl_stay.Text = _sDays;
         }
 
         public void UpdatePrice(string _sPrice, string _sPaidStatus)
