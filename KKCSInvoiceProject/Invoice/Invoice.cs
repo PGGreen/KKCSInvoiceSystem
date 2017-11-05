@@ -878,6 +878,19 @@ namespace KKCSInvoiceProject
                     this.BackColor = Color.LightGreen;
 
                     btn_refund.Enabled = true;
+
+
+                    // Check if car is coming back today
+                    DateTime _dtNow = DateTime.Now;
+                    DateTime _dtToday = new DateTime(_dtNow.Year, _dtNow.Month, _dtNow.Day, 12, 0, 0);
+
+                    DateTime _dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
+
+                    if(_dtToday == _dtReturnDate)
+                    {
+                        ReminderAddToReturns ratr = new ReminderAddToReturns();
+                        ratr.ShowDialog();
+                    }
                 }
                 else
                 {
