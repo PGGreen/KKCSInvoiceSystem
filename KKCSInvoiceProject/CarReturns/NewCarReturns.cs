@@ -810,10 +810,10 @@ namespace KKCSInvoiceProject
             }
         }
 
-        //public void MinimiseForm()
-        //{
-        //    this.WindowState = FormWindowState.Minimized;
-        //}
+        public void MinimiseForm()
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
 
         void SetPickUp()
         {
@@ -1167,9 +1167,10 @@ namespace KKCSInvoiceProject
             }
         */
 
-        #region PrintingOld
+        #region Printing
 
-        #region GlobalVariables
+        #region GlobalVariablesPrinting
+
         int iLocationY = 50;
         int iItemsPerPage = 0;
 
@@ -1178,6 +1179,9 @@ namespace KKCSInvoiceProject
         int iPageNumber = 1;
 
         Brush blackBrush = new SolidBrush(Color.Black);
+
+        Brush _bPrintBrush = new SolidBrush(Color.White);
+
         #endregion
 
         #region PrintReturns
@@ -1202,6 +1206,7 @@ namespace KKCSInvoiceProject
 
             //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
@@ -1211,7 +1216,7 @@ namespace KKCSInvoiceProject
 
             pnl_printtitles.Visible = false;
 
-            PrintUnknowns();
+            //PrintUnknowns();
         }
 
         private void doc_PrintReturnsPage(object sender, PrintPageEventArgs e)
@@ -1290,50 +1295,89 @@ namespace KKCSInvoiceProject
             {
                 foreach (Control pReturns in lstReturnPanels[_iReturnPanel].Controls)
                 {
+                    _bPrintBrush = new SolidBrush(Color.White);
+
                     switch (pReturns.Name)
                     {
                         case "lbl_customername":
-                            DrawString(e, pReturns, lbl_printname, true);
+                            DrawString(e, pReturns, lbl_printname, true, false);
                             break;
                         case "lbl_rego":
-                            DrawString(e, pReturns, lbl_printrego, false);
+                            DrawString(e, pReturns, lbl_printrego, false, false);
                             break;
                         case "lbl_make":
-                            DrawString(e, pReturns, lbl_printmake, true);
+                            DrawString(e, pReturns, lbl_printmake, true, false);
                             break;
                         case "lbl_location":
-                            DrawString(e, pReturns, lbl_printlocation, false);
+                            DrawString(e, pReturns, lbl_printlocation, false, false);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printinvno, false);
+                            DrawString(e, pReturns, lbl_printinvno, false, false);
                             break;
                         case "lbl_keyno":
-                            DrawString(e, pReturns, lbl_printkeyno, false);
+                            bool _bPrintColourKeyNo = false;
+
+                            _bPrintBrush = new SolidBrush(Color.Yellow);
+                            _bPrintColourKeyNo = true;
+                            
+                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo);
                             break;
                         case "lbl_amount":
-                            DrawString(e, pReturns, lbl_printamount, false);
+                            DrawString(e, pReturns, lbl_printamount, false, false);
                             break;
                         case "lbl_paidstatus":
-                            DrawString(e, pReturns, lbl_printpaid, true);
+                            bool _bPrintColourPaidStatus = false;
+                            if(pReturns.Text == "To Pay")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Yellow);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            else if(pReturns.Text == "OnAcc")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Violet);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            else if(pReturns.Text == "N/C")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Orange);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus);
                             break;
                         case "lbl_ph":
-                            DrawString(e, pReturns, lbl_printphone, false);
+                            DrawString(e, pReturns, lbl_printphone, false, false);
                             break;
                         case "lbl_DateIn":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printdatein, false);
+                            DrawString(e, pReturns, lbl_printdatein, false, false);
                             break;
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printreturndate, false);
+                            DrawString(e, pReturns, lbl_printreturndate, false, false);
                             break;
                         case "lbl_staffmember":
-                            DrawString(e, pReturns, lbl_staff, false);
+                            DrawString(e, pReturns, lbl_staff, false, false);
                             break;
                         case "lbl_NotesAndAlerts":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_notesalerts, false);
+                            bool _bPrintColourNA = false;
+                            if (pReturns.Text == "N")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.LightBlue);
+                                _bPrintColourNA = true;
+                            }
+                            else if(pReturns.Text == "A")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Red);
+                                _bPrintColourNA = true;
+                            }
+                            else if(pReturns.Text == "N/A")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.MediumPurple);
+                                _bPrintColourNA = true;
+                            }
+                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA);
                             break;
 
                         default:
@@ -1345,9 +1389,13 @@ namespace KKCSInvoiceProject
             }
         }
 
-        void DrawString(PrintPageEventArgs _e, Control _pReturns, Label _Label, bool _bCheckFontSize)
+        void DrawString(PrintPageEventArgs _e, Control _pReturns, Label _Label, bool _bCheckFontSize, bool _bPrintColour)
         {
-            //_e.Graphics.FillRectangle(Brushes.Black, _Label.Bounds.Location.X, iLocationY + 2, 40, 40);
+            if(_bPrintColour)
+            {
+                //Brush _bPrintBrush = new SolidBrush(Color.Yellow);
+                _e.Graphics.FillRectangle(_bPrintBrush, _Label.Bounds.Location.X, iLocationY + 2, _Label.Bounds.Width - 2, 40);
+            }
 
             PrintHorizontalLine(_e, 0);
 
@@ -1500,47 +1548,47 @@ namespace KKCSInvoiceProject
                     switch (pReturns.Name)
                     {
                         case "lbl_customername":
-                            DrawString(e, pReturns, lbl_printname, true);
+                            DrawString(e, pReturns, lbl_printname, true, false);
                             break;
                         case "lbl_rego":
-                            DrawString(e, pReturns, lbl_printrego, false);
+                            DrawString(e, pReturns, lbl_printrego, false, false);
                             break;
                         case "lbl_make":
-                            DrawString(e, pReturns, lbl_printmake, true);
+                            DrawString(e, pReturns, lbl_printmake, true, false);
                             break;
                         case "lbl_location":
-                            DrawString(e, pReturns, lbl_printlocation, false);
+                            DrawString(e, pReturns, lbl_printlocation, false, false);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printinvno, false);
+                            DrawString(e, pReturns, lbl_printinvno, false, false);
                             break;
                         case "lbl_keyno":
-                            DrawString(e, pReturns, lbl_printkeyno, false);
+                            DrawString(e, pReturns, lbl_printkeyno, false, false);
                             break;
                         case "lbl_amount":
-                            DrawString(e, pReturns, lbl_printamount, false);
+                            DrawString(e, pReturns, lbl_printamount, false, false);
                             break;
                         case "lbl_paidstatus":
-                            DrawString(e, pReturns, lbl_printpaid, true);
+                            DrawString(e, pReturns, lbl_printpaid, true, false);
                             break;
                         case "lbl_ph":
-                            DrawString(e, pReturns, lbl_printphone, false);
+                            DrawString(e, pReturns, lbl_printphone, false, false);
                             break;
                         case "lbl_DateIn":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printdatein, false);
+                            DrawString(e, pReturns, lbl_printdatein, false, false);
                             break;
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printreturndate, false);
+                            DrawString(e, pReturns, lbl_printreturndate, false, false);
                             break;
                         case "lbl_staffmember":
-                            DrawString(e, pReturns, lbl_staff, false);
+                            DrawString(e, pReturns, lbl_staff, false, false);
                             break;
                         case "lbl_NotesAndAlerts":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_notesalerts, false);
+                            DrawString(e, pReturns, lbl_notesalerts, false, false);
                             break;
                         default:
                             break;
@@ -1635,40 +1683,40 @@ namespace KKCSInvoiceProject
                     switch (pReturns.Name)
                     {
                         case "lbl_customername":
-                            DrawString(e, pReturns, lbl_printname, true);
+                            DrawString(e, pReturns, lbl_printname, true, false);
                             break;
                         case "lbl_rego":
-                            DrawString(e, pReturns, lbl_printrego, false);
+                            DrawString(e, pReturns, lbl_printrego, false, false);
                             break;
                         case "lbl_make":
-                            DrawString(e, pReturns, lbl_printmake, true);
+                            DrawString(e, pReturns, lbl_printmake, true, false);
                             break;
                         case "lbl_location":
-                            DrawString(e, pReturns, lbl_printlocation, false);
+                            DrawString(e, pReturns, lbl_printlocation, false, false);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printinvno, false);
+                            DrawString(e, pReturns, lbl_printinvno, false, false);
                             break;
                         case "lbl_keyno":
-                            DrawString(e, pReturns, lbl_printkeyno, false);
+                            DrawString(e, pReturns, lbl_printkeyno, false, false);
                             break;
                         case "lbl_amount":
-                            DrawString(e, pReturns, lbl_printamount, false);
+                            DrawString(e, pReturns, lbl_printamount, false, false);
                             break;
                         case "lbl_paidstatus":
-                            DrawString(e, pReturns, lbl_printpaid, true);
+                            DrawString(e, pReturns, lbl_printpaid, true, false);
                             break;
                         case "lbl_ph":
-                            DrawString(e, pReturns, lbl_printphone, false);
+                            DrawString(e, pReturns, lbl_printphone, false, false);
                             break;
                         case "lbl_DateIn":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printdatein, false);
+                            DrawString(e, pReturns, lbl_printdatein, false, false);
                             break;
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printreturndate, false);
+                            DrawString(e, pReturns, lbl_printreturndate, false, false);
                             break;
                         default:
                             break;

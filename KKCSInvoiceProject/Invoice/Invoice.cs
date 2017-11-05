@@ -323,6 +323,11 @@ namespace KKCSInvoiceProject
                 DateTime dtin = (DateTime)reader["DTDateIn"];
                 dt_datein.Value = dtin;
 
+                DateTime dtreturn = (DateTime)reader["DTReturnDate"];
+                dt_returndate.Value = dtreturn;
+
+                txt_flighttimes.Text = reader["ReturnTime"].ToString();
+
                 // Inserts the time the customer dropped the car off
                 cmb_timeinhours.Text = reader["TimeIn"].ToString().Substring(0, 2);
                 cmb_timeinminutes.Text = reader["TimeIn"].ToString().Substring(2, 2);
@@ -402,7 +407,7 @@ namespace KKCSInvoiceProject
                     //DateTime dtDatePaid = (DateTime)reader["DTDatePaid"];
                     string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " (Click to Change)";
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid;
                 }
             }
 
@@ -1996,13 +2001,16 @@ namespace KKCSInvoiceProject
                 MainMenu mm = (MainMenu)fm;
                 mm.MinimiseForm();
 
-                //Form fmcarreturns = Application.OpenForms["NewCarReturns"];
-                //if (fm != null)
-                //{
-                //    NewCarReturns ncr = (NewCarReturns)fmcarreturns;
-                //    ncr.MinimiseForm();
-                //}
+                if (!m_bIsFromCarReturns)
+                {
+                    Form fmcarreturns = Application.OpenForms["NewCarReturns"];
 
+                    if (fmcarreturns != null)
+                    {
+                        NewCarReturns ncr = (NewCarReturns)fmcarreturns;
+                        ncr.MinimiseForm();
+                    }
+                }
 
                 PrintDialog printDialog = new PrintDialog();
 
@@ -2679,6 +2687,8 @@ Number: 02-0800-0493229-00
                     if (bIsWithRego)
                     {
                         sStoreRego = reader["NumberPlates"].ToString();
+
+                        cmb_rego.Text = sStoreRego;
                     }
                 }
 
@@ -2686,8 +2696,6 @@ Number: 02-0800-0493229-00
                 {
                     connection.Close();
                 }
-
-                cmb_rego.Text = sStoreRego;
             }
         }
 

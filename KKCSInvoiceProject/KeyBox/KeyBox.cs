@@ -136,8 +136,12 @@ namespace KKCSInvoiceProject
 
         Button CreateRegoButtons()
         {
+            Font fFont = new Font(btn_one.Font.FontFamily, 14.0f , FontStyle.Bold);
+
+            
             Button btn = new Button();
-            btn.Font = btn_one.Font;
+
+            btn.Font = fFont;//btn_one.Font;
             //btn.Font.Size = btn_one.Font.Size;
 
             btn.Location = new Point(btn_one.Location.X + iLocationX, btn_one.Location.Y + iLocationY);
