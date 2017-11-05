@@ -955,8 +955,10 @@ namespace KKCSInvoiceProject
                     dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
                 }
                 // Sets up the date the customer paid
-                else
+                else if(!m_bAlreadyPaid)
                 {
+                    m_bAlreadyPaid = true;
+
                     DateTime dtNow = DateTime.Now;
                     dtDatePaid = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
 

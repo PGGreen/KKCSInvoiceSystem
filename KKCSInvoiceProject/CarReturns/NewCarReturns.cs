@@ -1206,7 +1206,7 @@ namespace KKCSInvoiceProject
 
             //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
-            PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            //PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
@@ -1216,7 +1216,7 @@ namespace KKCSInvoiceProject
 
             pnl_printtitles.Visible = false;
 
-            //PrintUnknowns();
+            PrintUnknowns();
         }
 
         private void doc_PrintReturnsPage(object sender, PrintPageEventArgs e)
@@ -1391,7 +1391,7 @@ namespace KKCSInvoiceProject
 
         void DrawString(PrintPageEventArgs _e, Control _pReturns, Label _Label, bool _bCheckFontSize, bool _bPrintColour)
         {
-            if(_bPrintColour)
+            if(false)//_bPrintColour)
             {
                 //Brush _bPrintBrush = new SolidBrush(Color.Yellow);
                 _e.Graphics.FillRectangle(_bPrintBrush, _Label.Bounds.Location.X, iLocationY + 2, _Label.Bounds.Width - 2, 40);
