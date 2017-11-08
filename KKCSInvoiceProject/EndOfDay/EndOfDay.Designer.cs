@@ -36,9 +36,9 @@
             this.txtbox_notes = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lbl_eftposin = new System.Windows.Forms.Label();
-            this.pnl_steptwo = new System.Windows.Forms.Panel();
+            this.pnl_stepsthree = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmb_stepthree = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.lbl_sod = new System.Windows.Forms.Label();
@@ -47,14 +47,14 @@
             this.lbl_cashin = new System.Windows.Forms.Label();
             this.lbl_refunds = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.pnl_stepthree = new System.Windows.Forms.Panel();
+            this.pnl_steptwo = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chk_eftposreset = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmb_StepThree = new System.Windows.Forms.ComboBox();
+            this.cmb_Steptwo = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.pnl_stepfour = new System.Windows.Forms.Panel();
+            this.pnl_stepfive = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.btn_printconfirmation = new System.Windows.Forms.Button();
             this.chk_signedform = new System.Windows.Forms.CheckBox();
@@ -63,7 +63,7 @@
             this.btn_printdailytotal = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.btn_endday = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnl_stepfour = new System.Windows.Forms.Panel();
             this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -71,12 +71,11 @@
             this.label20 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
-            this.pnl_stepthree.SuspendLayout();
-            this.pnl_stepfour.SuspendLayout();
+            this.pnl_stepfive.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pnl_stepfour.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
@@ -99,7 +98,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 31);
             this.label1.TabIndex = 85;
-            this.label1.Text = "2. Cash";
+            this.label1.Text = "3. Cash";
             // 
             // label10
             // 
@@ -168,27 +167,27 @@
             this.lbl_eftposin.TabIndex = 128;
             this.lbl_eftposin.Text = "$000.00";
             // 
-            // pnl_steptwo
+            // pnl_stepsthree
             // 
-            this.pnl_steptwo.BackColor = System.Drawing.Color.White;
-            this.pnl_steptwo.Controls.Add(this.label15);
-            this.pnl_steptwo.Controls.Add(this.comboBox1);
-            this.pnl_steptwo.Controls.Add(this.label11);
-            this.pnl_steptwo.Controls.Add(this.label9);
-            this.pnl_steptwo.Controls.Add(this.label1);
-            this.pnl_steptwo.Controls.Add(this.lbl_sod);
-            this.pnl_steptwo.Controls.Add(this.label4);
-            this.pnl_steptwo.Controls.Add(this.label6);
-            this.pnl_steptwo.Controls.Add(this.lbl_cashin);
-            this.pnl_steptwo.Controls.Add(this.lbl_refunds);
-            this.pnl_steptwo.Controls.Add(this.label10);
-            this.pnl_steptwo.Controls.Add(this.lbl_total);
-            this.pnl_steptwo.Controls.Add(this.label3);
-            this.pnl_steptwo.Enabled = false;
-            this.pnl_steptwo.Location = new System.Drawing.Point(12, 359);
-            this.pnl_steptwo.Name = "pnl_steptwo";
-            this.pnl_steptwo.Size = new System.Drawing.Size(557, 326);
-            this.pnl_steptwo.TabIndex = 132;
+            this.pnl_stepsthree.BackColor = System.Drawing.Color.White;
+            this.pnl_stepsthree.Controls.Add(this.label15);
+            this.pnl_stepsthree.Controls.Add(this.cmb_stepthree);
+            this.pnl_stepsthree.Controls.Add(this.label11);
+            this.pnl_stepsthree.Controls.Add(this.label9);
+            this.pnl_stepsthree.Controls.Add(this.label1);
+            this.pnl_stepsthree.Controls.Add(this.lbl_sod);
+            this.pnl_stepsthree.Controls.Add(this.label4);
+            this.pnl_stepsthree.Controls.Add(this.label6);
+            this.pnl_stepsthree.Controls.Add(this.lbl_cashin);
+            this.pnl_stepsthree.Controls.Add(this.lbl_refunds);
+            this.pnl_stepsthree.Controls.Add(this.label10);
+            this.pnl_stepsthree.Controls.Add(this.lbl_total);
+            this.pnl_stepsthree.Controls.Add(this.label3);
+            this.pnl_stepsthree.Enabled = false;
+            this.pnl_stepsthree.Location = new System.Drawing.Point(12, 359);
+            this.pnl_stepsthree.Name = "pnl_stepsthree";
+            this.pnl_stepsthree.Size = new System.Drawing.Size(557, 326);
+            this.pnl_stepsthree.TabIndex = 132;
             // 
             // label15
             // 
@@ -200,22 +199,23 @@
             this.label15.TabIndex = 134;
             this.label15.Text = "Is this Correct?";
             // 
-            // comboBox1
+            // cmb_stepthree
             // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.comboBox1.DropDownWidth = 121;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmb_stepthree.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_stepthree.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_stepthree.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_stepthree.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_stepthree.DropDownWidth = 121;
+            this.cmb_stepthree.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_stepthree.FormattingEnabled = true;
+            this.cmb_stepthree.Items.AddRange(new object[] {
             "Correct",
             "Incorrect"});
-            this.comboBox1.Location = new System.Drawing.Point(179, 261);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(182, 41);
-            this.comboBox1.TabIndex = 134;
+            this.cmb_stepthree.Location = new System.Drawing.Point(179, 261);
+            this.cmb_stepthree.Name = "cmb_stepthree";
+            this.cmb_stepthree.Size = new System.Drawing.Size(182, 41);
+            this.cmb_stepthree.TabIndex = 134;
+            this.cmb_stepthree.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -245,7 +245,7 @@
             this.lbl_sod.Name = "lbl_sod";
             this.lbl_sod.Size = new System.Drawing.Size(90, 25);
             this.lbl_sod.TabIndex = 87;
-            this.lbl_sod.Text = "$000.00";
+            this.lbl_sod.Text = "$180.00";
             // 
             // label4
             // 
@@ -297,22 +297,22 @@
             this.label3.TabIndex = 121;
             this.label3.Text = "Start of Day Till:";
             // 
-            // pnl_stepthree
+            // pnl_steptwo
             // 
-            this.pnl_stepthree.BackColor = System.Drawing.Color.White;
-            this.pnl_stepthree.Controls.Add(this.label13);
-            this.pnl_stepthree.Controls.Add(this.label7);
-            this.pnl_stepthree.Controls.Add(this.checkBox1);
-            this.pnl_stepthree.Controls.Add(this.label2);
-            this.pnl_stepthree.Controls.Add(this.cmb_StepThree);
-            this.pnl_stepthree.Controls.Add(this.label5);
-            this.pnl_stepthree.Controls.Add(this.label14);
-            this.pnl_stepthree.Controls.Add(this.lbl_eftposin);
-            this.pnl_stepthree.Enabled = false;
-            this.pnl_stepthree.Location = new System.Drawing.Point(12, 148);
-            this.pnl_stepthree.Name = "pnl_stepthree";
-            this.pnl_stepthree.Size = new System.Drawing.Size(557, 196);
-            this.pnl_stepthree.TabIndex = 133;
+            this.pnl_steptwo.BackColor = System.Drawing.Color.White;
+            this.pnl_steptwo.Controls.Add(this.label13);
+            this.pnl_steptwo.Controls.Add(this.label7);
+            this.pnl_steptwo.Controls.Add(this.chk_eftposreset);
+            this.pnl_steptwo.Controls.Add(this.label2);
+            this.pnl_steptwo.Controls.Add(this.cmb_Steptwo);
+            this.pnl_steptwo.Controls.Add(this.label5);
+            this.pnl_steptwo.Controls.Add(this.label14);
+            this.pnl_steptwo.Controls.Add(this.lbl_eftposin);
+            this.pnl_steptwo.Enabled = false;
+            this.pnl_steptwo.Location = new System.Drawing.Point(12, 148);
+            this.pnl_steptwo.Name = "pnl_steptwo";
+            this.pnl_steptwo.Size = new System.Drawing.Size(557, 196);
+            this.pnl_steptwo.TabIndex = 133;
             // 
             // label13
             // 
@@ -334,16 +334,17 @@
             this.label7.TabIndex = 132;
             this.label7.Text = "-------------------------------------------------------------";
             // 
-            // checkBox1
+            // chk_eftposreset
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(315, 154);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(116, 28);
-            this.checkBox1.TabIndex = 131;
-            this.checkBox1.Text = "Confirmed";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chk_eftposreset.AutoSize = true;
+            this.chk_eftposreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_eftposreset.Location = new System.Drawing.Point(315, 154);
+            this.chk_eftposreset.Name = "chk_eftposreset";
+            this.chk_eftposreset.Size = new System.Drawing.Size(116, 28);
+            this.chk_eftposreset.TabIndex = 131;
+            this.chk_eftposreset.Text = "Confirmed";
+            this.chk_eftposreset.UseVisualStyleBackColor = true;
+            this.chk_eftposreset.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label2
             // 
@@ -356,23 +357,23 @@
             this.label2.TabIndex = 130;
             this.label2.Text = "Please make sure eftpos totals\r\nare reset/cleared to $0.00";
             // 
-            // cmb_StepThree
+            // cmb_Steptwo
             // 
-            this.cmb_StepThree.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cmb_StepThree.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_StepThree.BackColor = System.Drawing.SystemColors.Window;
-            this.cmb_StepThree.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cmb_StepThree.DropDownWidth = 121;
-            this.cmb_StepThree.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_StepThree.FormattingEnabled = true;
-            this.cmb_StepThree.Items.AddRange(new object[] {
+            this.cmb_Steptwo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cmb_Steptwo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_Steptwo.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_Steptwo.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_Steptwo.DropDownWidth = 121;
+            this.cmb_Steptwo.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_Steptwo.FormattingEnabled = true;
+            this.cmb_Steptwo.Items.AddRange(new object[] {
             "Correct",
             "Incorrect"});
-            this.cmb_StepThree.Location = new System.Drawing.Point(261, 53);
-            this.cmb_StepThree.Name = "cmb_StepThree";
-            this.cmb_StepThree.Size = new System.Drawing.Size(182, 41);
-            this.cmb_StepThree.TabIndex = 129;
-            this.cmb_StepThree.SelectedIndexChanged += new System.EventHandler(this.cmb_StepThree_SelectedIndexChanged);
+            this.cmb_Steptwo.Location = new System.Drawing.Point(261, 53);
+            this.cmb_Steptwo.Name = "cmb_Steptwo";
+            this.cmb_Steptwo.Size = new System.Drawing.Size(182, 41);
+            this.cmb_Steptwo.TabIndex = 129;
+            this.cmb_Steptwo.SelectedIndexChanged += new System.EventHandler(this.cmb_StepThree_SelectedIndexChanged);
             // 
             // label14
             // 
@@ -384,17 +385,18 @@
             this.label14.TabIndex = 124;
             this.label14.Text = "Total:";
             // 
-            // pnl_stepfour
+            // pnl_stepfive
             // 
-            this.pnl_stepfour.BackColor = System.Drawing.Color.White;
-            this.pnl_stepfour.Controls.Add(this.label12);
-            this.pnl_stepfour.Controls.Add(this.btn_printconfirmation);
-            this.pnl_stepfour.Controls.Add(this.chk_signedform);
-            this.pnl_stepfour.Controls.Add(this.lbl_haveyousigned);
-            this.pnl_stepfour.Location = new System.Drawing.Point(586, 148);
-            this.pnl_stepfour.Name = "pnl_stepfour";
-            this.pnl_stepfour.Size = new System.Drawing.Size(557, 124);
-            this.pnl_stepfour.TabIndex = 135;
+            this.pnl_stepfive.BackColor = System.Drawing.Color.White;
+            this.pnl_stepfive.Controls.Add(this.label12);
+            this.pnl_stepfive.Controls.Add(this.btn_printconfirmation);
+            this.pnl_stepfive.Controls.Add(this.chk_signedform);
+            this.pnl_stepfive.Controls.Add(this.lbl_haveyousigned);
+            this.pnl_stepfive.Enabled = false;
+            this.pnl_stepfive.Location = new System.Drawing.Point(586, 148);
+            this.pnl_stepfive.Name = "pnl_stepfive";
+            this.pnl_stepfive.Size = new System.Drawing.Size(557, 124);
+            this.pnl_stepfive.TabIndex = 135;
             // 
             // label12
             // 
@@ -421,6 +423,7 @@
             // chk_signedform
             // 
             this.chk_signedform.AutoSize = true;
+            this.chk_signedform.Enabled = false;
             this.chk_signedform.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_signedform.Location = new System.Drawing.Point(444, 87);
             this.chk_signedform.Name = "chk_signedform";
@@ -486,16 +489,16 @@
             this.btn_endday.Visible = false;
             this.btn_endday.Click += new System.EventHandler(this.btn_endday_Click);
             // 
-            // panel2
+            // pnl_stepfour
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.cmb_worker);
-            this.panel2.Controls.Add(this.label16);
-            this.panel2.Enabled = false;
-            this.panel2.Location = new System.Drawing.Point(586, 58);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(557, 76);
-            this.panel2.TabIndex = 134;
+            this.pnl_stepfour.BackColor = System.Drawing.Color.White;
+            this.pnl_stepfour.Controls.Add(this.cmb_worker);
+            this.pnl_stepfour.Controls.Add(this.label16);
+            this.pnl_stepfour.Enabled = false;
+            this.pnl_stepfour.Location = new System.Drawing.Point(586, 58);
+            this.pnl_stepfour.Name = "pnl_stepfour";
+            this.pnl_stepfour.Size = new System.Drawing.Size(557, 76);
+            this.pnl_stepfour.TabIndex = 134;
             // 
             // cmb_worker
             // 
@@ -513,6 +516,7 @@
             this.cmb_worker.Name = "cmb_worker";
             this.cmb_worker.Size = new System.Drawing.Size(279, 39);
             this.cmb_worker.TabIndex = 137;
+            this.cmb_worker.SelectedIndexChanged += new System.EventHandler(this.cmb_worker_SelectedIndexChanged);
             // 
             // label16
             // 
@@ -574,46 +578,35 @@
             this.label18.TabIndex = 85;
             this.label18.Text = "Running Totals";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(923, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 137;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // EndOfDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 882);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnl_stepfour);
             this.Controls.Add(this.btn_endday);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pnl_stepfour);
-            this.Controls.Add(this.pnl_stepthree);
+            this.Controls.Add(this.pnl_stepfive);
             this.Controls.Add(this.pnl_steptwo);
+            this.Controls.Add(this.pnl_stepsthree);
             this.Controls.Add(this.btn_eod);
             this.Controls.Add(this.txt_eodheader);
             this.Name = "EndOfDay";
             this.Text = "s";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.pnl_stepsthree.ResumeLayout(false);
+            this.pnl_stepsthree.PerformLayout();
             this.pnl_steptwo.ResumeLayout(false);
             this.pnl_steptwo.PerformLayout();
-            this.pnl_stepthree.ResumeLayout(false);
-            this.pnl_stepthree.PerformLayout();
-            this.pnl_stepfour.ResumeLayout(false);
-            this.pnl_stepfour.PerformLayout();
+            this.pnl_stepfive.ResumeLayout(false);
+            this.pnl_stepfive.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnl_stepfour.ResumeLayout(false);
+            this.pnl_stepfour.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -633,9 +626,9 @@
         private System.Windows.Forms.TextBox txtbox_notes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbl_eftposin;
+        private System.Windows.Forms.Panel pnl_stepsthree;
         private System.Windows.Forms.Panel pnl_steptwo;
-        private System.Windows.Forms.Panel pnl_stepthree;
-        private System.Windows.Forms.Panel pnl_stepfour;
+        private System.Windows.Forms.Panel pnl_stepfive;
         private System.Windows.Forms.CheckBox chk_signedform;
         private System.Windows.Forms.Label lbl_haveyousigned;
         private System.Windows.Forms.Label label11;
@@ -650,17 +643,17 @@
         private System.Windows.Forms.Button btn_printdailytotal;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button btn_printconfirmation;
-        private System.Windows.Forms.ComboBox cmb_StepThree;
+        private System.Windows.Forms.ComboBox cmb_Steptwo;
         private System.Windows.Forms.Button btn_endday;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chk_eftposreset;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmb_stepthree;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnl_stepfour;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox cmb_worker;
         private System.Windows.Forms.Panel panel3;
@@ -668,6 +661,5 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button button1;
     }
 }

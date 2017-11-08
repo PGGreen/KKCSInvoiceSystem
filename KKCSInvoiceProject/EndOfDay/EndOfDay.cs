@@ -76,17 +76,7 @@ namespace KKCSInvoiceProject
 
             cmb_worker.SelectedIndex = 0;
 
-            connection.Open();
-
-            //PrintYTDReport();
-
-            //AccountsTest();
-
-            //SendEmailTest();
-
-            connection.Close();
-
-            // Creates todays date for end of dat
+            // Creates todays date for end of date
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
             //dtTodaysDate = new DateTime(2017, 9, 11, 12, 0, 0);
 
@@ -106,9 +96,92 @@ namespace KKCSInvoiceProject
             GetEftposTotal();
         }
 
+        void EmailAccountsEndOfMonth()
+        {
+            connection.Open();
+
+            //PrintYTDReport();
+
+            //AccountsTest();
+
+            //SendEmailTest();
+
+            connection.Close();
+        }
+
         #endregion
 
-        #region StepTwoTillCounting
+        #region StepOnePrintDailyTotals
+
+        private void btn_printdailytotal_Click(object sender, EventArgs e)
+        {
+            PrintTodaysReport();
+
+            btn_printdailytotal.Text = "Print Again";
+            btn_printdailytotal.BackColor = Color.Green;
+
+            pnl_steptwo.Enabled = true;
+        }
+
+        #endregion StepOnePrintDailyTotals
+
+        #region StepTwoEftposCounting
+
+        void GetEftposTotal()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select TotalPay from CustomerInvoices WHERE DTDatePaid = @dtTodaysDate AND (PaidStatus = 'Eftpos' OR PaidStatus = 'Credit Card')";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                float fTotalPay = 0.0f;
+                float.TryParse(reader["TotalPay"].ToString(), out fTotalPay);
+
+                g_fTotalEftpos += fTotalPay;
+            }
+
+            connection.Close();
+
+            lbl_eftposin.Text = "$" + g_fTotalEftpos.ToString("0.00");
+        }
+
+        private void cmb_StepThree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmb_Steptwo.Text == "Correct")
+            {
+                cmb_Steptwo.BackColor = Color.LightGreen;
+
+                g_bStepThreeEftpos = true;
+            }
+            else if (cmb_Steptwo.Text == "Inccorect")
+            {
+                cmb_Steptwo.BackColor = Color.Red;
+
+                g_bStepThreeEftpos = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_eftposreset.Checked == true)
+            {
+                pnl_stepsthree.Enabled = true;
+            }
+        }
+
+        #endregion StepTwoEftposCounting
+
+        #region StepThreeTillCounting
 
         int iSODTillCash = 0;
 
@@ -173,82 +246,102 @@ namespace KKCSInvoiceProject
 
         void TotalCash()
         {
-
+            lbl_total.Text = "$" + g_iTotalCash.ToString("0.00");
         }
 
-        #endregion StepTwoTillCounting
-
-        #region StepThreeEftposCounting
-
-        void GetEftposTotal()
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            connection.Open();
-
-            command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = @"select TotalPay from CustomerInvoices WHERE DTDatePaid = @dtTodaysDate AND (PaidStatus = 'Eftpos' OR PaidStatus = 'Credit Card')";
-
-            command.CommandText = query;
-            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
-
-            reader = command.ExecuteReader();
-
-            while (reader.Read())
+            if (cmb_stepthree.Text == "Correct")
             {
-                float fTotalPay = 0.0f;
-                float.TryParse(reader["TotalPay"].ToString(), out fTotalPay);
+                pnl_stepfive.Enabled = true;
+                cmb_stepthree.BackColor = Color.LightGreen;
 
-                g_fTotalEftpos += fTotalPay;
-            }
-
-            connection.Close();
-
-            lbl_eftposin.Text = "$" + g_fTotalEftpos.ToString("0.00");
-        }
-
-        #endregion StepThreeEftposCounting
-
-        #region ComboBoxesCorrect
-
-        private void cmb_Step2Correct_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (cmb_Step2Correct.Text == "Yes")
-            //{
-            //    pnl_stepthree.Enabled = true;
-            //    cmb_Step2Correct.BackColor = Color.LightGreen;
-
-            //    g_bStepTwoCash = true;
-            //}
-            //else if (cmb_Step2Correct.Text == "No")
-            //{
-            //    pnl_stepthree.Enabled = true;
-            //    cmb_Step2Correct.BackColor = Color.Red;
-
-            //    g_bStepTwoCash = true;
-            //}
-        }
-
-        private void cmb_StepThree_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmb_StepThree.Text == "Yes")
-            {
                 pnl_stepfour.Enabled = true;
-                cmb_StepThree.BackColor = Color.LightGreen;
-
-                g_bStepThreeEftpos = true;
             }
-            else if (cmb_StepThree.Text == "No")
+            else if (cmb_stepthree.Text == "Inccorect")
             {
-                pnl_stepfour.Enabled = true;
-                cmb_StepThree.BackColor = Color.Red;
+                pnl_stepfive.Enabled = true;
+                cmb_stepthree.BackColor = Color.Red;
 
-                g_bStepThreeEftpos = true;
+                pnl_stepfour.Enabled = true;
             }
         }
 
-        #endregion
+        #endregion StepThreeTillCounting
+
+        #region StepFourStaffMemeber
+
+        private void cmb_worker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cmb_worker.Text != "Please Pick...")
+            {
+                pnl_stepfive.Enabled = true;
+            }
+            else
+            {
+                pnl_stepfive.Enabled = false;
+            }
+        }
+
+        #endregion StepFourStaffMember
+
+        #region StepFivePrintConfirmation
+
+        private void chk_signedform_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_signedform.Checked)
+            {
+                btn_endday.Visible = true;
+                btn_endday.Enabled = true;
+            }
+        }
+
+        private void btn_printconfirmation_Click(object sender, EventArgs e)
+        {
+            int iCountWarnings = 0;
+            string sWarning = "You have selected 'No' for:\r\n";
+
+            //if (cmb_Step2Correct.Text == "No")
+            //{
+            //    sWarning += "-Cash Totals\r\n";
+
+            //    iCountWarnings++;
+            //}
+
+            if (cmb_Steptwo.Text == "No")
+            {
+                sWarning += "-Eftpos Totals\r\n";
+
+                iCountWarnings++;
+            }
+
+            if (iCountWarnings > 0 && txtbox_notes.Text == "")
+            {
+                sWarning += "\r\nPlease write a note before printing confirmation sheet.";
+                WarningSystem ws = new WarningSystem(sWarning, false);
+
+                ws.ShowDialog();
+            }
+            else
+            {
+                PrintConfirmationSheet();
+
+                btn_printconfirmation.Text = "Print Again";
+                btn_printconfirmation.BackColor = Color.Green;
+
+                //lbl_confirmationnotyetprinted.Text = "Printed";
+                //lbl_confirmationnotyetprinted.ForeColor = Color.LightGreen;
+
+                //lbl_haveyousigned.Visible = true;
+                chk_signedform.Enabled = true;
+            }
+        }
+
+        #endregion StepFivePrintConfirmation
+
+        #region StepSixEndDay
+
+        #endregion StepSixEndDay
 
         #region Emails
 
@@ -404,68 +497,6 @@ namespace KKCSInvoiceProject
 
         #endregion
 
-        #region Buttons
-
-        private void btn_eod_Click(object sender, EventArgs e)
-        {
-            bool bCheckForAnyIncorrect = false;
-
-            //if (cmb_Step1Correct.Text == "No" || cmb_Step2Correct.Text == "No" || cmb_Step3Correct.Text == "No")
-            //{
-            //    bCheckForAnyIncorrect = true;
-            //}
-
-            if (bCheckForAnyIncorrect && txtbox_notes.Text == "")
-            {
-                MessageBox.Show("As you have picked a 'No', please leave a note in the 'Notes' Section as to why");
-            }
-            else
-            {
-                string sWarningMessage = "Are you sure you want to end the day?";
-                string sWarning = "End the Day";
-
-                DialogResult dialogResult = MessageBox.Show(sWarningMessage, sWarning, MessageBoxButtons.YesNo);
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    if (dtTodaysDate.Month != dtTomorrowsDate.Month)
-                    {
-                        connection.Open();
-
-                        AccountsTest();
-
-                        SendEmailTest();
-
-                        connection.Close();
-
-                        //lbl_lastdayofmonth.Visible = false;
-                    }
-
-                    //lbl_dayendstatus.Text = "Day Closed";
-                    //lbl_dayendstatus.ForeColor = Color.Green;
-
-                    txtbox_notes.ReadOnly = true;
-
-                    //chk_printed.Checked = true;
-                    //txt_tomorrow.ReadOnly = true;
-
-                    btn_eod.Visible = false;
-                    btn_eod.Enabled = false;
-                    //cmb_Step2Correct.Enabled = false;
-                    //chk_printed.Enabled = false;
-
-                    connection.Open();
-
-                    //SendEndOfDayToDatabase();
-                    //SendNextDayToDatabase();
-
-                    connection.Close();
-                }
-            }
-        }
-
-        #endregion
-
         #region SendingToDatabase
 
         void SendEndOfDayToDatabase()
@@ -522,7 +553,7 @@ namespace KKCSInvoiceProject
 
             //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
 
-            printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
 
@@ -572,7 +603,7 @@ namespace KKCSInvoiceProject
             NextLine(1);
             string sTillTotal = "Total Cash Taken Today: " + g_iTotalCash.ToString("$0.00");
             graphic.DrawString(sTillTotal, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
-            //graphic.DrawString(cmb_Step2Correct.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
+            graphic.DrawString(cmb_stepthree.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
             NextLine(4);
 
             // All the Eftpos information
@@ -581,7 +612,7 @@ namespace KKCSInvoiceProject
             NextLine(1);
             string sEftposTotal = "Total EFTPOS Taken Today: " + g_fTotalEftpos.ToString("$0.00");
             graphic.DrawString(sEftposTotal, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
-            graphic.DrawString(cmb_StepThree.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
+            graphic.DrawString(cmb_Steptwo.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
             NextLine(4);
 
             if (txtbox_notes.Text != "")
@@ -696,23 +727,23 @@ namespace KKCSInvoiceProject
             graphic.DrawString(sDailyTotalMoney, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             NextLine(3);
 
-            string sTillRunningTotal = "Daily Running Total:";
-            graphic.DrawString(sTillRunningTotal, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
-            NextLine(1);
-            TillRunningTotal();
-            NextLine(3);
+            //string sTillRunningTotal = "Daily Running Total:";
+            //graphic.DrawString(sTillRunningTotal, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //TillRunningTotal();
+            //NextLine(3);
 
-            string sPlasticBoxRunningTotal = "Daily Plastic Box Running Total:";
-            graphic.DrawString(sPlasticBoxRunningTotal, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
-            NextLine(1);
-            PlasticBoxRunningTotal();
-            NextLine(3);
+            //string sPlasticBoxRunningTotal = "Daily Plastic Box Running Total:";
+            //graphic.DrawString(sPlasticBoxRunningTotal, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //PlasticBoxRunningTotal();
+            //NextLine(3);
 
-            string sTodaysPettyCash = "Todays Petty Cash:";
-            graphic.DrawString(sTodaysPettyCash, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
-            NextLine(1);
-            DailyPettyCash();
-            NextLine(4);
+            //string sTodaysPettyCash = "Todays Petty Cash:";
+            //graphic.DrawString(sTodaysPettyCash, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
+            //NextLine(1);
+            //DailyPettyCash();
+            //NextLine(4);
 
             string sPleaseAttach = "(Please Staple this form to the bottom of the confirmation sheet)";
             graphic.DrawString(sPleaseAttach, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
@@ -785,7 +816,7 @@ namespace KKCSInvoiceProject
 
                 fEftposTotal += fEftpos;
 
-                sEftpos = "Inv:                        " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
+                sEftpos = "Inv: " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
 
                 if (reader["PaidStatus"].ToString() == "Eftpos")
                 {
@@ -1092,56 +1123,61 @@ namespace KKCSInvoiceProject
 
         #region Buttons
 
-        private void btn_printdailytotal_Click(object sender, EventArgs e)
+        private void btn_eod_Click(object sender, EventArgs e)
         {
-            PrintTodaysReport();
+            bool bCheckForAnyIncorrect = false;
 
-            btn_printdailytotal.Text = "Print Again";
-            btn_printdailytotal.BackColor = Color.Green;
-
-            g_bStepOneDailyTotalPrinted = true;
-
-            pnl_steptwo.Enabled = true;
-        }
-
-        private void btn_printconfirmation_Click(object sender, EventArgs e)
-        {
-            int iCountWarnings = 0;
-            string sWarning = "You have selected 'No' for:\r\n";
-
-            //if (cmb_Step2Correct.Text == "No")
+            //if (cmb_Step1Correct.Text == "No" || cmb_Step2Correct.Text == "No" || cmb_Step3Correct.Text == "No")
             //{
-            //    sWarning += "-Cash Totals\r\n";
-
-            //    iCountWarnings++;
+            //    bCheckForAnyIncorrect = true;
             //}
 
-            if(cmb_StepThree.Text == "No")
+            if (bCheckForAnyIncorrect && txtbox_notes.Text == "")
             {
-                sWarning += "-Eftpos Totals\r\n";
-
-                iCountWarnings++;
-            }
-
-            if (iCountWarnings > 0 && txtbox_notes.Text == "")
-            {
-                sWarning += "\r\nPlease write a note before printing confirmation sheet.";
-                WarningSystem ws = new WarningSystem(sWarning, false);
-
-                ws.ShowDialog();
+                MessageBox.Show("As you have picked a 'No', please leave a note in the 'Notes' Section as to why");
             }
             else
             {
-                PrintConfirmationSheet();
+                string sWarningMessage = "Are you sure you want to end the day?";
+                string sWarning = "End the Day";
 
-                btn_printconfirmation.Text = "Print Again";
-                btn_printconfirmation.BackColor = Color.Green;
+                DialogResult dialogResult = MessageBox.Show(sWarningMessage, sWarning, MessageBoxButtons.YesNo);
 
-                //lbl_confirmationnotyetprinted.Text = "Printed";
-                //lbl_confirmationnotyetprinted.ForeColor = Color.LightGreen;
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (dtTodaysDate.Month != dtTomorrowsDate.Month)
+                    {
+                        connection.Open();
 
-                lbl_haveyousigned.Visible = true;
-                chk_signedform.Visible = true;
+                        AccountsTest();
+
+                        SendEmailTest();
+
+                        connection.Close();
+
+                        //lbl_lastdayofmonth.Visible = false;
+                    }
+
+                    //lbl_dayendstatus.Text = "Day Closed";
+                    //lbl_dayendstatus.ForeColor = Color.Green;
+
+                    txtbox_notes.ReadOnly = true;
+
+                    //chk_printed.Checked = true;
+                    //txt_tomorrow.ReadOnly = true;
+
+                    btn_eod.Visible = false;
+                    btn_eod.Enabled = false;
+                    //cmb_Step2Correct.Enabled = false;
+                    //chk_printed.Enabled = false;
+
+                    connection.Open();
+
+                    //SendEndOfDayToDatabase();
+                    //SendNextDayToDatabase();
+
+                    connection.Close();
+                }
             }
         }
 
@@ -1185,31 +1221,7 @@ namespace KKCSInvoiceProject
 
         #endregion Buttons
 
-        #region Checkboxes
-
-        private void chk_signedform_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_signedform.Checked)
-            {
-                btn_endday.Visible = true;
-                btn_endday.Enabled = true;
-            }
-        }
-
-        #endregion Checkboxes
-
         private void btn_email_Click(object sender, EventArgs e)
-        {
-            connection.Open();
-
-            AccountsTest();
-
-            SendEmailTest();
-
-            connection.Close();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
         {
             connection.Open();
 
