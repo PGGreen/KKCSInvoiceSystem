@@ -15,6 +15,8 @@ namespace KKCSInvoiceProject
         public ReminderAddToReturns()
         {
             InitializeComponent();
+
+            cmb_printerpicked.SelectedIndex = 0;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -29,7 +31,7 @@ namespace KKCSInvoiceProject
             NewCarReturns ncr = new NewCarReturns();
             ncr.Show();
 
-            ncr.PrintReturns();
+            ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
 
             Close();
         }

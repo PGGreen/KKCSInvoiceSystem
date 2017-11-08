@@ -57,9 +57,11 @@ namespace KKCSInvoiceProject
 
             btn_build.Text = "v" + sVersionNumber;
 
+            cmb_printerpicked.SelectedIndex = 0;
+
             #if DEBUG
             Debug();
-            #endif
+#endif
 
             SetUpRegoComboBox();
 
@@ -573,7 +575,9 @@ namespace KKCSInvoiceProject
             NewCarReturns ncr = new NewCarReturns();
             ncr.Show();
 
-            ncr.PrintReturns();
+            ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
+
+            cmb_printerpicked.SelectedIndex = 0;
 
             //PrintTest();
 

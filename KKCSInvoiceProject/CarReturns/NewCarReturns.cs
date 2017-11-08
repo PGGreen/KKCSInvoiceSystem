@@ -1186,8 +1186,12 @@ namespace KKCSInvoiceProject
 
         #region PrintReturns
 
-        public void PrintReturns()
+        int m_iPrinterPicked = 0;
+
+        public void PrintReturns(int _iPrinterPicked)
         {
+            m_iPrinterPicked = _iPrinterPicked;
+
             iLocationY = 50;
             iItemsPerPage = 0;
 
@@ -1206,7 +1210,10 @@ namespace KKCSInvoiceProject
 
             //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
-            //PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            if(m_iPrinterPicked == 0)
+            {
+                PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            }
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
@@ -1391,7 +1398,7 @@ namespace KKCSInvoiceProject
 
         void DrawString(PrintPageEventArgs _e, Control _pReturns, Label _Label, bool _bCheckFontSize, bool _bPrintColour)
         {
-            if(false)//_bPrintColour)
+            if(_bPrintColour && m_iPrinterPicked == 0)
             {
                 //Brush _bPrintBrush = new SolidBrush(Color.Yellow);
                 _e.Graphics.FillRectangle(_bPrintBrush, _Label.Bounds.Location.X, iLocationY + 2, _Label.Bounds.Width - 2, 40);
@@ -1483,6 +1490,10 @@ namespace KKCSInvoiceProject
 
             //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            if (m_iPrinterPicked == 0)
+            {
+                PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            }
 
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
@@ -1564,13 +1575,34 @@ namespace KKCSInvoiceProject
                             DrawString(e, pReturns, lbl_printinvno, false, false);
                             break;
                         case "lbl_keyno":
-                            DrawString(e, pReturns, lbl_printkeyno, false, false);
+                            bool _bPrintColourKeyNo = false;
+
+                            _bPrintBrush = new SolidBrush(Color.Yellow);
+                            _bPrintColourKeyNo = true;
+
+                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo);
                             break;
                         case "lbl_amount":
                             DrawString(e, pReturns, lbl_printamount, false, false);
                             break;
                         case "lbl_paidstatus":
-                            DrawString(e, pReturns, lbl_printpaid, true, false);
+                            bool _bPrintColourPaidStatus = false;
+                            if (pReturns.Text == "To Pay")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Yellow);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            else if (pReturns.Text == "OnAcc")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Violet);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            else if (pReturns.Text == "N/C")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Orange);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus);
                             break;
                         case "lbl_ph":
                             DrawString(e, pReturns, lbl_printphone, false, false);
@@ -1588,8 +1620,25 @@ namespace KKCSInvoiceProject
                             break;
                         case "lbl_NotesAndAlerts":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_notesalerts, false, false);
+                            bool _bPrintColourNA = false;
+                            if (pReturns.Text == "N")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.LightBlue);
+                                _bPrintColourNA = true;
+                            }
+                            else if (pReturns.Text == "A")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Red);
+                                _bPrintColourNA = true;
+                            }
+                            else if (pReturns.Text == "N/A")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.MediumPurple);
+                                _bPrintColourNA = true;
+                            }
+                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA);
                             break;
+
                         default:
                             break;
                     }

@@ -84,6 +84,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbl_debug = new System.Windows.Forms.Label();
             this.txt_noofcars = new System.Windows.Forms.Label();
+            this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -177,7 +178,7 @@
             // 
             this.btn_eod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btn_eod.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_eod.Location = new System.Drawing.Point(174, 616);
+            this.btn_eod.Location = new System.Drawing.Point(673, 616);
             this.btn_eod.Name = "btn_eod";
             this.btn_eod.Size = new System.Drawing.Size(98, 45);
             this.btn_eod.TabIndex = 11;
@@ -224,11 +225,11 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Black;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button3.Location = new System.Drawing.Point(12, 616);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(156, 45);
+            this.button3.Size = new System.Drawing.Size(234, 45);
             this.button3.TabIndex = 17;
             this.button3.Text = "Print Car Returns";
             this.button3.UseVisualStyleBackColor = false;
@@ -592,7 +593,7 @@
             // longTermToolStripMenuItem
             // 
             this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
-            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(82, 21);
+            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
             this.longTermToolStripMenuItem.Text = "Long Term";
             // 
             // pettyCashToolStripMenuItem
@@ -638,7 +639,7 @@
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
@@ -688,12 +689,25 @@
             this.txt_noofcars.TabIndex = 231;
             this.txt_noofcars.Text = "35/70 Cars";
             // 
+            // cmb_printerpicked
+            // 
+            this.cmb_printerpicked.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_printerpicked.FormattingEnabled = true;
+            this.cmb_printerpicked.Items.AddRange(new object[] {
+            "Colour (Small Printer)",
+            "B&W (Large Printer)"});
+            this.cmb_printerpicked.Location = new System.Drawing.Point(12, 577);
+            this.cmb_printerpicked.Name = "cmb_printerpicked";
+            this.cmb_printerpicked.Size = new System.Drawing.Size(234, 33);
+            this.cmb_printerpicked.TabIndex = 232;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(783, 673);
+            this.Controls.Add(this.cmb_printerpicked);
             this.Controls.Add(this.txt_noofcars);
             this.Controls.Add(this.lbl_debug);
             this.Controls.Add(this.pictureBox1);
@@ -786,5 +800,6 @@
         private System.Windows.Forms.Label lbl_debug;
         private System.Windows.Forms.ToolStripMenuItem financesToolStripMenuItem;
         private System.Windows.Forms.Label txt_noofcars;
+        private System.Windows.Forms.ComboBox cmb_printerpicked;
     }
 }
