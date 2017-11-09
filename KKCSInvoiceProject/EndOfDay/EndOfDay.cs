@@ -86,6 +86,8 @@ namespace KKCSInvoiceProject
             // Creates the top title
             txt_eodheader.Text = "End of Day - " + g_sTitleHeader + " (" + dtTodaysDate.ToString("ddd") + ")";
 
+            CarInReport();
+
             // Step Two - Calculate Todays Cash
             GetSODTill();
             GetCashTotal();
@@ -1120,6 +1122,136 @@ namespace KKCSInvoiceProject
         }
 
         #endregion YTPReport
+
+        #region CarInReport
+
+        void CarInReport()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime _dtTodaysDateSunday = new DateTime(2017, 11, 12);
+            DateTime _dtSevenDaysAgo = new DateTime(2017, 11, _dtTodaysDateSunday.Day - 7);
+
+            //string query = "select * from CustomerInvoices WHERE month(DTDateIn) = month(@_dtTodaysDateSunday) OR " +
+            //    "month(DTDateIn) = month(@_dtSevenDaysAgo) AND day(DTDateIn) <= day(@_dtTodaysDateSunday) OR day(DTDateIn) >= day(@_dtSevenDaysAgo) " +
+            //    "ORDER BY TimeIn ASC";
+            string query = "select * from CustomerInvoices WHERE month(DTDateIn) = month(@_dtTodaysDateSunday) OR " +
+                "month(DTDateIn) = month(@_dtSevenDaysAgo) ORDER BY TimeIn ASC";
+            command.Parameters.AddWithValue("@_dtTodaysDateSunday", _dtTodaysDateSunday);
+            command.Parameters.AddWithValue("@_dtSevenDaysAgo", _dtSevenDaysAgo);
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            string sTest = "";
+
+            while(reader.Read())
+            {
+                sTest += reader["DTDateIn"].ToString() + "\r\n";
+            }
+
+            textBox1.Text = sTest;
+
+            connection.Close();
+
+            /*
+
+            string StoreAccountName1 = "";
+            string StoreAccountName2 = "";
+
+            string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
+            string sNextLine = "\r\n";
+
+            bool bFirstTimeOnly = false;
+
+            //sCombinedAccount += "Date In" + Padding.Left(5);
+
+            //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
+            sTitle = "BOI Car Storage Yard - October 2017 Accounts";
+
+            int iPadLength = 25;
+
+            sCombinedAccount = "Date In".PadRight(15) + "Date Out".PadRight(15) + "Name".PadRight(35)
+                                + "Rego".PadRight(25) + "Total" + sNextLine + sLineBreak + sNextLine + sNextLine;
+
+            while (reader.Read())
+            {
+                if (!bFirstTimeOnly)
+                {
+                    StoreAccountName1 = reader["AccountHolder"].ToString();
+                    StoreAccountName2 = StoreAccountName1;
+
+                    bFirstTimeOnly = true;
+
+                    sCombinedAccount += StoreAccountName1 + sNextLine + sLineBreak + sNextLine;
+                }
+                else
+                {
+                    StoreAccountName1 = reader["AccountHolder"].ToString();
+                }
+
+                if (StoreAccountName1 != StoreAccountName2)
+                {
+                    StoreAccountName1 = reader["AccountHolder"].ToString();
+
+                    sCombinedAccount += sNextLine + sNextLine + StoreAccountName1 + sNextLine + sLineBreak + sNextLine;
+                }
+
+                DateTime dtDateIn = (DateTime)reader["DTDateIn"];
+                DateTime dtReturnDate = (DateTime)reader["DTReturnDate"];
+
+                sCombinedAccount += dtDateIn.ToString("dd") + " " + dtDateIn.ToString("MMM").PadRight(15);
+                sCombinedAccount += dtReturnDate.ToString("dd") + " " + dtReturnDate.ToString("MMM").PadRight(15);
+
+                string sClientName = reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
+
+                if (sClientName.Length < 20)
+                {
+                    int iTotal = 30 - sClientName.Length;
+
+                    for (int i = 0; i < iTotal; i++)
+                    {
+                        sClientName += " ";
+                    }
+
+                    sClientName = sClientName.Substring(0, 20);
+
+                    sCombinedAccount += sClientName.PadRight(35);
+                }
+                else if (sClientName.Length > 20)
+                {
+                    sClientName = sClientName.Substring(0, 20);
+
+                    sCombinedAccount += sClientName.PadRight(35);
+                }
+                else
+                {
+                    sCombinedAccount += sClientName.PadRight(35);
+                }
+
+                sCombinedAccount += reader["Rego"].ToString().PadRight(25);
+
+                int iPrice = 0;
+                int.TryParse(reader["TotalPay"].ToString(), out iPrice);
+
+                sCombinedAccount += "$" + iPrice.ToString("0.00");
+
+                sCombinedAccount += sNextLine;
+
+                StoreAccountName2 = reader["AccountHolder"].ToString();
+            }
+
+            */
+
+            int igffg = 0;
+        }
+
+        #endregion CarInReport
 
         #region Buttons
 

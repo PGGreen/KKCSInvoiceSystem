@@ -71,6 +71,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label18 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepfive.SuspendLayout();
@@ -562,6 +563,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Controls.Add(this.textBox1);
             this.panel4.Controls.Add(this.label18);
             this.panel4.Location = new System.Drawing.Point(1166, 58);
             this.panel4.Name = "panel4";
@@ -577,6 +579,15 @@
             this.label18.Size = new System.Drawing.Size(211, 31);
             this.label18.TabIndex = 85;
             this.label18.Text = "Running Totals";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(56, 90);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(254, 377);
+            this.textBox1.TabIndex = 86;
             // 
             // EndOfDay
             // 
@@ -661,5 +672,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
