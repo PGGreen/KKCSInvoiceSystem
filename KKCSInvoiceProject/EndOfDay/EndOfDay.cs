@@ -42,6 +42,8 @@ namespace KKCSInvoiceProject
 
         string sCombinedAccount = "";
 
+        bool g_bSkipEODPickFirstTime = true;
+
         //////////////////////////////////////////
         OleDbCommand command;
 
@@ -66,7 +68,7 @@ namespace KKCSInvoiceProject
 
         #region Loading
 
-        public EndOfDay()
+        public EndOfDay(bool _bActivateEODPicker)
         {
             // Initialises the end of day
             InitializeComponent();
@@ -78,8 +80,22 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of date
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            dtTodaysDate = new DateTime(2017, 11, 12, 12, 0, 0);
 
+            if (_bActivateEODPicker)
+            {
+                dt_eodpick.Value = dtTodaysDate;
+                dt_eodpick.Visible = true;
+            }
+            //dtTodaysDate = new DateTime(2017, 11, 12, 12, 0, 0);
+
+            SetUpEOD();
+
+            g_bSkipEODPickFirstTime = false;
+
+        }
+
+        void SetUpEOD()
+        {
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
 
@@ -97,6 +113,19 @@ namespace KKCSInvoiceProject
 
             // Step Three - Calculate Todays Eftpos
             GetEftposTotal();
+        }
+
+        private void dt_eodpick_ValueChanged(object sender, EventArgs e)
+        {
+            if(!g_bSkipEODPickFirstTime)
+            {
+                g_iTotalCash = 0;
+                g_fTotalEftpos = 0.0f;
+
+                dtTodaysDate = new DateTime(dt_eodpick.Value.Year, dt_eodpick.Value.Month, dt_eodpick.Value.Day, 12, 0, 0);
+
+                SetUpEOD();
+            }
         }
 
         void EmailAccountsEndOfMonth()
@@ -1471,5 +1500,7 @@ namespace KKCSInvoiceProject
 
             connection.Close();
         }
+
+
     }
 }

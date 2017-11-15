@@ -70,8 +70,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label18 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dt_eodpick = new System.Windows.Forms.DateTimePicker();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepfive.SuspendLayout();
@@ -570,6 +571,15 @@
             this.panel4.Size = new System.Drawing.Size(346, 627);
             this.panel4.TabIndex = 136;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(56, 90);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(254, 377);
+            this.textBox1.TabIndex = 86;
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -580,14 +590,14 @@
             this.label18.TabIndex = 85;
             this.label18.Text = "Running Totals";
             // 
-            // textBox1
+            // dt_eodpick
             // 
-            this.textBox1.Location = new System.Drawing.Point(56, 90);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(254, 377);
-            this.textBox1.TabIndex = 86;
+            this.dt_eodpick.Location = new System.Drawing.Point(943, 18);
+            this.dt_eodpick.Name = "dt_eodpick";
+            this.dt_eodpick.Size = new System.Drawing.Size(200, 20);
+            this.dt_eodpick.TabIndex = 137;
+            this.dt_eodpick.Visible = false;
+            this.dt_eodpick.ValueChanged += new System.EventHandler(this.dt_eodpick_ValueChanged);
             // 
             // EndOfDay
             // 
@@ -595,6 +605,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 882);
+            this.Controls.Add(this.dt_eodpick);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.pnl_stepfour);
@@ -673,5 +684,6 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DateTimePicker dt_eodpick;
     }
 }

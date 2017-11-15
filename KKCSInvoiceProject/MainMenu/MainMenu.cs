@@ -457,7 +457,17 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                EndOfDay eod = new EndOfDay();
+                EndOfDay eod;
+
+                if (ModifierKeys.HasFlag(Keys.Shift))
+                {
+                    eod = new EndOfDay(true);
+                }
+                else
+                {
+                    eod = new EndOfDay(false);
+                }
+
                 eod.Show();
             }
         }
