@@ -87,6 +87,7 @@ namespace KKCSInvoiceProject
             txt_eodheader.Text = "End of Day - " + g_sTitleHeader + " (" + dtTodaysDate.ToString("ddd") + ")";
 
             CarInReport();
+            CarInReportNovOnwards();
 
             // Step Two - Calculate Todays Cash
             GetSODTill();
@@ -1125,6 +1126,11 @@ namespace KKCSInvoiceProject
 
         #region CarInReport
 
+        int _i0600 = 0;
+        int _i0920 = 0;
+        int _i1340 = 0;
+        int _i1720 = 0;
+
         void CarInReport()
         {
             connection.Open();
@@ -1136,20 +1142,21 @@ namespace KKCSInvoiceProject
             //DateTime _dtTodaysDateSunday = new DateTime(2017, 11, 12);
             //DateTime _dtSevenDaysAgo = new DateTime(2017, 11, _dtTodaysDateSunday.Day - 7);
 
-            DateTime _dtFirst = new DateTime(2017, 1, 1);
+            DateTime _dtFirst = new DateTime(2016, 11, 1);
             DateTime _dtDateBeforeFlightChanges = new DateTime(2017, 10, 31);
 
-            TimeSpan _tsDays = _dtDateBeforeFlightChanges - _dtFirst;
+            //TimeSpan _tsDays = _dtDateBeforeFlightChanges - _dtFirst;
 
             //string query = "select * from CustomerInvoices WHERE (month(DTDateIn) = month(@_dtTodaysDateSunday) OR " +
             //    "month(DTDateIn) = month(@_dtSevenDaysAgo)) AND (day(DTDateIn) <= day(@_dtTodaysDateSunday) AND day(DTDateIn) >= day(@_dtSevenDaysAgo)) " +
             //    "AND (year(DTDateIn) = year(@_dtTodaysDateSunday) OR year(DTDateIn) = year(@_dtSevenDaysAgo)) " +
             //    "ORDER BY TimeIn ASC";
-            string query = "select * from CustomerInvoices WHERE ((DTDateIn < @_dtDateBeforeFlightChanges) AND (year(DTDateIn) = year(@_dtDateBeforeFlightChanges))) ORDER BY TimeIn ASC";
+            string query = "select * from CustomerInvoices WHERE ((DTDateIn < @_dtDateBeforeFlightChanges) AND (DTDateIn > @_dtFirst)) ORDER BY DTDateIn,TimeIn ASC";
 
             //command.Parameters.AddWithValue("@_dtTodaysDateSunday", _dtTodaysDateSunday);
             //command.Parameters.AddWithValue("@_dtSevenDaysAgo", _dtSevenDaysAgo);
             command.Parameters.AddWithValue("@_dtDateBeforeFlightChanges", _dtDateBeforeFlightChanges);
+            command.Parameters.AddWithValue("@_dtFirst", _dtFirst);
 
             command.CommandText = query;
 
@@ -1157,145 +1164,200 @@ namespace KKCSInvoiceProject
 
             string sTest = "";
 
-            int _i0600 = 0;
-            int _i0920 = 0;
-            int _i1340 = 0;
-            int _i1720 = 0;
+            DateTime dtFirst = new DateTime();
+            DateTime dtSecond = new DateTime();
+
+            bool bSkipFirstTime = true;
+
+            string _sStats = "";
 
             while (reader.Read())
             {
+                dtFirst = (DateTime)reader["DTDateIn"];
+
+                if(dtFirst.Month != dtSecond.Month && !bSkipFirstTime)
+                {
+                    _sStats += StringTimesNov16ToSep17(dtSecond);
+
+                    _i0600 = 0;
+                    _i0920 = 0;
+                    _i1340 = 0;
+                    _i1720 = 0;
+
+                }
+
                 string _sTimeIn = reader["TimeIn"].ToString();
 
-                int _iTimeIn = 0;
-                int.TryParse(_sTimeIn, out _iTimeIn);
 
-                if(_iTimeIn >= 430 && _iTimeIn <= 630)
-                {
-                    _i0600++;
-                }
-                else if(_iTimeIn >= 730 && _iTimeIn <= 1030)
-                {
-                    _i0920++;
-                }
-                else if (_iTimeIn >= 1200 && _iTimeIn <= 1430)
-                {
-                    _i1340++;
-                }
-                else if (_iTimeIn >= 1500 && _iTimeIn <= 1800)
-                {
-                    _i1720++;
-                }
+                FlightTimesNov16ToSep17(_sTimeIn);
 
-                //sTest += reader["DTDateIn"].ToString() + "\r\n";
+                dtSecond = dtFirst;
+
+                bSkipFirstTime = false;
             }
 
-            string _sText = "Overall - June 2016 to Oct 2017 \r\n";
-            _sText += "0600: " + _i0600.ToString() + "x Cars \r\n";
-            _sText += "0945: " + _i0920.ToString() + "x Cars \r\n";
-            _sText += "1405: " + _i1340.ToString() + "x Cars \r\n";
-            _sText += "1745: " + _i1720.ToString() + "x Cars \r\n";
+            _sStats += StringTimesNov16ToSep17(dtSecond);
 
-            _sText += "Average";
-            _sText += "0600: " + (_i0600 / _tsDays.Days).ToString() + "x Cars \r\n";
-            _sText += "0945: " + (_i0920 / _tsDays.Days).ToString() + "x Cars \r\n";
-            _sText += "1405: " + (_i1340 / _tsDays.Days).ToString() + "x Cars \r\n";
-            _sText += "1745: " + (_i1720 / _tsDays.Days).ToString() + "x Cars \r\n";
-
-            textBox1.Text = _sText;
+            textBox1.Text = _sStats;
 
             connection.Close();
+        }
 
-            /*
+        string StringTimesNov16ToSep17(DateTime dtSecond)
+        {
+            string _sStats = "";
 
-            string StoreAccountName1 = "";
-            string StoreAccountName2 = "";
+            _sStats += dtSecond.ToString("MMMM") + " " + dtSecond.ToString("yyy") + "\r\n";
 
-            string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
-            string sNextLine = "\r\n";
+            _sStats += "0600 Flight: " + _i0600.ToString() + " Cars \r\n";
+            _sStats += "0920 Flight: " + _i0920.ToString() + " Cars \r\n";
+            _sStats += "1340 Flight: " + _i1340.ToString() + " Cars \r\n";
+            _sStats += "1720 Flight: " + _i1720.ToString() + " Cars \r\n\r\n";
+            _sStats += "Total For Month: " + (_i0600 + _i0920 + _i1340 + _i1720).ToString() + " Cars \r\n";
 
-            bool bFirstTimeOnly = false;
+            _sStats += "\r\n\r\n";
 
-            //sCombinedAccount += "Date In" + Padding.Left(5);
+            return (_sStats);
+        }
 
-            //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
-            sTitle = "BOI Car Storage Yard - October 2017 Accounts";
+        void FlightTimesNov16ToSep17(string _sTimeIn)
+        {
+            int _iTimeIn = 0;
+            int.TryParse(_sTimeIn, out _iTimeIn);
 
-            int iPadLength = 25;
+            if (_iTimeIn >= 430 && _iTimeIn <= 630)
+            {
+                _i0600++;
+            }
+            else if (_iTimeIn >= 730 && _iTimeIn <= 1030)
+            {
+                _i0920++;
+            }
+            else if (_iTimeIn >= 1200 && _iTimeIn <= 1430)
+            {
+                _i1340++;
+            }
+            else if (_iTimeIn >= 1500 && _iTimeIn <= 1800)
+            {
+                _i1720++;
+            }
+        }
 
-            sCombinedAccount = "Date In".PadRight(15) + "Date Out".PadRight(15) + "Name".PadRight(35)
-                                + "Rego".PadRight(25) + "Total" + sNextLine + sLineBreak + sNextLine + sNextLine;
+
+        // Nov Onwards
+        int _iNovOn0600 = 0;
+        int _iNovOn0920 = 0;
+        int _iNovOn1215 = 0;
+        int _iNovOn1440 = 0;
+        int _iNovOn1720 = 0;
+
+        void CarInReportNovOnwards()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime _dtDate = new DateTime(2017, 11, 1);
+
+            string query = "select * from CustomerInvoices WHERE DTDateIn >= @_dtDate ORDER BY DTDateIn,TimeIn ASC";
+
+            command.Parameters.AddWithValue("@_dtFirst", _dtDate);
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            string sTest = "";
+
+            DateTime dtFirst = new DateTime();
+            DateTime dtSecond = new DateTime();
+
+            bool bSkipFirstTime = true;
+
+            string _sStats = "";
 
             while (reader.Read())
             {
-                if (!bFirstTimeOnly)
+                dtFirst = (DateTime)reader["DTDateIn"];
+
+                if (dtFirst.Month != dtSecond.Month && !bSkipFirstTime)
                 {
-                    StoreAccountName1 = reader["AccountHolder"].ToString();
-                    StoreAccountName2 = StoreAccountName1;
+                    _sStats += StringTimesNov17Onwards(dtSecond);
 
-                    bFirstTimeOnly = true;
-
-                    sCombinedAccount += StoreAccountName1 + sNextLine + sLineBreak + sNextLine;
-                }
-                else
-                {
-                    StoreAccountName1 = reader["AccountHolder"].ToString();
-                }
-
-                if (StoreAccountName1 != StoreAccountName2)
-                {
-                    StoreAccountName1 = reader["AccountHolder"].ToString();
-
-                    sCombinedAccount += sNextLine + sNextLine + StoreAccountName1 + sNextLine + sLineBreak + sNextLine;
+                    _iNovOn0600 = 0;
+                    _iNovOn0920 = 0;
+                    _iNovOn1215 = 0;
+                    _iNovOn1440 = 0;
+                    _iNovOn1720 = 0;
                 }
 
-                DateTime dtDateIn = (DateTime)reader["DTDateIn"];
-                DateTime dtReturnDate = (DateTime)reader["DTReturnDate"];
+                string _sTimeIn = reader["TimeIn"].ToString();
 
-                sCombinedAccount += dtDateIn.ToString("dd") + " " + dtDateIn.ToString("MMM").PadRight(15);
-                sCombinedAccount += dtReturnDate.ToString("dd") + " " + dtReturnDate.ToString("MMM").PadRight(15);
 
-                string sClientName = reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
+                FlightTimesNov17Onwards(_sTimeIn);
 
-                if (sClientName.Length < 20)
-                {
-                    int iTotal = 30 - sClientName.Length;
+                dtSecond = dtFirst;
 
-                    for (int i = 0; i < iTotal; i++)
-                    {
-                        sClientName += " ";
-                    }
-
-                    sClientName = sClientName.Substring(0, 20);
-
-                    sCombinedAccount += sClientName.PadRight(35);
-                }
-                else if (sClientName.Length > 20)
-                {
-                    sClientName = sClientName.Substring(0, 20);
-
-                    sCombinedAccount += sClientName.PadRight(35);
-                }
-                else
-                {
-                    sCombinedAccount += sClientName.PadRight(35);
-                }
-
-                sCombinedAccount += reader["Rego"].ToString().PadRight(25);
-
-                int iPrice = 0;
-                int.TryParse(reader["TotalPay"].ToString(), out iPrice);
-
-                sCombinedAccount += "$" + iPrice.ToString("0.00");
-
-                sCombinedAccount += sNextLine;
-
-                StoreAccountName2 = reader["AccountHolder"].ToString();
+                bSkipFirstTime = false;
             }
 
-            */
+            _sStats += StringTimesNov17Onwards(dtSecond);
 
-            int igffg = 0;
+            textBox1.Text += _sStats;
+
+            connection.Close();
         }
+
+        string StringTimesNov17Onwards(DateTime dtSecond)
+        {
+            string _sStats = "";
+
+            _sStats += "(Please Note new Flight times started on the 1st of November 2017)\r\n";
+            _sStats += "1215 flight was added, and the 1340 flight has been replaced with the new 1440 flight \r\n\r\n";
+
+            _sStats += dtSecond.ToString("MMMM") + " " + dtSecond.ToString("yyy") + " (Current to the 15th) \r\n";
+
+            _sStats += "0600 Flight: " + _iNovOn0600.ToString() + " Cars \r\n";
+            _sStats += "0920 Flight: " + _iNovOn0920.ToString() + " Cars \r\n";
+            _sStats += "1215 Flight: " + _iNovOn1215.ToString() + " Cars \r\n";
+            _sStats += "1440 Flight: " + _iNovOn1440.ToString() + " Cars \r\n";
+            _sStats += "1720 Flight: " + _iNovOn1720.ToString() + " Cars \r\n\r\n";
+            _sStats += "Total For Month: " + (_iNovOn0600 + _iNovOn0920 + _iNovOn1215 + _iNovOn1440 + _iNovOn1720).ToString() + " Cars \r\n";
+
+            _sStats += "\r\n\r\n";
+
+            return (_sStats);
+        }
+
+        void FlightTimesNov17Onwards(string _sTimeIn)
+        {
+            int _iTimeIn = 0;
+            int.TryParse(_sTimeIn, out _iTimeIn);
+
+            if (_iTimeIn >= 430 && _iTimeIn <= 630)
+            {
+                _iNovOn0600++;
+            }
+            else if (_iTimeIn >= 730 && _iTimeIn <= 1030)
+            {
+                _iNovOn0920++;
+            }
+            else if (_iTimeIn >= 1100 && _iTimeIn <= 1300)
+            {
+                _iNovOn1215++;
+            }
+            else if (_iTimeIn >= 1330 && _iTimeIn <= 1500)
+            {
+                _iNovOn1440++;
+            }
+            else if (_iTimeIn >= 1530 && _iTimeIn <= 1800)
+            {
+                _iNovOn1720++;
+            }
+        }
+
 
         #endregion CarInReport
 
