@@ -78,7 +78,7 @@ namespace KKCSInvoiceProject
 
             // Creates todays date for end of date
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-            //dtTodaysDate = new DateTime(2017, 9, 11, 12, 0, 0);
+            dtTodaysDate = new DateTime(2017, 11, 12, 12, 0, 0);
 
             // Creates the title for title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
@@ -588,7 +588,7 @@ namespace KKCSInvoiceProject
             EODDate = dtToday.Day.ToString() + "/" + dtToday.Month.ToString() + "/" + dtToday.Year.ToString();
 
             // Heading Title
-            graphic.DrawString("End of Day Money Confirmation Sheet - " + EODDate, new Font("Courier New", 18), new SolidBrush(Color.Black), m_iStartX, m_iStartY);
+            graphic.DrawString("End of Day Money Confirmation Sheet - " + g_sTitleHeader, new Font("Courier New", 18), new SolidBrush(Color.Black), m_iStartX, m_iStartY);
 
             // Line underneith heading title
             graphic.DrawString("------------------------------------------------------------------------", font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
@@ -1133,16 +1133,23 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            DateTime _dtTodaysDateSunday = new DateTime(2017, 11, 12);
-            DateTime _dtSevenDaysAgo = new DateTime(2017, 11, _dtTodaysDateSunday.Day - 7);
+            //DateTime _dtTodaysDateSunday = new DateTime(2017, 11, 12);
+            //DateTime _dtSevenDaysAgo = new DateTime(2017, 11, _dtTodaysDateSunday.Day - 7);
 
-            //string query = "select * from CustomerInvoices WHERE month(DTDateIn) = month(@_dtTodaysDateSunday) OR " +
-            //    "month(DTDateIn) = month(@_dtSevenDaysAgo) AND day(DTDateIn) <= day(@_dtTodaysDateSunday) OR day(DTDateIn) >= day(@_dtSevenDaysAgo) " +
+            DateTime _dtFirst = new DateTime(2017, 1, 1);
+            DateTime _dtDateBeforeFlightChanges = new DateTime(2017, 10, 31);
+
+            TimeSpan _tsDays = _dtDateBeforeFlightChanges - _dtFirst;
+
+            //string query = "select * from CustomerInvoices WHERE (month(DTDateIn) = month(@_dtTodaysDateSunday) OR " +
+            //    "month(DTDateIn) = month(@_dtSevenDaysAgo)) AND (day(DTDateIn) <= day(@_dtTodaysDateSunday) AND day(DTDateIn) >= day(@_dtSevenDaysAgo)) " +
+            //    "AND (year(DTDateIn) = year(@_dtTodaysDateSunday) OR year(DTDateIn) = year(@_dtSevenDaysAgo)) " +
             //    "ORDER BY TimeIn ASC";
-            string query = "select * from CustomerInvoices WHERE month(DTDateIn) = month(@_dtTodaysDateSunday) OR " +
-                "month(DTDateIn) = month(@_dtSevenDaysAgo) ORDER BY TimeIn ASC";
-            command.Parameters.AddWithValue("@_dtTodaysDateSunday", _dtTodaysDateSunday);
-            command.Parameters.AddWithValue("@_dtSevenDaysAgo", _dtSevenDaysAgo);
+            string query = "select * from CustomerInvoices WHERE ((DTDateIn < @_dtDateBeforeFlightChanges) AND (year(DTDateIn) = year(@_dtDateBeforeFlightChanges))) ORDER BY TimeIn ASC";
+
+            //command.Parameters.AddWithValue("@_dtTodaysDateSunday", _dtTodaysDateSunday);
+            //command.Parameters.AddWithValue("@_dtSevenDaysAgo", _dtSevenDaysAgo);
+            command.Parameters.AddWithValue("@_dtDateBeforeFlightChanges", _dtDateBeforeFlightChanges);
 
             command.CommandText = query;
 
@@ -1150,12 +1157,51 @@ namespace KKCSInvoiceProject
 
             string sTest = "";
 
-            while(reader.Read())
+            int _i0600 = 0;
+            int _i0920 = 0;
+            int _i1340 = 0;
+            int _i1720 = 0;
+
+            while (reader.Read())
             {
-                sTest += reader["DTDateIn"].ToString() + "\r\n";
+                string _sTimeIn = reader["TimeIn"].ToString();
+
+                int _iTimeIn = 0;
+                int.TryParse(_sTimeIn, out _iTimeIn);
+
+                if(_iTimeIn >= 430 && _iTimeIn <= 630)
+                {
+                    _i0600++;
+                }
+                else if(_iTimeIn >= 730 && _iTimeIn <= 1030)
+                {
+                    _i0920++;
+                }
+                else if (_iTimeIn >= 1200 && _iTimeIn <= 1430)
+                {
+                    _i1340++;
+                }
+                else if (_iTimeIn >= 1500 && _iTimeIn <= 1800)
+                {
+                    _i1720++;
+                }
+
+                //sTest += reader["DTDateIn"].ToString() + "\r\n";
             }
 
-            textBox1.Text = sTest;
+            string _sText = "Overall - June 2016 to Oct 2017 \r\n";
+            _sText += "0600: " + _i0600.ToString() + "x Cars \r\n";
+            _sText += "0945: " + _i0920.ToString() + "x Cars \r\n";
+            _sText += "1405: " + _i1340.ToString() + "x Cars \r\n";
+            _sText += "1745: " + _i1720.ToString() + "x Cars \r\n";
+
+            _sText += "Average";
+            _sText += "0600: " + (_i0600 / _tsDays.Days).ToString() + "x Cars \r\n";
+            _sText += "0945: " + (_i0920 / _tsDays.Days).ToString() + "x Cars \r\n";
+            _sText += "1405: " + (_i1340 / _tsDays.Days).ToString() + "x Cars \r\n";
+            _sText += "1745: " + (_i1720 / _tsDays.Days).ToString() + "x Cars \r\n";
+
+            textBox1.Text = _sText;
 
             connection.Close();
 

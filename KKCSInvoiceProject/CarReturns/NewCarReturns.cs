@@ -1316,7 +1316,13 @@ namespace KKCSInvoiceProject
                             DrawString(e, pReturns, lbl_printmake, true, false);
                             break;
                         case "lbl_location":
-                            DrawString(e, pReturns, lbl_printlocation, false, false);
+                            bool _bPrintColourLocation = false;
+                            if (pReturns.Text == "Back")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Red);
+                                _bPrintColourLocation = true;
+                            }
+                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
@@ -1568,7 +1574,13 @@ namespace KKCSInvoiceProject
                             DrawString(e, pReturns, lbl_printmake, true, false);
                             break;
                         case "lbl_location":
-                            DrawString(e, pReturns, lbl_printlocation, false, false);
+                            bool _bPrintColourLocation = false;
+                            if (pReturns.Text == "Back")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Red);
+                                _bPrintColourLocation = true;
+                            }
+                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);

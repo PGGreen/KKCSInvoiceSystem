@@ -59,7 +59,10 @@ namespace KKCSInvoiceProject
 
             cmb_printerpicked.SelectedIndex = 0;
 
-            #if DEBUG
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
+
+#if DEBUG
             Debug();
 #endif
 
@@ -575,9 +578,15 @@ namespace KKCSInvoiceProject
             NewCarReturns ncr = new NewCarReturns();
             ncr.Show();
 
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
+
             ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
 
             cmb_printerpicked.SelectedIndex = 0;
+
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
 
             //PrintTest();
 

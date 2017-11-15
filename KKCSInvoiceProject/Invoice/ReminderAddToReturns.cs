@@ -17,6 +17,9 @@ namespace KKCSInvoiceProject
             InitializeComponent();
 
             cmb_printerpicked.SelectedIndex = 0;
+
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -30,6 +33,9 @@ namespace KKCSInvoiceProject
 
             NewCarReturns ncr = new NewCarReturns();
             ncr.Show();
+
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
 
             ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
 
