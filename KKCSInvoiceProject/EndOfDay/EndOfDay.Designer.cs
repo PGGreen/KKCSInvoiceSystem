@@ -73,6 +73,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.dt_eodpick = new System.Windows.Forms.DateTimePicker();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepfive.SuspendLayout();
@@ -599,12 +600,23 @@
             this.dt_eodpick.Visible = false;
             this.dt_eodpick.ValueChanged += new System.EventHandler(this.dt_eodpick_ValueChanged);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(755, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 23);
+            this.button1.TabIndex = 138;
+            this.button1.Text = "Send Hours Email";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // EndOfDay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
-            this.ClientSize = new System.Drawing.Size(1529, 882);
+            this.ClientSize = new System.Drawing.Size(1529, 874);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dt_eodpick);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -685,5 +697,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DateTimePicker dt_eodpick;
+        private System.Windows.Forms.Button button1;
     }
 }

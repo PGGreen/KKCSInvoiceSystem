@@ -1488,8 +1488,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-        #endregion Buttons
-
         private void btn_email_Click(object sender, EventArgs e)
         {
             connection.Open();
@@ -1501,6 +1499,190 @@ namespace KKCSInvoiceProject
             connection.Close();
         }
 
+        #endregion Buttons
 
+        #region HertzInfo
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            connection.Open();
+
+            SendHertzHoursEmail();
+
+            connection.Close();
+        }
+
+        float CSKKHours = 0.0f;
+        float CSRHours = 0.0f;
+        float VSAHours = 0.0f;
+        float REPOHours = 0.0f;
+        float LMHours = 0.0f;
+
+        float CSKKTotalHours = 0.0f;
+        float CSRTotalHours = 0.0f;
+        float VSATotalHours = 0.0f;
+        float REPOTotalHours = 0.0f;
+        float LMTotalHours = 0.0f;
+
+        string HertzHours()
+        {
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from HertzHoursData ORDER BY DTDateTime";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            string StoreAccountName1 = "";
+            string StoreAccountName2 = "";
+
+            string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
+            string sNextLine = "\r\n";
+
+            bool bFirstTimeOnly = false;
+
+            DateTime dtFirst = new DateTime();
+            DateTime dtSecond = new DateTime();
+
+            bool bSkipFirstTime = true;
+
+            string sHourData = "<p style='color:red;'>";
+
+            while (reader.Read())
+            {
+                dtFirst = (DateTime)reader["DTDateTime"];
+
+                if(dtFirst.Month != dtSecond.Month && !bSkipFirstTime)
+                {
+                    sHourData += "---------------------------------<br>";
+                    sHourData += "| Car Storage          | " + CSKKHours + "hrs |<br>";
+                    sHourData += "---------------------------------<br>";
+                    sHourData += "| CSR                  | " + CSRHours + "hrs |<br>";
+                    sHourData += "---------------------------------<br>";
+                    sHourData += "| VSA                  | " + VSAHours + "hrs |<br>";
+                    sHourData += "---------------------------------<br>";
+                    sHourData += "| Repositioning        | " + REPOHours + "hrs |<br>";
+                    sHourData += "---------------------------------<br>";
+                    sHourData += "| Location Manager     | " + REPOHours + "hrs |<br>";
+                    sHourData += "---------------------------------<br>";
+                    sHourData += "| <b>Total</b>                | " + REPOHours + "hrs |<br>";
+                    sHourData += "---------------------------------<br><br><br>";
+
+                    CSKKHours = 0.0f;
+                    CSRHours = 0.0f;
+                    VSAHours = 0.0f;
+                    REPOHours = 0.0f;
+                }
+
+                string sDept = reader["Role"].ToString();
+                string sHours = reader["Hours"].ToString();
+
+                CountHours(sDept, sHours);
+
+                bSkipFirstTime = false;
+
+                dtSecond = dtFirst;
+            }
+
+            sHourData += "</p>";
+
+            return (sHourData);
+        }
+
+        void CountHours(string _sDept, string _sHours)
+        {
+            float fHours = 0.0f;
+            float.TryParse(_sHours, out fHours);
+
+
+
+            // Location Manager
+            // NZ Delivery
+            // NZ Repo Maintenance 
+            // NZ Repo Branch to Branch
+
+
+            switch (_sDept)
+            {
+
+                case "Car Storage attendant KeriKeri":
+                    {
+                        CSKKHours += fHours;
+                        CSKKTotalHours += fHours;
+                        break;
+                    }
+                case "CSR NZ Casual":
+                case "CSR NZ F/T":
+                case "CSR NZ P/T":
+                    {
+                        CSRHours += fHours;
+                        CSRTotalHours += fHours;
+                        break;
+                    }
+                case "NZ VSA  P/T":
+                case "NZ VSA Casual":
+                case "NZ VSA F/T":
+                    {
+                        VSAHours += fHours;
+                        VSATotalHours += fHours;
+                        break;
+                    }
+                case "NZ Delivery":
+                case "NZ Repo Maintenance":
+                case "NZ Repo Branch to Branch":
+                    {
+                        REPOHours += fHours;
+                        REPOTotalHours += fHours;
+                        break;
+                    }
+                case "":
+                    {
+                        LMHours += fHours;
+                        LMTotalHours += fHours;
+
+                        break;
+                    }
+            }
+        }
+
+        void SendHertzHoursEmail()
+        {
+            try
+            {
+                test.Show();
+
+                SmtpClient client = new SmtpClient("smtp.live.com");
+                client.Port = 25;
+                client.EnableSsl = true;
+                client.Timeout = 100000;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
+                MailMessage msg = new MailMessage();
+                msg.IsBodyHtml = true;
+                msg.To.Add("peter.george.green@gmail.com");
+                //msg.To.Add("kerikericarstorage@gmail.com");
+                //msg.To.Add("ar.boiairportcarstorage@outlook.com");
+                //msg.CC.Add("peter.george.green@gmail.com");
+                //msg.CC.Add("deborah.green@hertz.com");
+                msg.From = new MailAddress("pg8472@hotmail.com");
+                msg.Subject = "Test";
+                msg.Body = HertzHours();
+                //client.Send(msg);
+                Object state = msg;
+                client.SendAsync(msg, state);
+                //MessageBox.Show("Accounts Email Sent Successfully", "Account Email");
+                client.SendCompleted += new SendCompletedEventHandler(smtpClient_SendCompleted);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        #endregion HertzInfo
     }
 }
