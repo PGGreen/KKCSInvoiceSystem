@@ -32,7 +32,7 @@
             this.cmb_rego = new System.Windows.Forms.ComboBox();
             this.dt_datein = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbl_returndate = new System.Windows.Forms.Label();
             this.dt_returndate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.lbl_flighttime = new System.Windows.Forms.Label();
@@ -106,7 +106,7 @@
             this.btn_refund = new System.Windows.Forms.Button();
             this.btn_cashcalc = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbl_staytext = new System.Windows.Forms.Label();
             this.lbl_stay = new System.Windows.Forms.Label();
             this.btn_warningagain = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -160,23 +160,23 @@
             this.label5.TabIndex = 13;
             this.label5.Text = "DATE IN:";
             // 
-            // label6
+            // lbl_returndate
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Green;
-            this.label6.Location = new System.Drawing.Point(31, 336);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(202, 29);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "RETURN DATE:";
+            this.lbl_returndate.AutoSize = true;
+            this.lbl_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_returndate.ForeColor = System.Drawing.Color.Green;
+            this.lbl_returndate.Location = new System.Drawing.Point(31, 336);
+            this.lbl_returndate.Name = "lbl_returndate";
+            this.lbl_returndate.Size = new System.Drawing.Size(202, 29);
+            this.lbl_returndate.TabIndex = 15;
+            this.lbl_returndate.Text = "RETURN DATE:";
             // 
             // dt_returndate
             // 
             this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dt_returndate.Location = new System.Drawing.Point(239, 331);
             this.dt_returndate.Name = "dt_returndate";
-            this.dt_returndate.Size = new System.Drawing.Size(453, 38);
+            this.dt_returndate.Size = new System.Drawing.Size(468, 38);
             this.dt_returndate.TabIndex = 16;
             this.dt_returndate.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
@@ -551,7 +551,7 @@
             this.txt_total.ForeColor = System.Drawing.Color.ForestGreen;
             this.txt_total.Location = new System.Drawing.Point(929, 174);
             this.txt_total.Name = "txt_total";
-            this.txt_total.Size = new System.Drawing.Size(160, 44);
+            this.txt_total.Size = new System.Drawing.Size(191, 44);
             this.txt_total.TabIndex = 29;
             this.txt_total.TextChanged += new System.EventHandler(this.txt_total_TextChanged);
             // 
@@ -973,10 +973,10 @@
             "Unknown Date & Time",
             "Unknown Time",
             "Driving Back/Bus",
-            "Other"});
-            this.cmb_returnstatus.Location = new System.Drawing.Point(491, 398);
+            "Driving Back/Bus - Unknown"});
+            this.cmb_returnstatus.Location = new System.Drawing.Point(454, 398);
             this.cmb_returnstatus.Name = "cmb_returnstatus";
-            this.cmb_returnstatus.Size = new System.Drawing.Size(201, 28);
+            this.cmb_returnstatus.Size = new System.Drawing.Size(253, 28);
             this.cmb_returnstatus.TabIndex = 170;
             this.cmb_returnstatus.SelectedIndexChanged += new System.EventHandler(this.cmb_returnstatus_SelectedIndexChanged);
             // 
@@ -1067,7 +1067,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1090, 184);
+            this.label1.Location = new System.Drawing.Point(1123, 183);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 24);
             this.label1.TabIndex = 176;
@@ -1122,16 +1122,16 @@
             this.textBox4.TabIndex = 178;
             this.textBox4.Visible = false;
             // 
-            // label2
+            // lbl_staytext
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Green;
-            this.label2.Location = new System.Drawing.Point(146, 439);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 29);
-            this.label2.TabIndex = 181;
-            this.label2.Text = "STAY:";
+            this.lbl_staytext.AutoSize = true;
+            this.lbl_staytext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_staytext.ForeColor = System.Drawing.Color.Green;
+            this.lbl_staytext.Location = new System.Drawing.Point(146, 439);
+            this.lbl_staytext.Name = "lbl_staytext";
+            this.lbl_staytext.Size = new System.Drawing.Size(87, 29);
+            this.lbl_staytext.TabIndex = 181;
+            this.lbl_staytext.Text = "STAY:";
             // 
             // lbl_stay
             // 
@@ -1147,7 +1147,7 @@
             // btn_warningagain
             // 
             this.btn_warningagain.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_warningagain.Location = new System.Drawing.Point(520, 432);
+            this.btn_warningagain.Location = new System.Drawing.Point(503, 432);
             this.btn_warningagain.Name = "btn_warningagain";
             this.btn_warningagain.Size = new System.Drawing.Size(148, 25);
             this.btn_warningagain.TabIndex = 183;
@@ -1205,7 +1205,7 @@
             this.Controls.Add(this.cmb_worker);
             this.Controls.Add(this.btn_warningagain);
             this.Controls.Add(this.lbl_stay);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbl_staytext);
             this.Controls.Add(this.btn_cashcalc);
             this.Controls.Add(this.btn_refund);
             this.Controls.Add(this.textBox4);
@@ -1263,7 +1263,7 @@
             this.Controls.Add(this.lbl_flighttime);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dt_returndate);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lbl_returndate);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.dt_datein);
             this.Controls.Add(this.cmb_rego);
@@ -1290,7 +1290,7 @@
         private System.Windows.Forms.ComboBox cmb_rego;
         private System.Windows.Forms.DateTimePicker dt_datein;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbl_returndate;
         private System.Windows.Forms.DateTimePicker dt_returndate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbl_flighttime;
@@ -1362,7 +1362,7 @@
         private System.Windows.Forms.Button btn_refund;
         private System.Windows.Forms.Button btn_cashcalc;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbl_staytext;
         private System.Windows.Forms.Label lbl_stay;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label4;

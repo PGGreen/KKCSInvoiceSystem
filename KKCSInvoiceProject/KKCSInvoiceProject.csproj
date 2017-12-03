@@ -126,6 +126,12 @@
     <Compile Include="Invoice\InvoiceAlerts.Designer.cs">
       <DependentUpon>InvoiceAlerts.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManualTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualTime.Designer.cs">
+      <DependentUpon>ManualTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="MoneyInYard\Finances.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -434,6 +440,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Invoice\Refund.resx">
       <DependentUpon>Refund.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManualTime.resx">
+      <DependentUpon>ManualTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MoneyInYard\Finances.resx">
       <DependentUpon>Finances.cs</DependentUpon>

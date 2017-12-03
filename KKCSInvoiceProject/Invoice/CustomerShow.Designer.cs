@@ -139,10 +139,10 @@
             // lbl_paidby
             // 
             this.lbl_paidby.AutoSize = true;
-            this.lbl_paidby.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_paidby.Location = new System.Drawing.Point(699, 390);
+            this.lbl_paidby.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_paidby.Location = new System.Drawing.Point(705, 390);
             this.lbl_paidby.Name = "lbl_paidby";
-            this.lbl_paidby.Size = new System.Drawing.Size(238, 33);
+            this.lbl_paidby.Size = new System.Drawing.Size(301, 42);
             this.lbl_paidby.TabIndex = 187;
             this.lbl_paidby.Text = "Paid By: To Pay";
             // 
@@ -247,7 +247,7 @@
             this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dt_returndate.Location = new System.Drawing.Point(673, 275);
             this.dt_returndate.Name = "dt_returndate";
-            this.dt_returndate.Size = new System.Drawing.Size(396, 38);
+            this.dt_returndate.Size = new System.Drawing.Size(437, 38);
             this.dt_returndate.TabIndex = 194;
             this.dt_returndate.TextChanged += new System.EventHandler(this.dt_returndate_TextChanged);
             // 

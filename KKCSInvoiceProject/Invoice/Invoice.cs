@@ -35,10 +35,13 @@ namespace KKCSInvoiceProject
 
         bool g_bIsAlreadyAccount = false;
 
+        bool g_bManualPicked = false;
+
         InvoiceNotes iv;
         InvoiceAlerts ia;
         SearchByName sbn;
         DrivingBack db;
+        ManualTime mt;
 
         private bool bIsAlreadySaved = false;
 
@@ -795,7 +798,7 @@ namespace KKCSInvoiceProject
 
                 iIsThereWarnings++;
             }
-            if(txt_flighttimes.Text == "Please Pick...")
+            if(txt_flighttimes.Text == "Please Pick..." && cmb_returnstatus.Text == "Standard - On Flight")
             {
                 sWarning += "-Please pick a Return Time" + sEndLine;
 
@@ -894,7 +897,7 @@ namespace KKCSInvoiceProject
 
                     DateTime _dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
 
-                    if(_dtToday == _dtReturnDate)
+                    if(_dtToday == _dtReturnDate && cmb_returnstatus.Text != "Unknown Date & Time" && cmb_returnstatus.Text != "Driving Back/Bus - Unknown")
                     {
                         ReminderAddToReturns ratr = new ReminderAddToReturns();
                         ratr.ShowDialog();
@@ -989,21 +992,83 @@ namespace KKCSInvoiceProject
                 }
                 //--------------------------------------------------------------------------//
 
+                string sTimeIn = "";
+                string tempReturnTimeHours = "";
+                DateTime dtDateIn = new DateTime();
+                DateTime dtReturnDate = new DateTime();
+                string sPrice = txt_total.Text;
+
+                if(sPrice == "UNKNOWN")
+                {
+                    sPrice = "";
+                }
 
                 // Sets up Date Customer came in and time they came in
                 //--------------------------------------------------------------------------//
-                DateTime dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
+                dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, 12, 0, 0);
 
-                string sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
+                sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
                 //--------------------------------------------------------------------------//
 
+                bool bUnknownTime = false;
+                bool bDrivingBack = false;
 
-                // Sets up Retrun Date and Return Time
-                //--------------------------------------------------------------------------//
-                DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12,0,0);
+                switch (cmb_returnstatus.Text)
+                {
+                    case "Standard - On Flight":
+                        {
+                            // Sets up Return Date and Return Time
+                            //--------------------------------------------------------------------------//
+                            dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
 
-                string tempReturnTimeHours = txt_flighttimes.Text.Substring(0, 4);
-                //--------------------------------------------------------------------------//
+                            tempReturnTimeHours = txt_flighttimes.Text.Substring(0, 4);
+                            //--------------------------------------------------------------------------//
+
+                            break;
+                        }
+                    case "Unknown Date & Time":
+                        {
+                            dtReturnDate = new DateTime(2001, 1, 1, 12, 0, 0);
+
+                            bUnknownTime = true;
+
+                            tempReturnTimeHours = "Unknown";
+
+                            break;
+                        }
+                    case "Unknown Time":
+                        {
+                            dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
+
+                            tempReturnTimeHours = "Unknown";
+
+                            break;
+                        }
+                    case "Driving Back/Bus":
+                        {
+                            bDrivingBack = true;
+
+                            dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
+
+                            tempReturnTimeHours = txt_flighttimes.Text.Substring(0, 4);
+
+                            break;
+                        }
+                    case "Driving Back/Bus - Unknown":
+                        {
+                            bDrivingBack = true;
+
+                            dtReturnDate = new DateTime(2001, 1, 1, 12, 0, 0);
+
+                            bUnknownTime = true;
+
+                            tempReturnTimeHours = "Unknown";
+
+                            break;
+                        }
+                }
+
+
 
                 // Checks if Notes and Alerts have text in them
                 bool bIsNotes = false;
@@ -1033,7 +1098,7 @@ namespace KKCSInvoiceProject
                                                                     "', ReturnTime = '" + tempReturnTimeHours +
                                                                     "', AccountHolder = '" + txt_account.Text +
                                                                     "', AccountParticulars = '" + txt_particulars.Text +
-                                                                    "', TotalPay = '" + txt_total.Text +
+                                                                    "', TotalPay = '" + sPrice +
                                                                     "', Stay = '" + lbl_stay.Text +
                                                                     "', FlightStatus = '" + cmb_returnstatus.Text +
                                                                     "', StaffMember = '" + cmb_worker.Text +
@@ -1041,6 +1106,8 @@ namespace KKCSInvoiceProject
                                                                     "', CarLocation = '" + m_sCarLocation +
                                                                     "', YNDatePaid  = " + m_bAlreadyPaid +
                                                                     ", PickUp  = " + m_bCarPickedUp +
+                                                                    ", UnknownDate = " + bUnknownTime +
+                                                                    ", DrivingBack = " + bDrivingBack +
                                                                     ", IsNotes  = " + bIsNotes +
                                                                     ", IsAlerts  = " + bIsAlerts +
                                                                     " WHERE InvoiceNumber = " + iInvoiceNumber + "";
@@ -1347,7 +1414,19 @@ namespace KKCSInvoiceProject
 
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
-            objCustomerShow.UpdateInfo(txt_firstname.Text + " " + txt_lastname.Text, cmb_rego.Text, cmb_makemodel.Text);
+            string sName = "";
+
+            if (txt_firstname.Text != "")
+            {
+                sName += txt_firstname.Text + " ";
+            }
+
+            if(txt_lastname.Text != "")
+            {
+                sName += txt_lastname.Text;
+            }
+
+            objCustomerShow.UpdateInfo(sName, cmb_rego.Text, cmb_makemodel.Text);
         }
 
         void UpdateCustomerShowPrice()
@@ -1381,13 +1460,51 @@ namespace KKCSInvoiceProject
 
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
-            string dateCustomerIn = dt_datein.Value.Day.ToString() + "/" + dt_datein.Value.Month.ToString("00") + "/" + dt_datein.Value.ToString("yy");
-            dateCustomerIn += " - " + cmb_timeinhours.Text + ":" + cmb_timeinminutes.Text;
+            switch (cmb_returnstatus.Text)
+            {
+                case "Standard - On Flight":
+                    {
+                        string dateCustomerIn = dt_datein.Value.Day.ToString() + "/" + dt_datein.Value.Month.ToString("00") + "/" + dt_datein.Value.ToString("yy");
+                        dateCustomerIn += " - " + cmb_timeinhours.Text + ":" + cmb_timeinminutes.Text;
 
-            string dateCustomerOut = dt_returndate.Value.Day.ToString() + "/" + dt_returndate.Value.Month.ToString("00") + "/" + dt_returndate.Value.ToString("yy");
-            dateCustomerOut += " - " + txt_flighttimes.Text;
+                        string dateCustomerOut = dt_returndate.Value.Day.ToString() + "/" + dt_returndate.Value.Month.ToString("00") + "/" + dt_returndate.Value.ToString("yy");
+                        dateCustomerOut += " - " + txt_flighttimes.Text;
 
-            objCustomerShow.UpdateDateAndTime(dateCustomerIn, dateCustomerOut, lbl_stay.Text);
+                        objCustomerShow.UpdateDateAndTime(dateCustomerIn, dateCustomerOut, lbl_stay.Text);
+
+                        break;
+                    }
+                case "Unknown Date & Time":
+                    {
+                        string dateCustomerIn = dt_datein.Value.Day.ToString() + "/" + dt_datein.Value.Month.ToString("00") + "/" + dt_datein.Value.ToString("yy");
+                        dateCustomerIn += " - " + cmb_timeinhours.Text + ":" + cmb_timeinminutes.Text;
+
+                        string dateCustomerOut = "UNKNOWN";
+
+                        objCustomerShow.UpdateDateAndTime(dateCustomerIn, dateCustomerOut, lbl_stay.Text);
+
+                        break;
+                    }
+                case "Unknown Time":
+                    {
+                        string dateCustomerIn = dt_datein.Value.Day.ToString() + "/" + dt_datein.Value.Month.ToString("00") + "/" + dt_datein.Value.ToString("yy");
+                        dateCustomerIn += " - " + cmb_timeinhours.Text + ":" + cmb_timeinminutes.Text;
+
+                        string dateCustomerOut = dt_returndate.Value.Day.ToString() + "/" + dt_returndate.Value.Month.ToString("00") + "/" + dt_returndate.Value.ToString("yy");
+                        dateCustomerOut += " - UNKNOWN TIME";
+
+                        objCustomerShow.UpdateDateAndTime(dateCustomerIn, dateCustomerOut, lbl_stay.Text);
+
+                        break;
+                    }
+                case "Driving Back/Bus":
+                    {
+
+
+                        break;
+                    }
+            }
+
         }
 
         void WipeCustomerShow()
@@ -1410,8 +1527,6 @@ namespace KKCSInvoiceProject
         #endregion CustomerShow
 
         #region SeclectedTextChanges
-
-
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1723,6 +1838,8 @@ namespace KKCSInvoiceProject
             {
                 WarningsChangesMade();
             }
+
+            UpdateCustomerShow();
         }
 
         private void txt_ph_TextChanged(object sender, EventArgs e)
@@ -1913,15 +2030,24 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(txt_flighttimes.Text == "Manual Time")
+            {
+                mt = new ManualTime();
+                mt.FormClosing += CloseManualTime;
+                mt.ShowDialog();
+            }
+
             if (!m_bInitialSetUpFromCarReturns)
             {
                 SetUpPrice();
+
+                g_bManualPicked = false;
             }
 
             if (txt_flighttimes.Text == "2025")
             {
                 DrivingBack db = new DrivingBack();
-                db.SetText("Last Flight");
+                db.SetText("Last Flight", iInvoiceNumber);
                 db.ShowDialog();
             }
 
@@ -2521,7 +2647,7 @@ Number: 02-0800-0493229-00
                 g_sPaidStatus = cmb_paidstatus.Text;
             }
 
-            if(!m_bInitialSetUpFromCarReturns)
+            if(!m_bInitialSetUpFromCarReturns && cmb_returnstatus.Text == "Standard - On Flight")
             {
                 SetUpPrice();
             }
@@ -2664,6 +2790,25 @@ Number: 02-0800-0493229-00
             ia.ShowDialog();
         }
 
+        private void CloseManualTime(object sender, CancelEventArgs e)
+        {
+            g_bManualPicked = mt.GetPickedManual();
+
+            if(g_bManualPicked)
+            {
+                txt_flighttimes.Items.Add(mt.GetTime());
+
+                int iComboBoxCount = txt_flighttimes.Items.Count;
+                txt_flighttimes.SelectedIndex = iComboBoxCount - 1;
+            }
+            else
+            {
+                txt_flighttimes.SelectedIndex = 0;
+
+                g_bManualPicked = false;
+            }
+        }
+
         private void CloseInvoiceNotes(object sender, CancelEventArgs e)
         {
             string sGetCurrentNotes = iv.GetCurrentNotes();
@@ -2678,6 +2823,23 @@ Number: 02-0800-0493229-00
             {
                 txt_notes.Visible = false;
             }
+        }
+
+        private void CloseUnknownForm(object sender, CancelEventArgs e)
+        {
+            iv = new InvoiceNotes();
+            iv.GetInvoiceNumber(iInvoiceNumber);
+            iv.FormClosing += CloseInvoiceNotes;
+            IntPtr dummyInvoice = iv.Handle;
+            iv.Close();
+
+            if(!db.GetClosedWithSaved())
+            {
+                cmb_returnstatus.SelectedIndex = 0;
+            }
+
+            UpdateDateAndTime();
+
         }
 
         private void CloseAlertNotes(object sender, CancelEventArgs e)
@@ -2771,30 +2933,78 @@ Number: 02-0800-0493229-00
 
         private void cmb_returnstatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DrivingBack db = new DrivingBack();
+            db = new DrivingBack();
 
             btn_warningagain.Visible = true;
+            dt_returndate.Visible = true;
+            txt_flighttimes.Visible = true;
+
+            lbl_returndate.Text = "RETURN DATE:";
+            lbl_flighttime.Text = "RETURN FLIGHT:";
+            lbl_staytext.Text = "STAY:";
 
             switch (cmb_returnstatus.Text)
             {
-                case "Standard - Coming In On Flight":
+                case "Standard - On Flight":
                     {
                         btn_warningagain.Visible = false;
 
                         break;
                     }
                 case "Unknown Date & Time":
+                    {
+                        dt_returndate.Visible = false;
+                        txt_flighttimes.Visible = false;
+
+                        db.SetText("Unknown", iInvoiceNumber);
+                        db.FormClosing += CloseUnknownForm;
+                        db.ShowDialog();
+
+                        lbl_returndate.Text += " UNKNOWN";
+                        lbl_flighttime.Text += " UNKNOWN";
+                        lbl_staytext.Text += " UNKNOWN";
+                        txt_total.Text = "UNKNOWN";
+                        cmb_paidstatus.Text = "To Pay";
+
+                        break;
+                    }
                 case "Unknown Time":
                     {
-                        db.SetText("Unknown");
+                        txt_flighttimes.Visible = false;
+
+                        db.SetText("Unknown", iInvoiceNumber);
+                        db.FormClosing += CloseUnknownForm;
                         db.ShowDialog();
+
+                        lbl_flighttime.Text += " UNKNOWN";
+                        lbl_staytext.Text += " UNKNOWN";
+                        txt_total.Text = "UNKNOWN";
+                        cmb_paidstatus.Text = "To Pay";
 
                         break;
                     }
                 case "Driving Back/Bus":
                     {
-                        db.SetText("Driving Back");
+                        db.SetText("Driving Back", iInvoiceNumber);
+                        db.FormClosing += CloseUnknownForm;
                         db.ShowDialog();
+
+                        break;
+                    }
+                case "Driving Back/Bus - Unknown":
+                    {
+                        dt_returndate.Visible = false;
+                        txt_flighttimes.Visible = false;
+
+                        db.SetText("Driving Back", iInvoiceNumber);
+                        db.FormClosing += CloseUnknownForm;
+                        db.ShowDialog();
+
+                        lbl_returndate.Text += " UNKNOWN";
+                        lbl_flighttime.Text += " UNKNOWN";
+                        lbl_staytext.Text += " UNKNOWN";
+                        txt_total.Text = "UNKNOWN";
+                        cmb_paidstatus.Text = "To Pay";
 
                         break;
                     }

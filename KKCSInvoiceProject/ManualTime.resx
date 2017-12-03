@@ -117,27 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lbl_drivingback.Text" xml:space="preserve">
-    <value>Kerikeri Airport Car Storage - Unknown Date &amp;&amp; Time of Return.
-
-If you do not know your return time, please take note of the following information.
-
-We are open one hour before each incoming flight, and we close after the flight has 
-left Kerikeri. You will need to pick up your car within our opening hours.
-
-Please make sure to check all incoming flight times prior to arriving as sometimes
-there are delays.
-
-If you are going to be outside these hours, you will need to either pick up the car on
-the next flight or on the next day.
-
-For the final plane (normally 2025) we are open 5 minutes before the plane arrives and
-only IF we have customers coming in, otherwise we will be closed.
-
-If you have any queries or contact us, please give us a call on:
-Phone: 09-401-6351
-
-Thank You,
-Kerikeri Airport Car Storage Staff</value>
-  </data>
 </root>

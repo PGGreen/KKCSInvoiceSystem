@@ -563,7 +563,22 @@ namespace KKCSInvoiceProject
                 float fTotalPay = 0.0f;
                 float.TryParse(reader["TotalPay"].ToString(), out fTotalPay);
 
-                lbl.Text = "$" + fTotalPay.ToString("0.00");
+                string sPaidStatus = reader["PaidStatus"].ToString();
+
+                if (fTotalPay == 0.0f && sPaidStatus != "N/C")
+                {
+                    lbl.BackColor = Color.Red;
+                    lbl.Text = "To Calc";
+                }
+                else if(fTotalPay == 0.0f && sPaidStatus == "N/C")
+                {
+                    lbl.BackColor = Color.Orange;
+                    lbl.Text = "N/C";
+                }
+                else
+                {
+                    lbl.Text = "$" + fTotalPay.ToString("0.00");
+                }
 
                 // Makes the background colour of the label green to fit with the panel colour
                 if (bPickedUp)
@@ -631,6 +646,9 @@ namespace KKCSInvoiceProject
 
             if (_p.Name == "lbl_returndate")
             {
+                lbl.Font = _p.Font;
+                lbl.Size = _p.Size;
+
                 DateTime dt = new DateTime();
 
                 if (chk_returndate.Checked)
@@ -665,8 +683,13 @@ namespace KKCSInvoiceProject
                     lbl.Text = "Unknown";
                 }
 
-                lbl.Font = _p.Font;
-                lbl.Size = _p.Size;
+                if ((bool)reader["DrivingBack"])
+                {
+                    lbl.Text = "Driving Back/Bus";
+                    lbl.BackColor = Color.Red;
+
+                    lbl.Size = new Size(_p.Size.Width-20, _p.Size.Height);
+                }
             }
 
             if (_p.Name == "lbl_ph")

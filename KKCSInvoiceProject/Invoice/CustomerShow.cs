@@ -58,6 +58,13 @@ namespace KKCSInvoiceProject
         {
             lbl_paidby.Text = "Paid By: " + _sPaidStatus;
 
+            if(_sPrice == "UNKNOWN")
+            {
+                lbl_price.Text = "UNKNOWN";
+
+                return;
+            }
+
             lbl_ccfee.Visible = false;
 
             if (_sPaidStatus == "Credit Card")
