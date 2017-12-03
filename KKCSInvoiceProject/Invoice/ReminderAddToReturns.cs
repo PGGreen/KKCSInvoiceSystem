@@ -37,6 +37,9 @@ namespace KKCSInvoiceProject
             // Out of Colour Ink (Uncomment Next Line)
             //cmb_printerpicked.SelectedIndex = 1;
 
+            // B&W Printer Down
+            cmb_printerpicked.SelectedIndex = 0;
+
             ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
 
             Close();

@@ -51,7 +51,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.chk_eftposreset = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbl_eftpostotals = new System.Windows.Forms.Label();
             this.cmb_Steptwo = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.pnl_stepfive = new System.Windows.Forms.Panel();
@@ -74,6 +74,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.dt_eodpick = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
+            this.btn_accountemail = new System.Windows.Forms.Button();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepfive.SuspendLayout();
@@ -306,7 +307,7 @@
             this.pnl_steptwo.Controls.Add(this.label13);
             this.pnl_steptwo.Controls.Add(this.label7);
             this.pnl_steptwo.Controls.Add(this.chk_eftposreset);
-            this.pnl_steptwo.Controls.Add(this.label2);
+            this.pnl_steptwo.Controls.Add(this.lbl_eftpostotals);
             this.pnl_steptwo.Controls.Add(this.cmb_Steptwo);
             this.pnl_steptwo.Controls.Add(this.label5);
             this.pnl_steptwo.Controls.Add(this.label14);
@@ -340,6 +341,7 @@
             // chk_eftposreset
             // 
             this.chk_eftposreset.AutoSize = true;
+            this.chk_eftposreset.Enabled = false;
             this.chk_eftposreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk_eftposreset.Location = new System.Drawing.Point(315, 154);
             this.chk_eftposreset.Name = "chk_eftposreset";
@@ -349,16 +351,17 @@
             this.chk_eftposreset.UseVisualStyleBackColor = true;
             this.chk_eftposreset.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // label2
+            // lbl_eftpostotals
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(22, 124);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(341, 58);
-            this.label2.TabIndex = 130;
-            this.label2.Text = "Please make sure eftpos totals\r\nare reset/cleared to $0.00";
+            this.lbl_eftpostotals.AutoSize = true;
+            this.lbl_eftpostotals.Enabled = false;
+            this.lbl_eftpostotals.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_eftpostotals.ForeColor = System.Drawing.Color.Red;
+            this.lbl_eftpostotals.Location = new System.Drawing.Point(22, 124);
+            this.lbl_eftpostotals.Name = "lbl_eftpostotals";
+            this.lbl_eftpostotals.Size = new System.Drawing.Size(341, 58);
+            this.lbl_eftpostotals.TabIndex = 130;
+            this.lbl_eftpostotals.Text = "Please make sure eftpos totals\r\nare reset/cleared to $0.00";
             // 
             // cmb_Steptwo
             // 
@@ -608,7 +611,18 @@
             this.button1.TabIndex = 138;
             this.button1.Text = "Send Hours Email";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btn_accountemail
+            // 
+            this.btn_accountemail.Location = new System.Drawing.Point(12, 691);
+            this.btn_accountemail.Name = "btn_accountemail";
+            this.btn_accountemail.Size = new System.Drawing.Size(106, 23);
+            this.btn_accountemail.TabIndex = 139;
+            this.btn_accountemail.Text = "Send Accounts";
+            this.btn_accountemail.UseVisualStyleBackColor = true;
+            this.btn_accountemail.Click += new System.EventHandler(this.btn_accountemail_Click);
             // 
             // EndOfDay
             // 
@@ -616,6 +630,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 874);
+            this.Controls.Add(this.btn_accountemail);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dt_eodpick);
             this.Controls.Add(this.panel4);
@@ -629,7 +644,7 @@
             this.Controls.Add(this.btn_eod);
             this.Controls.Add(this.txt_eodheader);
             this.Name = "EndOfDay";
-            this.Text = "s";
+            this.Text = "EOD";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnl_stepsthree.ResumeLayout(false);
             this.pnl_stepsthree.PerformLayout();
@@ -679,7 +694,7 @@
         private System.Windows.Forms.Button btn_printconfirmation;
         private System.Windows.Forms.ComboBox cmb_Steptwo;
         private System.Windows.Forms.Button btn_endday;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbl_eftpostotals;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox chk_eftposreset;
@@ -698,5 +713,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DateTimePicker dt_eodpick;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_accountemail;
     }
 }

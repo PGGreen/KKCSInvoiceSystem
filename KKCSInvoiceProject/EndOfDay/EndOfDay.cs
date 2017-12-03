@@ -193,19 +193,21 @@ namespace KKCSInvoiceProject
             {
                 cmb_Steptwo.BackColor = Color.LightGreen;
 
-                g_bStepThreeEftpos = true;
+                lbl_eftpostotals.Enabled = true;
+                chk_eftposreset.Enabled = true;
             }
             else if (cmb_Steptwo.Text == "Inccorect")
             {
                 cmb_Steptwo.BackColor = Color.Red;
 
-                g_bStepThreeEftpos = true;
+                lbl_eftpostotals.Enabled = true;
+                chk_eftposreset.Enabled = true;
             }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (chk_eftposreset.Checked == true)
+            if (chk_eftposreset.Checked)
             {
                 pnl_stepsthree.Enabled = true;
             }
@@ -391,7 +393,7 @@ namespace KKCSInvoiceProject
 
             DateTime dtDate = DateTime.Today;
             //string query = @"SELECT * FROM Invoice WHERE ReturnMonth = '" + 02 + "' AND ReturnYear = '" + 2017 + "' AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DateInInvisible DESC";
-            dtDate = new DateTime(2017, 10, dtDate.Day, 12, 0, 0);
+            dtDate = new DateTime(2017, 11, dtDate.Day, 12, 0, 0);
 
             string query = "select * from CustomerInvoices WHERE year(DTReturnDate) = year(@dtDate) AND month(DTDatePaid) = month(@dtDate) AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DTDateIn ASC";
             command.Parameters.AddWithValue("@dtDate", dtDate);
@@ -411,7 +413,7 @@ namespace KKCSInvoiceProject
             //sCombinedAccount += "Date In" + Padding.Left(5);
 
             //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
-            sTitle = "BOI Car Storage Yard - October 2017 Accounts";
+            sTitle = "BOI Car Storage Yard - November 2017 Accounts";
 
             int iPadLength = 25;
 
@@ -585,6 +587,8 @@ namespace KKCSInvoiceProject
 
             //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
 
+            //printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
@@ -712,6 +716,7 @@ namespace KKCSInvoiceProject
 
             printDocument.PrintPage += new PrintPageEventHandler(TodaysReport);
 
+            //printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
             //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
@@ -1488,7 +1493,7 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void btn_email_Click(object sender, EventArgs e)
+        private void btn_accountemail_Click(object sender, EventArgs e)
         {
             connection.Open();
 
@@ -1684,5 +1689,6 @@ namespace KKCSInvoiceProject
         }
 
         #endregion HertzInfo
+
     }
 }

@@ -85,6 +85,7 @@
             this.lbl_debug = new System.Windows.Forms.Label();
             this.txt_noofcars = new System.Windows.Forms.Label();
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
+            this.tEstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -555,7 +556,8 @@
             this.bookingsToolStripMenuItem,
             this.statisticsToolStripMenuItem,
             this.tillPBToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.tEstToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
             this.ms_mainstrip.Size = new System.Drawing.Size(783, 25);
@@ -701,6 +703,13 @@
             this.cmb_printerpicked.Size = new System.Drawing.Size(234, 33);
             this.cmb_printerpicked.TabIndex = 232;
             // 
+            // tEstToolStripMenuItem
+            // 
+            this.tEstToolStripMenuItem.Name = "tEstToolStripMenuItem";
+            this.tEstToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.tEstToolStripMenuItem.Text = "Test";
+            this.tEstToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -801,5 +810,6 @@
         private System.Windows.Forms.ToolStripMenuItem financesToolStripMenuItem;
         private System.Windows.Forms.Label txt_noofcars;
         private System.Windows.Forms.ComboBox cmb_printerpicked;
+        private System.Windows.Forms.ToolStripMenuItem tEstToolStripMenuItem;
     }
 }

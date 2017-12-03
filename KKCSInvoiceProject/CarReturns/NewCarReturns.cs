@@ -1214,6 +1214,11 @@ namespace KKCSInvoiceProject
             {
                 PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
             }
+            else if(m_iPrinterPicked == 1)
+            {
+                PrintDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            }
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
@@ -1240,8 +1245,8 @@ namespace KKCSInvoiceProject
 
             g_strDatePicked += " - Page " + iPageNumber.ToString();
 
-            e.Graphics.FillRectangle(Brushes.LightBlue, 5, 7, 1150, 30);
-            e.Graphics.DrawString(g_strDatePicked, new Font("Courier New", 20), new SolidBrush(Color.Black), 500, 7);
+            e.Graphics.FillRectangle(Brushes.LightBlue, 5, 7, 1150, 40);
+            e.Graphics.DrawString(g_strDatePicked, new Font("Courier New", 26, FontStyle.Bold), new SolidBrush(Color.Black), 350, 7);
             #endregion
 
             iPageNumber++;
@@ -1500,6 +1505,11 @@ namespace KKCSInvoiceProject
             {
                 PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
             }
+            else if (m_iPrinterPicked == 1)
+            {
+                PrintDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            }
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
 
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
@@ -1516,8 +1526,8 @@ namespace KKCSInvoiceProject
         {
             string g_strDatePicked = "Unknown/Overdue - Page " + iPageNumber.ToString();
 
-            e.Graphics.FillRectangle(Brushes.LightBlue, 5, 7, 1150, 30);
-            e.Graphics.DrawString(g_strDatePicked, new Font("Courier New", 20), new SolidBrush(Color.Black), 500, 7);
+            e.Graphics.FillRectangle(Brushes.Orange, 5, 7, 1150, 40);
+            e.Graphics.DrawString(g_strDatePicked, new Font("Courier New", 26, FontStyle.Bold), new SolidBrush(Color.Black), 500, 7);
 
             iPageNumber++;
 

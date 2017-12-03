@@ -14,6 +14,8 @@ namespace KKCSInvoiceProject
     public partial class DrivingBack : Form
     {
         string g_sPrint = "";
+        string g_sHeader = "";
+
         public DrivingBack()
         {
             InitializeComponent();
@@ -23,16 +25,16 @@ namespace KKCSInvoiceProject
         {
             switch(_sPicked)
             {
-                case "Driving Back":
-                    {
-                        lbl_drivingback.Text = DrivingBackText();
-                        g_sPrint = DrivingBackText();
-                        break;
-                    }
                 case "Unknown":
                     {
-                        lbl_drivingback.Text = Unknown();
-                        g_sPrint = Unknown();
+                        lbl_drivingback.Text = UnknownDateTime();
+                        g_sPrint = UnknownDateTime();
+                        break;
+                    }
+                case "Driving Back":
+                    {
+                        lbl_drivingback.Text = DrivingBackOrBus();
+                        g_sPrint = DrivingBackOrBus();
                         break;
                     }
                 case "Last Flight":
@@ -50,47 +52,56 @@ namespace KKCSInvoiceProject
             }
         }
 
-        string DrivingBackText()
+        string UnknownDateTime()
         {
-            string sDrivingBack = @"Kerikeri Airport Car Storage Driving Back or Bus.
+            
+            string sDrivingBack = @"Kerikeri Airport Car Storage - Unknown Date & Time of Return.
 
-If you are driving back or are on a bus instead of coming on the plane, 
-please note our opening times below:
+If you do not know your return time, please take note of the following information.
 
--Mon - Fri-           -Sat-                    -Sun-
-0500 - 0600         0545 - 0645         0830 - 1000
-0830 - 1000         0830 - 1000         1230 - 1400
-1230 - 1400         1230 - 1400         1600 - 1800              
-1600 - 1800         1600 - 1800                    
-2025 (See Below)    (NO 2025 on Sat)    2025 (See Below)
+We are open one hour before each incoming flight, and we close after the flight has left Kerikeri. 
+You will need to pick up your car within our opening ours.
 
-2025 - For the 2025 flight we are open 5 minutes before the plane
-       only IF we have customers coming in, otherwise we will be closed.
+Please make sure to check all incoming flight times prior to arriving as sometimes there are delays.
 
-*Please note all these times are subject to change in the event such as plane timetable changes
- or cancellations and any other unforeseen circumstances outside our control. 
+If you are going to be outside these hours, you will need to either pick up the car on the next flight
+or on the next day.
 
-If you are going to be outside these hours, please let us know, and we can arrange 
-something with you.
-(It is important you call us, or otherwise you might not be able to get your car out.)
+For the final plane (normally 2025) we are open 5 minutes before the plane arrives and
+only IF we have customers coming in, otherwise we will be closed.
 
-*Please note:
--The Airport gates are locked at night after the final plane. We DO NOT have any control over this.
--Please DO NOT ask us to leave your car outside the Airport car gates, this is company policy 
- and we will not do this under any circumstances.
+If you have any queries or contact us, please give us a call on:
+Phone: 09-401-6351
 
-Phone: 09-401-6351";
+Thank You,
+Kerikeri Airport Car Storage Staff";
 
             return (sDrivingBack);
         }
 
-        string Unknown()
+        string DrivingBackOrBus()
         {
-            string sDrivingBack = @"Kerikeri Airport Car Storage Unknown Return.
+            string sDrivingBack = @"Kerikeri Airport Car Storage - Driving Back or Bus.
 
-If you do not know your return time, please take note of the following information.
+If you are driving up by road (NOT on the plane), or you are coming up on a bus that HAS NOT been 
+arranged through Air NZ because of a cancelled flight, please take note of the following information.
 
-Phone: 09-401-6351";
+We are open one hour before each incoming flight, and we close after the flight has left Kerikeri. 
+You will need to pick up your car within our opening ours.
+
+Please make sure to check all incoming flight times prior to arriving as sometimes there are delays.
+
+If you are going to be outside these hours, you will need to either pick up the car on the next flight
+or on the next day.
+
+For the final plane (normally 2025) we are open 5 minutes before the plane arrives and
+only IF we have customers coming in, otherwise we will be closed.
+
+If you have any queries, please give us a call on:
+Phone: 09-401-6351
+
+Thank You,
+Kerikeri Airport Car Storage Staff";
 
             return (sDrivingBack);
         }
@@ -121,7 +132,7 @@ Phone: 09-401-6351";
             printDocument.PrinterSettings = new PrinterSettings();
             printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             //printDocument.PrinterSettings.PrinterName = "Adobe PDF";
-            //printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            printDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             printDocument.DefaultPageSettings.PaperSize = oPS;
             printDocument.DefaultPageSettings.PaperSource = oPSource;
 

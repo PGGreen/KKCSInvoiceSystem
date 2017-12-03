@@ -198,6 +198,12 @@
     <Compile Include="Invoice\ShowNotesAlerts.Designer.cs">
       <DependentUpon>ShowNotesAlerts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Testing\Testing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Testing\Testing.Designer.cs">
+      <DependentUpon>Testing.cs</DependentUpon>
+    </Compile>
     <Compile Include="Warning\DrivingBack.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -537,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Stats\YardStats.resx">
       <DependentUpon>YardStats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Testing\Testing.resx">
+      <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Warning\DrivingBack.resx">
       <DependentUpon>DrivingBack.cs</DependentUpon>

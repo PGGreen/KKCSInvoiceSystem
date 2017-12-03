@@ -111,6 +111,7 @@
             this.btn_warningagain = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.cmb_worker = new System.Windows.Forms.ComboBox();
+            this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -431,7 +432,7 @@
             this.btn_print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btn_print.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_print.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_print.Location = new System.Drawing.Point(962, 416);
+            this.btn_print.Location = new System.Drawing.Point(962, 410);
             this.btn_print.Name = "btn_print";
             this.btn_print.Size = new System.Drawing.Size(145, 41);
             this.btn_print.TabIndex = 71;
@@ -970,7 +971,6 @@
             this.cmb_returnstatus.Items.AddRange(new object[] {
             "Standard - On Flight",
             "Unknown Date & Time",
-            "Unknown Date",
             "Unknown Time",
             "Driving Back/Bus",
             "Other"});
@@ -1182,12 +1182,25 @@
             this.cmb_worker.Size = new System.Drawing.Size(238, 47);
             this.cmb_worker.TabIndex = 184;
             // 
+            // cmb_printerpicked
+            // 
+            this.cmb_printerpicked.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_printerpicked.FormattingEnabled = true;
+            this.cmb_printerpicked.Items.AddRange(new object[] {
+            "B&W (Large Printer)",
+            "Colour (Small Printer)"});
+            this.cmb_printerpicked.Location = new System.Drawing.Point(919, 451);
+            this.cmb_printerpicked.Name = "cmb_printerpicked";
+            this.cmb_printerpicked.Size = new System.Drawing.Size(229, 33);
+            this.cmb_printerpicked.TabIndex = 233;
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.Controls.Add(this.cmb_printerpicked);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmb_worker);
             this.Controls.Add(this.btn_warningagain);
@@ -1356,5 +1369,6 @@
         private System.Windows.Forms.Button btn_warningagain;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmb_worker;
+        private System.Windows.Forms.ComboBox cmb_printerpicked;
     }
 }

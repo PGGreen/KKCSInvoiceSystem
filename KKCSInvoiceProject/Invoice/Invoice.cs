@@ -220,6 +220,8 @@ namespace KKCSInvoiceProject
         {
             InitializeComponent();
 
+            cmb_printerpicked.SelectedIndex = 0;
+
             m_bIsFromCarReturns = _bIsFromCarReturns;
 
             connection.ConnectionString = m_strDataBaseFilePath;
@@ -790,6 +792,12 @@ namespace KKCSInvoiceProject
             if(cmb_worker.Text == "Please Pick...")
             {
                 sWarning += "-Please pick a 'Staff Member'" + sEndLine;
+
+                iIsThereWarnings++;
+            }
+            if(txt_flighttimes.Text == "Please Pick...")
+            {
+                sWarning += "-Please pick a Return Time" + sEndLine;
 
                 iIsThereWarnings++;
             }
@@ -1659,12 +1667,14 @@ namespace KKCSInvoiceProject
             //{
             if (txt_total.Text == "")
             {
-                txt_total.BackColor = LabelBackColour;
+                txt_total.BackColor = LabelBackColour;  
             }
             else
             {
                 txt_total.BackColor = System.Drawing.Color.Yellow;
             }
+
+            UpdateCustomerShowPrice();
 
             if (!m_bInitialSetUpFromCarReturns)
             {
@@ -2031,27 +2041,40 @@ namespace KKCSInvoiceProject
 
                 PrintDocument printDocument = new PrintDocument();
 
-                PaperSize oPS = new PaperSize();
-                oPS.RawKind = (int)PaperKind.A5;
-                PaperSource oPSource = new PaperSource();
-                oPSource.RawKind = (int)PaperSourceKind.Lower;
-
-                printDocument.PrinterSettings = new PrinterSettings();
-                printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
-                printDocument.DefaultPageSettings.PaperSize = oPS;
-                printDocument.DefaultPageSettings.PaperSource = oPSource;
-
-                printDialog.Document = printDocument; //add the document to the dialog box...        
-
-                printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
-
-                // This is used for getting the printer tray names
-                string sString = "";
-                PaperSource pkSource;
-                for (int i = 0; i < printDocument.PrinterSettings.PaperSources.Count; i++)
+                if (cmb_printerpicked.SelectedIndex == 0)
                 {
-                    pkSource = printDocument.PrinterSettings.PaperSources[i];
-                    sString += pkSource.ToString() + "/r/n";
+                    PaperSize oPS = new PaperSize();
+                    oPS.RawKind = (int)PaperKind.A5;
+                    PaperSource oPSource = new PaperSource();
+                    oPSource.RawKind = (int)PaperSourceKind.Lower;
+
+                    printDocument.PrinterSettings = new PrinterSettings();
+                    printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+                    printDocument.DefaultPageSettings.PaperSize = oPS;
+                    printDocument.DefaultPageSettings.PaperSource = oPSource;
+
+
+                    printDialog.Document = printDocument; //add the document to the dialog box...        
+
+                    printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
+
+                    // This is used for getting the printer tray names
+                    string sString = "";
+                    PaperSource pkSource;
+                    for (int i = 0; i < printDocument.PrinterSettings.PaperSources.Count; i++)
+                    {
+                        pkSource = printDocument.PrinterSettings.PaperSources[i];
+                        sString += pkSource.ToString() + "/r/n";
+                    }
+                }
+                else
+                {
+                    printDocument.PrinterSettings = new PrinterSettings();
+                    printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+
+                    printDialog.Document = printDocument; //add the document to the dialog box...        
+
+                    printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(CreateReceipt); //add an event handler that will do the printing
                 }
 
                 printDocument.Print();
@@ -2239,6 +2262,12 @@ Number: 02-0800-0493229-00
 
         public void SetUpPrice()
         {
+            if(txt_flighttimes.Text == "Please Pick...")
+            {
+                txt_total.Text = "";
+
+                return;
+            }
             // Sets up the global days and times
             int iDays = 0;
             int iTimeInHours = 0;
@@ -2744,9 +2773,6 @@ Number: 02-0800-0493229-00
         {
             DrivingBack db = new DrivingBack();
 
-            //db.SetText("Last Flight");
-            //db.ShowDialog();
-
             btn_warningagain.Visible = true;
 
             switch (cmb_returnstatus.Text)
@@ -2758,7 +2784,6 @@ Number: 02-0800-0493229-00
                         break;
                     }
                 case "Unknown Date & Time":
-                case "Unknown Date":
                 case "Unknown Time":
                     {
                         db.SetText("Unknown");
@@ -2766,7 +2791,7 @@ Number: 02-0800-0493229-00
 
                         break;
                     }
-                case @"Driving Back/Bus":
+                case "Driving Back/Bus":
                     {
                         db.SetText("Driving Back");
                         db.ShowDialog();
