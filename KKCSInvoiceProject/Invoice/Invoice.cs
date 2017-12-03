@@ -2964,8 +2964,17 @@ Number: 02-0800-0493229-00
                         lbl_flighttime.Text += " UNKNOWN";
                         lbl_staytext.Text += " UNKNOWN";
                         txt_total.Text = "UNKNOWN";
-                        cmb_paidstatus.Text = "To Pay";
 
+                        if(cmb_paidstatus.Text != "On Account" && cmb_paidstatus.Text != "No Charge")
+                        {
+                            cmb_paidstatus.Text = "To Pay";
+                        }
+
+                        if (cmb_paidstatus.Text == "No Charge")
+                        {
+                            txt_total.Text = "";
+                        }
+                        
                         break;
                     }
                 case "Unknown Time":
@@ -2979,7 +2988,16 @@ Number: 02-0800-0493229-00
                         lbl_flighttime.Text += " UNKNOWN";
                         lbl_staytext.Text += " UNKNOWN";
                         txt_total.Text = "UNKNOWN";
-                        cmb_paidstatus.Text = "To Pay";
+
+                        if (cmb_paidstatus.Text != "On Account" && cmb_paidstatus.Text != "No Charge")
+                        {
+                            cmb_paidstatus.Text = "To Pay";
+                        }
+
+                        if (cmb_paidstatus.Text == "No Charge")
+                        {
+                            txt_total.Text = "";
+                        }
 
                         break;
                     }
@@ -3004,7 +3022,16 @@ Number: 02-0800-0493229-00
                         lbl_flighttime.Text += " UNKNOWN";
                         lbl_staytext.Text += " UNKNOWN";
                         txt_total.Text = "UNKNOWN";
-                        cmb_paidstatus.Text = "To Pay";
+
+                        if (cmb_paidstatus.Text != "On Account" && cmb_paidstatus.Text != "No Charge")
+                        {
+                            cmb_paidstatus.Text = "To Pay";
+                        }
+
+                        if (cmb_paidstatus.Text == "No Charge")
+                        {
+                            txt_total.Text = "";
+                        }
 
                         break;
                     }
