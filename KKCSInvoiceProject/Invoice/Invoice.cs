@@ -1084,10 +1084,15 @@ namespace KKCSInvoiceProject
                     bIsAlerts = true;
                 }
 
+                string sTest = "Peter O'Ril'ey";
+
+                sTest = sTest.Replace("'", "''");
+
                 string UpdateCommand = @"UPDATE CustomerInvoices SET
                                                                     KeyNumber = '" + txt_keyno.Text +
                                                                     "', Rego = '" + cmb_rego.Text +
-                                                                    "', FirstName = '" + txt_firstname.Text +
+                                                                    //"', FirstName = '" + txt_firstname.Text +
+                                                                    "', FirstName = '" + sTest +
                                                                     "', LastName = '" + txt_lastname.Text +
                                                                     "', PhoneNumber = '" + txt_ph.Text +
                                                                     "', MakeModel = '" + cmb_makemodel.Text +

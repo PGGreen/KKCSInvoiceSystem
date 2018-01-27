@@ -77,7 +77,7 @@ namespace KKCSInvoiceProject
         string UnknownDateTime()
         {
             
-            string sDrivingBack = @"Kerikeri Airport Car Storage - Unknown Date & Time of Return.
+            string sDrivingBack = @"Kerikeri Airport Car Storage - Unknown Date && Time of Return.
 
 If you do not know your return time, please take note of the following information.
 
