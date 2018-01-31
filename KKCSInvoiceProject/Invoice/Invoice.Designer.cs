@@ -112,6 +112,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
+            this.dt_dateleft = new System.Windows.Forms.Button();
+            this.dt_dateright = new System.Windows.Forms.Button();
+            this.chk_nokey = new System.Windows.Forms.CheckBox();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -165,7 +168,7 @@
             this.lbl_returndate.AutoSize = true;
             this.lbl_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_returndate.ForeColor = System.Drawing.Color.Green;
-            this.lbl_returndate.Location = new System.Drawing.Point(31, 336);
+            this.lbl_returndate.Location = new System.Drawing.Point(27, 336);
             this.lbl_returndate.Name = "lbl_returndate";
             this.lbl_returndate.Size = new System.Drawing.Size(202, 29);
             this.lbl_returndate.TabIndex = 15;
@@ -174,7 +177,7 @@
             // dt_returndate
             // 
             this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_returndate.Location = new System.Drawing.Point(239, 331);
+            this.dt_returndate.Location = new System.Drawing.Point(268, 331);
             this.dt_returndate.Name = "dt_returndate";
             this.dt_returndate.Size = new System.Drawing.Size(468, 38);
             this.dt_returndate.TabIndex = 16;
@@ -195,7 +198,7 @@
             this.lbl_flighttime.AutoSize = true;
             this.lbl_flighttime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_flighttime.ForeColor = System.Drawing.Color.Green;
-            this.lbl_flighttime.Location = new System.Drawing.Point(8, 397);
+            this.lbl_flighttime.Location = new System.Drawing.Point(4, 397);
             this.lbl_flighttime.Name = "lbl_flighttime";
             this.lbl_flighttime.Size = new System.Drawing.Size(225, 29);
             this.lbl_flighttime.TabIndex = 20;
@@ -1127,7 +1130,7 @@
             this.lbl_staytext.AutoSize = true;
             this.lbl_staytext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_staytext.ForeColor = System.Drawing.Color.Green;
-            this.lbl_staytext.Location = new System.Drawing.Point(146, 439);
+            this.lbl_staytext.Location = new System.Drawing.Point(142, 439);
             this.lbl_staytext.Name = "lbl_staytext";
             this.lbl_staytext.Size = new System.Drawing.Size(87, 29);
             this.lbl_staytext.TabIndex = 181;
@@ -1194,12 +1197,48 @@
             this.cmb_printerpicked.Size = new System.Drawing.Size(229, 33);
             this.cmb_printerpicked.TabIndex = 233;
             // 
+            // dt_dateleft
+            // 
+            this.dt_dateleft.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dt_dateleft.Location = new System.Drawing.Point(227, 334);
+            this.dt_dateleft.Name = "dt_dateleft";
+            this.dt_dateleft.Size = new System.Drawing.Size(37, 31);
+            this.dt_dateleft.TabIndex = 234;
+            this.dt_dateleft.Text = "<--";
+            this.dt_dateleft.UseVisualStyleBackColor = true;
+            this.dt_dateleft.Click += new System.EventHandler(this.dt_dateleft_Click);
+            // 
+            // dt_dateright
+            // 
+            this.dt_dateright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dt_dateright.Location = new System.Drawing.Point(742, 334);
+            this.dt_dateright.Name = "dt_dateright";
+            this.dt_dateright.Size = new System.Drawing.Size(37, 31);
+            this.dt_dateright.TabIndex = 235;
+            this.dt_dateright.Text = "-->";
+            this.dt_dateright.UseVisualStyleBackColor = true;
+            this.dt_dateright.Click += new System.EventHandler(this.dt_dateright_Click);
+            // 
+            // chk_nokey
+            // 
+            this.chk_nokey.AutoSize = true;
+            this.chk_nokey.Location = new System.Drawing.Point(317, 58);
+            this.chk_nokey.Name = "chk_nokey";
+            this.chk_nokey.Size = new System.Drawing.Size(61, 17);
+            this.chk_nokey.TabIndex = 236;
+            this.chk_nokey.Text = "No Key";
+            this.chk_nokey.UseVisualStyleBackColor = true;
+            this.chk_nokey.CheckedChanged += new System.EventHandler(this.chk_nokey_CheckedChanged);
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
-            this.ClientSize = new System.Drawing.Size(1525, 734);
+            this.ClientSize = new System.Drawing.Size(1525, 737);
+            this.Controls.Add(this.chk_nokey);
+            this.Controls.Add(this.dt_dateright);
+            this.Controls.Add(this.dt_dateleft);
             this.Controls.Add(this.cmb_printerpicked);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmb_worker);
@@ -1370,5 +1409,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmb_worker;
         private System.Windows.Forms.ComboBox cmb_printerpicked;
+        private System.Windows.Forms.Button dt_dateleft;
+        private System.Windows.Forms.Button dt_dateright;
+        private System.Windows.Forms.CheckBox chk_nokey;
     }
 }

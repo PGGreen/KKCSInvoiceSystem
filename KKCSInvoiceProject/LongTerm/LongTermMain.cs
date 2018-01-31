@@ -41,45 +41,30 @@ namespace KKCSInvoiceProject
 
             OleDbDataReader reader = command.ExecuteReader();
 
-            int LocationX = 17;
-            int LocationY = 52;
+            int LocationY = 0;
 
-            int iCount = 0;
+            int iLongTermNumber = 0;
 
             while (reader.Read())
             {
-                Button butLongTerm = new Button();
+                iLongTermNumber++;
 
-                butLongTerm.Location = new Point(LocationX, LocationY);
-                butLongTerm.Size = new Size(189, 87);
-                butLongTerm.Font = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
-                butLongTerm.Text = "#LT" + reader["LongTermKey"].ToString() + " - " + reader["ClientName"].ToString();
-                butLongTerm.Name = reader["LongTermKey"].ToString();
+                Label lbl = new Label();
 
-                bool bIsCarInYard = (bool)reader["IsCarInYard"];
+                lbl.Location = new Point(lbl_template.Location.X, lbl_template.Location.Y + LocationY);
 
-                if(bIsCarInYard)
-                {
-                    butLongTerm.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    butLongTerm.BackColor = Color.PaleVioletRed;
-                }
-                
-                //butLongTerm.Click += new EventHandler(LongTermKey_Click);
+                lbl.Text = "LT" + reader["LongTermKey"].ToString().ToString() + ". "+ reader["ClientName"].ToString();
 
-                LocationX += 222;
+                lbl.Font = lbl_template.Font;
 
-                iCount++;
+                lbl.Size = new Size(1000, lbl.Size.Height + 10);
 
-                if (iCount % 5 == 0)
-                {
-                    LocationY += 119;
-                    LocationX = 17;
-                }
+                lbl.BackColor = Color.LightBlue;
 
-                Controls.Add(butLongTerm);
+                Controls.Add(lbl);
+
+                LocationY += 40;
+
             }
 
             connection.Close();

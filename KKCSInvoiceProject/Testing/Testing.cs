@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using System.Net;
 using System.Net.Mail;
 using System.Drawing.Printing;
+using System.Xml;
 
 namespace KKCSInvoiceProject
 {
@@ -32,9 +33,11 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
-            label1.Text = "";
+            lbl_testing.Text = "";
 
-            Test();
+            //Test();
+
+            XMLTest();
         }
 
         void Test()
@@ -76,7 +79,23 @@ namespace KKCSInvoiceProject
 
             }
 
-            label1.Text = iTotalPrice.ToString();
+            lbl_testing.Text = iTotalPrice.ToString();
+        }
+
+        void XMLTest()
+        {
+            XmlReader xmlReader = XmlReader.Create("Data/XML/Test.xml");
+
+            while (xmlReader.Read())
+            {
+                if ((xmlReader.NodeType == XmlNodeType.Element) )//&& (xmlReader.Name == "Cube"))
+                {
+                    if (xmlReader.HasAttributes)
+                        //Console.WriteLine(xmlReader.GetAttribute("currency") + ": " + xmlReader.GetAttribute("rate"));
+                    lbl_testing.Text += xmlReader.Name + " " + xmlReader.GetAttribute("currency") + ": " + xmlReader.GetAttribute("rate") + "\r\n";
+                }
+            }
+            //Console.ReadKey();
         }
     }
 }

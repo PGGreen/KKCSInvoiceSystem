@@ -37,8 +37,6 @@ namespace KKCSInvoiceProject
             InitializeComponent();
 
             connection.ConnectionString = m_strDataBaseFilePath;
-
-            cmb_worker.SelectedIndex = 0;
         }
 
         public void SetText(string _sPicked, int _iInvoiceNumber)
@@ -77,7 +75,7 @@ namespace KKCSInvoiceProject
         string UnknownDateTime()
         {
             
-            string sDrivingBack = @"Kerikeri Airport Car Storage - Unknown Date && Time of Return.
+            string sDrivingBack = @"Kerikeri Airport Car Storage - Unknown Date & Time of Return.
 
 If you do not know your return time, please take note of the following information.
 
@@ -189,106 +187,14 @@ Phone: 09-401-6351";
             Print();
         }
 
-        private void cmb_worker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(cmb_worker.Text != "Please Pick...")
-            {
-                g_bStaffMember = true;
-            }
-            else
-            {
-                g_bStaffMember = false;
-            }
-
-            if(g_bStaffMember && g_bProcedure)
-            {
-                btn_save.Visible = true;
-            }
-            else
-            {
-                btn_save.Visible = false;
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if(checkBox1.Checked)
-            {
-                g_bProcedure = true;
-            }
-            else
-            {
-                g_bProcedure = false;
-            }
-
-            if (g_bStaffMember && g_bProcedure)
-            {
-                btn_save.Visible = true;
-            }
-            else
-            {
-                btn_save.Visible = false;
-            }
-        }
-
-        private void OpenDBCon()
-        {
-            if (connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
-        }
-
-        private void CloseDBCon()
-        {
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-        }
-
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-            if (cmb_worker.Text == "Please Pick...")
-            {
-                WarningSystem ws = new WarningSystem("Please pick Staff Memeber", false);
-                ws.ShowDialog();
-            }
-            else
-            {
-                OpenDBCon();
-
-                command = new OleDbCommand();
-
-                command.Connection = connection;
-
-                DateTime DTNow = DateTime.Now;
-
-                string sText = "(I have explained the procedures for the non-flight returns to the customer) \r\n" + txt_newnote.Text;
-
-                string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,DateAndTime,InvoiceNumber) values ('" + sText +
-                                                                                                        "', '" + cmb_worker.Text +
-                                                                                                        "', '" + DTNow +
-                                                                                                        "', " + g_iInvoiceNumber + ")";
-
-                command.CommandText = sNonQuery;
-
-                command.ExecuteNonQuery();
-
-                CloseDBCon();
-
-                g_bClosedWithSaved = true;
-
-                btn_save.BackColor = Color.Green;
-                btn_save.Text = "SAVED";
-                this.BackColor = Color.LightGreen;
-                btn_save.Enabled = false;
-            }
-        }
-
         public bool GetClosedWithSaved()
         {
             return (g_bClosedWithSaved);
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

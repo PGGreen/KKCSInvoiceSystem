@@ -82,7 +82,8 @@ namespace KKCSInvoiceProject
             versionToolStripMenuItem.Text = "dv" + sVersionNumber;
 
             lbl_debug.Visible = true;
-            lbl_debug.Location = new Point(100, 100);
+            lbl_debug.Location = new Point(70, 100);
+            lbl_debug.Text += "\r\n" + m_strDataBaseFilePath.Substring(90, 26);
 
         }
 
@@ -1484,6 +1485,26 @@ namespace KKCSInvoiceProject
             {
                 Testing test = new Testing();
                 test.Show();
+            }
+        }
+
+        private void longTermToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["LongTermMain"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                LongTermMain ltm = new LongTermMain();
+                ltm.Show();
             }
         }
 

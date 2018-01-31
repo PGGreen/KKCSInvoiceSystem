@@ -38,6 +38,8 @@
             this.txt_nocars = new System.Windows.Forms.Label();
             this.btn_one = new System.Windows.Forms.Button();
             this.label72 = new System.Windows.Forms.Label();
+            this.lbl_nokey = new System.Windows.Forms.Label();
+            this.btn_nokeytemp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_mainmenu
@@ -149,12 +151,37 @@
             this.label72.TabIndex = 232;
             this.label72.Text = "Key Box";
             // 
+            // lbl_nokey
+            // 
+            this.lbl_nokey.AutoSize = true;
+            this.lbl_nokey.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_nokey.ForeColor = System.Drawing.Color.Blue;
+            this.lbl_nokey.Location = new System.Drawing.Point(18, 115);
+            this.lbl_nokey.Name = "lbl_nokey";
+            this.lbl_nokey.Size = new System.Drawing.Size(137, 37);
+            this.lbl_nokey.TabIndex = 233;
+            this.lbl_nokey.Text = "No Key:";
+            this.lbl_nokey.Visible = false;
+            // 
+            // btn_nokeytemp
+            // 
+            this.btn_nokeytemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_nokeytemp.Location = new System.Drawing.Point(163, 112);
+            this.btn_nokeytemp.Name = "btn_nokeytemp";
+            this.btn_nokeytemp.Size = new System.Drawing.Size(118, 43);
+            this.btn_nokeytemp.TabIndex = 234;
+            this.btn_nokeytemp.Text = "NANAGG";
+            this.btn_nokeytemp.UseVisualStyleBackColor = true;
+            this.btn_nokeytemp.Visible = false;
+            // 
             // KeyBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1545, 735);
+            this.Controls.Add(this.btn_nokeytemp);
+            this.Controls.Add(this.lbl_nokey);
             this.Controls.Add(this.label72);
             this.Controls.Add(this.btn_one);
             this.Controls.Add(this.txt_nocars);
@@ -184,5 +211,7 @@
         private System.Windows.Forms.Label txt_nocars;
         private System.Windows.Forms.Button btn_one;
         private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label lbl_nokey;
+        private System.Windows.Forms.Button btn_nokeytemp;
     }
 }

@@ -471,9 +471,10 @@ namespace KKCSInvoiceProject
                     btn.BackgroundImage = Properties.Resources.NA;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
 
-                    btn.Name = reader["InvoiceNumber"].ToString();
+                    string sInvoiceNumber = reader["InvoiceNumber"].ToString();
+                    string sRego = reader["Rego"].ToString();
 
-                    btn.Click += new EventHandler(NotesButton_Click);
+                    btn.Click += (sender, EventArgs) => { NoteAndAlertButton_Click(sender, EventArgs, sInvoiceNumber, sRego); };
                 }
                 else if((bool)reader["IsNotes"])
                 {
@@ -491,9 +492,9 @@ namespace KKCSInvoiceProject
                     btn.BackgroundImage = Properties.Resources.A;
                     btn.BackgroundImageLayout = ImageLayout.Stretch;
 
-                    btn.Name = reader["InvoiceNumber"].ToString();
+                    btn.Name = reader["Rego"].ToString();
 
-                    btn.Click += new EventHandler(NotesButton_Click);
+                    btn.Click += new EventHandler(AlertsButton_Click);
                 }
             }
 
@@ -901,35 +902,14 @@ namespace KKCSInvoiceProject
         #endregion
 
         #region AlertAndNotesButton
+
         private void AlertsButton_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
 
-            connection.Open();
-
-            command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            int x = 0;
-            Int32.TryParse(btn.Name, out x);
-
-            string query = @"SELECT Alerts FROM CustomerInvoices
-                             WHERE InvoiceNumber = " + x + "";
-
-            command.CommandText = query;
-
-            reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                string tempStr = reader["Alerts"].ToString();
-                MessageBox.Show(tempStr, "Alert");
-
-                break;
-            }
-
-            connection.Close();
+            ShowNotesAlerts sna = new ShowNotesAlerts();
+            sna.LoadAlerts(btn.Name);
+            sna.ShowDialog();
         }
 
         private void NotesButton_Click(object sender, EventArgs e)
@@ -937,11 +917,20 @@ namespace KKCSInvoiceProject
             Button btn = (Button)sender;
 
             ShowNotesAlerts sna = new ShowNotesAlerts();
-            sna.Test(btn.Name);
+            sna.LoadNotes(btn.Name);
             sna.ShowDialog();
-
-            connection.Close();
         }
+
+        private void NoteAndAlertButton_Click(object sender, EventArgs e, string _iInvoiceNumber, string _sRego)
+        {
+            Button btn = (Button)sender;
+
+            ShowNotesAlerts sna = new ShowNotesAlerts();
+            sna.LoadAlerts(_sRego);
+            sna.LoadNotes(_iInvoiceNumber);
+            sna.ShowDialog();
+        }
+
         #endregion
 
         #region InvoiceButton

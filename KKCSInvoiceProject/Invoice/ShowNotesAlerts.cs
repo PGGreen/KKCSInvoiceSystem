@@ -32,9 +32,7 @@ namespace KKCSInvoiceProject
 
             lbl_alerts.Text = "";
 
-            //Test();
-
-            MoneyInSeptember();
+            //MoneyInSeptember();
         }
 
         void MoneyInSeptember()
@@ -74,7 +72,7 @@ namespace KKCSInvoiceProject
             connection.Close();
         }
 
-        public void Test(string _iInvoiceNumber)
+        public void LoadNotes(string _iInvoiceNumber)
         {
             connection.Open();
 
@@ -105,6 +103,38 @@ namespace KKCSInvoiceProject
             }
 
             lbl_notes.Text = tempStr;
+
+            connection.Close();
+        }
+
+        public void LoadAlerts(string _iRego)
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"SELECT * FROM Alerts
+                             WHERE Rego = '" + _iRego + "'";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            string tempStr = "";
+
+            while (reader.Read())
+            {
+                DateTime dtNoteTime = (DateTime)reader["DateAndTime"];
+                string sDate = dtNoteTime.Day.ToString() + "/" + dtNoteTime.Month + "/" + dtNoteTime.ToString("yy") + " - " + dtNoteTime.ToString("h:mm tt");
+
+                tempStr += reader["Alert"].ToString() + "\r\n" + "-" + reader["StaffMember"].ToString() + " (" + sDate + ")";
+
+                tempStr += "\r\n\r\n";
+            }
+
+            lbl_alerts.Text = tempStr;
 
             connection.Close();
         }

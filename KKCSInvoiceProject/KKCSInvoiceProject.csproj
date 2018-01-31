@@ -582,6 +582,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigFiles\CarStorageLogo.ico" />
+    <Content Include="XML\Test.xml" />
     <None Include="Resources\Background.png" />
     <None Include="Resources\A.png" />
     <Content Include="Resources\Car Storage Logo.jpg" />

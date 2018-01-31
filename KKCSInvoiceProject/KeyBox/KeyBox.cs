@@ -93,6 +93,10 @@ namespace KKCSInvoiceProject
             OleDbDataReader reader = command.ExecuteReader();
 
             int iNumberOfCars = 0;
+            int iNumberOfNoKeys = 0;
+            lbl_nokey.Visible = false;
+
+            int iLocationNoKeyX = 0;
 
             for (int i = 0; i < 70; i++)
             {
@@ -108,20 +112,54 @@ namespace KKCSInvoiceProject
             {
                 string sKeyNumber = reader["KeyNumber"].ToString();
 
+                if(sKeyNumber == "NK")
+                {
+                    lbl_nokey.Visible = true;
+
+                    Button NoKeyRegoButton = new Button();
+
+                    NoKeyRegoButton.Size = btn_nokeytemp.Size;
+                    NoKeyRegoButton.Font = btn_nokeytemp.Font;
+                    NoKeyRegoButton.Location = new Point(btn_nokeytemp.Location.X + iLocationNoKeyX, btn_nokeytemp.Location.Y);
+                    NoKeyRegoButton.Text = reader["Rego"].ToString();
+                    NoKeyRegoButton.BackColor = Color.LightGreen;
+                    NoKeyRegoButton.Name = reader["Rego"].ToString();
+
+                    string sInvoiceNumber = reader["InvoiceNumber"].ToString();
+                    NoKeyRegoButton.Click += (sender, EventArgs) => { InvoiceButton_Click(sender, EventArgs, sInvoiceNumber); };
+
+                    cmb_regos.Items.Add(reader["Rego"].ToString());
+                    lstKeyBox.Add(NoKeyRegoButton);
+
+                    iLocationNoKeyX += 130;
+
+                    Controls.Add(NoKeyRegoButton);
+                }
+
                 int iTempKeyNumber = 0;
                 bool bIsNumber = int.TryParse(sKeyNumber, out iTempKeyNumber);
 
                 if(bIsNumber)
                 {
+                    string sRego = reader["Rego"].ToString();
+
                     lstKeyBox[iTempKeyNumber - 1].Text = iTempKeyNumber.ToString() + ". " + reader["Rego"].ToString();
-                    lstKeyBox[iTempKeyNumber - 1].Name = reader["Rego"].ToString();
+                    lstKeyBox[iTempKeyNumber - 1].Name = sRego;
                     lstKeyBox[iTempKeyNumber - 1].BackColor = Color.LightGreen;
 
                     string sInvoiceNumber = reader["InvoiceNumber"].ToString();
 
-                    lstKeyBox[iTempKeyNumber - 1].Click += (sender, EventArgs) => { InvoiceButton_Click(sender, EventArgs, sInvoiceNumber); };
+                    if(sRego == "")
+                    {
+                        lstKeyBox[iTempKeyNumber - 1].BackColor = Color.LightBlue;
+                        lstKeyBox[iTempKeyNumber - 1].Text = iTempKeyNumber.ToString() + ". " + "On Hold";
+                    }
+                    else
+                    {
+                        lstKeyBox[iTempKeyNumber - 1].Click += (sender, EventArgs) => { InvoiceButton_Click(sender, EventArgs, sInvoiceNumber); };
 
-                    cmb_regos.Items.Add(reader["Rego"].ToString());
+                        cmb_regos.Items.Add(reader["Rego"].ToString());
+                    }
                 }
 
                 iNumberOfCars++;
@@ -138,7 +176,6 @@ namespace KKCSInvoiceProject
         {
             Font fFont = new Font(btn_one.Font.FontFamily, 14.0f , FontStyle.Bold);
 
-            
             Button btn = new Button();
 
             btn.Font = fFont;//btn_one.Font;

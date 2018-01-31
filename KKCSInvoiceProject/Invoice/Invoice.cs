@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Drawing.Printing;
+using System.Xml;
 
 namespace KKCSInvoiceProject
 {
@@ -239,7 +240,8 @@ namespace KKCSInvoiceProject
             // If not, then it is a new Invoice
             if (!m_bIsFromCarReturns)
             {
-                FindFlightTimes();
+                //FindFlightTimesXML();
+                FindFlightTimesXML();
 
                 btn_datepaid.Visible = false;
 
@@ -331,7 +333,12 @@ namespace KKCSInvoiceProject
                 DateTime dtreturn = (DateTime)reader["DTReturnDate"];
                 dt_returndate.Value = dtreturn;
 
-                txt_flighttimes.Text = reader["ReturnTime"].ToString();
+                //txt_flighttimes.Text = reader["ReturnTime"].ToString();
+
+                txt_flighttimes.Items.Add(reader["ReturnTime"].ToString());
+
+                int iComboBoxCount = txt_flighttimes.Items.Count;
+                txt_flighttimes.SelectedIndex = iComboBoxCount - 1;
 
                 // Inserts the time the customer dropped the car off
                 cmb_timeinhours.Text = reader["TimeIn"].ToString().Substring(0, 2);
@@ -372,7 +379,7 @@ namespace KKCSInvoiceProject
                 cmb_returnstatus.Text = reader["FlightStatus"].ToString();
                 lbl_stay.Text = reader["Stay"].ToString();
 
-                FindFlightTimes();
+                //FindFlightTimesXML();
 
                 for (int i = 0; i < txt_flighttimes.Items.Count; i++)
                 {
@@ -593,16 +600,19 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                int.TryParse(reader["KeyNumber"].ToString(), out iSecondNumber);
-
-                int tempTestDifference = iSecondNumber - iFirstNumber;
-
-                if (tempTestDifference >= 2)
+                if(reader["KeyNumber"].ToString() != "NK")
                 {
-                    break;
-                }
+                    int.TryParse(reader["KeyNumber"].ToString(), out iSecondNumber);
 
-                int.TryParse(reader["KeyNumber"].ToString(), out iFirstNumber);
+                    int tempTestDifference = iSecondNumber - iFirstNumber;
+
+                    if (tempTestDifference >= 2)
+                    {
+                        break;
+                    }
+
+                    int.TryParse(reader["KeyNumber"].ToString(), out iFirstNumber);
+                }
             }
 
             txt_keyno.Text = (iFirstNumber + 1).ToString("00");
@@ -680,7 +690,7 @@ namespace KKCSInvoiceProject
 
             string sTxtFileLocation = "";
 
-            if (dtCompare <= dtDec17)
+            //if (dtCompare <= dtDec17)
             {
                 switch(sTodaysDay)
                 {
@@ -718,6 +728,84 @@ namespace KKCSInvoiceProject
                     txt_flighttimes.SelectedIndex = 0;
                 }
             }
+        }
+
+        void FindFlightTimesXML()
+        {
+            XmlReader xmlReader = XmlReader.Create("Data/XML/FlightTimes.xml");
+
+            string sDatePicked = dt_returndate.Value.Year + "-" + dt_returndate.Value.Month + "-" + dt_returndate.Value.Day;
+
+            txt_flighttimes.Items.Clear();
+
+            txt_flighttimes.Items.Add("Please Pick...");
+
+            while (xmlReader.Read())
+            {
+                if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "FlightTimes"))
+                {
+                    if (xmlReader.HasAttributes)
+                    {
+                        if (sDatePicked == (string)xmlReader.GetAttribute("date"))
+                        {
+                            string sFlightString = xmlReader.GetAttribute("flighttime") + " - NZ" + xmlReader.GetAttribute("flightno");
+                            txt_flighttimes.Items.Add(sFlightString);
+                        }  
+                    }
+                }
+            }
+
+            if(txt_flighttimes.Items.Count <= 2)
+            {
+                string sDay = dt_returndate.Value.ToString("dddd");
+                switch(sDay)
+                {
+                    case "Saturday":
+                        {
+                            txt_flighttimes.Items.Add("0920 - NZ8266");
+                            txt_flighttimes.Items.Add("1215 - NZ8274");
+                            txt_flighttimes.Items.Add("1720 - NZ8270");
+
+                            break;
+                        }
+                    case "Sunday":
+                    case "Monday":
+                        {
+                            txt_flighttimes.Items.Add("0920 - NZ8266");
+                            txt_flighttimes.Items.Add("1215 - NZ8274");
+                            txt_flighttimes.Items.Add("1440 - NZ8268");
+                            txt_flighttimes.Items.Add("1720 - NZ8270");
+                            txt_flighttimes.Items.Add("2025 - NZ8272");
+
+                            break;
+                        }
+                    case "Tuesday":
+                    case "Wednesday":
+                    case "Thursday":
+                        {
+                            txt_flighttimes.Items.Add("0920 - NZ8266");
+                            txt_flighttimes.Items.Add("1440 - NZ8268");
+                            txt_flighttimes.Items.Add("1720 - NZ8270");
+                            txt_flighttimes.Items.Add("2025 - NZ8272");
+
+                            break;
+                        }
+                    case "Friday":
+                        {
+                            txt_flighttimes.Items.Add("0920 - NZ8266");
+                            txt_flighttimes.Items.Add("1215 - NZ8274");
+                            txt_flighttimes.Items.Add("1440 - NZ8268");
+                            txt_flighttimes.Items.Add("1720 - NZ8270");
+                            txt_flighttimes.Items.Add("2025 - NZ8272");
+
+                            break;
+                        }
+                }
+            }
+
+            txt_flighttimes.Items.Add("Manual Time");
+
+            txt_flighttimes.SelectedIndex = 0;
         }
 
         void TempInsertInv()
@@ -1091,8 +1179,7 @@ namespace KKCSInvoiceProject
                 string UpdateCommand = @"UPDATE CustomerInvoices SET
                                                                     KeyNumber = '" + txt_keyno.Text +
                                                                     "', Rego = '" + cmb_rego.Text +
-                                                                    //"', FirstName = '" + txt_firstname.Text +
-                                                                    "', FirstName = '" + sTest +
+                                                                    "', FirstName = '" + txt_firstname.Text +
                                                                     "', LastName = '" + txt_lastname.Text +
                                                                     "', PhoneNumber = '" + txt_ph.Text +
                                                                     "', MakeModel = '" + cmb_makemodel.Text +
@@ -1701,7 +1788,25 @@ namespace KKCSInvoiceProject
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-            FindFlightTimes();
+            DateTime dtXmasDay = new DateTime(dt_returndate.Value.Year, 12, 25);
+            DateTime dtXmasDayCompare = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day);
+
+            if(dtXmasDay == dtXmasDayCompare)
+            {
+                string sXmasWarning = "Please advise customer we are closed on Christmas Day.\r\n\r\n";
+                sXmasWarning += "If they wish to stay with us, they can pick up their car on Boxing Day (26th),\r\n";
+                sXmasWarning += "or if they prefer they can park their car out in the public car park instead.";
+
+                WarningSystem ws = new WarningSystem(sXmasWarning, false);
+
+                ws.ShowDialog();
+
+                dt_returndate.Value = DateTime.Now;
+
+                return;
+            }
+
+            FindFlightTimesXML();
 
             //txt_flighttimes.SelectedIndex = 0;
 
@@ -1766,10 +1871,10 @@ namespace KKCSInvoiceProject
 
             UpdateCustomerShow();
 
-            //if (!m_bInitialSetUpFromCarReturns)
-            //{
-            //    WarningsChangesMade();
-            //}
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
         }
 
         private void txt_total_TextChanged(object sender, EventArgs e)
@@ -2035,7 +2140,7 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(txt_flighttimes.Text == "Manual Time")
+            if(txt_flighttimes.Text == "Manual Time" && !m_bInitialSetUpFromCarReturns)
             {
                 mt = new ManualTime();
                 mt.FormClosing += CloseManualTime;
@@ -2501,6 +2606,18 @@ Number: 02-0800-0493229-00
 
                 iTotalMoney = iMonth * iWorkOutWeeks;
             }
+            
+            if(cmb_rego.Text == "GNB404")
+            {
+                if(iDays == 0)
+                {
+                    iTotalMoney = 7;
+                }
+                else
+                {
+                    iTotalMoney = iDays * 7;
+                }
+            }
 
             // Adds the credit card fee if applicable
             if (g_sPaidStatus == "Credit Card")
@@ -2563,6 +2680,7 @@ Number: 02-0800-0493229-00
             g_sPaidStatus = lstOriginalValues[8];
             m_bCarPickedUp = bPickedUp;
             m_sCarLocation = lstOriginalValues[10];
+            cmb_makemodel.Text = lstOriginalValues[11];
 
             m_bInitialSetUpFromCarReturns = false;
 
@@ -2588,6 +2706,7 @@ Number: 02-0800-0493229-00
             lstOriginalValues.Add(g_sPaidStatus);
             lstOriginalValues.Add(cmb_pickedup.Text);
             lstOriginalValues.Add(m_sCarLocation);
+            lstOriginalValues.Add(cmb_makemodel.Text);
         }
 
         void WarningsChangesMade()
@@ -2608,7 +2727,7 @@ Number: 02-0800-0493229-00
                 lstCheckValues.Add(g_sPaidStatus);
                 lstCheckValues.Add(cmb_pickedup.Text);
                 lstCheckValues.Add(m_sCarLocation);
-
+                lstCheckValues.Add(cmb_makemodel.Text);
 
                 int iCount = 0;
 
@@ -2832,19 +2951,7 @@ Number: 02-0800-0493229-00
 
         private void CloseUnknownForm(object sender, CancelEventArgs e)
         {
-            iv = new InvoiceNotes();
-            iv.GetInvoiceNumber(iInvoiceNumber);
-            iv.FormClosing += CloseInvoiceNotes;
-            IntPtr dummyInvoice = iv.Handle;
-            iv.Close();
-
-            if(!db.GetClosedWithSaved())
-            {
-                cmb_returnstatus.SelectedIndex = 0;
-            }
-
             UpdateDateAndTime();
-
         }
 
         private void CloseAlertNotes(object sender, CancelEventArgs e)
@@ -2948,6 +3055,8 @@ Number: 02-0800-0493229-00
             lbl_flighttime.Text = "RETURN FLIGHT:";
             lbl_staytext.Text = "STAY:";
 
+
+
             switch (cmb_returnstatus.Text)
             {
                 case "Standard - On Flight":
@@ -2961,9 +3070,12 @@ Number: 02-0800-0493229-00
                         dt_returndate.Visible = false;
                         txt_flighttimes.Visible = false;
 
-                        db.SetText("Unknown", iInvoiceNumber);
-                        db.FormClosing += CloseUnknownForm;
-                        db.ShowDialog();
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            db.SetText("Unknown", iInvoiceNumber);
+                            db.FormClosing += CloseUnknownForm;
+                            db.ShowDialog();
+                        }
 
                         lbl_returndate.Text += " UNKNOWN";
                         lbl_flighttime.Text += " UNKNOWN";
@@ -2986,9 +3098,12 @@ Number: 02-0800-0493229-00
                     {
                         txt_flighttimes.Visible = false;
 
-                        db.SetText("Unknown", iInvoiceNumber);
-                        db.FormClosing += CloseUnknownForm;
-                        db.ShowDialog();
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            db.SetText("Unknown", iInvoiceNumber);
+                            db.FormClosing += CloseUnknownForm;
+                            db.ShowDialog();
+                        }
 
                         lbl_flighttime.Text += " UNKNOWN";
                         lbl_staytext.Text += " UNKNOWN";
@@ -3008,9 +3123,12 @@ Number: 02-0800-0493229-00
                     }
                 case "Driving Back/Bus":
                     {
-                        db.SetText("Driving Back", iInvoiceNumber);
-                        db.FormClosing += CloseUnknownForm;
-                        db.ShowDialog();
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            db.SetText("Driving Back", iInvoiceNumber);
+                            db.FormClosing += CloseUnknownForm;
+                            db.ShowDialog();
+                        }
 
                         break;
                     }
@@ -3019,9 +3137,12 @@ Number: 02-0800-0493229-00
                         dt_returndate.Visible = false;
                         txt_flighttimes.Visible = false;
 
-                        db.SetText("Driving Back", iInvoiceNumber);
-                        db.FormClosing += CloseUnknownForm;
-                        db.ShowDialog();
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            db.SetText("Driving Back", iInvoiceNumber);
+                            db.FormClosing += CloseUnknownForm;
+                            db.ShowDialog();
+                        }
 
                         lbl_returndate.Text += " UNKNOWN";
                         lbl_flighttime.Text += " UNKNOWN";
@@ -3088,6 +3209,40 @@ Number: 02-0800-0493229-00
             if (!m_bInitialSetUpFromCarReturns)
             {
                 WarningsChangesMade();
+            }
+        }
+
+        private void dt_dateleft_Click(object sender, EventArgs e)
+        {
+            DateTime dtStore = dt_returndate.Value;
+
+            dtStore = dtStore.AddDays(-1);
+
+            dt_returndate.Value = dtStore;
+        }
+
+        private void dt_dateright_Click(object sender, EventArgs e)
+        {
+            DateTime dtStore = dt_returndate.Value;
+
+            dtStore = dtStore.AddDays(1);
+
+            dt_returndate.Value = dtStore;
+        }
+
+        private void chk_nokey_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_nokey.Checked)
+            {
+                txt_keyno.Text = "NK";
+                txt_keyno.BackColor = Color.PaleVioletRed;
+                txt_keyno.ForeColor = Color.White;
+            }
+            else
+            {
+                FindKeyNumber();
+                txt_keyno.BackColor = Color.FromArgb(255, 255, 128);
+                txt_keyno.ForeColor = Color.Black;
             }
         }
     }

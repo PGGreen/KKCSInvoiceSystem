@@ -80,12 +80,12 @@
             this.tillPBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tEstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_accounts = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbl_debug = new System.Windows.Forms.Label();
             this.txt_noofcars = new System.Windows.Forms.Label();
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
-            this.tEstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -597,6 +597,7 @@
             this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
             this.longTermToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
             this.longTermToolStripMenuItem.Text = "Long Term";
+            this.longTermToolStripMenuItem.Click += new System.EventHandler(this.longTermToolStripMenuItem_Click);
             // 
             // pettyCashToolStripMenuItem
             // 
@@ -644,6 +645,13 @@
             this.versionToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
+            // 
+            // tEstToolStripMenuItem
+            // 
+            this.tEstToolStripMenuItem.Name = "tEstToolStripMenuItem";
+            this.tEstToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.tEstToolStripMenuItem.Text = "Test";
+            this.tEstToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
             // 
             // btn_accounts
             // 
@@ -702,13 +710,6 @@
             this.cmb_printerpicked.Name = "cmb_printerpicked";
             this.cmb_printerpicked.Size = new System.Drawing.Size(234, 33);
             this.cmb_printerpicked.TabIndex = 232;
-            // 
-            // tEstToolStripMenuItem
-            // 
-            this.tEstToolStripMenuItem.Name = "tEstToolStripMenuItem";
-            this.tEstToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.tEstToolStripMenuItem.Text = "Test";
-            this.tEstToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
