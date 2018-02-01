@@ -69,6 +69,7 @@ namespace KKCSInvoiceProject
         private bool m_bCarPickedUp = false;
 
         float m_fOriginalPriceBeforeCredit = 0.0f;
+        float fRemainingCredit = 0.0f;
 
         NewCarReturns NewCarReturns;
 
@@ -1277,6 +1278,17 @@ namespace KKCSInvoiceProject
                 // Make the command equal the physical location of the database (connection)
                 command.Connection = connection;
 
+                string sRemaining = "";
+
+                if(fRemainingCredit != 0.0f)
+                {
+                    sRemaining = fRemainingCredit.ToString();
+                }
+                else if(fRemainingCredit == 0.0f)
+                {
+                    sRemaining = "";
+                }
+
                 string cmd1 = @"UPDATE NumberPlates SET
                                     NumberPlates = '" + cmb_rego.Text +
                                     "', ClientName = '" + txt_firstname.Text +
@@ -1284,6 +1296,7 @@ namespace KKCSInvoiceProject
                                     "', MakeModel = '" + cmb_makemodel.Text +
                                     "', Ph = '" + txt_ph.Text +
                                     "', Alerts = '" + txt_alerts.Text +
+                                    "', Credit = '" + sRemaining +
                                     "' WHERE NumberPlates = '" + m_sTempStoreRego + "'";
 
                 // Makes the command text equal the string
@@ -2667,7 +2680,6 @@ Number: 02-0800-0493229-00
             if(txt_credit.Text != "")
             {
                 float fNewTotal = 0.0f;
-                float fRemainingCredit = 0.0f;
 
                 float fTotal = 0.0f;
                 float fCredit = 0.0f;
@@ -2679,8 +2691,18 @@ Number: 02-0800-0493229-00
 
                 if(fNewTotal < 0)
                 {
+                    cmb_paidstatus.Text = "Credit Used";
+                    txt_credit.Text = "$" + fCredit + ".00 ($" + (fNewTotal * -1) + ".00 Remaining)";
+                    txt_total.Text = "0";
 
-                    //cmb_paidstatus.Controls.Add("Credit");
+                    fRemainingCredit = (fNewTotal * -1);
+                }
+                else if(fNewTotal >= 0)
+                {
+                    txt_credit.Text = "$" + fCredit + ".00 ($0.00 Remaining)";
+                    txt_total.Text = fNewTotal.ToString();
+
+                    fRemainingCredit = 0.0f;
                 }
             }
 

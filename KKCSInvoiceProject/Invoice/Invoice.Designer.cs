@@ -219,11 +219,11 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(777, 183);
+            this.label13.Location = new System.Drawing.Point(766, 182);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(146, 25);
+            this.label13.Size = new System.Drawing.Size(157, 25);
             this.label13.TabIndex = 30;
-            this.label13.Text = "Total Price $";
+            this.label13.Text = "Total Owing $";
             // 
             // cmb_timeinhours
             // 
@@ -1083,7 +1083,7 @@
             this.btn_cashcalc.BackColor = System.Drawing.Color.Transparent;
             this.btn_cashcalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cashcalc.ForeColor = System.Drawing.Color.Black;
-            this.btn_cashcalc.Location = new System.Drawing.Point(697, 177);
+            this.btn_cashcalc.Location = new System.Drawing.Point(684, 175);
             this.btn_cashcalc.Name = "btn_cashcalc";
             this.btn_cashcalc.Size = new System.Drawing.Size(80, 39);
             this.btn_cashcalc.TabIndex = 180;
