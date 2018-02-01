@@ -65,7 +65,6 @@
             this.label39 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.label28 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.lbl_changesmade = new System.Windows.Forms.Label();
@@ -92,7 +91,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.lbl_pickreturn = new System.Windows.Forms.Label();
             this.btn_namesearch = new System.Windows.Forms.Button();
             this.cmb_makemodel = new System.Windows.Forms.ComboBox();
             this.cmb_returnstatus = new System.Windows.Forms.ComboBox();
@@ -115,6 +113,8 @@
             this.dt_dateleft = new System.Windows.Forms.Button();
             this.dt_dateright = new System.Windows.Forms.Button();
             this.chk_nokey = new System.Windows.Forms.CheckBox();
+            this.txt_credit = new System.Windows.Forms.TextBox();
+            this.lbl_credit = new System.Windows.Forms.Label();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -608,17 +608,6 @@
             this.label41.TabIndex = 141;
             this.label41.Text = "Rego:";
             // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(787, 215);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(122, 29);
-            this.button2.TabIndex = 142;
-            this.button2.Text = "Use $20 Credit";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -925,17 +914,6 @@
             this.label35.TabIndex = 1;
             this.label35.Text = "Split Payment";
             // 
-            // lbl_pickreturn
-            // 
-            this.lbl_pickreturn.AutoSize = true;
-            this.lbl_pickreturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_pickreturn.ForeColor = System.Drawing.Color.Red;
-            this.lbl_pickreturn.Location = new System.Drawing.Point(779, 137);
-            this.lbl_pickreturn.Name = "lbl_pickreturn";
-            this.lbl_pickreturn.Size = new System.Drawing.Size(327, 25);
-            this.lbl_pickreturn.TabIndex = 26;
-            this.lbl_pickreturn.Text = "Please Pick Return Date/Time";
-            // 
             // btn_namesearch
             // 
             this.btn_namesearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1023,7 +1001,8 @@
             "No Charge",
             "Internet",
             "Cheque",
-            "To Pay"});
+            "To Pay",
+            "Credit Used"});
             this.cmb_paidstatus.Location = new System.Drawing.Point(909, 262);
             this.cmb_paidstatus.Name = "cmb_paidstatus";
             this.cmb_paidstatus.Size = new System.Drawing.Size(231, 39);
@@ -1080,7 +1059,7 @@
             // 
             this.btn_datepaid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btn_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_datepaid.Location = new System.Drawing.Point(787, 111);
+            this.btn_datepaid.Location = new System.Drawing.Point(775, 83);
             this.btn_datepaid.Name = "btn_datepaid";
             this.btn_datepaid.Size = new System.Drawing.Size(314, 23);
             this.btn_datepaid.TabIndex = 177;
@@ -1104,7 +1083,7 @@
             this.btn_cashcalc.BackColor = System.Drawing.Color.Transparent;
             this.btn_cashcalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cashcalc.ForeColor = System.Drawing.Color.Black;
-            this.btn_cashcalc.Location = new System.Drawing.Point(807, 211);
+            this.btn_cashcalc.Location = new System.Drawing.Point(697, 177);
             this.btn_cashcalc.Name = "btn_cashcalc";
             this.btn_cashcalc.Size = new System.Drawing.Size(80, 39);
             this.btn_cashcalc.TabIndex = 180;
@@ -1230,12 +1209,36 @@
             this.chk_nokey.UseVisualStyleBackColor = true;
             this.chk_nokey.CheckedChanged += new System.EventHandler(this.chk_nokey_CheckedChanged);
             // 
+            // txt_credit
+            // 
+            this.txt_credit.BackColor = System.Drawing.Color.LightGreen;
+            this.txt_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_credit.ForeColor = System.Drawing.Color.Black;
+            this.txt_credit.Location = new System.Drawing.Point(929, 134);
+            this.txt_credit.Name = "txt_credit";
+            this.txt_credit.Size = new System.Drawing.Size(361, 31);
+            this.txt_credit.TabIndex = 237;
+            this.txt_credit.Visible = false;
+            // 
+            // lbl_credit
+            // 
+            this.lbl_credit.AutoSize = true;
+            this.lbl_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_credit.Location = new System.Drawing.Point(828, 136);
+            this.lbl_credit.Name = "lbl_credit";
+            this.lbl_credit.Size = new System.Drawing.Size(95, 25);
+            this.lbl_credit.TabIndex = 238;
+            this.lbl_credit.Text = "Credit $";
+            this.lbl_credit.Visible = false;
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 737);
+            this.Controls.Add(this.lbl_credit);
+            this.Controls.Add(this.txt_credit);
             this.Controls.Add(this.chk_nokey);
             this.Controls.Add(this.dt_dateright);
             this.Controls.Add(this.dt_dateleft);
@@ -1268,7 +1271,6 @@
             this.Controls.Add(this.lbl_pickuptitle);
             this.Controls.Add(this.btn_revertchanges);
             this.Controls.Add(this.lbl_changesmade);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.label41);
             this.Controls.Add(this.label40);
             this.Controls.Add(this.label39);
@@ -1297,7 +1299,6 @@
             this.Controls.Add(this.cmb_timeinhours);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txt_total);
-            this.Controls.Add(this.lbl_pickreturn);
             this.Controls.Add(this.txt_ph);
             this.Controls.Add(this.lbl_flighttime);
             this.Controls.Add(this.label7);
@@ -1362,7 +1363,6 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label lbl_changesmade;
@@ -1387,7 +1387,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label lbl_pickreturn;
         private System.Windows.Forms.Button btn_namesearch;
         private System.Windows.Forms.ComboBox cmb_makemodel;
         private System.Windows.Forms.ComboBox cmb_returnstatus;
@@ -1412,5 +1411,7 @@
         private System.Windows.Forms.Button dt_dateleft;
         private System.Windows.Forms.Button dt_dateright;
         private System.Windows.Forms.CheckBox chk_nokey;
+        private System.Windows.Forms.TextBox txt_credit;
+        private System.Windows.Forms.Label lbl_credit;
     }
 }

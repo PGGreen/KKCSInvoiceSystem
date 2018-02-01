@@ -1657,6 +1657,20 @@ namespace KKCSInvoiceProject
                     txt_alerts.Text = reader["Alerts"].ToString();
 
                     m_sTempStoreRego = cmb_rego.Text;
+
+                    txt_credit.Visible = false;
+                    lbl_credit.Visible = false;
+
+                    string sCredit = reader["Credit"].ToString();
+                    txt_credit.Text = "";
+
+                    if (sCredit != "")
+                    {
+                        txt_credit.Visible = true;
+                        lbl_credit.Visible = true;
+
+                        txt_credit.Text = "$" + sCredit + ".00 ($" + sCredit + ".00 Remaining)";
+                    }
                 }
 
                 this.Text = cmb_rego.Text;
@@ -1816,8 +1830,6 @@ namespace KKCSInvoiceProject
             }
 
             UpdateDateAndTime();
-
-            lbl_pickreturn.Visible = false;
         }
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
@@ -2652,6 +2664,26 @@ Number: 02-0800-0493229-00
                 txt_total.Text = "";
             }
 
+            if(txt_credit.Text != "")
+            {
+                float fNewTotal = 0.0f;
+                float fRemainingCredit = 0.0f;
+
+                float fTotal = 0.0f;
+                float fCredit = 0.0f;
+
+                float.TryParse(txt_total.Text, out fTotal);
+                float.TryParse(txt_credit.Text.Substring(1, 5), out fCredit);
+
+                fNewTotal = fTotal - fCredit;
+
+                if(fNewTotal < 0)
+                {
+
+                    //cmb_paidstatus.Controls.Add("Credit");
+                }
+            }
+
             UpdateCustomerShowPrice();
         }
 
@@ -2843,6 +2875,12 @@ Number: 02-0800-0493229-00
                         g_sPaidStatus = "N/C";
                         cmb_paidstatus.BackColor = Color.Orange;
 
+                        break;
+                    }
+                case "Credit Used":
+                    {
+                        g_sPaidStatus = "CreditUsed";
+                        cmb_paidstatus.BackColor = Color.LightGreen;
                         break;
                     }
                 default: // No Paid Status Picked
