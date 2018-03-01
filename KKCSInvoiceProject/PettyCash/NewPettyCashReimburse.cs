@@ -29,8 +29,6 @@ namespace KKCSInvoiceProject
             connection.ConnectionString = m_strDataBaseFilePath;
             
             GetCurrentPettyCash();
-
-            //WorkOutTotalPettyCash();
         }
 
         void GetCurrentPettyCash()
@@ -41,7 +39,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"SELECT * FROM NewPettyCash ORDER BY ID DESC";
+            string query = @"SELECT * FROM NewPettyCash ORDER BY DatePetty DESC";
 
             command.CommandText = query;
 
@@ -52,7 +50,7 @@ namespace KKCSInvoiceProject
                 fPettyRemaning = 0;
                 float.TryParse(reader["PettyRunningTotal"].ToString(), out fPettyRemaning);
 
-                txt_currentpetty.Text = fPettyRemaning.ToString("0.00");
+                txt_pccurrent.Text = fPettyRemaning.ToString("0.00");
 
                 break;
             }
@@ -67,10 +65,10 @@ namespace KKCSInvoiceProject
             float fReimburseAmount = 0.0f;
             fReimburseAmount = 200.0f - fPettyRemaning;
 
-            txt_pettyadding.Text = fReimburseAmount.ToString("0.00");
+            //txt_pettyadding.Text = fReimburseAmount.ToString("0.00");
 
             float New = fReimburseAmount + fPettyRemaning;
-            txt_newpettycash.Text = New.ToString("0.00");
+            //txt_newpettycash.Text = New.ToString("0.00");
         }
 
         #region Save
@@ -87,8 +85,8 @@ namespace KKCSInvoiceProject
 
             string cmd1 = @"INSERT INTO NewPettyCash (DatePetty,Amount,PettyRunningTotal,Notes,IsReimburse) values
                                                     ('" + txt_returndate.Value + "','" +
-                                                        txt_pettyadding.Text + "','" +
-                                                        txt_newpettycash.Text + "','" +
+                                                        //txt_pettyadding.Text + "','" +
+                                                        //txt_newpettycash.Text + "','" +
                                                         txt_notes.Text + "'," +
                                                         bIsReimburse +
                                                     ")";
@@ -115,6 +113,79 @@ namespace KKCSInvoiceProject
             btn_save.BackColor = Color.Green;
 
             PettyCash.ActiveForm.BackColor = Color.LightGreen;
+        }
+
+        private void chk_to200_CheckedChanged(object sender, EventArgs e)
+        {
+            lbl_custom.Enabled = true;
+            txt_custom.Enabled = true;
+
+            if (chk_to200.Checked)
+            {
+                lbl_custom.Enabled = false;
+                txt_custom.Enabled = false;
+                txt_custom.Text = "";
+
+                float fCurrent = 0.0f;
+                float.TryParse(txt_pccurrent.Text, out fCurrent);
+
+                float fTotal = 200.0f - fCurrent;
+
+                txt_currentpetty.Text = "+" + fTotal.ToString("0.00");
+
+                textBox3.Text = "200.00";
+            }
+            else
+            {
+                txt_currentpetty.Text = "";
+                textBox3.Text = "";
+
+                txt_currentpetty.BackColor = Color.White;
+                textBox3.BackColor = Color.White;
+            }
+        }
+
+        private void txt_currentpetty_TextChanged(object sender, EventArgs e)
+        {
+            txt_currentpetty.BackColor = Color.White;
+
+            if (txt_currentpetty.Text != "")
+            {
+                txt_currentpetty.BackColor = Color.Yellow;
+                textBox3.BackColor = Color.LightGreen;
+            }
+        }
+
+        private void txt_custom_TextChanged(object sender, EventArgs e)
+        {
+            lbl_amounttoadd.Visible = true;
+            txt_currentpetty.Visible = true;
+
+            if (txt_custom.Text == "")
+            {
+                txt_currentpetty.Text = "";
+                textBox3.Text = "";
+
+                txt_currentpetty.BackColor = Color.White;
+                textBox3.BackColor = Color.White;
+            }
+            else
+            {
+                textBox3.BackColor = Color.LightGreen;
+
+                lbl_amounttoadd.Visible = false;
+                txt_currentpetty.Visible = false;
+
+                float fCurrent = 0.0f;
+                float.TryParse(txt_pccurrent.Text, out fCurrent);
+
+                float fCustom = 0.0f;
+                float.TryParse(txt_custom.Text, out fCustom);
+
+                float fTotal = fCustom + fCurrent;
+
+                textBox3.Text = fTotal.ToString("0.00");
+            }
         }
     }
 }

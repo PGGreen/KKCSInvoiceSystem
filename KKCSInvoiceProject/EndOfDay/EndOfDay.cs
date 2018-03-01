@@ -34,6 +34,8 @@ namespace KKCSInvoiceProject
         float g_fTotalPettyCashToday = 0.0f;
         float g_fTotalPettyCashRemaning = 0.0f;
 
+        Color defaultBackWindowColor;
+
         //float g_fTotalPettyCash = 0.0f;
         int g_iRefunds = 0;
         float fTotalForDay = 0.0f;
@@ -68,7 +70,7 @@ namespace KKCSInvoiceProject
 
         #region Loading
 
-        public EndOfDay(bool _bActivateEODPicker)
+        public EndOfDay()
         {
             // Initialises the end of day
             InitializeComponent();
@@ -76,34 +78,29 @@ namespace KKCSInvoiceProject
             // Makes the connection string the database path
             connection.ConnectionString = m_strDataBaseFilePath;
 
+            defaultBackWindowColor = this.BackColor;
+
             cmb_worker.SelectedIndex = 0;
+            cmb_printerpicked1.SelectedIndex = 0;
+            cmb_printerpicked2.SelectedIndex = 0;
 
-            // Creates todays date for end of date
+            // Creates todays date for end of day
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
-
-            if (_bActivateEODPicker)
-            {
-                dt_eodpick.Value = dtTodaysDate;
-                dt_eodpick.Visible = true;
-            }
-            //dtTodaysDate = new DateTime(2017, 11, 12, 12, 0, 0);
 
             SetUpEOD();
 
             g_bSkipEODPickFirstTime = false;
 
+            CheckIfDayEnded();
         }
 
         void SetUpEOD()
         {
-            // Creates the title for title
+            // Creates the title
             g_sTitleHeader = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
 
             // Creates the top title
             txt_eodheader.Text = "End of Day - " + g_sTitleHeader + " (" + dtTodaysDate.ToString("ddd") + ")";
-
-            CarInReport();
-            CarInReportNovOnwards();
 
             // Step Two - Calculate Todays Cash
             GetSODTill();
@@ -115,9 +112,62 @@ namespace KKCSInvoiceProject
             GetEftposTotal();
         }
 
+        void CheckIfDayEnded()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime dtDatePicked = new DateTime(dt_eodpick.Value.Year, dt_eodpick.Value.Month, dt_eodpick.Value.Day, 12, 0, 0);
+
+            string query = @"SELECT * FROM EndOfDay WHERE DTEODDate = @dtDatePicked";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtDatePicked", dtDatePicked);
+
+            reader = command.ExecuteReader();
+
+            this.BackColor = defaultBackWindowColor;
+
+            while (reader.Read())
+            {
+                string SODTill = reader["IsDayEnded"].ToString();
+                string SODPlasticBox = reader["IsDayEnded"].ToString();
+                string EODPlasticBox = reader["IsDayEnded"].ToString();
+                string EODTill = reader["IsDayEnded"].ToString();
+                string staffMember = reader["IsDayEnded"].ToString();
+                string Notes = reader["IsDayEnded"].ToString();
+                bool bIsDayEnded = (bool)reader["IsDayEnded"];
+                bool bIsCashCorrect = (bool)reader["IsDayEnded"];
+                bool bIsEftposCorrect = (bool)reader["IsDayEnded"];
+                
+                if (bIsDayEnded)
+                {
+                    this.BackColor = Color.LightGreen;
+
+                    //Step 1
+                    btn_printdailytotal.Text = "Print Again";
+                    btn_printdailytotal.BackColor = Color.Green;
+
+                    pnl_steptwo.Enabled = true;
+
+                    //Step2
+                    if(bIsEftposCorrect)
+                    {
+                        //cmb_Steptwo
+                    }
+                    
+                }
+            }
+
+            connection.Close();
+        }
+
         private void dt_eodpick_ValueChanged(object sender, EventArgs e)
         {
-            if(!g_bSkipEODPickFirstTime)
+            if (!g_bSkipEODPickFirstTime)
             {
                 g_iTotalCash = 0;
                 g_fTotalEftpos = 0.0f;
@@ -126,6 +176,8 @@ namespace KKCSInvoiceProject
 
                 SetUpEOD();
             }
+
+            CheckIfDayEnded();
         }
 
         void EmailAccountsEndOfMonth()
@@ -156,7 +208,7 @@ namespace KKCSInvoiceProject
         }
 
         #endregion StepOnePrintDailyTotals
-
+        
         #region StepTwoEftposCounting
 
         void GetEftposTotal()
@@ -196,7 +248,7 @@ namespace KKCSInvoiceProject
                 lbl_eftpostotals.Enabled = true;
                 chk_eftposreset.Enabled = true;
             }
-            else if (cmb_Steptwo.Text == "Inccorect")
+            else if (cmb_Steptwo.Text == "Incorrect")
             {
                 cmb_Steptwo.BackColor = Color.Red;
 
@@ -227,7 +279,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"select TodaySODTill from EndOfDay WHERE DTEODDate = @dtTodaysDate";
+            string query = @"select SODTill from EndOfDay WHERE DTEODDate = @dtTodaysDate";
 
             command.CommandText = query;
             command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
@@ -237,7 +289,7 @@ namespace KKCSInvoiceProject
             while (reader.Read())
             {
                 iSODTillCash = 0;
-                int.TryParse(reader["TodaySODTill"].ToString(), out iSODTillCash);
+                int.TryParse(reader["SODTill"].ToString(), out iSODTillCash);
 
                 lbl_sod.Text = "$" + iSODTillCash.ToString("N");
             }
@@ -292,7 +344,7 @@ namespace KKCSInvoiceProject
 
                 pnl_stepfour.Enabled = true;
             }
-            else if (cmb_stepthree.Text == "Inccorect")
+            else if (cmb_stepthree.Text == "Incorrect")
             {
                 pnl_stepfive.Enabled = true;
                 cmb_stepthree.BackColor = Color.Red;
@@ -585,6 +637,17 @@ namespace KKCSInvoiceProject
 
             printDocument.PrintPage += new PrintPageEventHandler(CreateReceipt);
 
+            int m_iPrinterPicked = cmb_printerpicked2.SelectedIndex;
+
+            if (m_iPrinterPicked == 0)
+            {
+                printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            }
+            else if (m_iPrinterPicked == 1)
+            {
+                printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            }
+
             //on a till you will not want to ask the user where to print but this is fine for the test envoironment.
 
             //printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
@@ -715,6 +778,17 @@ namespace KKCSInvoiceProject
             printDialog.Document = printDocument;
 
             printDocument.PrintPage += new PrintPageEventHandler(TodaysReport);
+
+            int m_iPrinterPicked = cmb_printerpicked1.SelectedIndex;
+
+            if (m_iPrinterPicked == 0)
+            {
+                printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            }
+            else if (m_iPrinterPicked == 1)
+            {
+                printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            }
 
             //printDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
@@ -1690,5 +1764,14 @@ namespace KKCSInvoiceProject
 
         #endregion HertzInfo
 
+        private void btn_dateleft_Click(object sender, EventArgs e)
+        {
+            dt_eodpick.Value = dt_eodpick.Value.AddDays(-1);
+        }
+
+        private void btn_dateright_Click(object sender, EventArgs e)
+        {
+            dt_eodpick.Value = dt_eodpick.Value.AddDays(1);
+        }
     }
 }

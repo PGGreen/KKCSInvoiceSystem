@@ -55,11 +55,13 @@
             this.cmb_Steptwo = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.pnl_stepfive = new System.Windows.Forms.Panel();
+            this.cmb_printerpicked2 = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.btn_printconfirmation = new System.Windows.Forms.Button();
             this.chk_signedform = new System.Windows.Forms.CheckBox();
             this.lbl_haveyousigned = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmb_printerpicked1 = new System.Windows.Forms.ComboBox();
             this.btn_printdailytotal = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.btn_endday = new System.Windows.Forms.Button();
@@ -75,6 +77,9 @@
             this.dt_eodpick = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_accountemail = new System.Windows.Forms.Button();
+            this.btn_dateleft = new System.Windows.Forms.Button();
+            this.btn_dateright = new System.Windows.Forms.Button();
+            this.lbl_runningtotals = new System.Windows.Forms.Label();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepfive.SuspendLayout();
@@ -88,7 +93,7 @@
             // 
             this.txt_eodheader.AutoSize = true;
             this.txt_eodheader.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_eodheader.Location = new System.Drawing.Point(297, 9);
+            this.txt_eodheader.Location = new System.Drawing.Point(10, 14);
             this.txt_eodheader.Name = "txt_eodheader";
             this.txt_eodheader.Size = new System.Drawing.Size(386, 31);
             this.txt_eodheader.TabIndex = 84;
@@ -394,6 +399,7 @@
             // pnl_stepfive
             // 
             this.pnl_stepfive.BackColor = System.Drawing.Color.White;
+            this.pnl_stepfive.Controls.Add(this.cmb_printerpicked2);
             this.pnl_stepfive.Controls.Add(this.label12);
             this.pnl_stepfive.Controls.Add(this.btn_printconfirmation);
             this.pnl_stepfive.Controls.Add(this.chk_signedform);
@@ -404,11 +410,23 @@
             this.pnl_stepfive.Size = new System.Drawing.Size(557, 124);
             this.pnl_stepfive.TabIndex = 135;
             // 
+            // cmb_printerpicked2
+            // 
+            this.cmb_printerpicked2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_printerpicked2.FormattingEnabled = true;
+            this.cmb_printerpicked2.Items.AddRange(new object[] {
+            "B&W (Large Printer)",
+            "Colour (Small Printer)"});
+            this.cmb_printerpicked2.Location = new System.Drawing.Point(22, 45);
+            this.cmb_printerpicked2.Name = "cmb_printerpicked2";
+            this.cmb_printerpicked2.Size = new System.Drawing.Size(234, 33);
+            this.cmb_printerpicked2.TabIndex = 234;
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(14, 24);
+            this.label12.Location = new System.Drawing.Point(14, 11);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(282, 31);
             this.label12.TabIndex = 104;
@@ -431,7 +449,7 @@
             this.chk_signedform.AutoSize = true;
             this.chk_signedform.Enabled = false;
             this.chk_signedform.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_signedform.Location = new System.Drawing.Point(444, 87);
+            this.chk_signedform.Location = new System.Drawing.Point(444, 90);
             this.chk_signedform.Name = "chk_signedform";
             this.chk_signedform.Size = new System.Drawing.Size(57, 20);
             this.chk_signedform.TabIndex = 132;
@@ -444,7 +462,7 @@
             this.lbl_haveyousigned.AutoSize = true;
             this.lbl_haveyousigned.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_haveyousigned.ForeColor = System.Drawing.Color.Blue;
-            this.lbl_haveyousigned.Location = new System.Drawing.Point(6, 76);
+            this.lbl_haveyousigned.Location = new System.Drawing.Point(6, 79);
             this.lbl_haveyousigned.Name = "lbl_haveyousigned";
             this.lbl_haveyousigned.Size = new System.Drawing.Size(432, 37);
             this.lbl_haveyousigned.TabIndex = 131;
@@ -453,12 +471,25 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.cmb_printerpicked1);
             this.panel1.Controls.Add(this.btn_printdailytotal);
             this.panel1.Controls.Add(this.label21);
             this.panel1.Location = new System.Drawing.Point(12, 58);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(557, 76);
+            this.panel1.Size = new System.Drawing.Size(557, 84);
             this.panel1.TabIndex = 133;
+            // 
+            // cmb_printerpicked1
+            // 
+            this.cmb_printerpicked1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_printerpicked1.FormattingEnabled = true;
+            this.cmb_printerpicked1.Items.AddRange(new object[] {
+            "B&W (Large Printer)",
+            "Colour (Small Printer)"});
+            this.cmb_printerpicked1.Location = new System.Drawing.Point(22, 41);
+            this.cmb_printerpicked1.Name = "cmb_printerpicked1";
+            this.cmb_printerpicked1.Size = new System.Drawing.Size(234, 33);
+            this.cmb_printerpicked1.TabIndex = 233;
             // 
             // btn_printdailytotal
             // 
@@ -476,7 +507,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(14, 23);
+            this.label21.Location = new System.Drawing.Point(14, 7);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(271, 31);
             this.label21.TabIndex = 85;
@@ -568,7 +599,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
-            this.panel4.Controls.Add(this.textBox1);
+            this.panel4.Controls.Add(this.lbl_runningtotals);
             this.panel4.Controls.Add(this.label18);
             this.panel4.Location = new System.Drawing.Point(1166, 58);
             this.panel4.Name = "panel4";
@@ -577,12 +608,13 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(56, 90);
+            this.textBox1.Location = new System.Drawing.Point(1518, 160);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(254, 377);
             this.textBox1.TabIndex = 86;
+            this.textBox1.Visible = false;
             // 
             // label18
             // 
@@ -596,16 +628,16 @@
             // 
             // dt_eodpick
             // 
-            this.dt_eodpick.Location = new System.Drawing.Point(943, 18);
+            this.dt_eodpick.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dt_eodpick.Location = new System.Drawing.Point(487, 16);
             this.dt_eodpick.Name = "dt_eodpick";
-            this.dt_eodpick.Size = new System.Drawing.Size(200, 20);
+            this.dt_eodpick.Size = new System.Drawing.Size(334, 29);
             this.dt_eodpick.TabIndex = 137;
-            this.dt_eodpick.Visible = false;
             this.dt_eodpick.ValueChanged += new System.EventHandler(this.dt_eodpick_ValueChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(755, 14);
+            this.button1.Location = new System.Drawing.Point(1000, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 23);
             this.button1.TabIndex = 138;
@@ -622,7 +654,40 @@
             this.btn_accountemail.TabIndex = 139;
             this.btn_accountemail.Text = "Send Accounts";
             this.btn_accountemail.UseVisualStyleBackColor = true;
+            this.btn_accountemail.Visible = false;
             this.btn_accountemail.Click += new System.EventHandler(this.btn_accountemail_Click);
+            // 
+            // btn_dateleft
+            // 
+            this.btn_dateleft.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_dateleft.Location = new System.Drawing.Point(421, 14);
+            this.btn_dateleft.Name = "btn_dateleft";
+            this.btn_dateleft.Size = new System.Drawing.Size(61, 33);
+            this.btn_dateleft.TabIndex = 140;
+            this.btn_dateleft.Text = "<--";
+            this.btn_dateleft.UseVisualStyleBackColor = true;
+            this.btn_dateleft.Click += new System.EventHandler(this.btn_dateleft_Click);
+            // 
+            // btn_dateright
+            // 
+            this.btn_dateright.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_dateright.Location = new System.Drawing.Point(826, 15);
+            this.btn_dateright.Name = "btn_dateright";
+            this.btn_dateright.Size = new System.Drawing.Size(61, 33);
+            this.btn_dateright.TabIndex = 141;
+            this.btn_dateright.Text = "-->";
+            this.btn_dateright.UseVisualStyleBackColor = true;
+            this.btn_dateright.Click += new System.EventHandler(this.btn_dateright_Click);
+            // 
+            // lbl_runningtotals
+            // 
+            this.lbl_runningtotals.AutoSize = true;
+            this.lbl_runningtotals.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_runningtotals.Location = new System.Drawing.Point(18, 59);
+            this.lbl_runningtotals.Name = "lbl_runningtotals";
+            this.lbl_runningtotals.Size = new System.Drawing.Size(157, 25);
+            this.lbl_runningtotals.TabIndex = 86;
+            this.lbl_runningtotals.Text = "Running Totals";
             // 
             // EndOfDay
             // 
@@ -630,6 +695,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 874);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btn_dateright);
+            this.Controls.Add(this.btn_dateleft);
             this.Controls.Add(this.btn_accountemail);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dt_eodpick);
@@ -714,5 +782,10 @@
         private System.Windows.Forms.DateTimePicker dt_eodpick;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_accountemail;
+        private System.Windows.Forms.ComboBox cmb_printerpicked2;
+        private System.Windows.Forms.ComboBox cmb_printerpicked1;
+        private System.Windows.Forms.Button btn_dateleft;
+        private System.Windows.Forms.Button btn_dateright;
+        private System.Windows.Forms.Label lbl_runningtotals;
     }
 }

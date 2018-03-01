@@ -2179,12 +2179,14 @@ namespace KKCSInvoiceProject
                 g_bManualPicked = false;
             }
 
+            /*
             if (txt_flighttimes.Text == "2025")
             {
                 DrivingBack db = new DrivingBack();
                 db.SetText("Last Flight", iInvoiceNumber);
                 db.ShowDialog();
             }
+            */
 
             if (!bIsAlreadySaved)
             {

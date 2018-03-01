@@ -50,6 +50,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txt_itemamount = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label3
@@ -115,7 +117,7 @@
             // txt_item
             // 
             this.txt_item.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_item.Location = new System.Drawing.Point(136, 142);
+            this.txt_item.Location = new System.Drawing.Point(125, 125);
             this.txt_item.Name = "txt_item";
             this.txt_item.Size = new System.Drawing.Size(271, 31);
             this.txt_item.TabIndex = 98;
@@ -124,7 +126,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(68, 144);
+            this.label4.Location = new System.Drawing.Point(57, 127);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 25);
             this.label4.TabIndex = 99;
@@ -246,31 +248,58 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(68, 188);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(12, 180);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(145, 25);
+            this.label11.Size = new System.Drawing.Size(211, 37);
             this.label11.TabIndex = 111;
             this.label11.Text = "Cost of Item:";
             // 
             // txt_itemamount
             // 
-            this.txt_itemamount.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_itemamount.Location = new System.Drawing.Point(237, 186);
+            this.txt_itemamount.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_itemamount.Location = new System.Drawing.Point(248, 174);
             this.txt_itemamount.Name = "txt_itemamount";
-            this.txt_itemamount.Size = new System.Drawing.Size(121, 31);
+            this.txt_itemamount.Size = new System.Drawing.Size(159, 47);
             this.txt_itemamount.TabIndex = 112;
             this.txt_itemamount.TextChanged += new System.EventHandler(this.txt_itemamount_TextChanged_1);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(208, 189);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(214, 180);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(25, 25);
+            this.label12.Size = new System.Drawing.Size(36, 37);
             this.label12.TabIndex = 113;
             this.label12.Text = "$";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(433, 480);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(138, 24);
+            this.label13.TabIndex = 187;
+            this.label13.Text = "Staff Member:";
+            // 
+            // cmb_worker
+            // 
+            this.cmb_worker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.cmb_worker.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_worker.FormattingEnabled = true;
+            this.cmb_worker.Items.AddRange(new object[] {
+            "Please Pick...",
+            "Jude",
+            "Graham",
+            "Noel",
+            "Peter",
+            "Deb"});
+            this.cmb_worker.Location = new System.Drawing.Point(431, 507);
+            this.cmb_worker.Name = "cmb_worker";
+            this.cmb_worker.Size = new System.Drawing.Size(156, 37);
+            this.cmb_worker.TabIndex = 186;
             // 
             // PettyCash
             // 
@@ -278,6 +307,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(617, 723);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.cmb_worker);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txt_itemamount);
             this.Controls.Add(this.label11);
@@ -330,5 +361,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txt_itemamount;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cmb_worker;
     }
 }

@@ -16,12 +16,6 @@ namespace KKCSInvoiceProject
 {
     public partial class MainMenu : Form
     {
-
-        bool isDebugMode = false;
-        //#if DEBUG
-        //isDebugMode = true;
-        //#endif
-
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
         private ComboBox cmb_storeRegoItems;
@@ -42,6 +36,8 @@ namespace KKCSInvoiceProject
             InitializeComponent();
 
             connection.ConnectionString = m_strDataBaseFilePath;
+
+            testToolStripMenuItem.Visible = false;
 
             Form fm = Application.OpenForms["CustomerShow"];
 
@@ -75,6 +71,8 @@ namespace KKCSInvoiceProject
             UpdateAmountOfCars();
         }
 
+        #region Debug
+
         void Debug()
         {
             versionToolStripMenuItem.BackColor = Color.Black;
@@ -85,7 +83,10 @@ namespace KKCSInvoiceProject
             lbl_debug.Location = new Point(70, 100);
             lbl_debug.Text += "\r\n" + m_strDataBaseFilePath.Substring(90, 26);
 
+            testToolStripMenuItem.Visible = true;
         }
+
+        #endregion Debug
 
         public void UpdateAmountOfCars()
         {
@@ -113,10 +114,31 @@ namespace KKCSInvoiceProject
             connection.Close();
         }
 
+        #region GetFunctions
+
         public MainMenu GetMainMenu()
         {
             return (this);
         }
+
+        public ComboBox GetCmbAccountsComboBox()
+        {
+            return (cmb_storeAccountItems);
+        }
+
+        public ComboBox GetCmbRegoComboBox()
+        {
+            return (cmb_storeRegoItems);
+        }
+
+        public ComboBox GetCmbMakeModelComboBox()
+        {
+            return (cmb_storeMakeModel);
+        }
+
+        #endregion GetFunctions
+
+        #region SetFunctions
 
         public void SetUpRegoComboBox()
         {
@@ -175,7 +197,7 @@ namespace KKCSInvoiceProject
 
                 if (sStoreFirstMM != sStoreSecondMM)
                 {
-                    if(sStoreFirstMM != "")
+                    if (sStoreFirstMM != "")
                     {
                         cmb_storeMakeModel.Items.Add(sStoreFirstMM);
                     }
@@ -213,46 +235,9 @@ namespace KKCSInvoiceProject
             //connection.Close();
         }
 
-        public ComboBox GetCmbAccountsComboBox()
-        {
-            return (cmb_storeAccountItems);
-        }
+        #endregion SetFunctions
 
-        public ComboBox GetCmbRegoComboBox()
-        {
-            return (cmb_storeRegoItems);
-        }
-
-        public ComboBox GetCmbMakeModelComboBox()
-        {
-            return (cmb_storeMakeModel);
-        }
-
-        private void MainMenu_Closing(object sender, FormClosingEventArgs e)
-        {
-            if(!m_bUserExit)
-            {
-                e.Cancel = true;
-
-                this.WindowState = FormWindowState.Minimized;
-            }
-        }
-
-        private void btn_exit_Click(object sender, EventArgs e)
-        {
-            string sTabsStillOpen = "If you close the Main Menu, all other forms will also close, Any unsaved data WILL be lost. Is this ok?";
-
-            DialogResult dialogResult = MessageBox.Show(sTabsStillOpen, "WARNING", MessageBoxButtons.YesNo);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                //Close();
-
-                m_bUserExit = true;
-
-                Close();
-            }
-        }
+        #region Buttons
 
         private void btn_invoice_Click(object sender, EventArgs e)
         {
@@ -271,26 +256,6 @@ namespace KKCSInvoiceProject
             {
                 InvoiceManager ip = new InvoiceManager();
                 ip.Show();
-            }
-        }
-
-        private void financesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form fm = Application.OpenForms["Finances"];
-
-            if (fm != null)
-            {
-                if (fm.WindowState == FormWindowState.Minimized)
-                {
-                    fm.WindowState = FormWindowState.Maximized;
-                }
-
-                fm.BringToFront();
-            }
-            else
-            {
-                Finances cr = new Finances();
-                cr.Show();
             }
         }
 
@@ -333,6 +298,122 @@ namespace KKCSInvoiceProject
                 kb.Show();
             }
         }
+
+        private void btn_printcarreturns_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["NewCarReturns"];
+
+            if (fm != null)
+            {
+                fm.Close();
+            }
+
+            NewCarReturns ncr = new NewCarReturns();
+            ncr.Show();
+
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
+
+            // B&W Printer Down
+            //cmb_printerpicked.SelectedIndex = 0;
+
+            ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
+
+            //cmb_printerpicked.SelectedIndex = 0;
+
+            // Out of Colour Ink (Uncomment Next Line)
+            //cmb_printerpicked.SelectedIndex = 1;
+
+            //PrintTest();
+
+            //PrintLongTerm();
+        }
+
+        private void btn_eod_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["EndOfDay"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                EndOfDay eod;
+
+                if (ModifierKeys.HasFlag(Keys.Shift))
+                {
+                    eod = new EndOfDay();
+                }
+                else
+                {
+                    eod = new EndOfDay();
+                }
+
+                eod.Show();
+            }
+        }
+
+        #endregion Buttons
+
+
+
+        private void MainMenu_Closing(object sender, FormClosingEventArgs e)
+        {
+            if(!m_bUserExit)
+            {
+                e.Cancel = true;
+
+                this.WindowState = FormWindowState.Minimized;
+            }
+        }
+
+        private void btn_exit_Click(object sender, EventArgs e)
+        {
+            string sTabsStillOpen = "If you close the Main Menu, all other forms will also close, Any unsaved data WILL be lost. Is this ok?";
+
+            DialogResult dialogResult = MessageBox.Show(sTabsStillOpen, "WARNING", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                //Close();
+
+                m_bUserExit = true;
+
+                Close();
+            }
+        }
+
+        
+
+        private void financesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["Finances"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Maximized;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                Finances cr = new Finances();
+                cr.Show();
+            }
+        }
+
+        
+
+        
 
         private void btn_moneyinyard_Click(object sender, EventArgs e)
         {
@@ -443,35 +524,7 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void btn_eod_Click(object sender, EventArgs e)
-        {
-            Form fm = Application.OpenForms["EndOfDay"];
-
-            if (fm != null)
-            {
-                if (fm.WindowState == FormWindowState.Minimized)
-                {
-                    fm.WindowState = FormWindowState.Normal;
-                }
-
-                fm.BringToFront();
-            }
-            else
-            {
-                EndOfDay eod;
-
-                if (ModifierKeys.HasFlag(Keys.Shift))
-                {
-                    eod = new EndOfDay(true);
-                }
-                else
-                {
-                    eod = new EndOfDay(false);
-                }
-
-                eod.Show();
-            }
-        }
+        
         
         private void btn_build_Click(object sender, EventArgs e)
         {
@@ -577,48 +630,13 @@ namespace KKCSInvoiceProject
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form fm = Application.OpenForms["NewCarReturns"];
-
-            if (fm != null)
-            {
-                fm.Close();
-            }
-
-            NewCarReturns ncr = new NewCarReturns();
-            ncr.Show();
-
-            // Out of Colour Ink (Uncomment Next Line)
-            //cmb_printerpicked.SelectedIndex = 1;
-
-            // B&W Printer Down
-            //cmb_printerpicked.SelectedIndex = 0;
-
-            ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
-
-            //cmb_printerpicked.SelectedIndex = 0;
-
-            // Out of Colour Ink (Uncomment Next Line)
-            //cmb_printerpicked.SelectedIndex = 1;
-
-            //PrintTest();
-
-            //PrintLongTerm();
-        }
+        
 
         public void MinimiseForm()
         {
             this.WindowState = FormWindowState.Minimized;
         }
-        
-        //private void MainMenu_Deactivate(Object sender, EventArgs e)
-        //{
-        //    int i = 0;
-        //    this.WindowState = FormWindowState.Minimized;
-        //    //MessageBox.Show("Got Focus");
-        //} 
-
+       
         #region Printing
 
         private void PrintLongTerm()
@@ -826,7 +844,6 @@ namespace KKCSInvoiceProject
         }
 
         #endregion
-
         
 #region Printing Test
 
@@ -1433,6 +1450,7 @@ namespace KKCSInvoiceProject
                 pc.Show();
             }
         }
+
 
         private void versionToolStripMenuItem_Click(object sender, EventArgs e)
         {

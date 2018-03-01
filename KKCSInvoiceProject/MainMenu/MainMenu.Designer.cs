@@ -34,12 +34,11 @@
             this.btn_moneyinyard = new System.Windows.Forms.Button();
             this.btn_build = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.btn_eod = new System.Windows.Forms.Button();
             this.btn_pettycash = new System.Windows.Forms.Button();
             this.btn_notesbookings = new System.Windows.Forms.Button();
             this.btn_exit = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_printcarreturns = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
@@ -70,22 +69,21 @@
             this.ms_mainstrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.financesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.longTermToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pettyCashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bankingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bookingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tillPBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tEstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.financesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_accounts = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbl_debug = new System.Windows.Forms.Label();
             this.txt_noofcars = new System.Windows.Forms.Label();
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -136,7 +134,6 @@
             this.btn_moneyinyard.TabIndex = 5;
             this.btn_moneyinyard.Text = "Accounting";
             this.btn_moneyinyard.UseVisualStyleBackColor = true;
-            this.btn_moneyinyard.Visible = false;
             this.btn_moneyinyard.Click += new System.EventHandler(this.btn_moneyinyard_Click);
             // 
             // btn_build
@@ -148,7 +145,6 @@
             this.btn_build.TabIndex = 6;
             this.btn_build.Text = "v1.00";
             this.btn_build.UseVisualStyleBackColor = true;
-            this.btn_build.Visible = false;
             this.btn_build.Click += new System.EventHandler(this.btn_build_Click);
             // 
             // button5
@@ -160,20 +156,7 @@
             this.button5.TabIndex = 7;
             this.button5.Text = "Customer/Rego Search";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button7
-            // 
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.button7.Location = new System.Drawing.Point(877, 561);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(250, 45);
-            this.button7.TabIndex = 9;
-            this.button7.Text = "Long Term";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Visible = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // btn_eod
             // 
@@ -196,7 +179,6 @@
             this.btn_pettycash.TabIndex = 12;
             this.btn_pettycash.Text = "Petty Cash";
             this.btn_pettycash.UseVisualStyleBackColor = true;
-            this.btn_pettycash.Visible = false;
             this.btn_pettycash.Click += new System.EventHandler(this.btn_pettycash_Click);
             // 
             // btn_notesbookings
@@ -208,7 +190,6 @@
             this.btn_notesbookings.TabIndex = 13;
             this.btn_notesbookings.Text = "Notes/Bookings";
             this.btn_notesbookings.UseVisualStyleBackColor = true;
-            this.btn_notesbookings.Visible = false;
             this.btn_notesbookings.Click += new System.EventHandler(this.btn_notesbookings_Click);
             // 
             // btn_exit
@@ -220,21 +201,20 @@
             this.btn_exit.TabIndex = 16;
             this.btn_exit.Text = "Exit";
             this.btn_exit.UseVisualStyleBackColor = true;
-            this.btn_exit.Visible = false;
             this.btn_exit.Click += new System.EventHandler(this.btn_exit_Click);
             // 
-            // button3
+            // btn_printcarreturns
             // 
-            this.button3.BackColor = System.Drawing.Color.Black;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(12, 616);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(234, 45);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Print Car Returns";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btn_printcarreturns.BackColor = System.Drawing.Color.Black;
+            this.btn_printcarreturns.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_printcarreturns.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_printcarreturns.Location = new System.Drawing.Point(12, 616);
+            this.btn_printcarreturns.Name = "btn_printcarreturns";
+            this.btn_printcarreturns.Size = new System.Drawing.Size(234, 45);
+            this.btn_printcarreturns.TabIndex = 17;
+            this.btn_printcarreturns.Text = "Print Car Returns";
+            this.btn_printcarreturns.UseVisualStyleBackColor = false;
+            this.btn_printcarreturns.Click += new System.EventHandler(this.btn_printcarreturns_Click);
             // 
             // button4
             // 
@@ -245,7 +225,6 @@
             this.button4.TabIndex = 20;
             this.button4.Text = "Statistics";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // panel1
@@ -281,7 +260,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(702, 436);
             this.panel1.TabIndex = 24;
-            this.panel1.Visible = false;
             // 
             // label19
             // 
@@ -529,7 +507,6 @@
             this.button1.TabIndex = 14;
             this.button1.Text = "Banking";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
@@ -541,31 +518,27 @@
             this.button2.TabIndex = 25;
             this.button2.Text = "DOC Only Pre-Booking";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
             // 
             // ms_mainstrip
             // 
             this.ms_mainstrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ms_mainstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.searchToolStripMenuItem,
-            this.financesToolStripMenuItem,
-            this.longTermToolStripMenuItem,
             this.pettyCashToolStripMenuItem,
             this.bankingToolStripMenuItem,
             this.bookingsToolStripMenuItem,
-            this.statisticsToolStripMenuItem,
             this.tillPBToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.tEstToolStripMenuItem});
+            this.testToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
-            this.ms_mainstrip.Size = new System.Drawing.Size(783, 25);
+            this.ms_mainstrip.Size = new System.Drawing.Size(785, 25);
             this.ms_mainstrip.TabIndex = 26;
             this.ms_mainstrip.Text = "menuStrip1";
             // 
             // toolStripMenuItem1
             // 
+            this.toolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -579,28 +552,9 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
-            this.searchToolStripMenuItem.Text = "Search";
-            // 
-            // financesToolStripMenuItem
-            // 
-            this.financesToolStripMenuItem.Name = "financesToolStripMenuItem";
-            this.financesToolStripMenuItem.Size = new System.Drawing.Size(69, 21);
-            this.financesToolStripMenuItem.Text = "Finances";
-            this.financesToolStripMenuItem.Click += new System.EventHandler(this.financesToolStripMenuItem_Click);
-            // 
-            // longTermToolStripMenuItem
-            // 
-            this.longTermToolStripMenuItem.Name = "longTermToolStripMenuItem";
-            this.longTermToolStripMenuItem.Size = new System.Drawing.Size(83, 21);
-            this.longTermToolStripMenuItem.Text = "Long Term";
-            this.longTermToolStripMenuItem.Click += new System.EventHandler(this.longTermToolStripMenuItem_Click);
-            // 
             // pettyCashToolStripMenuItem
             // 
+            this.pettyCashToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.pettyCashToolStripMenuItem.Name = "pettyCashToolStripMenuItem";
             this.pettyCashToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.pettyCashToolStripMenuItem.Text = "Petty Cash";
@@ -608,33 +562,32 @@
             // 
             // bankingToolStripMenuItem
             // 
+            this.bankingToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.bankingToolStripMenuItem.Name = "bankingToolStripMenuItem";
             this.bankingToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
             this.bankingToolStripMenuItem.Text = "Banking";
             // 
             // bookingsToolStripMenuItem
             // 
+            this.bookingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.bookingsToolStripMenuItem.Name = "bookingsToolStripMenuItem";
             this.bookingsToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
             this.bookingsToolStripMenuItem.Text = "Bookings";
             // 
-            // statisticsToolStripMenuItem
-            // 
-            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(70, 21);
-            this.statisticsToolStripMenuItem.Text = "Statistics";
-            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
-            // 
             // tillPBToolStripMenuItem
             // 
+            this.tillPBToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.tillPBToolStripMenuItem.Name = "tillPBToolStripMenuItem";
             this.tillPBToolStripMenuItem.Size = new System.Drawing.Size(81, 21);
             this.tillPBToolStripMenuItem.Text = "Till <-> PB";
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.versionToolStripMenuItem});
+            this.versionToolStripMenuItem,
+            this.statisticsToolStripMenuItem1,
+            this.financesToolStripMenuItem1});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(55, 21);
             this.aboutToolStripMenuItem.Text = "About";
@@ -642,16 +595,28 @@
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.versionToolStripMenuItem.Text = "Version";
             this.versionToolStripMenuItem.Click += new System.EventHandler(this.versionToolStripMenuItem_Click);
             // 
-            // tEstToolStripMenuItem
+            // statisticsToolStripMenuItem1
             // 
-            this.tEstToolStripMenuItem.Name = "tEstToolStripMenuItem";
-            this.tEstToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.tEstToolStripMenuItem.Text = "Test";
-            this.tEstToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
+            this.statisticsToolStripMenuItem1.Name = "statisticsToolStripMenuItem1";
+            this.statisticsToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
+            this.statisticsToolStripMenuItem1.Text = "Statistics";
+            // 
+            // financesToolStripMenuItem1
+            // 
+            this.financesToolStripMenuItem1.Name = "financesToolStripMenuItem1";
+            this.financesToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
+            this.financesToolStripMenuItem1.Text = "Finances";
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
             // 
             // btn_accounts
             // 
@@ -662,14 +627,13 @@
             this.btn_accounts.TabIndex = 8;
             this.btn_accounts.Text = "Monthly Accounts";
             this.btn_accounts.UseVisualStyleBackColor = true;
-            this.btn_accounts.Visible = false;
             this.btn_accounts.Click += new System.EventHandler(this.btn_accounts_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::KKCSInvoiceProject.Properties.Resources.Car_Storage_Logo;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(290, 38);
+            this.pictureBox1.Location = new System.Drawing.Point(295, 28);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(206, 189);
             this.pictureBox1.TabIndex = 28;
@@ -686,7 +650,6 @@
             this.lbl_debug.Size = new System.Drawing.Size(629, 55);
             this.lbl_debug.TabIndex = 29;
             this.lbl_debug.Text = "WARNING: DEBUG MODE";
-            this.lbl_debug.Visible = false;
             // 
             // txt_noofcars
             // 
@@ -711,12 +674,25 @@
             this.cmb_printerpicked.Size = new System.Drawing.Size(234, 33);
             this.cmb_printerpicked.TabIndex = 232;
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button3.Font = new System.Drawing.Font("Perpetua Titling MT", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(281, 321);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(220, 63);
+            this.button3.TabIndex = 233;
+            this.button3.Text = "Long Term";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Visible = false;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(783, 673);
+            this.ClientSize = new System.Drawing.Size(785, 673);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.cmb_printerpicked);
             this.Controls.Add(this.txt_noofcars);
             this.Controls.Add(this.lbl_debug);
@@ -724,13 +700,12 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btn_printcarreturns);
             this.Controls.Add(this.btn_exit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_notesbookings);
             this.Controls.Add(this.btn_pettycash);
             this.Controls.Add(this.btn_eod);
-            this.Controls.Add(this.button7);
             this.Controls.Add(this.btn_accounts);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.btn_build);
@@ -760,12 +735,11 @@
         private System.Windows.Forms.Button btn_moneyinyard;
         private System.Windows.Forms.Button btn_build;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btn_eod;
         private System.Windows.Forms.Button btn_pettycash;
         private System.Windows.Forms.Button btn_notesbookings;
         private System.Windows.Forms.Button btn_exit;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_printcarreturns;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
@@ -795,12 +769,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip ms_mainstrip;
         private System.Windows.Forms.Button btn_accounts;
-        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem longTermToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pettyCashToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bankingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bookingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem tillPBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -808,9 +779,11 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.Label lbl_debug;
-        private System.Windows.Forms.ToolStripMenuItem financesToolStripMenuItem;
         private System.Windows.Forms.Label txt_noofcars;
         private System.Windows.Forms.ComboBox cmb_printerpicked;
-        private System.Windows.Forms.ToolStripMenuItem tEstToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem financesToolStripMenuItem1;
     }
 }

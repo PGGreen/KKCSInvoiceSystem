@@ -14,6 +14,8 @@ namespace KKCSInvoiceProject
 {
     public partial class NewPettyCashManager : Form
     {
+        #region Globals
+
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
         private OleDbConnection connection = new OleDbConnection();
@@ -24,7 +26,14 @@ namespace KKCSInvoiceProject
 
         OleDbDataReader reader;
 
+        bool bFinalOnlyOnce = false;
+        bool bUpdateOnce = false;
+
         bool m_bIsReimburse = false;
+
+        bool m_bIsInitial = true;
+
+        #endregion Globals
 
         public NewPettyCashManager()
         {
@@ -32,10 +41,19 @@ namespace KKCSInvoiceProject
 
             InitializeComponent();
 
-            cmb_month.SelectedIndex = 1;
+            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            txt_year.Text = dt.ToString("yyyy");
+            cmb_month.SelectedIndex = dt.Month - 1;
+
+            //SetUpMonthAndYear(dt);
+
+            txt_year.Focus();
+
+            m_bIsInitial = false;
         }
 
-        void SetUpInitialMonthAndYear(DateTime _dt)
+        void SetUpMonthAndYear(DateTime _dt)
         {
             connection.Open();
 
@@ -43,14 +61,27 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"SELECT * FROM NewPettyCash WHERE month(DatePetty) = month(@_dt) ORDER BY DatePetty ASC";
+            string query = @"SELECT * FROM NewPettyCash WHERE year(DatePetty) = year(@_dt) AND month(DatePetty) = month(@_dt) ORDER BY DatePetty DESC";
             command.Parameters.AddWithValue("@_dt", _dt);
 
             command.CommandText = query;
 
             reader = command.ExecuteReader();
 
+            lbl_latest.Visible = false;
+            DateTime dtTodayCompare = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+            DateTime dtPickedCompare = new DateTime(_dt.Year, _dt.Month, _dt.Day, 12, 0, 0);
+
+            if(dtTodayCompare.Year == dtPickedCompare.Year && dtTodayCompare.Month == dtPickedCompare.Month)
+            {
+                lbl_latest.Visible = true;
+            }
+
             iInitialPanelLocationY = pnl_template.Location.Y;
+
+            string sFinalAmount = "";
+
+            bool bPettyCashThisMonth = false;
 
             while (reader.Read())
             {
@@ -90,9 +121,57 @@ namespace KKCSInvoiceProject
                 Controls.Add(pnl);
 
                 iInitialPanelLocationY += 60;
+
+                if(!bFinalOnlyOnce)
+                {
+                    sFinalAmount = reader["PettyRunningTotal"].ToString();
+
+                    bFinalOnlyOnce = true;
+                }
+
+                bPettyCashThisMonth = true;
+            }
+
+            if(!bPettyCashThisMonth)
+            {
+                lbl_latest.Visible = false;
             }
 
             connection.Close();
+
+            if (!bUpdateOnce)
+            {
+                float fFinalAmount = 0.0f;
+                float.TryParse(sFinalAmount, out fFinalAmount);
+
+                if(fFinalAmount == 0.0f)
+                {
+                    connection.Open();
+
+                    OleDbCommand commands = new OleDbCommand();
+
+                    commands.Connection = connection;
+
+                    string q = @"SELECT * FROM NewPettyCash ORDER BY DatePetty DESC";
+
+                    commands.CommandText = q;
+
+                    reader = commands.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        float.TryParse(reader["PettyRunningTotal"].ToString(), out fFinalAmount);
+
+                        break;
+                    }
+
+                    connection.Close();
+                }
+
+                lbl_remain.Text = "$" + fFinalAmount.ToString("0.00");
+
+                bUpdateOnce = true;
+            }
         }
 
         void ControlLabels(Control _p)
@@ -184,33 +263,56 @@ namespace KKCSInvoiceProject
             else
             {
                 PettyCashReimburse pc = new PettyCashReimburse();
-                pc.Show();
+                pc.FormClosing += CloseReimburse;
+                pc.ShowDialog();
             }
         }
 
         private void btn_new_Click(object sender, EventArgs e)
         {
             PettyCash pc = new PettyCash();
-            pc.Show();
+            pc.FormClosing += CloseNewPettyCashItem;
+            pc.ShowDialog();
+        }
+
+        void CloseNewPettyCashItem(object sender, EventArgs e)
+        {
+            bUpdateOnce = false;
+            bFinalOnlyOnce = false;
+
+            ChangePettyCashDate();
+        }
+
+        void CloseReimburse(object sender, EventArgs e)
+        {
+            bUpdateOnce = false;
+            bFinalOnlyOnce = false;
+
+            ChangePettyCashDate();
         }
 
         #endregion Buttons
 
         private void cmb_month_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ChangePettyCashDate();
+        }
+
+        void ChangePettyCashDate()
+        {
             DeleteControls();
 
             DateTime dt = new DateTime();
 
-            if (cmb_month.SelectedIndex != 0)
-            {
-                dt = new DateTime(DateTime.Now.Year, cmb_month.SelectedIndex + 1, DateTime.Now.Day, 12, 0, 0);
+            //if (cmb_month.SelectedIndex != 0)
+            //{
+                int iYear = 0;
+                int.TryParse(txt_year.Text, out iYear);
 
-                //txt_year.Text = dt.Year.ToString();
+                dt = new DateTime(iYear, cmb_month.SelectedIndex + 1, DateTime.Now.Day, 12, 0, 0);
 
-                SetUpInitialMonthAndYear(dt);
-            }
-            txt_year.Focus();
+                SetUpMonthAndYear(dt);
+            //}
         }
 
         void DeleteControls()
@@ -237,14 +339,89 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        
+
+        #region ButtonsLeftRight
+
+        private void bnt_monthright_Click(object sender, EventArgs e)
         {
-            cmb_month.SelectedIndex -= 1;
+            if (cmb_month.SelectedIndex >= 11)
+            {
+                cmb_month.SelectedIndex = 11;
+            }
+            else
+            {
+                cmb_month.SelectedIndex += 1;
+            }
         }
 
-        private void bnt_right_Click(object sender, EventArgs e)
+        private void btn_monthleft_Click(object sender, EventArgs e)
         {
-            cmb_month.SelectedIndex += 1;
+            if (cmb_month.SelectedIndex <= 0)
+            {
+                cmb_month.SelectedIndex = 0;
+            }
+            else
+            {
+                cmb_month.SelectedIndex -= 1;
+            }
+        }
+
+        private void btn_yearleft_Click(object sender, EventArgs e)
+        {
+            int iYear = 0;
+            bool bIsInt = int.TryParse(txt_year.Text, out iYear);
+
+            if (!bIsInt)
+            {
+                WarningSystem ws = new WarningSystem("Initial Date is not in format YYYY \r\n e.g. 2017", false);
+                ws.ShowDialog();
+            }
+            else
+            {
+                iYear -= 1;
+
+                txt_year.Text = iYear.ToString();
+            }
+        }
+
+        private void btn_yearright_Click(object sender, EventArgs e)
+        {
+            int iYear = 0;
+            bool bIsInt = int.TryParse(txt_year.Text, out iYear);
+
+            if (!bIsInt)
+            {
+                WarningSystem ws = new WarningSystem("Initial Date is not in format YYYY \r\n e.g. 2017", false);
+                ws.ShowDialog();
+            }
+            else
+            {
+                iYear += 1;
+
+                txt_year.Text = iYear.ToString();
+            }
+        }
+
+        #endregion ButtonsLeftRight
+
+        private void txt_year_TextChanged(object sender, EventArgs e)
+        {
+            if(txt_year.TextLength == 4 && !m_bIsInitial)
+            {
+                int iTestForIntYear = 0;
+                bool bIsInt = int.TryParse(txt_year.Text, out iTestForIntYear);
+
+                if(!bIsInt)
+                {
+                    WarningSystem ws = new WarningSystem("Please enter year in format YYYY only \r\n e.g. 2017", false);
+                    ws.ShowDialog();
+                }
+                else
+                {
+                    ChangePettyCashDate();
+                }
+            }
         }
     }
 }
