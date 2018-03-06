@@ -157,8 +157,16 @@ namespace KKCSInvoiceProject
                     if(bIsEftposCorrect)
                     {
                         //cmb_Steptwo
+                        cmb_Steptwo.SelectedIndex = 0;
                     }
-                    
+                    else
+                    {
+                        cmb_Steptwo.SelectedIndex = 1;
+                    }
+
+                    chk_eftposreset.Checked = true;
+
+
                 }
             }
 
