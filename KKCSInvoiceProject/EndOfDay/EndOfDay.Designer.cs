@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lbl_total = new System.Windows.Forms.Label();
-            this.btn_eod = new System.Windows.Forms.Button();
             this.txtbox_notes = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lbl_eftposin = new System.Windows.Forms.Label();
@@ -72,14 +71,14 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lbl_runningtotals = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.dt_eodpick = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
-            this.btn_accountemail = new System.Windows.Forms.Button();
             this.btn_dateleft = new System.Windows.Forms.Button();
             this.btn_dateright = new System.Windows.Forms.Button();
-            this.lbl_runningtotals = new System.Windows.Forms.Label();
+            this.lbl_dayend = new System.Windows.Forms.Label();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
             this.pnl_stepfive.SuspendLayout();
@@ -130,20 +129,6 @@
             this.lbl_total.Size = new System.Drawing.Size(134, 37);
             this.lbl_total.TabIndex = 95;
             this.lbl_total.Text = "$000.00";
-            // 
-            // btn_eod
-            // 
-            this.btn_eod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btn_eod.Enabled = false;
-            this.btn_eod.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F);
-            this.btn_eod.Location = new System.Drawing.Point(689, 714);
-            this.btn_eod.Name = "btn_eod";
-            this.btn_eod.Size = new System.Drawing.Size(198, 77);
-            this.btn_eod.TabIndex = 105;
-            this.btn_eod.Text = "End Day";
-            this.btn_eod.UseVisualStyleBackColor = false;
-            this.btn_eod.Visible = false;
-            this.btn_eod.Click += new System.EventHandler(this.btn_eod_Click);
             // 
             // txtbox_notes
             // 
@@ -516,14 +501,13 @@
             // btn_endday
             // 
             this.btn_endday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btn_endday.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_endday.Location = new System.Drawing.Point(437, 707);
+            this.btn_endday.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_endday.Location = new System.Drawing.Point(346, 691);
             this.btn_endday.Name = "btn_endday";
-            this.btn_endday.Size = new System.Drawing.Size(246, 97);
+            this.btn_endday.Size = new System.Drawing.Size(223, 64);
             this.btn_endday.TabIndex = 136;
-            this.btn_endday.Text = "End Day";
+            this.btn_endday.Text = "END DAY";
             this.btn_endday.UseVisualStyleBackColor = false;
-            this.btn_endday.Visible = false;
             this.btn_endday.Click += new System.EventHandler(this.btn_endday_Click);
             // 
             // pnl_stepfour
@@ -606,15 +590,15 @@
             this.panel4.Size = new System.Drawing.Size(346, 627);
             this.panel4.TabIndex = 136;
             // 
-            // textBox1
+            // lbl_runningtotals
             // 
-            this.textBox1.Location = new System.Drawing.Point(1518, 160);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(254, 377);
-            this.textBox1.TabIndex = 86;
-            this.textBox1.Visible = false;
+            this.lbl_runningtotals.AutoSize = true;
+            this.lbl_runningtotals.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_runningtotals.Location = new System.Drawing.Point(18, 59);
+            this.lbl_runningtotals.Name = "lbl_runningtotals";
+            this.lbl_runningtotals.Size = new System.Drawing.Size(157, 25);
+            this.lbl_runningtotals.TabIndex = 86;
+            this.lbl_runningtotals.Text = "Running Totals";
             // 
             // label18
             // 
@@ -625,6 +609,16 @@
             this.label18.Size = new System.Drawing.Size(211, 31);
             this.label18.TabIndex = 85;
             this.label18.Text = "Running Totals";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(1518, 160);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(254, 377);
+            this.textBox1.TabIndex = 86;
+            this.textBox1.Visible = false;
             // 
             // dt_eodpick
             // 
@@ -637,7 +631,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1000, 12);
+            this.button1.Location = new System.Drawing.Point(893, 21);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 23);
             this.button1.TabIndex = 138;
@@ -645,17 +639,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btn_accountemail
-            // 
-            this.btn_accountemail.Location = new System.Drawing.Point(12, 691);
-            this.btn_accountemail.Name = "btn_accountemail";
-            this.btn_accountemail.Size = new System.Drawing.Size(106, 23);
-            this.btn_accountemail.TabIndex = 139;
-            this.btn_accountemail.Text = "Send Accounts";
-            this.btn_accountemail.UseVisualStyleBackColor = true;
-            this.btn_accountemail.Visible = false;
-            this.btn_accountemail.Click += new System.EventHandler(this.btn_accountemail_Click);
             // 
             // btn_dateleft
             // 
@@ -679,15 +662,16 @@
             this.btn_dateright.UseVisualStyleBackColor = true;
             this.btn_dateright.Click += new System.EventHandler(this.btn_dateright_Click);
             // 
-            // lbl_runningtotals
+            // lbl_dayend
             // 
-            this.lbl_runningtotals.AutoSize = true;
-            this.lbl_runningtotals.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_runningtotals.Location = new System.Drawing.Point(18, 59);
-            this.lbl_runningtotals.Name = "lbl_runningtotals";
-            this.lbl_runningtotals.Size = new System.Drawing.Size(157, 25);
-            this.lbl_runningtotals.TabIndex = 86;
-            this.lbl_runningtotals.Text = "Running Totals";
+            this.lbl_dayend.AutoSize = true;
+            this.lbl_dayend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lbl_dayend.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_dayend.Location = new System.Drawing.Point(12, 705);
+            this.lbl_dayend.Name = "lbl_dayend";
+            this.lbl_dayend.Size = new System.Drawing.Size(328, 39);
+            this.lbl_dayend.TabIndex = 142;
+            this.lbl_dayend.Text = "Day Not Yet Ended";
             // 
             // EndOfDay
             // 
@@ -695,10 +679,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 874);
+            this.Controls.Add(this.lbl_dayend);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btn_dateright);
             this.Controls.Add(this.btn_dateleft);
-            this.Controls.Add(this.btn_accountemail);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dt_eodpick);
             this.Controls.Add(this.panel4);
@@ -709,7 +693,6 @@
             this.Controls.Add(this.pnl_stepfive);
             this.Controls.Add(this.pnl_steptwo);
             this.Controls.Add(this.pnl_stepsthree);
-            this.Controls.Add(this.btn_eod);
             this.Controls.Add(this.txt_eodheader);
             this.Name = "EndOfDay";
             this.Text = "EOD";
@@ -739,7 +722,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl_total;
-        private System.Windows.Forms.Button btn_eod;
         private System.Windows.Forms.TextBox txtbox_notes;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lbl_eftposin;
@@ -781,11 +763,11 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DateTimePicker dt_eodpick;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btn_accountemail;
         private System.Windows.Forms.ComboBox cmb_printerpicked2;
         private System.Windows.Forms.ComboBox cmb_printerpicked1;
         private System.Windows.Forms.Button btn_dateleft;
         private System.Windows.Forms.Button btn_dateright;
         private System.Windows.Forms.Label lbl_runningtotals;
+        private System.Windows.Forms.Label lbl_dayend;
     }
 }

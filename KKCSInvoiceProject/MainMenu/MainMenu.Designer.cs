@@ -566,6 +566,7 @@
             this.bankingToolStripMenuItem.Name = "bankingToolStripMenuItem";
             this.bankingToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
             this.bankingToolStripMenuItem.Text = "Banking";
+            this.bankingToolStripMenuItem.Click += new System.EventHandler(this.bankingToolStripMenuItem_Click);
             // 
             // bookingsToolStripMenuItem
             // 
@@ -573,6 +574,7 @@
             this.bookingsToolStripMenuItem.Name = "bookingsToolStripMenuItem";
             this.bookingsToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
             this.bookingsToolStripMenuItem.Text = "Bookings";
+            this.bookingsToolStripMenuItem.Click += new System.EventHandler(this.bookingsToolStripMenuItem_Click);
             // 
             // tillPBToolStripMenuItem
             // 

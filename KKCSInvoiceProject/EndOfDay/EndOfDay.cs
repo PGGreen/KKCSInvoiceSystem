@@ -23,6 +23,8 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
+        bool bPrintingOff = false;
+
         string EODDate = "";
         string NextDayDate = "";
 
@@ -81,8 +83,8 @@ namespace KKCSInvoiceProject
             defaultBackWindowColor = this.BackColor;
 
             cmb_worker.SelectedIndex = 0;
-            cmb_printerpicked1.SelectedIndex = 0;
-            cmb_printerpicked2.SelectedIndex = 0;
+            cmb_printerpicked1.SelectedIndex = 1;
+            cmb_printerpicked2.SelectedIndex = 1;
 
             // Creates todays date for end of day
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
@@ -166,6 +168,24 @@ namespace KKCSInvoiceProject
 
                     chk_eftposreset.Checked = true;
 
+                    if (bIsCashCorrect)
+                    {
+                        //cmb_Steptwo
+                        cmb_stepthree.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        cmb_stepthree.SelectedIndex = 1;
+                    }
+
+                    cmb_worker.Text = staffMember;
+
+                    btn_printconfirmation.Text = "Print Again";
+                    btn_printconfirmation.BackColor = Color.Green;
+
+                    chk_signedform.Enabled = true;
+                    chk_signedform.Checked = true;
+
 
                 }
             }
@@ -207,8 +227,11 @@ namespace KKCSInvoiceProject
 
         private void btn_printdailytotal_Click(object sender, EventArgs e)
         {
-            PrintTodaysReport();
-
+            if(!bPrintingOff)
+            {
+                PrintTodaysReport();
+            }
+            
             btn_printdailytotal.Text = "Print Again";
             btn_printdailytotal.BackColor = Color.Green;
 
@@ -418,8 +441,11 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                PrintConfirmationSheet();
-
+                if (!bPrintingOff)
+                {
+                    PrintConfirmationSheet();
+                }
+                
                 btn_printconfirmation.Text = "Print Again";
                 btn_printconfirmation.BackColor = Color.Green;
 
@@ -1479,64 +1505,6 @@ namespace KKCSInvoiceProject
 
         #region Buttons
 
-        private void btn_eod_Click(object sender, EventArgs e)
-        {
-            bool bCheckForAnyIncorrect = false;
-
-            //if (cmb_Step1Correct.Text == "No" || cmb_Step2Correct.Text == "No" || cmb_Step3Correct.Text == "No")
-            //{
-            //    bCheckForAnyIncorrect = true;
-            //}
-
-            if (bCheckForAnyIncorrect && txtbox_notes.Text == "")
-            {
-                MessageBox.Show("As you have picked a 'No', please leave a note in the 'Notes' Section as to why");
-            }
-            else
-            {
-                string sWarningMessage = "Are you sure you want to end the day?";
-                string sWarning = "End the Day";
-
-                DialogResult dialogResult = MessageBox.Show(sWarningMessage, sWarning, MessageBoxButtons.YesNo);
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    if (dtTodaysDate.Month != dtTomorrowsDate.Month)
-                    {
-                        connection.Open();
-
-                        AccountsTest();
-
-                        SendEmailTest();
-
-                        connection.Close();
-
-                        //lbl_lastdayofmonth.Visible = false;
-                    }
-
-                    //lbl_dayendstatus.Text = "Day Closed";
-                    //lbl_dayendstatus.ForeColor = Color.Green;
-
-                    txtbox_notes.ReadOnly = true;
-
-                    //chk_printed.Checked = true;
-                    //txt_tomorrow.ReadOnly = true;
-
-                    btn_eod.Visible = false;
-                    btn_eod.Enabled = false;
-                    //cmb_Step2Correct.Enabled = false;
-                    //chk_printed.Enabled = false;
-
-                    connection.Open();
-
-                    //SendEndOfDayToDatabase();
-                    //SendNextDayToDatabase();
-
-                    connection.Close();
-                }
-            }
-        }
-
         private void btn_endday_Click(object sender, EventArgs e)
         {
             string sEndDay = "Do you wish to end the day?";
@@ -1561,17 +1529,16 @@ namespace KKCSInvoiceProject
                     SendEmailTest();
 
                     connection.Close();
-
-                    //lbl_lastdayofmonth.Visible = false;
-
-                    //test.Close();
                 }
-
                 this.BackColor = Color.LightGreen;
 
                 btn_endday.BackColor = Color.Green;
                 btn_endday.Text = "Day Ended";
-                //btn_endday.Enabled = false;
+                lbl_dayend.Text = "Day Is Closed";
+                lbl_dayend.BackColor = Color.White;
+
+                ReportsEmail();
+
             }
         }
 
@@ -1771,6 +1738,84 @@ namespace KKCSInvoiceProject
         }
 
         #endregion HertzInfo
+
+        #region Reports
+
+        string sSubjectLine = "";
+        string sEL = "\r\n";
+        string sLine = "---------------------------";
+
+        string DailyReports()
+        {
+            string sDailyReport = "";
+
+            DateTime dtTodaysDate = DateTime.Now;
+            string sDateTime = dtTodaysDate.ToString("dd") + "/" + dtTodaysDate.ToString("MM") + "/" + dtTodaysDate.ToString("yyyy");
+
+            sSubjectLine = "CAR STORAGE - DAILY REPORT - " + sDateTime;
+
+            sDailyReport = "CAR STORAGE - DAILY REPORT - " + sDateTime + "" + sEL;
+            sDailyReport += sLine + sLine + sLine + sEL + sEL + sEL;
+
+            sDailyReport += "--Finances--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
+            sDailyReport += "Cash: " + sEL;
+            sDailyReport += "Eftpos: " + sEL;
+            sDailyReport += "Credit Card: " + sEL;
+            sDailyReport += "Accounts: " + sEL;
+            sDailyReport += "Cheque: " + sEL;
+            sDailyReport += "Internet: " + sEL;
+            sDailyReport += "Total: " + sEL + sEL;
+            sDailyReport += "Refunds Cash: " + sEL;
+            sDailyReport += "Refunds Eftpos/Credit Card: " + sEL;
+            sDailyReport += sLine + sEL + sEL + sEL;
+            sDailyReport += "--Running Totals--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
+            sDailyReport += "Plastic Box SOD: " + "->" + "Plastic Box EOD: " + "" + sEL;
+            sDailyReport += sLine + sEL + sEL + sEL;
+            sDailyReport += "--Car Report--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
+            sDailyReport += "Cars IN: " + sEL;
+            sDailyReport += "Cars OUT: " + sEL;
+            sDailyReport += "Cars CURRENTLY IN YARD: " + sEL;
+            sDailyReport += sLine;
+
+            return (sDailyReport);
+        }
+
+        string WeeklyReports()
+        {
+            return ("");
+        }
+
+        string MonthlyReports()
+        {
+            return ("");
+        }
+
+        void ReportsEmail()
+        {
+            SmtpClient client = new SmtpClient("smtp.live.com");
+            client.Port = 25;
+            client.EnableSsl = true;
+            client.Timeout = 100000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
+            MailMessage msg = new MailMessage();
+            msg.To.Add("peter.george.green@gmail.com");
+            //msg.To.Add("deborah.green@hertz.com");
+            //msg.CC.Add("peter.george.green@gmail.com");
+            msg.From = new MailAddress("pg8472@hotmail.com");
+            msg.Body = DailyReports();
+            msg.Subject = sSubjectLine;
+            Object state = msg;
+            client.SendAsync(msg, state);
+        }
+
+        #endregion Reports
+
+
 
         private void btn_dateleft_Click(object sender, EventArgs e)
         {

@@ -225,7 +225,7 @@ namespace KKCSInvoiceProject
         {
             InitializeComponent();
 
-            cmb_printerpicked.SelectedIndex = 0;
+            cmb_printerpicked.SelectedIndex = 1;
 
             m_bIsFromCarReturns = _bIsFromCarReturns;
 
@@ -2394,11 +2394,14 @@ namespace KKCSInvoiceProject
             int offset = 30;
 
             graphic.DrawString("BOI Airport Car Storage Receipt", new Font("Courier New", 18), new SolidBrush(Color.Black), startX, startY);
-            offset = offset + (int)fontHeight; //make the spacing consistent
+            offset = offset + (int)fontHeight - 20; //make the spacing consistent
 
-            graphic.DrawString("Ph: 09-401-6351", font, new SolidBrush(Color.Black), startX, startY + 25);
+            graphic.DrawString("Ph: 09-401-6351", new Font("Courier New", 18), new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)fontHeight + 4;
+            graphic.DrawString("Cell: 027-292-2806", new Font("Courier New", 18), new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)fontHeight + 4;
 
-            graphic.DrawString("---------------------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
+            graphic.DrawString("----------------------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
             offset = offset + (int)fontHeight; //make the spacing consistent
 
             string sTodaysDate = "Date: " + dt_datein.Value.Day + "/" + dt_datein.Value.Month + "/" + dt_datein.Value.Year;
@@ -2412,13 +2415,14 @@ namespace KKCSInvoiceProject
 
             string sClientName = "Name: " + txt_firstname.Text + " " + txt_lastname.Text;
             graphic.DrawString(sClientName, font, new SolidBrush(Color.Black), startX, startY + offset);
-            offset = offset + (int)fontHeight * 2; //make the spacing consistent
+            offset = offset + (int)fontHeight; //make the spacing consistent
 
-            float fPrice = 0.0f;
-            float.TryParse(txt_total.Text, out fPrice);
-            string sTotalPrice = "Total: $" + fPrice.ToString("0.00");
-            graphic.DrawString(sTotalPrice, font, new SolidBrush(Color.Black), startX, startY + offset);
+            string sCarRego = "Car Registration: " + cmb_rego.Text;
+            graphic.DrawString(sCarRego, font, new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)fontHeight; //make the spacing consistent
 
+            string sMakeModel = "Make/Model: " + cmb_makemodel.Text;
+            graphic.DrawString(sMakeModel, font, new SolidBrush(Color.Black), startX, startY + offset);
             offset = offset + (int)fontHeight * 2; //make the spacing consistent
 
             graphic.DrawString("GST No: 20-247-711", font, new SolidBrush(Color.Black), startX, startY + offset);
@@ -2426,11 +2430,11 @@ namespace KKCSInvoiceProject
             offset = offset + (int)fontHeight * 2; //make the spacing consistent
 
             string BankAccount = @"Banking:
-------------------------
+---------------------------
 Branch: BNZ 
 Name: Hertz NZ Ltd
 Number: 02-0800-0493229-00
-------------------------";
+---------------------------";
 
             graphic.DrawString(BankAccount, font, new SolidBrush(Color.Black), startX, startY + offset);
 
@@ -2445,6 +2449,13 @@ Number: 02-0800-0493229-00
             graphic.DrawString("Thank You for Parking with Us!", font, new SolidBrush(Color.Black), startX, startY + offset);
 
             offset = offset + (int)fontHeight * 2; //make the spacing consistent
+
+            float fPrice = 0.0f;
+            float.TryParse(txt_total.Text, out fPrice);
+            string sTotalPrice = "Total: $" + fPrice.ToString("0.00");
+            graphic.DrawString(sTotalPrice, new Font("Stencil", 20), new SolidBrush(Color.Black), startX, startY + offset);
+
+            offset = offset + (int)fontHeight + 10; //make the spacing consistent
 
             Font fontStencil = new Font("Stencil", 20);
             graphic.DrawString("Paid By: " + g_sPaidStatus, fontStencil, new SolidBrush(Color.Black), startX, startY + offset);

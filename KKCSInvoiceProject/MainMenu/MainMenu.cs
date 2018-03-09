@@ -1526,6 +1526,31 @@ namespace KKCSInvoiceProject
             }
         }
 
+        private void bookingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+ 
+        }
+
+        private void bankingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["Banking"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                Banking bank = new Banking();
+                bank.Show();
+            }
+        }
+
 
 
 
