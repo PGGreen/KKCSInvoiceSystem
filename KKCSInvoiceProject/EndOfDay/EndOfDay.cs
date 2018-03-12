@@ -23,7 +23,7 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
-        bool bPrintingOff = false;
+        bool bPrintingOff = true;
 
         string EODDate = "";
         string NextDayDate = "";
@@ -621,26 +621,32 @@ namespace KKCSInvoiceProject
 
         void SendEndOfDayToDatabase()
         {
+            connection.Open();
+
             command = new OleDbCommand();
 
             command.Connection = connection;
 
             string sTrue = "True";
 
+            string query = "";
+
             //string query = @"INSERT INTO MoneyInYard (DateYard,TotalCashCorrect,EftposTotalPrinted,Reason,DayEnded) 
             //                values ('" + EODDate + "', '" + cmb_reciept.Text + "', " + chk_printed.Checked + ", '" + txtbox_reason.Text + "', True)";
 
-            string query = @"UPDATE MoneyInYard SET 
-                                    TotalCashCorrect = '" + sTrue +
-                                    //"', EftposTotalPrinted = " + chk_printed.Checked + 
-                                    "', Reason = '" + txtbox_notes.Text +
-                                    "', DayEnded = " + sTrue +
-                                    " WHERE DateYard = '" + EODDate + "'";
+            //string query = @"UPDATE MoneyInYard SET 
+            //                        TotalCashCorrect = '" + sTrue +
+            //                        //"', EftposTotalPrinted = " + chk_printed.Checked + 
+            //                        "', Reason = '" + txtbox_notes.Text +
+            //                        "', DayEnded = " + sTrue +
+            //                        " WHERE DateYard = '" + EODDate + "'";
 
 
             command.CommandText = query;
 
             command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
         void SendNextDayToDatabase()
@@ -983,6 +989,177 @@ namespace KKCSInvoiceProject
             graphic.DrawString(sEftposTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
 
             connection.Close();
+        }
+
+        float DailyAccounts()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from CustomerInvoices WHERE DTDatePaid = @dtTodaysDate AND PaidStatus = 'OnAcc'";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            float fCashTotal = 0;
+
+            while (reader.Read())
+            {
+                float fAccount = 0;
+                float.TryParse(reader["TotalPay"].ToString(), out fAccount);
+
+                fCashTotal += fAccount;
+            }
+
+            connection.Close();
+
+            return (fCashTotal);
+        }
+
+        float DailyCheque()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from CustomerInvoices WHERE DTDatePaid = @dtTodaysDate AND PaidStatus = 'Cheque'";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            float fCashTotal = 0;
+
+            while (reader.Read())
+            {
+                float fAccount = 0;
+                float.TryParse(reader["TotalPay"].ToString(), out fAccount);
+
+                fCashTotal += fAccount;
+            }
+
+            connection.Close();
+
+            return (fCashTotal);
+        }
+
+        float DailyInternet()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from CustomerInvoices WHERE DTDatePaid = @dtTodaysDate AND PaidStatus = 'Internet'";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            float fCashTotal = 0;
+
+            while (reader.Read())
+            {
+                float fAccount = 0;
+                float.TryParse(reader["TotalPay"].ToString(), out fAccount);
+
+                fCashTotal += fAccount;
+            }
+
+            connection.Close();
+
+            return (fCashTotal);
+        }
+
+        int DailyCarsIN()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from CustomerInvoices WHERE DTDateIn = @dtTodaysDate";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            int iTotalCars = 0;
+
+            while (reader.Read())
+            {
+                iTotalCars++;
+            }
+
+            connection.Close();
+
+            return (iTotalCars);
+        }
+
+        int DailyCarsOUT()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from CustomerInvoices WHERE DTReturnDate = @dtTodaysDate AND PickUp = True";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            int iTotalCars = 0;
+
+            while (reader.Read())
+            {
+                iTotalCars++;
+            }
+
+            connection.Close();
+
+            return (iTotalCars);
+        }
+
+        int TotalCars()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from CustomerInvoices WHERE PickUp = False";
+
+            command.CommandText = query;
+            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            reader = command.ExecuteReader();
+
+            int iTotalCars = 0;
+
+            while (reader.Read())
+            {
+                iTotalCars++;
+            }
+
+            connection.Close();
+
+            return (iTotalCars);
         }
 
         void TillRunningTotal()
@@ -1537,8 +1714,9 @@ namespace KKCSInvoiceProject
                 lbl_dayend.Text = "Day Is Closed";
                 lbl_dayend.BackColor = Color.White;
 
-                ReportsEmail();
+                //SendEndOfDayToDatabase();
 
+                ReportsEmail();
             }
         }
 
@@ -1754,31 +1932,61 @@ namespace KKCSInvoiceProject
 
             sSubjectLine = "CAR STORAGE - DAILY REPORT - " + sDateTime;
 
-            sDailyReport = "CAR STORAGE - DAILY REPORT - " + sDateTime + "" + sEL;
-            sDailyReport += sLine + sLine + sLine + sEL + sEL + sEL;
-
-            sDailyReport += "--Finances--" + sEL;
+            sDailyReport += "--Finances (Cash & Eftpos)--" + sEL;
             sDailyReport += sLine + sLine + sEL;
-            sDailyReport += "Cash: " + sEL;
-            sDailyReport += "Eftpos: " + sEL;
-            sDailyReport += "Credit Card: " + sEL;
-            sDailyReport += "Accounts: " + sEL;
-            sDailyReport += "Cheque: " + sEL;
-            sDailyReport += "Internet: " + sEL;
-            sDailyReport += "Total: " + sEL + sEL;
+            sDailyReport += "Cash: " + lbl_total.Text + " " + cmb_Steptwo.Text + sEL;
+            sDailyReport += "Eftpos + Credit Card: " + lbl_eftposin.Text + " " + cmb_stepthree.Text + sEL;
+            sDailyReport += "Staff Member: " + cmb_worker.Text + sEL;
+
+            if(txtbox_notes.Text != "")
+            {
+                sDailyReport += "Notes: " + txtbox_notes.Text + sEL;
+            }
+            
+            sDailyReport += sLine + sLine + sEL + sEL;
+
+            sDailyReport += "--Finances (Other)--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
+            sDailyReport += "Accounts: $" + DailyAccounts().ToString("0.00") + "; Cheque: $" + DailyCheque().ToString("0.00") + "; Internet: $" + DailyInternet().ToString("0.00") + sEL;
+            sDailyReport += sLine + sLine + sEL + sEL;
+
+            float fCashTotals = 0;
+            float.TryParse(lbl_total.Text.Substring(1), out fCashTotals);
+
+            float fEftposTotals = 0;
+            float.TryParse(lbl_eftposin.Text.Substring(1), out fEftposTotals);
+
+            float fTotal = fCashTotals + fEftposTotals + DailyAccounts() + DailyCheque() + DailyInternet();
+
+            sDailyReport += "--Totals--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
+            sDailyReport += "Total Income (" + sDateTime + "): $" + fTotal.ToString("0.00") + sEL;
+            sDailyReport += sLine + sLine + sEL + sEL;
+
+            /*
+            sDailyReport += "--Refunds--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
             sDailyReport += "Refunds Cash: " + sEL;
             sDailyReport += "Refunds Eftpos/Credit Card: " + sEL;
-            sDailyReport += sLine + sEL + sEL + sEL;
+            sDailyReport += sLine + sEL + sEL;
+
+            sDailyReport += "--Banking--" + sEL;
+            sDailyReport += sLine + sLine + sEL;
+            sDailyReport += "Backing: " + sEL;
+            sDailyReport += sLine + sLine + sEL + sEL;
+
             sDailyReport += "--Running Totals--" + sEL;
             sDailyReport += sLine + sLine + sEL;
-            sDailyReport += "Plastic Box SOD: " + "->" + "Plastic Box EOD: " + "" + sEL;
-            sDailyReport += sLine + sEL + sEL + sEL;
-            sDailyReport += "--Car Report--" + sEL;
+            sDailyReport += "Plastic Box SOD: " + "--> " + "Plastic Box EOD: " + "" + sEL;
+            sDailyReport += sLine + sLine + sEL + sEL;
+            */
+
+            sDailyReport += "--Car Report (" + sDateTime + ")--" + sEL;
             sDailyReport += sLine + sLine + sEL;
-            sDailyReport += "Cars IN: " + sEL;
-            sDailyReport += "Cars OUT: " + sEL;
-            sDailyReport += "Cars CURRENTLY IN YARD: " + sEL;
-            sDailyReport += sLine;
+            sDailyReport += "Cars IN: " + DailyCarsIN() + sEL;
+            sDailyReport += "Cars OUT: " + DailyCarsOUT() + sEL;
+            sDailyReport += "Cars CURRENTLY IN YARD (as of End of Day): " + TotalCars() + sEL;
+            sDailyReport += sLine + sLine;
 
             return (sDailyReport);
         }

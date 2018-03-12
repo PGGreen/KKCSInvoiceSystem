@@ -508,6 +508,7 @@
             this.btn_endday.TabIndex = 136;
             this.btn_endday.Text = "END DAY";
             this.btn_endday.UseVisualStyleBackColor = false;
+            this.btn_endday.Visible = false;
             this.btn_endday.Click += new System.EventHandler(this.btn_endday_Click);
             // 
             // pnl_stepfour
