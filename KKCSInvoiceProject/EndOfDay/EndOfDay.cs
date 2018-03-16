@@ -23,7 +23,7 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
-        bool bPrintingOff = true;
+        bool bTurnPrintingOff = false; // True = Off
 
         string EODDate = "";
         string NextDayDate = "";
@@ -105,7 +105,6 @@ namespace KKCSInvoiceProject
             txt_eodheader.Text = "End of Day - " + g_sTitleHeader + " (" + dtTodaysDate.ToString("ddd") + ")";
 
             // Step Two - Calculate Todays Cash
-            GetSODTill();
             GetCashTotal();
             GetCashRefunds();
             TotalCash();
@@ -227,7 +226,7 @@ namespace KKCSInvoiceProject
 
         private void btn_printdailytotal_Click(object sender, EventArgs e)
         {
-            if(!bPrintingOff)
+            if(!bTurnPrintingOff)
             {
                 PrintTodaysReport();
             }
@@ -301,32 +300,6 @@ namespace KKCSInvoiceProject
         #region StepThreeTillCounting
 
         int iSODTillCash = 0;
-
-        void GetSODTill()
-        {
-            connection.Open();
-
-            command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = @"select SODTill from EndOfDay WHERE DTEODDate = @dtTodaysDate";
-
-            command.CommandText = query;
-            command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
-
-            reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                iSODTillCash = 0;
-                int.TryParse(reader["SODTill"].ToString(), out iSODTillCash);
-
-                lbl_sod.Text = "$" + iSODTillCash.ToString("N");
-            }
-
-            connection.Close();
-        }
 
         void GetCashTotal()
         {
@@ -441,7 +414,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                if (!bPrintingOff)
+                if (!bTurnPrintingOff)
                 {
                     PrintConfirmationSheet();
                 }
@@ -631,36 +604,32 @@ namespace KKCSInvoiceProject
 
             string query = "";
 
-            //string query = @"INSERT INTO MoneyInYard (DateYard,TotalCashCorrect,EftposTotalPrinted,Reason,DayEnded) 
-            //                values ('" + EODDate + "', '" + cmb_reciept.Text + "', " + chk_printed.Checked + ", '" + txtbox_reason.Text + "', True)";
+            string EODTill = "50";
+            string EODPB = "50";
+            bool bIsDayEnded = true;
+            bool bIsCashCorrect = true;
+            bool bIsEftposCorrect = true;
+            string sStaffMember = cmb_worker.Text;
+            string sNotes = txtbox_notes.Text;
 
-            //string query = @"UPDATE MoneyInYard SET 
-            //                        TotalCashCorrect = '" + sTrue +
-            //                        //"', EftposTotalPrinted = " + chk_printed.Checked + 
-            //                        "', Reason = '" + txtbox_notes.Text +
-            //                        "', DayEnded = " + sTrue +
-            //                        " WHERE DateYard = '" + EODDate + "'";
-
+            DateTime dtNow = dtTodaysDate;
+                                           
+            query = @"INSERT INTO EndOfDay (DTEODDate,EODPlasticBox,EODTill,StaffMember,Notes,IsDayEnded,CashCorrect,EftposCorrect) 
+                            values ('" + dtNow + 
+                            "', '" + EODTill + 
+                            "', '" + EODPB +
+                            "', '" + sStaffMember +
+                            "', '" + sNotes +
+                            "', " + bIsDayEnded +
+                            ", " + bIsCashCorrect +
+                            ", " + bIsEftposCorrect +
+                            ")";
 
             command.CommandText = query;
 
             command.ExecuteNonQuery();
 
             connection.Close();
-        }
-
-        void SendNextDayToDatabase()
-        {
-            command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = @"INSERT INTO MoneyInYard (DateYard,SOD,TinSOD)
-                            values ('" + NextDayDate + "', '" + fTomorrow + "', '" + fTomorrowPlasticContainer + "')";
-
-            command.CommandText = query;
-
-            command.ExecuteNonQuery();
         }
 
         #endregion
@@ -1714,7 +1683,7 @@ namespace KKCSInvoiceProject
                 lbl_dayend.Text = "Day Is Closed";
                 lbl_dayend.BackColor = Color.White;
 
-                //SendEndOfDayToDatabase();
+                SendEndOfDayToDatabase();
 
                 ReportsEmail();
             }

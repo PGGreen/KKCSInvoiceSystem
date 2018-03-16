@@ -225,7 +225,7 @@ namespace KKCSInvoiceProject
         {
             InitializeComponent();
 
-            cmb_printerpicked.SelectedIndex = 1;
+            cmb_printerpicked.SelectedIndex = 0;
 
             m_bIsFromCarReturns = _bIsFromCarReturns;
 

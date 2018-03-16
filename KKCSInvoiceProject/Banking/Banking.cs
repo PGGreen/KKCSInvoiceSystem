@@ -26,7 +26,6 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
-            cmb_from.SelectedIndex = 0;
             New();
         }
 
@@ -193,6 +192,30 @@ namespace KKCSInvoiceProject
                 bCheck2 = false;
             }
             */
+        }
+
+        private void chk_no_CheckedChanged(object sender, EventArgs e)
+        {
+            lbl_pleaseentercustom.Enabled = false;
+            lbl_amountbacking.Enabled = false;
+            txt_amount.Enabled = false;
+
+            if (chk_no.Checked)
+            {
+                lbl_pleaseentercustom.Enabled = true;
+                lbl_amountbacking.Enabled = true;
+                txt_amount.Enabled = true;
+
+                chk_yes.Checked = false;
+            }
+        }
+
+        private void chk_yes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_yes.Checked)
+            {
+                chk_no.Checked = false;
+            }
         }
     }
 }
