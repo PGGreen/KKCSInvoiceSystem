@@ -532,7 +532,7 @@
             this.testToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
-            this.ms_mainstrip.Size = new System.Drawing.Size(785, 25);
+            this.ms_mainstrip.Size = new System.Drawing.Size(791, 25);
             this.ms_mainstrip.TabIndex = 26;
             this.ms_mainstrip.Text = "menuStrip1";
             // 
@@ -693,7 +693,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(785, 673);
+            this.ClientSize = new System.Drawing.Size(791, 673);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.cmb_printerpicked);
             this.Controls.Add(this.txt_noofcars);

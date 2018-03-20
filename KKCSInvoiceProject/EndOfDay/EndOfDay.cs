@@ -440,19 +440,13 @@ namespace KKCSInvoiceProject
 
         string sTitle = "";
 
-        void AccountsTest()
+        void AccountsEmail()
         {
             command = new OleDbCommand();
 
             command.Connection = connection;
 
-            string sMonth = dtTodaysDate.Month.ToString("0");
-            string sMonthDisplay = dtTodaysDate.ToString("MMMM");
-            string sYear = dtTodaysDate.ToString("yyyy");
-
-            DateTime dtDate = DateTime.Today;
-            //string query = @"SELECT * FROM Invoice WHERE ReturnMonth = '" + 02 + "' AND ReturnYear = '" + 2017 + "' AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DateInInvisible DESC";
-            dtDate = new DateTime(2017, 12, dtDate.Day, 12, 0, 0);
+            DateTime dtDate = new DateTime(dt_eodpick.Value.Year, dt_eodpick.Value.Month, dt_eodpick.Value.Day, 12, 0, 0);
 
             string query = "select * from CustomerInvoices WHERE year(DTReturnDate) = year(@dtDate) AND month(DTDatePaid) = month(@dtDate) AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DTDateIn ASC";
             command.Parameters.AddWithValue("@dtDate", dtDate);
@@ -461,6 +455,11 @@ namespace KKCSInvoiceProject
 
             reader = command.ExecuteReader();
 
+            string sMonth = dtDate.ToString("MMMM");
+            string sYear = dtDate.ToString("yyy");
+
+            sTitle = "BOI Car Storage Yard - " + sMonth + " " + sYear + " Accounts";
+
             string StoreAccountName1 = "";
             string StoreAccountName2 = "";
 
@@ -468,15 +467,10 @@ namespace KKCSInvoiceProject
             string sNextLine = "\r\n";
 
             bool bFirstTimeOnly = false;
-
-            //sCombinedAccount += "Date In" + Padding.Left(5);
-
-            //sTitle = "BOI Car Storage Yard - " + sMonthDisplay + " " + sYear + " Accounts";
-            sTitle = "BOI Car Storage Yard - November 2017 Accounts";
-
+            
             int iPadLength = 25;
 
-            sCombinedAccount = "Date In".PadRight(15) + "Date Out".PadRight(15) + "Name".PadRight(35)
+            sCombinedAccount = "Dropped Car In".PadRight(15) + "Picked Car Up".PadRight(15) + "Name".PadRight(35)
                                 + "Rego".PadRight(25) + "Total" + sNextLine + sLineBreak + sNextLine + sNextLine;
 
             while (reader.Read())
@@ -547,9 +541,7 @@ namespace KKCSInvoiceProject
             }
         }
 
-        WarningSystem test = new WarningSystem("Please Wait... \r\nSending Account Emails", false);
-
-        void SendEmailTest()
+        void SendEmail()
         {
             try
             {
@@ -563,11 +555,11 @@ namespace KKCSInvoiceProject
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
                 MailMessage msg = new MailMessage();
-                //msg.To.Add("peter.george.green@gmail.com");
-                //msg.To.Add("kerikericarstorage@gmail.com");
-                msg.To.Add("ar.boiairportcarstorage@outlook.com");
-                msg.CC.Add("peter.george.green@gmail.com");
+                msg.To.Add("peter.george.green@gmail.com");
                 msg.CC.Add("deborah.green@hertz.com");
+                //msg.To.Add("ar.boiairportcarstorage@outlook.com");
+                //msg.CC.Add("peter.george.green@gmail.com");
+                //msg.CC.Add("deborah.green@hertz.com");
                 msg.From = new MailAddress("pg8472@hotmail.com");
                 msg.Subject = sTitle;
                 msg.Body = sCombinedAccount;
@@ -582,6 +574,8 @@ namespace KKCSInvoiceProject
                 MessageBox.Show(ex.Message);
             }
         }
+
+        WarningSystem test = new WarningSystem("Please Wait... \r\nSending Account Emails", false);
 
         void smtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
@@ -1658,21 +1652,17 @@ namespace KKCSInvoiceProject
             WarningSystem ws = new WarningSystem(sEndDay, true);
             ws.ShowDialog();
 
-            DateTime dtTodaysDateCompare = DateTime.Now;
-            DateTime dtTomorrowsDateCompare = dtTodaysDateCompare.AddDays(1);
+            DateTime dtTomorrowsDateCompare = dt_eodpick.Value.AddDays(1);
 
             if (ws.DialogResult == DialogResult.OK)
             {
-                if (dtTodaysDateCompare.Month != dtTomorrowsDateCompare.Month)
+                if (dt_eodpick.Value.Month != dtTomorrowsDateCompare.Month)
                 {
-                    //WarningSystem test = new WarningSystem("F", false);
-                    //test.Show();
-
                     connection.Open();
 
-                    AccountsTest();
+                    AccountsEmail();
 
-                    SendEmailTest();
+                    SendEmail();
 
                     connection.Close();
                 }
@@ -1693,9 +1683,9 @@ namespace KKCSInvoiceProject
         {
             connection.Open();
 
-            AccountsTest();
+            AccountsEmail();
 
-            SendEmailTest();
+            SendEmail();
 
             connection.Close();
         }
@@ -2002,6 +1992,15 @@ namespace KKCSInvoiceProject
         private void btn_dateright_Click(object sender, EventArgs e)
         {
             dt_eodpick.Value = dt_eodpick.Value.AddDays(1);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            connection.Open();
+
+            AccountsEmail();
+
+            connection.Close();
         }
     }
 }

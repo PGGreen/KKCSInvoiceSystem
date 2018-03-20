@@ -96,6 +96,12 @@
     <Compile Include="Administrator\AdministratorManager.Designer.cs">
       <DependentUpon>AdministratorManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bookings\Bookings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bookings\Bookings.Designer.cs">
+      <DependentUpon>Bookings.cs</DependentUpon>
+    </Compile>
     <Compile Include="CarReturns\AlertsAndNotes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -411,6 +417,9 @@
     <EmbeddedResource Include="Alerts\AlertGeneric.resx">
       <DependentUpon>AlertGeneric.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Bookings\Bookings.resx">
+      <DependentUpon>Bookings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CarReturns\AlertsAndNotes.resx">
       <DependentUpon>AlertsAndNotes.cs</DependentUpon>
     </EmbeddedResource>
@@ -642,6 +651,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

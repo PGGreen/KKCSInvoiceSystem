@@ -1528,7 +1528,22 @@ namespace KKCSInvoiceProject
 
         private void bookingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
- 
+            Form fm = Application.OpenForms["Bookings"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                Bookings book = new Bookings();
+                book.ShowDialog();
+            }
         }
 
         private void bankingToolStripMenuItem_Click(object sender, EventArgs e)
