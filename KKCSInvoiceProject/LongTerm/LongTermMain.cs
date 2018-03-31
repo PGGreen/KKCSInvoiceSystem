@@ -18,6 +18,8 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
+        Panel pnl;
+
         public LongTermMain()
         {
             InitializeComponent();
@@ -25,6 +27,8 @@ namespace KKCSInvoiceProject
             connection.ConnectionString = m_strDataBaseFilePath;
 
             Public();
+
+            //PublicPeople();
         }
 
         void Public()
@@ -41,12 +45,46 @@ namespace KKCSInvoiceProject
 
             OleDbDataReader reader = command.ExecuteReader();
 
-            int LocationY = 0;
+            int iLocationY = 0;
+            int iLocationX = pnl_template.Location.X;
+            int iCount = 0;
 
             int iLongTermNumber = 0;
 
             while (reader.Read())
             {
+                if (iCount == 10)
+                {
+                    iLocationY = 0;
+                    iLocationX = pnl_template.Size.Width + 50;
+                }
+
+                pnl = new Panel();
+
+                pnl.Size = pnl_template.Size;
+                pnl.BackColor = pnl_template.BackColor;
+                pnl.Location = new Point(iLocationX, pnl_template.Location.Y + iLocationY);
+                pnl.Visible = true;
+
+                foreach (Control p in pnl_template.Controls)
+                {
+                    // Handles all the button controls
+                    if (p.GetType() == typeof(Button))
+                    {
+                        //ControlButtons(p);
+                    }
+                    // Handles all the Label Controlls
+                    if (p.GetType() == typeof(Label))
+                    {
+                        ControlLabels(p);
+                    }
+                }
+
+                this.Controls.Add(pnl);
+
+                iCount++;
+
+                /*
                 iLongTermNumber++;
 
                 Label lbl = new Label();
@@ -60,14 +98,27 @@ namespace KKCSInvoiceProject
                 lbl.Size = new Size(1000, lbl.Size.Height + 10);
 
                 lbl.BackColor = Color.LightBlue;
+                */
 
-                Controls.Add(lbl);
+                //Controls.Add(lbl);
 
-                LocationY += 40;
+                iLocationY += 50;
 
             }
 
+
+
             connection.Close();
+        }
+
+        void ControlLabels(Control p)
+        {
+            Label lbl = new Label();
+            lbl.Location = p.Location;
+            lbl.Text = p.Text;
+            lbl.Size = p.Size;
+            lbl.Font = p.Font;
+            pnl.Controls.Add(lbl);
         }
     }
 }

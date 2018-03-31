@@ -53,7 +53,7 @@ namespace KKCSInvoiceProject
 
             btn_build.Text = "v" + sVersionNumber;
 
-            cmb_printerpicked.SelectedIndex = 0;
+            cmb_printerpicked.SelectedIndex = 1;
 
             // Out of Colour Ink (Uncomment Next Line)
             //cmb_printerpicked.SelectedIndex = 1;
@@ -517,7 +517,7 @@ namespace KKCSInvoiceProject
 
                 if (ModifierKeys.HasFlag(Keys.Shift) && ModifierKeys.HasFlag(Keys.Control))
                 {
-                    ac.SetAdminMode();
+                    //ac.SetAdminMode();
                 }
                 
                 ac.Show();
@@ -1566,12 +1566,65 @@ namespace KKCSInvoiceProject
             }
         }
 
+        private void newAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["NewAccount"];
 
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
 
+                fm.BringToFront();
+            }
+            else
+            {
+                NewAccount bank = new NewAccount();
+                bank.ShowDialog();
+            }
+        }
 
+        private void accountsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["Accounts"];
 
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
 
+                fm.BringToFront();
+            }
+            else
+            {
+                Accounts bank = new Accounts();
+                bank.ShowDialog();
+            }
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["LongTermMain"];
+
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                LongTermMain bank = new LongTermMain();
+                bank.ShowDialog();
+            }
+        }
 
         #endregion
 

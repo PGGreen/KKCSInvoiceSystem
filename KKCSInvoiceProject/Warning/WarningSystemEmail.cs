@@ -17,34 +17,16 @@ namespace KKCSInvoiceProject
 {
     public partial class WarningSystemEmail : Form
     {
-        public WarningSystemEmail()
+        public WarningSystemEmail(string _sWarning)
         {
             InitializeComponent();
 
-            //System.Threading.Thread.Sleep(10000);
+            System.Media.SystemSounds.Asterisk.Play();
 
-            //SendAccountEmail();
-        }
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(600, 300);
 
-        public void SendAccountEmail()
-        {
-            SmtpClient client = new SmtpClient("smtp.live.com");
-            client.Port = 25;
-            client.EnableSsl = true;
-            client.Timeout = 100000;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger300");
-            MailMessage msg = new MailMessage();
-            //msg.To.Add("ar.boiairportcarstorage@outlook.com");
-            msg.To.Add("peter.george.green@gmail.com");
-            msg.From = new MailAddress("pg8472@hotmail.com");
-            msg.Subject = "Test";
-            msg.Body = "K";// AccountsTest();
-            client.Send(msg);
-
-            this.Close();
-            
+            lbl_warning.Text = _sWarning;
         }
     }
 }

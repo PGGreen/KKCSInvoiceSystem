@@ -33,7 +33,6 @@
             this.lbl_staytext = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmb_makemodel = new System.Windows.Forms.ComboBox();
-            this.txt_account = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -63,34 +62,37 @@
             this.btn_dlright = new System.Windows.Forms.Button();
             this.btn_dlleft = new System.Windows.Forms.Button();
             this.dt_customerleaving = new System.Windows.Forms.DateTimePicker();
+            this.cmd_accountlist = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // dt_dateright
             // 
             this.dt_dateright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_dateright.Location = new System.Drawing.Point(720, 459);
+            this.dt_dateright.Location = new System.Drawing.Point(720, 477);
             this.dt_dateright.Name = "dt_dateright";
             this.dt_dateright.Size = new System.Drawing.Size(37, 31);
             this.dt_dateright.TabIndex = 303;
             this.dt_dateright.Text = "-->";
             this.dt_dateright.UseVisualStyleBackColor = true;
+            this.dt_dateright.Click += new System.EventHandler(this.dt_dateright_Click);
             // 
             // dt_dateleft
             // 
             this.dt_dateleft.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_dateleft.Location = new System.Drawing.Point(205, 459);
+            this.dt_dateleft.Location = new System.Drawing.Point(205, 477);
             this.dt_dateleft.Name = "dt_dateleft";
             this.dt_dateleft.Size = new System.Drawing.Size(37, 31);
             this.dt_dateleft.TabIndex = 302;
             this.dt_dateleft.Text = "<--";
             this.dt_dateleft.UseVisualStyleBackColor = true;
+            this.dt_dateleft.Click += new System.EventHandler(this.dt_dateleft_Click);
             // 
             // lbl_staytext
             // 
             this.lbl_staytext.AutoSize = true;
             this.lbl_staytext.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_staytext.ForeColor = System.Drawing.Color.Green;
-            this.lbl_staytext.Location = new System.Drawing.Point(149, 546);
+            this.lbl_staytext.Location = new System.Drawing.Point(149, 564);
             this.lbl_staytext.Name = "lbl_staytext";
             this.lbl_staytext.Size = new System.Drawing.Size(87, 29);
             this.lbl_staytext.TabIndex = 297;
@@ -100,7 +102,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(370, 597);
+            this.label1.Location = new System.Drawing.Point(370, 615);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 24);
             this.label1.TabIndex = 292;
@@ -119,16 +121,6 @@
             this.cmb_makemodel.Name = "cmb_makemodel";
             this.cmb_makemodel.Size = new System.Drawing.Size(268, 33);
             this.cmb_makemodel.TabIndex = 286;
-            // 
-            // txt_account
-            // 
-            this.txt_account.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.txt_account.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_account.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_account.Location = new System.Drawing.Point(76, 374);
-            this.txt_account.Name = "txt_account";
-            this.txt_account.Size = new System.Drawing.Size(377, 26);
-            this.txt_account.TabIndex = 281;
             // 
             // label41
             // 
@@ -184,7 +176,7 @@
             // 
             this.lbl_cccharges.AutoSize = true;
             this.lbl_cccharges.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cccharges.Location = new System.Drawing.Point(161, 635);
+            this.lbl_cccharges.Location = new System.Drawing.Point(161, 653);
             this.lbl_cccharges.Name = "lbl_cccharges";
             this.lbl_cccharges.Size = new System.Drawing.Size(189, 16);
             this.lbl_cccharges.TabIndex = 269;
@@ -235,7 +227,7 @@
             "1440",
             "1720",
             "2025"});
-            this.txt_flighttimes.Location = new System.Drawing.Point(246, 500);
+            this.txt_flighttimes.Location = new System.Drawing.Point(246, 518);
             this.txt_flighttimes.Name = "txt_flighttimes";
             this.txt_flighttimes.Size = new System.Drawing.Size(198, 37);
             this.txt_flighttimes.TabIndex = 263;
@@ -255,18 +247,19 @@
             this.btn_save.BackColor = System.Drawing.Color.OrangeRed;
             this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_save.ForeColor = System.Drawing.Color.Black;
-            this.btn_save.Location = new System.Drawing.Point(22, 673);
+            this.btn_save.Location = new System.Drawing.Point(22, 691);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(174, 68);
             this.btn_save.TabIndex = 254;
             this.btn_save.Text = "UNSAVED";
             this.btn_save.UseVisualStyleBackColor = false;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(12, 596);
+            this.label13.Location = new System.Drawing.Point(12, 614);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(157, 25);
             this.label13.TabIndex = 249;
@@ -277,7 +270,7 @@
             this.txt_total.BackColor = System.Drawing.SystemColors.Info;
             this.txt_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_total.ForeColor = System.Drawing.Color.ForestGreen;
-            this.txt_total.Location = new System.Drawing.Point(175, 588);
+            this.txt_total.Location = new System.Drawing.Point(175, 606);
             this.txt_total.Name = "txt_total";
             this.txt_total.Size = new System.Drawing.Size(191, 44);
             this.txt_total.TabIndex = 248;
@@ -297,7 +290,7 @@
             this.lbl_flighttime.AutoSize = true;
             this.lbl_flighttime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_flighttime.ForeColor = System.Drawing.Color.Green;
-            this.lbl_flighttime.Location = new System.Drawing.Point(11, 504);
+            this.lbl_flighttime.Location = new System.Drawing.Point(11, 522);
             this.lbl_flighttime.Name = "lbl_flighttime";
             this.lbl_flighttime.Size = new System.Drawing.Size(225, 29);
             this.lbl_flighttime.TabIndex = 246;
@@ -316,7 +309,7 @@
             // dt_returndate
             // 
             this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_returndate.Location = new System.Drawing.Point(246, 456);
+            this.dt_returndate.Location = new System.Drawing.Point(246, 474);
             this.dt_returndate.Name = "dt_returndate";
             this.dt_returndate.Size = new System.Drawing.Size(468, 38);
             this.dt_returndate.TabIndex = 244;
@@ -327,7 +320,7 @@
             this.lbl_returndate.AutoSize = true;
             this.lbl_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_returndate.ForeColor = System.Drawing.Color.Green;
-            this.lbl_returndate.Location = new System.Drawing.Point(5, 461);
+            this.lbl_returndate.Location = new System.Drawing.Point(5, 479);
             this.lbl_returndate.Name = "lbl_returndate";
             this.lbl_returndate.Size = new System.Drawing.Size(202, 29);
             this.lbl_returndate.TabIndex = 243;
@@ -393,17 +386,17 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 9);
+            this.label2.Location = new System.Drawing.Point(29, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(255, 25);
+            this.label2.Size = new System.Drawing.Size(178, 25);
             this.label2.TabIndex = 308;
-            this.label2.Text = "Specific Bookings Only";
+            this.label2.Text = "FNDC Bookings";
             // 
             // txt_notes
             // 
             this.txt_notes.BackColor = System.Drawing.Color.White;
             this.txt_notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.txt_notes.Location = new System.Drawing.Point(488, 224);
+            this.txt_notes.Location = new System.Drawing.Point(582, 224);
             this.txt_notes.Multiline = true;
             this.txt_notes.Name = "txt_notes";
             this.txt_notes.ReadOnly = true;
@@ -416,7 +409,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(486, 196);
+            this.label3.Location = new System.Drawing.Point(577, 196);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 25);
             this.label3.TabIndex = 310;
@@ -452,11 +445,23 @@
             this.dt_customerleaving.Size = new System.Drawing.Size(468, 38);
             this.dt_customerleaving.TabIndex = 311;
             // 
+            // cmd_accountlist
+            // 
+            this.cmd_accountlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.cmd_accountlist.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmd_accountlist.FormattingEnabled = true;
+            this.cmd_accountlist.Location = new System.Drawing.Point(76, 371);
+            this.cmd_accountlist.Name = "cmd_accountlist";
+            this.cmd_accountlist.Size = new System.Drawing.Size(481, 28);
+            this.cmd_accountlist.TabIndex = 315;
+            // 
             // Bookings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 753);
+            this.BackColor = System.Drawing.Color.MistyRose;
+            this.ClientSize = new System.Drawing.Size(973, 769);
+            this.Controls.Add(this.cmd_accountlist);
             this.Controls.Add(this.btn_dlright);
             this.Controls.Add(this.btn_dlleft);
             this.Controls.Add(this.dt_customerleaving);
@@ -469,7 +474,6 @@
             this.Controls.Add(this.lbl_staytext);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmb_makemodel);
-            this.Controls.Add(this.txt_account);
             this.Controls.Add(this.label41);
             this.Controls.Add(this.label40);
             this.Controls.Add(this.label39);
@@ -505,7 +509,6 @@
         private System.Windows.Forms.Label lbl_staytext;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmb_makemodel;
-        private System.Windows.Forms.TextBox txt_account;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label39;
@@ -535,5 +538,6 @@
         private System.Windows.Forms.Button btn_dlright;
         private System.Windows.Forms.Button btn_dlleft;
         private System.Windows.Forms.DateTimePicker dt_customerleaving;
+        private System.Windows.Forms.ComboBox cmd_accountlist;
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label8 = new System.Windows.Forms.Label();
-            this.cmb_firstname = new System.Windows.Forms.ComboBox();
+            this.cmb_name = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -37,17 +37,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pnl_template = new System.Windows.Forms.Panel();
+            this.btn_InsertWRego = new System.Windows.Forms.Button();
             this.lbl_account = new System.Windows.Forms.Label();
             this.btn_insert = new System.Windows.Forms.Button();
             this.lbl_make = new System.Windows.Forms.Label();
             this.lbl_ph = new System.Windows.Forms.Label();
             this.lbl_rego = new System.Windows.Forms.Label();
             this.lbl_customername = new System.Windows.Forms.Label();
-            this.cmb_lastname = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.btn_InsertWRego = new System.Windows.Forms.Button();
+            this.btn_search = new System.Windows.Forms.Button();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,30 +59,29 @@
             this.label8.TabIndex = 149;
             this.label8.Text = "Account";
             // 
-            // cmb_firstname
+            // cmb_name
             // 
-            this.cmb_firstname.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cmb_firstname.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_firstname.BackColor = System.Drawing.SystemColors.Window;
-            this.cmb_firstname.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cmb_firstname.DropDownWidth = 121;
-            this.cmb_firstname.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_firstname.FormattingEnabled = true;
-            this.cmb_firstname.Location = new System.Drawing.Point(199, 109);
-            this.cmb_firstname.Name = "cmb_firstname";
-            this.cmb_firstname.Size = new System.Drawing.Size(293, 33);
-            this.cmb_firstname.TabIndex = 141;
-            this.cmb_firstname.SelectedIndexChanged += new System.EventHandler(this.cmb_firstname_SelectedIndexChanged);
+            this.cmb_name.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmb_name.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmb_name.BackColor = System.Drawing.SystemColors.Window;
+            this.cmb_name.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cmb_name.DropDownWidth = 121;
+            this.cmb_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_name.FormattingEnabled = true;
+            this.cmb_name.Location = new System.Drawing.Point(20, 157);
+            this.cmb_name.Name = "cmb_name";
+            this.cmb_name.Size = new System.Drawing.Size(385, 33);
+            this.cmb_name.TabIndex = 141;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(193, 60);
+            this.label5.Location = new System.Drawing.Point(14, 108);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(299, 31);
+            this.label5.Size = new System.Drawing.Size(232, 31);
             this.label5.TabIndex = 138;
-            this.label5.Text = "Search By First Name";
+            this.label5.Text = "Search By Name";
             // 
             // label12
             // 
@@ -153,6 +150,17 @@
             this.pnl_template.TabIndex = 129;
             this.pnl_template.Visible = false;
             // 
+            // btn_InsertWRego
+            // 
+            this.btn_InsertWRego.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btn_InsertWRego.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_InsertWRego.Location = new System.Drawing.Point(145, 7);
+            this.btn_InsertWRego.Name = "btn_InsertWRego";
+            this.btn_InsertWRego.Size = new System.Drawing.Size(117, 23);
+            this.btn_InsertWRego.TabIndex = 30;
+            this.btn_InsertWRego.Text = "Insert With Rego";
+            this.btn_InsertWRego.UseVisualStyleBackColor = false;
+            // 
             // lbl_account
             // 
             this.lbl_account.AutoSize = true;
@@ -214,41 +222,6 @@
             this.lbl_customername.TabIndex = 12;
             this.lbl_customername.Text = "PETER GREEN PETER";
             // 
-            // cmb_lastname
-            // 
-            this.cmb_lastname.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cmb_lastname.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_lastname.BackColor = System.Drawing.SystemColors.Window;
-            this.cmb_lastname.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cmb_lastname.DropDownWidth = 121;
-            this.cmb_lastname.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_lastname.FormattingEnabled = true;
-            this.cmb_lastname.Location = new System.Drawing.Point(573, 109);
-            this.cmb_lastname.Name = "cmb_lastname";
-            this.cmb_lastname.Size = new System.Drawing.Size(293, 33);
-            this.cmb_lastname.TabIndex = 151;
-            this.cmb_lastname.SelectedIndexChanged += new System.EventHandler(this.cmb_lastname_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(567, 60);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(296, 31);
-            this.label3.TabIndex = 150;
-            this.label3.Text = "Search By Last Name";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(512, 61);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 29);
-            this.label6.TabIndex = 154;
-            this.label6.Text = "or";
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -261,16 +234,17 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btn_InsertWRego
+            // btn_search
             // 
-            this.btn_InsertWRego.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btn_InsertWRego.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_InsertWRego.Location = new System.Drawing.Point(145, 7);
-            this.btn_InsertWRego.Name = "btn_InsertWRego";
-            this.btn_InsertWRego.Size = new System.Drawing.Size(117, 23);
-            this.btn_InsertWRego.TabIndex = 30;
-            this.btn_InsertWRego.Text = "Insert With Rego";
-            this.btn_InsertWRego.UseVisualStyleBackColor = false;
+            this.btn_search.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btn_search.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_search.Location = new System.Drawing.Point(411, 152);
+            this.btn_search.Name = "btn_search";
+            this.btn_search.Size = new System.Drawing.Size(110, 41);
+            this.btn_search.TabIndex = 156;
+            this.btn_search.Text = "Search";
+            this.btn_search.UseVisualStyleBackColor = false;
+            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
             // SearchByName
             // 
@@ -278,12 +252,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1128, 619);
+            this.Controls.Add(this.btn_search);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.cmb_lastname);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.cmb_firstname);
+            this.Controls.Add(this.cmb_name);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -304,7 +276,7 @@
         #endregion
 
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox cmb_firstname;
+        private System.Windows.Forms.ComboBox cmb_name;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
@@ -318,10 +290,8 @@
         private System.Windows.Forms.Label lbl_ph;
         private System.Windows.Forms.Label lbl_rego;
         private System.Windows.Forms.Label lbl_customername;
-        private System.Windows.Forms.ComboBox cmb_lastname;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_InsertWRego;
+        private System.Windows.Forms.Button btn_search;
     }
 }

@@ -83,8 +83,8 @@ namespace KKCSInvoiceProject
             defaultBackWindowColor = this.BackColor;
 
             cmb_worker.SelectedIndex = 0;
-            cmb_printerpicked1.SelectedIndex = 1;
-            cmb_printerpicked2.SelectedIndex = 1;
+            cmb_printerpicked1.SelectedIndex = 0;
+            cmb_printerpicked2.SelectedIndex = 0;
 
             // Creates todays date for end of day
             dtTodaysDate = new DateTime(dtTodaysDate.Year, dtTodaysDate.Month, dtTodaysDate.Day, 12, 0, 0);
@@ -541,7 +541,9 @@ namespace KKCSInvoiceProject
             }
         }
 
-        void SendEmail()
+        WarningSystemEmail test = new WarningSystemEmail("Please Wait... \r\nSending Account Emails");
+
+        void SendAccountsEmail()
         {
             try
             {
@@ -555,11 +557,11 @@ namespace KKCSInvoiceProject
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
                 MailMessage msg = new MailMessage();
-                msg.To.Add("peter.george.green@gmail.com");
-                msg.CC.Add("deborah.green@hertz.com");
-                //msg.To.Add("ar.boiairportcarstorage@outlook.com");
-                //msg.CC.Add("peter.george.green@gmail.com");
+                //msg.To.Add("peter.george.green@gmail.com");
                 //msg.CC.Add("deborah.green@hertz.com");
+                msg.To.Add("ar.boiairportcarstorage@outlook.com");
+                msg.CC.Add("peter.george.green@gmail.com");
+                msg.CC.Add("deborah.green@hertz.com");
                 msg.From = new MailAddress("pg8472@hotmail.com");
                 msg.Subject = sTitle;
                 msg.Body = sCombinedAccount;
@@ -575,7 +577,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-        WarningSystem test = new WarningSystem("Please Wait... \r\nSending Account Emails", false);
 
         void smtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
@@ -1662,7 +1663,7 @@ namespace KKCSInvoiceProject
 
                     AccountsEmail();
 
-                    SendEmail();
+                    SendAccountsEmail();
 
                     connection.Close();
                 }
@@ -1685,7 +1686,7 @@ namespace KKCSInvoiceProject
 
             AccountsEmail();
 
-            SendEmail();
+            SendAccountsEmail();
 
             connection.Close();
         }

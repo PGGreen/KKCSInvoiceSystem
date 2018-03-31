@@ -20,11 +20,42 @@ namespace KKCSInvoiceProject
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
         private OleDbConnection connection = new OleDbConnection();
 
-        private OleDbCommand command;
+        private OleDbCommand command = new OleDbCommand();
+
+        private OleDbDataReader reader;
 
         public NewAccount()
         {
             InitializeComponent();
+
+            connection.ConnectionString = m_strDataBaseFilePath;
+        }
+
+        void SaveToDatabase()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"INSERT INTO Accounts (DateNewAccount,Account,AccountParticulars,ClientName,Rego,Ph,Email,LName,Make) 
+                    values ('" + dt_accountsetup.Value +
+                    "','" + txt_accountname.Text +
+                    "','" + txt_part.Text +
+                    "','" + txt_firstname.Text +
+                    "','" + txt_rego1.Text +
+                    "','" + txt_ph.Text +
+                    "','" + txt_email.Text +
+                    "','" + txt_lastname.Text +
+                    "','" + txt_make1.Text +
+                    "')";
+
+            command.CommandText = query;
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
         string AccountsTest()
@@ -129,18 +160,95 @@ namespace KKCSInvoiceProject
         private void button1_Click(object sender, EventArgs e)
         {
             //AccountsTest();
-            SendAccountEmail();
+            //SendAccountEmail();
+            SaveToDatabase();
+
+            if(txt_rego1.Text != "")
+            {
+                InsertIntoNumberPlates();
+            }
+
+            btn_save.BackColor = Color.Green;
+            btn_save.Text = "Saved";
+            this.BackColor = Color.LightGreen;
         }
 
-        private void btn_adddrivers_Click(object sender, EventArgs e)
+        void InsertIntoNumberPlates()
         {
-            btn_adddrivers.Location = new Point(btn_adddrivers.Location.X, btn_adddrivers.Location.Y + 50);
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
 
-            //TextBox txt = new TextBox();
-            //txt.Size = txt_firstname.Size;
-            //txt.Location = new Point(txt_firstname.Location.X, txt_firstname.Location.Y + 50);
-            //txt.Font = txt_firstname.Font;
-            //panel1.Controls.Add(txt);
+            // Checks to see if the NumberPlate already exists
+            string cmdStr = @"SELECT COUNT(*) FROM NumberPlates
+                        WHERE NumberPlates = '" + txt_rego1 + "'";
+
+            // Runs the command from above to search the database
+            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
+
+            // Returns a number based on how many matches it finds
+            // If 0 Number Plate does not exist (New Number Plate)
+            // If 1 or Greater Number Plate Already Exists
+            int count = (int)cmd.ExecuteScalar();
+
+            // If there is no matches in database, insert the new Number Plate
+            // If there is a match (count is greater than 0), skip this function completly
+            if (count == 0)
+            {
+                //record doesnt exist
+                // Make new command structure for database querys
+                OleDbCommand command = new OleDbCommand();
+
+                // Make the command equal the physical location of the database (connection)
+                command.Connection = connection;
+
+                // Insert the new Number Plate into the Database
+                string cmd1 = @"INSERT into NumberPlates (NumberPlates,ClientName,LastName,MakeModel,Ph
+                                                            ) values
+                                                            ('" + txt_rego1.Text + "','" +
+                                                                txt_firstname.Text + "','" +
+                                                                txt_lastname.Text + "','" +
+                                                                txt_make1.Text + "','" +
+                                                                txt_ph.Text + 
+                                                            "')";
+
+                // Makes the command text equal the string
+                command.CommandText = cmd1;
+
+                // Run a NonQuery (Saves into Database instead of pulling data out)
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                // record already exists
+                // Make new command structure for database querys
+                OleDbCommand command = new OleDbCommand();
+
+                // Make the command equal the physical location of the database (connection)
+                command.Connection = connection;
+
+                string cmd1 = @"UPDATE NumberPlates SET
+                                    NumberPlates = '" + txt_rego1.Text +
+                                    "', ClientName = '" + txt_firstname.Text +
+                                    "', LastName = '" + txt_lastname.Text +
+                                    "', MakeModel = '" + txt_make1.Text +
+                                    "', Ph = '" + txt_ph.Text +
+                                    "' WHERE NumberPlates = '" + txt_rego1 + "'";
+
+                // Makes the command text equal the string
+                command.CommandText = cmd1;
+
+                // Run a NonQuery (Saves into Database instead of pulling data out)
+                command.ExecuteNonQuery();
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
     }
 }

@@ -72,6 +72,9 @@
             this.pettyCashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bankingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bookingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.newAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tillPBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -527,6 +530,7 @@
             this.pettyCashToolStripMenuItem,
             this.bankingToolStripMenuItem,
             this.bookingsToolStripMenuItem,
+            this.accountsToolStripMenuItem,
             this.tillPBToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.testToolStripMenuItem});
@@ -575,6 +579,30 @@
             this.bookingsToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
             this.bookingsToolStripMenuItem.Text = "Bookings";
             this.bookingsToolStripMenuItem.Click += new System.EventHandler(this.bookingsToolStripMenuItem_Click);
+            // 
+            // accountsToolStripMenuItem
+            // 
+            this.accountsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.accountsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.accountsToolStripMenuItem1,
+            this.newAccountToolStripMenuItem});
+            this.accountsToolStripMenuItem.Name = "accountsToolStripMenuItem";
+            this.accountsToolStripMenuItem.Size = new System.Drawing.Size(72, 21);
+            this.accountsToolStripMenuItem.Text = "Accounts";
+            // 
+            // accountsToolStripMenuItem1
+            // 
+            this.accountsToolStripMenuItem1.Name = "accountsToolStripMenuItem1";
+            this.accountsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.accountsToolStripMenuItem1.Text = "Accounts";
+            this.accountsToolStripMenuItem1.Click += new System.EventHandler(this.accountsToolStripMenuItem1_Click);
+            // 
+            // newAccountToolStripMenuItem
+            // 
+            this.newAccountToolStripMenuItem.Name = "newAccountToolStripMenuItem";
+            this.newAccountToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newAccountToolStripMenuItem.Text = "New Account";
+            this.newAccountToolStripMenuItem.Click += new System.EventHandler(this.newAccountToolStripMenuItem_Click);
             // 
             // tillPBToolStripMenuItem
             // 
@@ -687,6 +715,7 @@
             this.button3.Text = "Long Term";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MainMenu
             // 
@@ -787,5 +816,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem financesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem accountsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newAccountToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem accountsToolStripMenuItem1;
     }
 }

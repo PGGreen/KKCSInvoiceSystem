@@ -964,10 +964,10 @@ namespace KKCSInvoiceProject
 
                     InsertIntoNumberPlates();
 
-                    //if (chkbox_onaccount.Checked)
-                    //{
-                    //    InsertIntoAccounts();
-                    //}
+                    if (cmb_paidstatus.Text == "On Account")
+                    {
+                        InsertIntoAccounts();
+                    }
 
                     bIsAlreadySaved = true;
 
@@ -3078,8 +3078,6 @@ Number: 02-0800-0493229-00
                     if (bIsWithRego)
                     {
                         sStoreRego = reader["NumberPlates"].ToString();
-
-                        cmb_rego.Text = sStoreRego;
                     }
                 }
 
@@ -3087,6 +3085,8 @@ Number: 02-0800-0493229-00
                 {
                     connection.Close();
                 }
+
+                cmb_rego.Text = sStoreRego;
             }
         }
 

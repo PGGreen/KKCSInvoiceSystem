@@ -33,6 +33,51 @@ namespace KKCSInvoiceProject
             PopulateRegoBox();
             FindFlightTimesXML();
             FindFlightTimesOutFlightXML();
+            PopulateAccountBox();
+        }
+
+        void PopulateAccountBox()
+        {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"SELECT * FROM Accounts ORDER BY Account ASC";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            string sFirstName = "";
+            string sSecondName = "";
+
+            cmd_accountlist.Items.Add("");
+
+            while (reader.Read())
+            {
+                sFirstName = reader["Account"].ToString();
+
+                if (sFirstName != sSecondName)
+                {
+                    sSecondName = sFirstName;
+
+                    cmd_accountlist.Items.Add(sFirstName);
+                }
+            }
+
+            cmd_accountlist.SelectedIndex = 0;
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         private void cmb_rego_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,9 +117,40 @@ namespace KKCSInvoiceProject
                 connection.Close();
             }
 
-            //CheckIfAccount();
+            CheckIfAccount();
         }
-        
+
+        private void CheckIfAccount()
+        {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from Accounts where Rego = '" + cmb_rego.Text + "'";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                cmd_accountlist.Text = reader["Account"].ToString();
+                txt_particulars.Text = reader["AccountParticulars"].ToString();
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
 
         private void PopulateRegoBox()
         {
@@ -91,7 +167,21 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = "";// @"INSERT INTO Bookings (DateBookingIn) values ('"+ dt_datein.Value + "')";
+            string query = @"INSERT INTO Bookings (DateCustomerLeaving,FlightTimeLeaving,FName,LName,Ph,Make,Account,AccountPart,DateCustomerPickingUp,FlightTimePickingUp,Stay,Price,Notes) 
+                    values ('" + dt_customerleaving.Value + 
+                    "','" + cmb_flightleaving.Text +
+                    "','" + txt_firstname.Text +
+                    "','" + txt_lastname.Text +
+                    "','" + txt_ph.Text +
+                    "','" + cmb_makemodel.Text +
+                    "','" + cmd_accountlist.Text +
+                    "','" + txt_particulars.Text +
+                    "','" + dt_returndate.Value +
+                    "','" + txt_flighttimes.Text +
+                    "','" + lbl_staytext.Text +
+                    "','" + txt_total.Text +
+                    "','" + txt_notes.Text +
+                    "')";
 
             command.CommandText = query;
 
@@ -254,6 +344,25 @@ namespace KKCSInvoiceProject
         private void btn_dlright_Click(object sender, EventArgs e)
         {
             dt_customerleaving.Value = dt_customerleaving.Value.AddDays(1);
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            SaveData();
+
+            this.BackColor = Color.LightGreen;
+            btn_save.BackColor = Color.Green;
+            btn_save.Text = "Saved";
+        }
+
+        private void dt_dateleft_Click(object sender, EventArgs e)
+        {
+            dt_returndate.Value = dt_returndate.Value.AddDays(-1);
+        }
+
+        private void dt_dateright_Click(object sender, EventArgs e)
+        {
+            dt_returndate.Value = dt_returndate.Value.AddDays(1);
         }
     }
 }

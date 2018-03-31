@@ -36,9 +36,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_createnewaccount = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,45 +125,11 @@
             this.btn_createnewaccount.UseVisualStyleBackColor = false;
             this.btn_createnewaccount.Click += new System.EventHandler(this.btn_createnewaccount_Click);
             // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(98, 536);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(245, 34);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Fill Out Paper Account Form";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(52, 469);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 31);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Or";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(53, 540);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 25);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "3. ";
-            // 
             // WarningNewAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 623);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(922, 449);
             this.Controls.Add(this.btn_createnewaccount);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -191,8 +154,5 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_createnewaccount;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
     }
 }

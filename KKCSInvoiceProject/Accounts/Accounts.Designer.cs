@@ -28,157 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.btn_load = new System.Windows.Forms.Button();
             this.lbl_carreturns = new System.Windows.Forms.Label();
-            this.lbl_pickdate = new System.Windows.Forms.Label();
-            this.lbl_2 = new System.Windows.Forms.Label();
-            this.btn_invoice = new System.Windows.Forms.Button();
-            this.btn_mainmenu = new System.Windows.Forms.Button();
-            this.chk_returndate = new System.Windows.Forms.CheckBox();
-            this.chk_datebroughtin = new System.Windows.Forms.CheckBox();
-            this.cmb_rego = new System.Windows.Forms.ComboBox();
-            this.chk_accounthold = new System.Windows.Forms.CheckBox();
-            this.chk_accountopen = new System.Windows.Forms.CheckBox();
+            this.cmd_accountlist = new System.Windows.Forms.ComboBox();
+            this.chk_accountholder = new System.Windows.Forms.CheckBox();
+            this.chk_accountinvoices = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.dateTimePicker1.Location = new System.Drawing.Point(208, 64);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(394, 35);
-            this.dateTimePicker1.TabIndex = 0;
-            // 
-            // btn_load
-            // 
-            this.btn_load.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.btn_load.Location = new System.Drawing.Point(666, 64);
-            this.btn_load.Name = "btn_load";
-            this.btn_load.Size = new System.Drawing.Size(77, 35);
-            this.btn_load.TabIndex = 1;
-            this.btn_load.Text = "Load";
-            this.btn_load.UseVisualStyleBackColor = true;
-            this.btn_load.Click += new System.EventHandler(this.btn_load_Click);
             // 
             // lbl_carreturns
             // 
             this.lbl_carreturns.AutoSize = true;
             this.lbl_carreturns.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_carreturns.Location = new System.Drawing.Point(316, 12);
+            this.lbl_carreturns.Location = new System.Drawing.Point(317, 19);
             this.lbl_carreturns.Name = "lbl_carreturns";
-            this.lbl_carreturns.Size = new System.Drawing.Size(172, 31);
+            this.lbl_carreturns.Size = new System.Drawing.Size(135, 31);
             this.lbl_carreturns.TabIndex = 2;
-            this.lbl_carreturns.Text = "Car Returns";
+            this.lbl_carreturns.Text = "Accounts";
             // 
-            // lbl_pickdate
+            // cmd_accountlist
             // 
-            this.lbl_pickdate.AutoSize = true;
-            this.lbl_pickdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_pickdate.ForeColor = System.Drawing.Color.Green;
-            this.lbl_pickdate.Location = new System.Drawing.Point(22, 64);
-            this.lbl_pickdate.Name = "lbl_pickdate";
-            this.lbl_pickdate.Size = new System.Drawing.Size(182, 31);
-            this.lbl_pickdate.TabIndex = 3;
-            this.lbl_pickdate.Text = "1. Pick Date:";
+            this.cmd_accountlist.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmd_accountlist.FormattingEnabled = true;
+            this.cmd_accountlist.Location = new System.Drawing.Point(19, 67);
+            this.cmd_accountlist.Name = "cmd_accountlist";
+            this.cmd_accountlist.Size = new System.Drawing.Size(606, 33);
+            this.cmd_accountlist.TabIndex = 82;
             // 
-            // lbl_2
+            // chk_accountholder
             // 
-            this.lbl_2.AutoSize = true;
-            this.lbl_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_2.ForeColor = System.Drawing.Color.Green;
-            this.lbl_2.Location = new System.Drawing.Point(624, 66);
-            this.lbl_2.Name = "lbl_2";
-            this.lbl_2.Size = new System.Drawing.Size(39, 31);
-            this.lbl_2.TabIndex = 4;
-            this.lbl_2.Text = "2.";
+            this.chk_accountholder.AutoSize = true;
+            this.chk_accountholder.Checked = true;
+            this.chk_accountholder.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_accountholder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_accountholder.Location = new System.Drawing.Point(19, 106);
+            this.chk_accountholder.Name = "chk_accountholder";
+            this.chk_accountholder.Size = new System.Drawing.Size(243, 28);
+            this.chk_accountholder.TabIndex = 83;
+            this.chk_accountholder.Text = "Show Account Holders";
+            this.chk_accountholder.UseVisualStyleBackColor = true;
             // 
-            // btn_invoice
+            // chk_accountinvoices
             // 
-            this.btn_invoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_invoice.Location = new System.Drawing.Point(1027, 67);
-            this.btn_invoice.Name = "btn_invoice";
-            this.btn_invoice.Size = new System.Drawing.Size(98, 47);
-            this.btn_invoice.TabIndex = 76;
-            this.btn_invoice.Text = "Invoice";
-            this.btn_invoice.UseVisualStyleBackColor = true;
-            this.btn_invoice.Click += new System.EventHandler(this.btn_invoice_Click);
+            this.chk_accountinvoices.AutoSize = true;
+            this.chk_accountinvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_accountinvoices.Location = new System.Drawing.Point(378, 106);
+            this.chk_accountinvoices.Name = "chk_accountinvoices";
+            this.chk_accountinvoices.Size = new System.Drawing.Size(247, 28);
+            this.chk_accountinvoices.TabIndex = 84;
+            this.chk_accountinvoices.Text = "Show Account Invoices";
+            this.chk_accountinvoices.UseVisualStyleBackColor = true;
             // 
-            // btn_mainmenu
+            // button1
             // 
-            this.btn_mainmenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.btn_mainmenu.Location = new System.Drawing.Point(1028, 14);
-            this.btn_mainmenu.Name = "btn_mainmenu";
-            this.btn_mainmenu.Size = new System.Drawing.Size(98, 47);
-            this.btn_mainmenu.TabIndex = 75;
-            this.btn_mainmenu.Text = "Main Menu";
-            this.btn_mainmenu.UseVisualStyleBackColor = true;
-            this.btn_mainmenu.Click += new System.EventHandler(this.btn_mainmenu_Click);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(641, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(177, 33);
+            this.button1.TabIndex = 85;
+            this.button1.Text = "Edit Base Account";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // chk_returndate
+            // label1
             // 
-            this.chk_returndate.AutoSize = true;
-            this.chk_returndate.Checked = true;
-            this.chk_returndate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_returndate.Location = new System.Drawing.Point(780, 37);
-            this.chk_returndate.Name = "chk_returndate";
-            this.chk_returndate.Size = new System.Drawing.Size(116, 24);
-            this.chk_returndate.TabIndex = 77;
-            this.chk_returndate.Text = "Return Date";
-            this.chk_returndate.UseVisualStyleBackColor = true;
-            this.chk_returndate.CheckedChanged += new System.EventHandler(this.chk_returndate_CheckedChanged);
-            // 
-            // chk_datebroughtin
-            // 
-            this.chk_datebroughtin.AutoSize = true;
-            this.chk_datebroughtin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_datebroughtin.Location = new System.Drawing.Point(780, 78);
-            this.chk_datebroughtin.Name = "chk_datebroughtin";
-            this.chk_datebroughtin.Size = new System.Drawing.Size(171, 24);
-            this.chk_datebroughtin.TabIndex = 78;
-            this.chk_datebroughtin.Text = "Date Car Brought In";
-            this.chk_datebroughtin.UseVisualStyleBackColor = true;
-            this.chk_datebroughtin.CheckedChanged += new System.EventHandler(this.chk_datebroughtin_CheckedChanged);
-            // 
-            // cmb_rego
-            // 
-            this.cmb_rego.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cmb_rego.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cmb_rego.BackColor = System.Drawing.SystemColors.Window;
-            this.cmb_rego.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cmb_rego.DropDownWidth = 121;
-            this.cmb_rego.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_rego.FormattingEnabled = true;
-            this.cmb_rego.Location = new System.Drawing.Point(28, 121);
-            this.cmb_rego.Name = "cmb_rego";
-            this.cmb_rego.Size = new System.Drawing.Size(923, 33);
-            this.cmb_rego.TabIndex = 79;
-            this.cmb_rego.SelectedIndexChanged += new System.EventHandler(this.cmb_rego_SelectedIndexChanged);
-            // 
-            // chk_accounthold
-            // 
-            this.chk_accounthold.AutoSize = true;
-            this.chk_accounthold.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_accounthold.Location = new System.Drawing.Point(1003, 146);
-            this.chk_accounthold.Name = "chk_accounthold";
-            this.chk_accounthold.Size = new System.Drawing.Size(149, 24);
-            this.chk_accounthold.TabIndex = 80;
-            this.chk_accounthold.Text = "Account On Hold";
-            this.chk_accounthold.UseVisualStyleBackColor = true;
-            this.chk_accounthold.Visible = false;
-            // 
-            // chk_accountopen
-            // 
-            this.chk_accountopen.AutoSize = true;
-            this.chk_accountopen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_accountopen.Location = new System.Drawing.Point(1003, 188);
-            this.chk_accountopen.Name = "chk_accountopen";
-            this.chk_accountopen.Size = new System.Drawing.Size(130, 24);
-            this.chk_accountopen.TabIndex = 81;
-            this.chk_accountopen.Text = "Account Open";
-            this.chk_accountopen.UseVisualStyleBackColor = true;
-            this.chk_accountopen.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 137);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(807, 20);
+            this.label1.TabIndex = 86;
+            this.label1.Text = "---------------------------------------------------------------------------------" +
+    "----------------------------------------------------";
             // 
             // Accounts
             // 
@@ -187,40 +107,26 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1240, 730);
-            this.Controls.Add(this.chk_accountopen);
-            this.Controls.Add(this.chk_accounthold);
-            this.Controls.Add(this.cmb_rego);
-            this.Controls.Add(this.chk_datebroughtin);
-            this.Controls.Add(this.chk_returndate);
-            this.Controls.Add(this.btn_invoice);
-            this.Controls.Add(this.btn_mainmenu);
-            this.Controls.Add(this.lbl_2);
-            this.Controls.Add(this.lbl_pickdate);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.chk_accountinvoices);
+            this.Controls.Add(this.chk_accountholder);
+            this.Controls.Add(this.cmd_accountlist);
             this.Controls.Add(this.lbl_carreturns);
-            this.Controls.Add(this.btn_load);
-            this.Controls.Add(this.dateTimePicker1);
             this.Name = "Accounts";
-            this.Text = "Accounts";
+            this.Text = "+";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button btn_load;
         private System.Windows.Forms.Label lbl_carreturns;
-        private System.Windows.Forms.Label lbl_pickdate;
-        private System.Windows.Forms.Label lbl_2;
-        private System.Windows.Forms.Button btn_invoice;
-        private System.Windows.Forms.Button btn_mainmenu;
-        private System.Windows.Forms.CheckBox chk_returndate;
-        private System.Windows.Forms.CheckBox chk_datebroughtin;
-        private System.Windows.Forms.ComboBox cmb_rego;
-        private System.Windows.Forms.CheckBox chk_accounthold;
-        private System.Windows.Forms.CheckBox chk_accountopen;
+        private System.Windows.Forms.ComboBox cmd_accountlist;
+        private System.Windows.Forms.CheckBox chk_accountholder;
+        private System.Windows.Forms.CheckBox chk_accountinvoices;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }

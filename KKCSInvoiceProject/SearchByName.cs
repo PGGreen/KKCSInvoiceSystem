@@ -29,6 +29,8 @@ namespace KKCSInvoiceProject
         string g_sCustomerID = "";
         bool g_bIsWithRego = false;
 
+        List<string> lstClientName;
+
         Panel pnl;
 
         #endregion
@@ -50,75 +52,74 @@ namespace KKCSInvoiceProject
 
         void SetUpComboBoxes()
         {
-            SetUpFirstNameComboBox();
-
-            SetUpLastNameComboBox();
+            SetUpNameComboBox();
         }
 
-        public void SetUpFirstNameComboBox()
+        public void SetUpNameComboBox()
         {
+            lstClientName = new List<string>();
+
             connection.Open();
 
             OleDbCommand command = new OleDbCommand();
 
             command.Connection = connection;
 
-            string query = "select * from NumberPlates ORDER BY ClientName ASC";
+            string query = "select * from NumberPlates";
 
             command.CommandText = query;
 
             OleDbDataReader reader = command.ExecuteReader();
 
-            string sFirstName = "";
+            //string sFirstName = "";
 
-            string sFirstNameSecond = "";
-
-            while (reader.Read())
-            {
-                sFirstName = reader["ClientName"].ToString();
-
-                if (sFirstName != sFirstNameSecond)
-                {
-                    cmb_firstname.Items.Add(reader["ClientName"].ToString());
-                }
-
-                sFirstNameSecond = sFirstName;
-            }
-
-            connection.Close();
-        }
-
-        public void SetUpLastNameComboBox()
-        {
-            connection.Open();
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            string query = "select * from NumberPlates ORDER BY LastName ASC";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            string sLastName = "";
-
-            string sLastNameSecond = "";
+            //string sFirstNameSecond = "";
 
             while (reader.Read())
             {
-                sLastName = reader["LastName"].ToString();
+                string sFirstName = reader["ClientName"].ToString();
+                string sLastName = reader["LastName"].ToString();
 
-                if (sLastName != sLastNameSecond)
+                if(sFirstName != "")
                 {
-                    cmb_lastname.Items.Add(reader["LastName"].ToString());
+                    lstClientName.Add(sFirstName);
                 }
+                else if(sLastName != "")
+                {
+                    lstClientName.Add(sLastName);
+                }
+                
+                //sFirstName = reader["ClientName"].ToString();
 
-                sLastNameSecond = sLastName;
+                //if (sFirstName != sFirstNameSecond)
+                //{
+                //    cmb_name.Items.Add(reader["ClientName"].ToString());
+                //}
+
+                //sFirstNameSecond = sFirstName;
             }
 
             connection.Close();
+
+            lstClientName.Sort();
+
+            string sFirst = "";
+
+            string sSecond = "";
+
+            for (int i = 0; i < lstClientName.Count; i++)
+            {
+                sFirst = lstClientName[i];
+
+                if (sFirst != sSecond)
+                {
+                    cmb_name.Items.Add(sFirst);
+                }
+
+                sSecond = sFirst;
+            }
+
+            int g = 0;
         }
 
         #endregion
@@ -134,27 +135,20 @@ namespace KKCSInvoiceProject
             TitleHeaders(0);
 
             // Creates a query for todays returns
-            string sQuery = "select * from NumberPlates WHERE ClientName = '" + cmb_firstname.Text + "' ORDER BY NumberPlates ASC";
+            string sQuery = "select * from NumberPlates WHERE ClientName = '" + cmb_name.Text + "' ORDER BY NumberPlates ASC";
             CreateQuery(sQuery);
-
-            iInitialPanelLocationY += 10;
-
-            Label lblBlank = new Label();
-            lblBlank.Name = "lbl_blank";
-            lblBlank.Location = new Point(0, iInitialPanelLocationY);
-            Controls.Add(lblBlank);
         }
 
         void RefreshLastNameSearch()
         {
             // Set the initial location for the title
-            iInitialPanelLocationY = pnl_template.Location.Y;
+            //iInitialPanelLocationY = pnl_template.Location.Y;
 
             // Creates the Title Header
             TitleHeaders(1);
 
             // Creates a query for todays returns
-            string sQuery = "select * from NumberPlates WHERE LastName = '" + cmb_lastname.Text + "' ORDER BY NumberPlates ASC";
+            string sQuery = "select * from NumberPlates WHERE LastName = '" + cmb_name.Text + "' ORDER BY NumberPlates ASC";
             CreateQuery(sQuery);
 
             iInitialPanelLocationY += 10;
@@ -180,21 +174,14 @@ namespace KKCSInvoiceProject
                 lblTitle.BackColor = System.Drawing.Color.LightBlue;
                 lblTitle.ForeColor = System.Drawing.Color.Black;
 
-                lblTitle.Text = "Searching First Name: " + cmb_firstname.Text;
+                lblTitle.Text = "First Name: " + cmb_name.Text;
             }
             else if (_iPickTitle == 1)
             {
                 lblTitle.BackColor = System.Drawing.Color.LightBlue;
                 lblTitle.ForeColor = System.Drawing.Color.Black;
 
-                lblTitle.Text = "Searching Last Name: " + cmb_lastname.Text;
-            }
-            else if (_iPickTitle == 2)
-            {
-                lblTitle.BackColor = System.Drawing.Color.LightBlue;
-                lblTitle.ForeColor = System.Drawing.Color.Black;
-
-                //lblTitle.Text = "Searching Rego: " + cmb_rego.Text;
+                lblTitle.Text = "Last Name: " + cmb_name.Text;
             }
 
             Controls.Add(lblTitle);
@@ -217,6 +204,8 @@ namespace KKCSInvoiceProject
 
             // Moves the location down for the first panel
             iInitialPanelLocationY += 50;
+
+            
 
             while (reader.Read())
             {
@@ -390,20 +379,6 @@ namespace KKCSInvoiceProject
 
         #region TextChanged
 
-        private void cmb_firstname_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DeleteControls();
-
-            RefreshFirstNameSearch();
-        }
-
-        private void cmb_lastname_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DeleteControls();
-
-            RefreshLastNameSearch();
-        }
-
         #endregion TextChanged
 
         #region Delete
@@ -438,6 +413,15 @@ namespace KKCSInvoiceProject
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            DeleteControls();
+
+            RefreshFirstNameSearch();
+
+            RefreshLastNameSearch();
         }
     }
 }
