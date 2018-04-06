@@ -167,8 +167,9 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"INSERT INTO Bookings (DateCustomerLeaving,FlightTimeLeaving,FName,LName,Ph,Make,Account,AccountPart,DateCustomerPickingUp,FlightTimePickingUp,Stay,Price,Notes) 
-                    values ('" + dt_customerleaving.Value + 
+            string query = @"INSERT INTO Bookings (DateCustomerLeaving,Rego,FlightTimeLeaving,FName,LName,Ph,Make,Account,AccountPart,DateCustomerPickingUp,FlightTimePickingUp,Notes)
+                    values ('" + dt_customerleaving.Value +
+                    "','" + cmb_rego.Text +
                     "','" + cmb_flightleaving.Text +
                     "','" + txt_firstname.Text +
                     "','" + txt_lastname.Text +
@@ -178,8 +179,6 @@ namespace KKCSInvoiceProject
                     "','" + txt_particulars.Text +
                     "','" + dt_returndate.Value +
                     "','" + txt_flighttimes.Text +
-                    "','" + lbl_staytext.Text +
-                    "','" + txt_total.Text +
                     "','" + txt_notes.Text +
                     "')";
 
@@ -289,34 +288,23 @@ namespace KKCSInvoiceProject
                             break;
                         }
                     case "Sunday":
-                    case "Monday":
                         {
-                            cmb_flightleaving.Items.Add("0920 - NZ8266");
-                            cmb_flightleaving.Items.Add("1215 - NZ8274");
-                            cmb_flightleaving.Items.Add("1440 - NZ8268");
-                            cmb_flightleaving.Items.Add("1720 - NZ8270");
-                            cmb_flightleaving.Items.Add("2025 - NZ8272");
+                            cmb_flightleaving.Items.Add("0945 - NZ8267");
+                            cmb_flightleaving.Items.Add("1505 - NZ8269");
+                            cmb_flightleaving.Items.Add("1745 - NZ8271");
 
                             break;
                         }
+                    case "Monday":
                     case "Tuesday":
                     case "Wednesday":
                     case "Thursday":
-                        {
-                            cmb_flightleaving.Items.Add("0920 - NZ8266");
-                            cmb_flightleaving.Items.Add("1440 - NZ8268");
-                            cmb_flightleaving.Items.Add("1720 - NZ8270");
-                            cmb_flightleaving.Items.Add("2025 - NZ8272");
-
-                            break;
-                        }
                     case "Friday":
                         {
-                            cmb_flightleaving.Items.Add("0920 - NZ8266");
-                            cmb_flightleaving.Items.Add("1215 - NZ8274");
-                            cmb_flightleaving.Items.Add("1440 - NZ8268");
-                            cmb_flightleaving.Items.Add("1720 - NZ8270");
-                            cmb_flightleaving.Items.Add("2025 - NZ8272");
+                            cmb_flightleaving.Items.Add("0600 - NZ8275");
+                            cmb_flightleaving.Items.Add("0945 - NZ8267");
+                            cmb_flightleaving.Items.Add("1505 - NZ8269");
+                            cmb_flightleaving.Items.Add("1745 - NZ8271");
 
                             break;
                         }
@@ -363,6 +351,11 @@ namespace KKCSInvoiceProject
         private void dt_dateright_Click(object sender, EventArgs e)
         {
             dt_returndate.Value = dt_returndate.Value.AddDays(1);
+        }
+
+        private void cmb_flightleaving_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -46,6 +46,8 @@ namespace KKCSInvoiceProject
 
         private bool bIsAlreadySaved = false;
 
+        bool bIsPreBooked = false;
+
         private int iTabNumberFromManager = 0;
 
         bool PaidStatusPicked = false;
@@ -1635,8 +1637,8 @@ namespace KKCSInvoiceProject
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 CurrentTime = DateTime.Now;
 
                 if (!m_bIsFromCarReturns)
@@ -1696,6 +1698,8 @@ namespace KKCSInvoiceProject
 
                 CheckIfAccount();
 
+                CheckIfPreBookings();
+
                 ia = new InvoiceAlerts();
                 ia.GetRego(cmb_rego.Text);
                 ia.FormClosing += CloseAlertNotes;
@@ -1703,11 +1707,11 @@ namespace KKCSInvoiceProject
                 ia.Close();
 
                 UpdateCustomerShow();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error " + ex);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error " + ex);
+            //}
         }
 
         private void CheckIfAccount()
@@ -1759,6 +1763,103 @@ namespace KKCSInvoiceProject
             if (connection.State == ConnectionState.Open)
             {
                 connection.Close();
+            }
+        }
+
+        private void CheckIfPreBookings()
+        {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            string cmdStr = @"SELECT COUNT(*) FROM Bookings
+                        WHERE Rego = '" + cmb_rego.Text + "'";
+
+            // Runs the command from above to search the database
+            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
+
+            int count = (int)cmd.ExecuteScalar();
+
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            if (count == 1)
+            {
+                // Opens the connection to the database
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                string query = @"select * from Bookings where Rego = '" + cmb_rego.Text + "'";
+
+                command.CommandText = query;
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                string sEL = "\r\n";
+
+                string sFlightLeaving = "";
+                string sFlightPickingUp = "";
+                string sRego = "";
+                string sFName = "";
+                string sLName = "";
+                string sPh = "";
+                string sMake = "";
+                string sAccount = "";
+                string sAccountPart = "";
+                string sNotes = "";
+
+                DateTime dtDateLeaving;
+                DateTime dtDatePickingUp;
+
+                string sCombined = "";
+
+                while (reader.Read())
+                {
+                    sRego = reader["Rego"].ToString();
+                    sFName = reader["FName"].ToString();
+                    sLName = reader["LName"].ToString();
+                    sPh = reader["Ph"].ToString();
+                    sMake = reader["Make"].ToString(); ;
+                    sAccount = reader["Account"].ToString();
+                    sAccountPart = reader["AccountPart"].ToString();
+                    sNotes = reader["Notes"].ToString();
+                    sFlightLeaving = reader["FlightTimeLeaving"].ToString();
+                    sFlightPickingUp = reader["FlightTimePickingUp"].ToString();
+
+                    dtDateLeaving = (DateTime)reader["DateCustomerLeaving"];
+                    dtDatePickingUp = (DateTime)reader["DateCustomerPickingUp"];
+
+                    sCombined += "Rego: " + sRego + sEL;
+                    sCombined += "Make: " + sMake + sEL + sEL;
+
+                    sCombined += "Date Leaving Car: " + dtDateLeaving.Day + "/" + dtDateLeaving.Month + "/" + dtDateLeaving.Year + " - " + sFlightLeaving + sEL;
+                    sCombined += "Date Picking Up: " + dtDatePickingUp.Day + "/" + dtDatePickingUp.Month + "/" + dtDatePickingUp.Year + " - " + sFlightPickingUp + sEL + sEL;
+
+                    sCombined += "Name: " + sFName + " " + sLName + sEL;
+                    sCombined += "Ph: " + sPh + sEL;
+                    sCombined += "Account: " + sAccount + sEL;
+                    sCombined += "Account Particulars: " + sAccountPart;
+                }
+
+                // Closes the connection to the database
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+
+                PreBooking preBooking = new PreBooking(sCombined);
+                preBooking.ShowDialog();
             }
         }
 

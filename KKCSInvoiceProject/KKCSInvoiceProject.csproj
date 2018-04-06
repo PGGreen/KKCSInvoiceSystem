@@ -198,6 +198,12 @@
     <Compile Include="Invoice\ReminderAddToReturns.Designer.cs">
       <DependentUpon>ReminderAddToReturns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bookings\PreBooking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bookings\PreBooking.Designer.cs">
+      <DependentUpon>PreBooking.cs</DependentUpon>
+    </Compile>
     <Compile Include="RentalCars.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -428,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Bookings\BookingsManager.resx">
       <DependentUpon>BookingsManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bookings\PreBooking.resx">
+      <DependentUpon>PreBooking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CarReturns\AlertsAndNotes.resx">
       <DependentUpon>AlertsAndNotes.cs</DependentUpon>
