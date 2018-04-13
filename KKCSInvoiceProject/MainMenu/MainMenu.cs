@@ -1528,7 +1528,7 @@ namespace KKCSInvoiceProject
 
         private void bookingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form fm = Application.OpenForms["Bookings"];
+            Form fm = Application.OpenForms["BookingsManager"];
 
             if (fm != null)
             {
@@ -1541,7 +1541,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                Bookings book = new Bookings();
+                BookingsManager book = new BookingsManager();
                 book.ShowDialog();
             }
         }

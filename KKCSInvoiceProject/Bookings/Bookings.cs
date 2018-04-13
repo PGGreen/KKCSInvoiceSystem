@@ -167,8 +167,11 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
+            DateTime dtCustomerLeaving = new DateTime(dt_customerleaving.Value.Year, dt_customerleaving.Value.Month, dt_customerleaving.Value.Day, 12, 0, 0);
+            DateTime dtCustomerReturn = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
+
             string query = @"INSERT INTO Bookings (DateCustomerLeaving,Rego,FlightTimeLeaving,FName,LName,Ph,Make,Account,AccountPart,DateCustomerPickingUp,FlightTimePickingUp,Notes)
-                    values ('" + dt_customerleaving.Value +
+                    values ('" + dtCustomerLeaving +
                     "','" + cmb_rego.Text +
                     "','" + cmb_flightleaving.Text +
                     "','" + txt_firstname.Text +
@@ -177,7 +180,7 @@ namespace KKCSInvoiceProject
                     "','" + cmb_makemodel.Text +
                     "','" + cmd_accountlist.Text +
                     "','" + txt_particulars.Text +
-                    "','" + dt_returndate.Value +
+                    "','" + dtCustomerReturn +
                     "','" + txt_flighttimes.Text +
                     "','" + txt_notes.Text +
                     "')";
