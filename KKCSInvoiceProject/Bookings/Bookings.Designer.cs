@@ -183,7 +183,7 @@
             this.txt_flighttimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_flighttimes.FormattingEnabled = true;
             this.txt_flighttimes.Items.AddRange(new object[] {
-            "Not Known",
+            "Time Not Known",
             "0920",
             "1215",
             "1440",
@@ -193,6 +193,7 @@
             this.txt_flighttimes.Name = "txt_flighttimes";
             this.txt_flighttimes.Size = new System.Drawing.Size(198, 37);
             this.txt_flighttimes.TabIndex = 263;
+            this.txt_flighttimes.SelectedIndexChanged += new System.EventHandler(this.txt_flighttimes_SelectedIndexChanged);
             // 
             // lbl_accountname
             // 
@@ -312,7 +313,7 @@
             this.cmb_flightleaving.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_flightleaving.FormattingEnabled = true;
             this.cmb_flightleaving.Items.AddRange(new object[] {
-            "Not Known",
+            "Time Not Known",
             "0600",
             "0640",
             "0945",

@@ -53,7 +53,7 @@ namespace KKCSInvoiceProject
 
             btn_build.Text = "v" + sVersionNumber;
 
-            cmb_printerpicked.SelectedIndex = 1;
+            cmb_printerpicked.SelectedIndex = 0;
 
             // Out of Colour Ink (Uncomment Next Line)
             //cmb_printerpicked.SelectedIndex = 1;

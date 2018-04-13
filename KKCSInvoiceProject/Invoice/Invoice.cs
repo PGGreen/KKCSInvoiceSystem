@@ -18,7 +18,7 @@ namespace KKCSInvoiceProject
     public partial class Invoice : Form
     {
         #region GlobalVaribles
-        //3209
+
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
         private Button printButton = new Button();
@@ -47,6 +47,7 @@ namespace KKCSInvoiceProject
         private bool bIsAlreadySaved = false;
 
         bool bIsPreBooked = false;
+        int iPreBookID = 0;
 
         private int iTabNumberFromManager = 0;
 
@@ -906,6 +907,13 @@ namespace KKCSInvoiceProject
             {
                 SaveDataIntoDatabase();
 
+                if(bIsPreBooked)
+                {
+                    ClearBooking();
+
+                    bIsPreBooked = false;
+                }
+                
                 WipeCustomerShow();
 
                 Form fm = Application.OpenForms["MainMenu"];
@@ -918,6 +926,38 @@ namespace KKCSInvoiceProject
                 }
             }
         }
+
+        void ClearBooking()
+        {
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            // Make the command equal the physical location of the database (connection)
+            command.Connection = connection;
+
+            string sRemaining = "";
+
+            string cmd1 = @"UPDATE Bookings SET BookingFinished = TRUE WHERE ID = " + iPreBookID + "";
+
+            // Makes the command text equal the string
+            command.CommandText = cmd1;
+
+            // Run a NonQuery (Saves into Database instead of pulling data out)
+            command.ExecuteNonQuery();
+
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
 
         void SaveDataIntoDatabase()
         {
@@ -1800,7 +1840,7 @@ namespace KKCSInvoiceProject
 
                 command.Connection = connection;
 
-                string query = @"select * from Bookings where Rego = '" + cmb_rego.Text + "'";
+                string query = @"select * from Bookings where Rego = '" + cmb_rego.Text + "' AND BookingFinished = FALSE";
 
                 command.CommandText = query;
 
@@ -1819,13 +1859,15 @@ namespace KKCSInvoiceProject
                 string sAccountPart = "";
                 string sNotes = "";
 
-                DateTime dtDateLeaving;
-                DateTime dtDatePickingUp;
+                DateTime dtDateLeaving = new DateTime();
+                DateTime dtDatePickingUp = new DateTime();
 
                 string sCombined = "";
 
                 while (reader.Read())
                 {
+                    bIsPreBooked = true;
+                    iPreBookID = (int)reader["ID"];
                     sRego = reader["Rego"].ToString();
                     sFName = reader["FName"].ToString();
                     sLName = reader["LName"].ToString();
@@ -1843,13 +1885,26 @@ namespace KKCSInvoiceProject
                     sCombined += "Rego: " + sRego + sEL;
                     sCombined += "Make: " + sMake + sEL + sEL;
 
-                    sCombined += "Date Leaving Car: " + dtDateLeaving.Day + "/" + dtDateLeaving.Month + "/" + dtDateLeaving.Year + " - " + sFlightLeaving + sEL;
                     sCombined += "Date Picking Up: " + dtDatePickingUp.Day + "/" + dtDatePickingUp.Month + "/" + dtDatePickingUp.Year + " - " + sFlightPickingUp + sEL + sEL;
 
                     sCombined += "Name: " + sFName + " " + sLName + sEL;
                     sCombined += "Ph: " + sPh + sEL;
                     sCombined += "Account: " + sAccount + sEL;
-                    sCombined += "Account Particulars: " + sAccountPart;
+                    
+                    if(sAccountPart != "")
+                    {
+                        sCombined += "Account Particulars: " + sAccountPart;
+                    }
+
+                    PreBooking preBooking = new PreBooking(sCombined);
+                    preBooking.ShowDialog();
+
+                    dt_returndate.Value = new DateTime(dtDatePickingUp.Year, dtDatePickingUp.Month, dtDatePickingUp.Day, 12, 0, 0);
+
+                    if(sFlightPickingUp != "Time Not Known")
+                    {
+                        txt_flighttimes.Text = sFlightPickingUp;
+                    }
                 }
 
                 // Closes the connection to the database
@@ -1857,9 +1912,6 @@ namespace KKCSInvoiceProject
                 {
                     connection.Close();
                 }
-
-                PreBooking preBooking = new PreBooking(sCombined);
-                preBooking.ShowDialog();
             }
         }
 
@@ -3418,6 +3470,11 @@ Number: 02-0800-0493229-00
                 txt_keyno.BackColor = Color.FromArgb(255, 255, 128);
                 txt_keyno.ForeColor = Color.Black;
             }
+        }
+
+        private void cmb_printerpicked_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -197,7 +197,7 @@ namespace KKCSInvoiceProject
 
             txt_flighttimes.Items.Clear();
 
-            txt_flighttimes.Items.Add("Not Known");
+            txt_flighttimes.Items.Add("Time Not Known");
 
             while (xmlReader.Read())
             {
@@ -271,7 +271,7 @@ namespace KKCSInvoiceProject
 
             cmb_flightleaving.Items.Clear();
 
-            cmb_flightleaving.Items.Add("Not Known");
+            cmb_flightleaving.Items.Add("Time Not Known");
 
             if (cmb_flightleaving.Items.Count <= 2)
             {
@@ -338,6 +338,9 @@ namespace KKCSInvoiceProject
         {
             SaveData();
 
+            InsertIntoNumberPlates();
+            InsertIntoAccounts();
+
             this.BackColor = Color.LightGreen;
             btn_save.BackColor = Color.Green;
             btn_save.Text = "Saved";
@@ -354,6 +357,174 @@ namespace KKCSInvoiceProject
         }
 
         private void cmb_flightleaving_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        void InsertIntoNumberPlates()
+        {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            // Checks to see if the NumberPlate already exists
+            string cmdStr = @"SELECT COUNT(*) FROM NumberPlates
+                        WHERE NumberPlates = '" + cmb_rego.Text + "'";
+
+            // Runs the command from above to search the database
+            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
+
+            // Returns a number based on how many matches it finds
+            // If 0 Number Plate does not exist (New Number Plate)
+            // If 1 or Greater Number Plate Already Exists
+            int count = (int)cmd.ExecuteScalar();
+
+            // If there is no matches in database, insert the new Number Plate
+            // If there is a match (count is greater than 0), skip this function completly
+            if (count == 0)
+            {
+                //record doesnt exist
+                // Make new command structure for database querys
+                OleDbCommand command = new OleDbCommand();
+
+                // Make the command equal the physical location of the database (connection)
+                command.Connection = connection;
+
+                // Insert the new Number Plate into the Database
+                string cmd1 = @"INSERT into NumberPlates (NumberPlates,ClientName,LastName,MakeModel,Ph
+                                                            ) values
+                                                            ('" + cmb_rego.Text + "','" +
+                                                                txt_firstname.Text + "','" +
+                                                                txt_lastname.Text + "','" +
+                                                                cmb_makemodel.Text + "','" +
+                                                                txt_ph.Text +
+                                                            "')";
+
+                // Makes the command text equal the string
+                command.CommandText = cmd1;
+
+                // Run a NonQuery (Saves into Database instead of pulling data out)
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                // record already exists
+                // Make new command structure for database querys
+                OleDbCommand command = new OleDbCommand();
+
+                // Make the command equal the physical location of the database (connection)
+                command.Connection = connection;
+
+                string sRemaining = "";
+
+                string cmd1 = @"UPDATE NumberPlates SET
+                                    NumberPlates = '" + cmb_rego.Text +
+                                    "', ClientName = '" + txt_firstname.Text +
+                                    "', LastName = '" + txt_lastname.Text +
+                                    "', MakeModel = '" + cmb_makemodel.Text +
+                                    "', Ph = '" + txt_ph.Text +
+                                    "' WHERE NumberPlates = '" + cmb_rego.Text + "'";
+
+                // Makes the command text equal the string
+                command.CommandText = cmd1;
+
+                // Run a NonQuery (Saves into Database instead of pulling data out)
+                command.ExecuteNonQuery();
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            // Sets up the next Regastration combo box for next invoice
+            MyAppManager.MainMenuInstance.SetUpRegoComboBox();
+
+            // Populates the Regastration on the next invoice
+            //PopulateRegoBox();
+        }
+
+        void InsertIntoAccounts()
+        {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            // Checks to see if the NumberPlate already exists
+            string cmdStr = @"SELECT COUNT(*) FROM Accounts
+                        WHERE Rego = '" + cmb_rego.Text + "'";
+
+            // Runs the command from above to search the database
+            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
+
+            // Returns a number based on how many matches it finds
+            // If 0 Number Plate does not exist (New Number Plate)
+            // If 1 or Greater Number Plate Already Exists
+            int count = (int)cmd.ExecuteScalar();
+
+            // If there is no matches in database, insert the new Number Plate
+            // If there is a match (count is greater than 0), skip this function completly
+            if (count == 0)
+            {
+                //record doesnt exist
+                // Make new command structure for database querys
+                OleDbCommand command = new OleDbCommand();
+
+                // Make the command equal the physical location of the database (connection)
+                command.Connection = connection;
+
+                // Insert the new Number Plate into the Database
+                string cmd1 = @"INSERT into Accounts (ClientName,Rego,Account,AccountParticulars) values
+                                                            ('" + txt_firstname.Text + "','" +
+                                                                cmb_rego.Text + "','" +
+                                                                cmd_accountlist.Text + "','" +
+                                                                txt_particulars.Text +
+                                                            "')";
+
+                // Makes the command text equal the string
+                command.CommandText = cmd1;
+
+                // Run a NonQuery (Saves into Database instead of pulling data out)
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                // record already exists
+                // Make new command structure for database querys
+                OleDbCommand command = new OleDbCommand();
+
+                // Make the command equal the physical location of the database (connection)
+                command.Connection = connection;
+
+                string sName = txt_firstname.Text + " " + txt_lastname.Text;
+
+                string cmd1 = @"UPDATE Accounts SET 
+                                    ClientName = '" + sName +
+                                    "', Rego = '" + cmb_rego.Text +
+                                    "', Account = '" + cmd_accountlist.Text +
+                                    "', AccountParticulars = '" + txt_particulars.Text +
+                                    "' WHERE Rego = '" + cmb_rego.Text + "'";
+
+                // Makes the command text equal the string
+                command.CommandText = cmd1;
+
+                // Run a NonQuery (Saves into Database instead of pulling data out)
+                command.ExecuteNonQuery();
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

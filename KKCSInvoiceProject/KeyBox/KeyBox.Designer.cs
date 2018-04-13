@@ -112,7 +112,7 @@
             // 
             this.lbl_datein.AutoSize = true;
             this.lbl_datein.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_datein.Location = new System.Drawing.Point(42, 220);
+            this.lbl_datein.Location = new System.Drawing.Point(22, 94);
             this.lbl_datein.Name = "lbl_datein";
             this.lbl_datein.Size = new System.Drawing.Size(90, 16);
             this.lbl_datein.TabIndex = 228;
@@ -135,7 +135,7 @@
             this.btn_one.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_one.Location = new System.Drawing.Point(21, 166);
             this.btn_one.Name = "btn_one";
-            this.btn_one.Size = new System.Drawing.Size(141, 51);
+            this.btn_one.Size = new System.Drawing.Size(154, 51);
             this.btn_one.TabIndex = 231;
             this.btn_one.Text = "10. NANAGG";
             this.btn_one.UseVisualStyleBackColor = true;
@@ -195,6 +195,7 @@
             this.Name = "KeyBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form4";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -186,14 +186,14 @@ namespace KKCSInvoiceProject
 
             Controls.Add(btn);
 
-            iLocationX += 150;
+            iLocationX += 157;
 
             iCount++;
 
             if (iCount % 10 == 0)
             {
                 iLocationX = 0;
-                iLocationY += 80;
+                iLocationY += 95;
             }
 
             return (btn);

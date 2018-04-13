@@ -1175,6 +1175,7 @@
             this.cmb_printerpicked.Name = "cmb_printerpicked";
             this.cmb_printerpicked.Size = new System.Drawing.Size(229, 33);
             this.cmb_printerpicked.TabIndex = 233;
+            this.cmb_printerpicked.SelectedIndexChanged += new System.EventHandler(this.cmb_printerpicked_SelectedIndexChanged);
             // 
             // dt_dateleft
             // 
