@@ -87,7 +87,33 @@ namespace KKCSInvoiceProject
 
         public void SetUpFromBookingsManager(int _id)
         {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
 
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from Bookings where ID = " + _id + "";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            while(reader.Read())
+            {
+                cmb_rego.Text = reader["Rego"].ToString();
+                //dt_customerleaving.Value = (DateTime)reader["DateCustomerLeaving"];
+                //cmb_flightleaving.Text = reader["FlightTimeLeaving"].ToString();
+                //txt_notes.Text = reader["Notes"].ToString();
+                //dt_returndate.Value = (DateTime)reader["DateCustomerPickingUp"];
+                //txt_flighttimes.Text = reader["FlightTimePickingUp"].ToString();
+            }
+
+            connection.Close();
         }
 
         void CheckDatabase()
@@ -133,7 +159,7 @@ namespace KKCSInvoiceProject
                 connection.Open();
             }
 
-            OleDbCommand command = new OleDbCommand();
+            command = new OleDbCommand();
 
             command.Connection = connection;
 
@@ -141,7 +167,7 @@ namespace KKCSInvoiceProject
 
             command.CommandText = query;
 
-            OleDbDataReader reader = command.ExecuteReader();
+            reader = command.ExecuteReader();
 
             while (reader.Read())
             {
