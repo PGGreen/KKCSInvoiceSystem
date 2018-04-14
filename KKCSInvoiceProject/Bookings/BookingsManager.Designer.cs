@@ -54,6 +54,8 @@
             this.pnl_yellow = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.chk_closed = new System.Windows.Forms.CheckBox();
+            this.chk_active = new System.Windows.Forms.CheckBox();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -326,12 +328,42 @@
             this.label10.TabIndex = 61;
             this.label10.Text = "= Active/Not Yet Used";
             // 
+            // chk_closed
+            // 
+            this.chk_closed.AutoSize = true;
+            this.chk_closed.Checked = true;
+            this.chk_closed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_closed.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_closed.Location = new System.Drawing.Point(655, 22);
+            this.chk_closed.Name = "chk_closed";
+            this.chk_closed.Size = new System.Drawing.Size(168, 29);
+            this.chk_closed.TabIndex = 62;
+            this.chk_closed.Text = "Show Closed";
+            this.chk_closed.UseVisualStyleBackColor = true;
+            this.chk_closed.CheckedChanged += new System.EventHandler(this.chk_closed_CheckedChanged);
+            // 
+            // chk_active
+            // 
+            this.chk_active.AutoSize = true;
+            this.chk_active.Checked = true;
+            this.chk_active.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_active.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_active.Location = new System.Drawing.Point(655, 67);
+            this.chk_active.Name = "chk_active";
+            this.chk_active.Size = new System.Drawing.Size(160, 29);
+            this.chk_active.TabIndex = 63;
+            this.chk_active.Text = "Show Active";
+            this.chk_active.UseVisualStyleBackColor = true;
+            this.chk_active.CheckedChanged += new System.EventHandler(this.chk_active_CheckedChanged);
+            // 
             // BookingsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1571, 722);
+            this.Controls.Add(this.chk_active);
+            this.Controls.Add(this.chk_closed);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.pnl_yellow);
@@ -387,5 +419,7 @@
         private System.Windows.Forms.Panel pnl_yellow;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox chk_closed;
+        private System.Windows.Forms.CheckBox chk_active;
     }
 }

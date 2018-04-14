@@ -72,7 +72,29 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"SELECT * FROM Bookings WHERE year(DateCustomerLeaving) = year(@_dt) ORDER BY DateCustomerLeaving DESC";
+            string query = "";
+
+            if (chk_active.Checked && chk_closed.Checked)
+            {
+                query = @"SELECT * FROM Bookings WHERE year(DateCustomerLeaving) = year(@_dt) ORDER BY DateCustomerLeaving DESC";
+            }
+            else if(chk_active.Checked && !chk_closed.Checked)
+            {
+                query = @"SELECT * FROM Bookings WHERE year(DateCustomerLeaving) = year(@_dt) AND BookingFinished = FALSE ORDER BY DateCustomerLeaving DESC";
+            }
+            else if(!chk_active.Checked && chk_closed.Checked)
+            {
+                query = @"SELECT * FROM Bookings WHERE year(DateCustomerLeaving) = year(@_dt) AND BookingFinished = TRUE ORDER BY DateCustomerLeaving DESC";
+            }
+            else
+            {
+                DeleteControls();
+
+                connection.Close();
+
+                return;
+            }
+            
             command.Parameters.AddWithValue("@_dt", _dt);
 
             command.CommandText = query;
@@ -245,6 +267,12 @@ namespace KKCSInvoiceProject
                 btn.Name = reader["ID"].ToString();
 
                 btn.Click += new EventHandler(EditButton_Click);
+
+                if ((bool)reader["BookingFinished"])
+                {
+                    btn.Visible = false;
+                    btn.Enabled = false;
+                }
             }
 
             if (_p.Name == "btn_delete")
@@ -255,11 +283,17 @@ namespace KKCSInvoiceProject
                 btn.Name = reader["ID"].ToString();
 
                 btn.Click += new EventHandler(DeleteBooking_Click);
+
+                if ((bool)reader["BookingFinished"])
+                {
+                    btn.Visible = false;
+                    btn.Enabled = false;
+                }
             }
 
             btn.Location = _p.Location;
-                btn.Size = _p.Size;
-                pnl.Controls.Add(btn);
+            btn.Size = _p.Size;
+           pnl.Controls.Add(btn);
             
         }
 
@@ -398,6 +432,16 @@ namespace KKCSInvoiceProject
         }
 
         private void BookingsClosing(object sender, CancelEventArgs e)
+        {
+            ChangeBookingDate();
+        }
+
+        private void chk_closed_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeBookingDate();
+        }
+
+        private void chk_active_CheckedChanged(object sender, EventArgs e)
         {
             ChangeBookingDate();
         }

@@ -58,6 +58,8 @@
             this.dt_customerleaving = new System.Windows.Forms.DateTimePicker();
             this.cmd_accountlist = new System.Windows.Forms.ComboBox();
             this.btn_update = new System.Windows.Forms.Button();
+            this.chk_unkleave = new System.Windows.Forms.CheckBox();
+            this.chk_unkreturn = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // dt_dateright
@@ -239,7 +241,7 @@
             this.lbl_flighttime.AutoSize = true;
             this.lbl_flighttime.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_flighttime.ForeColor = System.Drawing.Color.Green;
-            this.lbl_flighttime.Location = new System.Drawing.Point(9, 488);
+            this.lbl_flighttime.Location = new System.Drawing.Point(3, 487);
             this.lbl_flighttime.Name = "lbl_flighttime";
             this.lbl_flighttime.Size = new System.Drawing.Size(225, 29);
             this.lbl_flighttime.TabIndex = 246;
@@ -412,12 +414,40 @@
             this.btn_update.Visible = false;
             this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
+            // chk_unkleave
+            // 
+            this.chk_unkleave.AutoSize = true;
+            this.chk_unkleave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_unkleave.Location = new System.Drawing.Point(762, 103);
+            this.chk_unkleave.Name = "chk_unkleave";
+            this.chk_unkleave.Size = new System.Drawing.Size(148, 20);
+            this.chk_unkleave.TabIndex = 317;
+            this.chk_unkleave.Text = "Unknown Leaving";
+            this.chk_unkleave.UseVisualStyleBackColor = true;
+            this.chk_unkleave.Visible = false;
+            this.chk_unkleave.CheckedChanged += new System.EventHandler(this.chk_unkleave_CheckedChanged);
+            // 
+            // chk_unkreturn
+            // 
+            this.chk_unkreturn.AutoSize = true;
+            this.chk_unkreturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_unkreturn.Location = new System.Drawing.Point(574, 481);
+            this.chk_unkreturn.Name = "chk_unkreturn";
+            this.chk_unkreturn.Size = new System.Drawing.Size(138, 20);
+            this.chk_unkreturn.TabIndex = 318;
+            this.chk_unkreturn.Text = "Unknown Return";
+            this.chk_unkreturn.UseVisualStyleBackColor = true;
+            this.chk_unkreturn.Visible = false;
+            this.chk_unkreturn.CheckedChanged += new System.EventHandler(this.chk_unkreturn_CheckedChanged);
+            // 
             // Bookings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(973, 625);
+            this.Controls.Add(this.chk_unkreturn);
+            this.Controls.Add(this.chk_unkleave);
             this.Controls.Add(this.btn_update);
             this.Controls.Add(this.cmd_accountlist);
             this.Controls.Add(this.btn_dlright);
@@ -486,5 +516,7 @@
         private System.Windows.Forms.DateTimePicker dt_customerleaving;
         private System.Windows.Forms.ComboBox cmd_accountlist;
         private System.Windows.Forms.Button btn_update;
+        private System.Windows.Forms.CheckBox chk_unkleave;
+        private System.Windows.Forms.CheckBox chk_unkreturn;
     }
 }

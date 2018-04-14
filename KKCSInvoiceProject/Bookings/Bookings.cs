@@ -742,6 +742,49 @@ namespace KKCSInvoiceProject
             WarningsChangesMade();
         }
 
+        DateTime dtOriginalLeave;
+        DateTime dtOriginalReturn;
+
+        private void chk_unkleave_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chk_unkleave.Checked)
+            {
+                dtOriginalLeave = dt_customerleaving.Value;
+
+                DateTime dtUnkLeave = new DateTime(2001, 1, 1, 12, 0, 0);
+                dt_customerleaving.Value = dtUnkLeave;
+                dt_customerleaving.Visible = false;
+            }
+            else
+            {
+                dt_customerleaving.Value = dtOriginalLeave;
+                dt_customerleaving.Visible = true;
+            }
+
+            WarningsChangesMade();
+
+        }
+
+        private void chk_unkreturn_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chk_unkreturn.Checked)
+            {
+                dtOriginalReturn = dt_returndate.Value;
+
+                DateTime dtUnkReturn = new DateTime(2001, 1, 1, 12, 0, 0);
+                dt_returndate.Value = dtUnkReturn;
+                dt_returndate.Visible = false;
+            }
+            else
+            {
+                dt_returndate.Value = dtOriginalReturn;
+                dt_returndate.Visible = true;
+            }
+
+            WarningsChangesMade();
+
+        }
+
         #endregion ValueChanges
 
         #region Changes
