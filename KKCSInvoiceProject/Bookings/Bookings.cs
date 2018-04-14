@@ -85,6 +85,11 @@ namespace KKCSInvoiceProject
             CheckDatabase();
         }
 
+        public void SetUpFromBookingsManager(int _id)
+        {
+
+        }
+
         void CheckDatabase()
         {
             // Opens the connection to the database

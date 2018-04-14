@@ -37,6 +37,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pnl_template = new System.Windows.Forms.Panel();
+            this.btn_delete = new System.Windows.Forms.Button();
+            this.lbl_account = new System.Windows.Forms.Label();
+            this.lbl_ph = new System.Windows.Forms.Label();
+            this.lbl_datepickup = new System.Windows.Forms.Label();
             this.lbl_dateleave = new System.Windows.Forms.Label();
             this.btn_edit = new System.Windows.Forms.Button();
             this.lbl_name = new System.Windows.Forms.Label();
@@ -45,11 +49,11 @@
             this.txt_year = new System.Windows.Forms.TextBox();
             this.btn_new = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.lbl_datepickup = new System.Windows.Forms.Label();
-            this.lbl_ph = new System.Windows.Forms.Label();
-            this.lbl_account = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btn_delete = new System.Windows.Forms.Button();
+            this.pnl_green = new System.Windows.Forms.Panel();
+            this.pnl_yellow = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +66,7 @@
             this.btn_yearright.TabIndex = 57;
             this.btn_yearright.Text = "--->";
             this.btn_yearright.UseVisualStyleBackColor = true;
+            this.btn_yearright.Click += new System.EventHandler(this.btn_yearright_Click);
             // 
             // btn_yearleft
             // 
@@ -72,6 +77,7 @@
             this.btn_yearleft.TabIndex = 56;
             this.btn_yearleft.Text = "<--";
             this.btn_yearleft.UseVisualStyleBackColor = true;
+            this.btn_yearleft.Click += new System.EventHandler(this.btn_yearleft_Click);
             // 
             // label8
             // 
@@ -151,15 +157,55 @@
             this.pnl_template.TabIndex = 45;
             this.pnl_template.Visible = false;
             // 
+            // btn_delete
+            // 
+            this.btn_delete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btn_delete.Location = new System.Drawing.Point(1179, 7);
+            this.btn_delete.Name = "btn_delete";
+            this.btn_delete.Size = new System.Drawing.Size(61, 23);
+            this.btn_delete.TabIndex = 29;
+            this.btn_delete.Text = "Delete";
+            this.btn_delete.UseVisualStyleBackColor = false;
+            // 
+            // lbl_account
+            // 
+            this.lbl_account.AutoSize = true;
+            this.lbl_account.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_account.Location = new System.Drawing.Point(861, 10);
+            this.lbl_account.Name = "lbl_account";
+            this.lbl_account.Size = new System.Drawing.Size(200, 20);
+            this.lbl_account.TabIndex = 28;
+            this.lbl_account.Text = "PETER GEORGE GREEN";
+            // 
+            // lbl_ph
+            // 
+            this.lbl_ph.AutoSize = true;
+            this.lbl_ph.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ph.Location = new System.Drawing.Point(724, 10);
+            this.lbl_ph.Name = "lbl_ph";
+            this.lbl_ph.Size = new System.Drawing.Size(117, 20);
+            this.lbl_ph.TabIndex = 27;
+            this.lbl_ph.Text = "027314137898";
+            // 
+            // lbl_datepickup
+            // 
+            this.lbl_datepickup.AutoSize = true;
+            this.lbl_datepickup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_datepickup.Location = new System.Drawing.Point(545, 10);
+            this.lbl_datepickup.Name = "lbl_datepickup";
+            this.lbl_datepickup.Size = new System.Drawing.Size(156, 20);
+            this.lbl_datepickup.TabIndex = 26;
+            this.lbl_datepickup.Text = "08/05/2018 - 174500";
+            // 
             // lbl_dateleave
             // 
             this.lbl_dateleave.AutoSize = true;
             this.lbl_dateleave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_dateleave.Location = new System.Drawing.Point(345, 10);
             this.lbl_dateleave.Name = "lbl_dateleave";
-            this.lbl_dateleave.Size = new System.Drawing.Size(138, 20);
+            this.lbl_dateleave.Size = new System.Drawing.Size(156, 20);
             this.lbl_dateleave.TabIndex = 25;
-            this.lbl_dateleave.Text = "08/05/2018 - 1745";
+            this.lbl_dateleave.Text = "08/05/2018 - 174500";
             // 
             // btn_edit
             // 
@@ -208,6 +254,7 @@
             this.txt_year.Name = "txt_year";
             this.txt_year.Size = new System.Drawing.Size(104, 31);
             this.txt_year.TabIndex = 40;
+            this.txt_year.TextChanged += new System.EventHandler(this.txt_year_TextChanged);
             // 
             // btn_new
             // 
@@ -219,6 +266,7 @@
             this.btn_new.TabIndex = 43;
             this.btn_new.Text = "New Booking";
             this.btn_new.UseVisualStyleBackColor = false;
+            this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
             // 
             // label7
             // 
@@ -230,36 +278,6 @@
             this.label7.TabIndex = 58;
             this.label7.Text = "Date/Time Pickup";
             // 
-            // lbl_datepickup
-            // 
-            this.lbl_datepickup.AutoSize = true;
-            this.lbl_datepickup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_datepickup.Location = new System.Drawing.Point(545, 10);
-            this.lbl_datepickup.Name = "lbl_datepickup";
-            this.lbl_datepickup.Size = new System.Drawing.Size(138, 20);
-            this.lbl_datepickup.TabIndex = 26;
-            this.lbl_datepickup.Text = "08/05/2018 - 1745";
-            // 
-            // lbl_ph
-            // 
-            this.lbl_ph.AutoSize = true;
-            this.lbl_ph.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ph.Location = new System.Drawing.Point(724, 10);
-            this.lbl_ph.Name = "lbl_ph";
-            this.lbl_ph.Size = new System.Drawing.Size(117, 20);
-            this.lbl_ph.TabIndex = 27;
-            this.lbl_ph.Text = "027314137898";
-            // 
-            // lbl_account
-            // 
-            this.lbl_account.AutoSize = true;
-            this.lbl_account.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_account.Location = new System.Drawing.Point(861, 10);
-            this.lbl_account.Name = "lbl_account";
-            this.lbl_account.Size = new System.Drawing.Size(200, 20);
-            this.lbl_account.TabIndex = 28;
-            this.lbl_account.Text = "PETER GEORGE GREEN";
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -270,21 +288,54 @@
             this.label12.TabIndex = 59;
             this.label12.Text = "Edit";
             // 
-            // btn_delete
+            // pnl_green
             // 
-            this.btn_delete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btn_delete.Location = new System.Drawing.Point(1179, 7);
-            this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(61, 23);
-            this.btn_delete.TabIndex = 29;
-            this.btn_delete.Text = "Delete";
-            this.btn_delete.UseVisualStyleBackColor = false;
+            this.pnl_green.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.pnl_green.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_green.Location = new System.Drawing.Point(334, 22);
+            this.pnl_green.Name = "pnl_green";
+            this.pnl_green.Size = new System.Drawing.Size(50, 26);
+            this.pnl_green.TabIndex = 46;
+            // 
+            // pnl_yellow
+            // 
+            this.pnl_yellow.BackColor = System.Drawing.Color.Yellow;
+            this.pnl_yellow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_yellow.Location = new System.Drawing.Point(334, 67);
+            this.pnl_yellow.Name = "pnl_yellow";
+            this.pnl_yellow.Size = new System.Drawing.Size(50, 26);
+            this.pnl_yellow.TabIndex = 47;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(390, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(202, 25);
+            this.label9.TabIndex = 60;
+            this.label9.Text = "= Closed/Finished";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(390, 68);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(244, 25);
+            this.label10.TabIndex = 61;
+            this.label10.Text = "= Active/Not Yet Used";
             // 
             // BookingsManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1571, 722);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.pnl_yellow);
+            this.Controls.Add(this.pnl_green);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btn_yearright);
@@ -301,6 +352,7 @@
             this.Controls.Add(this.txt_year);
             this.Name = "BookingsManager";
             this.Text = "BookingsManager";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.pnl_template.ResumeLayout(false);
             this.pnl_template.PerformLayout();
             this.ResumeLayout(false);
@@ -331,5 +383,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btn_delete;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel pnl_green;
+        private System.Windows.Forms.Panel pnl_yellow;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }

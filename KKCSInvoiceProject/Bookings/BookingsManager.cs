@@ -39,9 +39,29 @@ namespace KKCSInvoiceProject
 
             txt_year.Text = dt.ToString("yyyy");
 
-            ChangePettyCashDate();
-
             txt_year.Focus();
+        }
+
+        void SetHeadings(DateTime _dt)
+        {
+            pnl = new Panel();
+            pnl.Location = new Point(pnl_template.Location.X, iInitialPanelLocationY);
+            pnl.Name = "F";
+            pnl.Size = new Size(pnl_template.Size.Width - 1000, pnl_template.Height);
+            pnl.BackColor = Color.LightBlue;
+            pnl.BorderStyle = pnl_template.BorderStyle;
+
+            Label lbl = new Label();
+            //lbl.Name = _p.Name;
+            lbl.Font = lbl_rego.Font;
+            lbl.Size = new Size(lbl_rego.Size.Width + 100, lbl_rego.Height);
+            lbl.Location = lbl_rego.Location;
+
+            lbl.Text = _dt.ToString("MMMM").ToUpper() + " - " + txt_year.Text;
+
+            pnl.Controls.Add(lbl);
+
+            Controls.Add(pnl);
         }
 
         void SetUpMonthAndYear(DateTime _dt)
@@ -65,8 +85,31 @@ namespace KKCSInvoiceProject
 
             bool bPettyCashThisMonth = false;
 
+            string sStoreMonthFirst = "";
+            string sStoreMonthSecond = "";
+            bool bIgnoreFirstTime = true;
+
             while (reader.Read())
             {
+                DateTime dtDate = (DateTime)reader["DateCustomerLeaving"];
+                sStoreMonthFirst = dtDate.Month.ToString();
+
+                if(bIgnoreFirstTime)
+                {
+                    SetHeadings(dtDate);
+
+                    iInitialPanelLocationY += 60;
+                }
+
+                if(sStoreMonthFirst != sStoreMonthSecond && !bIgnoreFirstTime)
+                {
+                    sStoreMonthSecond = sStoreMonthFirst;
+
+                    SetHeadings(dtDate);
+
+                    iInitialPanelLocationY += 60;
+                }
+
                 m_bIsFinished = (bool)reader["BookingFinished"];
 
                 pnl = new Panel();
@@ -77,7 +120,7 @@ namespace KKCSInvoiceProject
 
                 if (!m_bIsFinished)
                 {
-                    pnl.BackColor = pnl_template.BackColor;
+                    pnl.BackColor = Color.Yellow;
                 }
                 else
                 {
@@ -91,7 +134,7 @@ namespace KKCSInvoiceProject
                     // Handles all the button controls
                     if (p.GetType() == typeof(Button))
                     {
-                        //ControlButtons(p);
+                        ControlButtons(p);
                     }
                     // Handles all the Label Controlls
                     if (p.GetType() == typeof(Label))
@@ -103,6 +146,10 @@ namespace KKCSInvoiceProject
                 Controls.Add(pnl);
 
                 iInitialPanelLocationY += 60;
+
+                bIgnoreFirstTime = false;
+
+                sStoreMonthSecond = sStoreMonthFirst;
             }
 
             connection.Close();
@@ -136,9 +183,14 @@ namespace KKCSInvoiceProject
 
                 DateTime dtDate = (DateTime)reader["DateCustomerLeaving"];
 
+                string sTimeLeave = reader["FlightTimeLeaving"].ToString().Substring(0, 4);
 
+                if (sTimeLeave == "Time")
+                {
+                    sTimeLeave = "Unkn";
+                }
 
-                lbl.Text = dtDate.Year + "/" + dtDate.Month + "/" + dtDate.Day + " - " + reader["FlightTimeLeaving"].ToString().Substring(0,4);
+                lbl.Text = dtDate.Day.ToString("00") + "/" + dtDate.Month.ToString("00") + "/" + dtDate.Year + " - " + sTimeLeave;
             }
 
             if (_p.Name == "lbl_datepickup")
@@ -148,7 +200,14 @@ namespace KKCSInvoiceProject
 
                 DateTime dtDate = (DateTime)reader["DateCustomerPickingUp"];
 
-                lbl.Text = dtDate.Year + "/" + dtDate.Month + "/" + dtDate.Day + " - " + reader["FlightTimePickingUp"].ToString().Substring(0, 4);
+                string sTimePickUp = reader["FlightTimePickingUp"].ToString().Substring(0, 4);
+
+                if(sTimePickUp == "Time")
+                {
+                    sTimePickUp = "Unkn";
+                }
+
+                lbl.Text = dtDate.Day.ToString("00") + "/" + dtDate.Month.ToString("00") + "/" + dtDate.Year + " - " + sTimePickUp;
             }
 
             if (_p.Name == "lbl_ph")
@@ -172,6 +231,76 @@ namespace KKCSInvoiceProject
             pnl.Controls.Add(lbl);
         }
 
+        void ControlButtons(Control _p)
+        {
+            // Creates a new button
+            Button btn = new Button();
+
+            // Is it the Picked Up Button
+            if (_p.Name == "btn_edit")
+            {
+                btn.Text = "Edit";
+                btn.BackColor = _p.BackColor;
+
+                btn.Name = reader["ID"].ToString();
+
+                btn.Click += new EventHandler(EditButton_Click);
+            }
+
+            if (_p.Name == "btn_delete")
+            {
+                btn.Text = "Delete";
+                btn.BackColor = _p.BackColor;
+
+                btn.Name = reader["ID"].ToString();
+
+                btn.Click += new EventHandler(DeleteBooking_Click);
+            }
+
+            btn.Location = _p.Location;
+                btn.Size = _p.Size;
+                pnl.Controls.Add(btn);
+            
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            int x = 0;
+            Int32.TryParse(btn.Name, out x);
+
+            Bookings book = new Bookings();
+
+            book.SetUpFromBookingsManager(x);
+            book.FormClosing += BookingsClosing;
+            book.ShowDialog();
+
+        }
+        private void DeleteBooking_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            int x = 0;
+            Int32.TryParse(btn.Name, out x);
+
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "DELETE FROM Bookings WHERE ID = " + x + "";
+
+            command.CommandText = query;
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
+
+            ChangePettyCashDate();
+        }
+
         void ChangePettyCashDate()
         {
             DeleteControls();
@@ -190,7 +319,7 @@ namespace KKCSInvoiceProject
         {
             foreach (Panel pnl in this.Controls.OfType<Panel>().ToArray())
             {
-                if (pnl.Name == "pnl_template")
+                if (pnl.Name == "pnl_template" || pnl.Name == "pnl_green" || pnl.Name == "pnl_yellow")
                 {
                     // Do Nothing
                 }
@@ -209,7 +338,56 @@ namespace KKCSInvoiceProject
                 }
             }
         }
+
+        private void txt_year_TextChanged(object sender, EventArgs e)
+        {
+            int iNumber = 0;
+            bool bIsNumber = int.TryParse(txt_year.Text, out iNumber);
+
+            if(bIsNumber && txt_year.TextLength == 4)
+            {
+                ChangePettyCashDate();
+            }
+        }
+
+        private void btn_yearleft_Click(object sender, EventArgs e)
+        {
+            int iNumber = 0;
+            int.TryParse(txt_year.Text, out iNumber);
+            iNumber -= 1;
+
+            txt_year.Text = iNumber.ToString();
+        }
+
+        private void btn_yearright_Click(object sender, EventArgs e)
+        {
+            int iNumber = 0;
+            int.TryParse(txt_year.Text, out iNumber);
+            iNumber += 1;
+
+            txt_year.Text = iNumber.ToString();
+        }
+
+        private void btn_new_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["Bookings"];
+
+            if (fm != null)
+            {
+                fm.BringToFront();
+            }
+            else
+            {
+                Bookings st = new Bookings();
+                st.FormClosing += BookingsClosing;
+                st.ShowDialog();
+                
+            }
+        }
+
+        private void BookingsClosing(object sender, CancelEventArgs e)
+        {
+            ChangePettyCashDate();
+        }
     }
 }
-
-        
