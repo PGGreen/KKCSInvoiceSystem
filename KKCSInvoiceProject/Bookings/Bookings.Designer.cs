@@ -57,6 +57,7 @@
             this.btn_dlleft = new System.Windows.Forms.Button();
             this.dt_customerleaving = new System.Windows.Forms.DateTimePicker();
             this.cmd_accountlist = new System.Windows.Forms.ComboBox();
+            this.btn_update = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dt_dateright
@@ -94,6 +95,8 @@
             this.cmb_makemodel.Name = "cmb_makemodel";
             this.cmb_makemodel.Size = new System.Drawing.Size(268, 33);
             this.cmb_makemodel.TabIndex = 286;
+            this.cmb_makemodel.SelectedIndexChanged += new System.EventHandler(this.cmb_makemodel_SelectedIndexChanged);
+            this.cmb_makemodel.TextChanged += new System.EventHandler(this.cmb_makemodel_TextChanged);
             // 
             // label41
             // 
@@ -153,6 +156,7 @@
             this.txt_lastname.Name = "txt_lastname";
             this.txt_lastname.Size = new System.Drawing.Size(267, 31);
             this.txt_lastname.TabIndex = 268;
+            this.txt_lastname.TextChanged += new System.EventHandler(this.txt_lastname_TextChanged);
             // 
             // lbl_particulars
             // 
@@ -172,6 +176,7 @@
             this.txt_particulars.Name = "txt_particulars";
             this.txt_particulars.Size = new System.Drawing.Size(225, 26);
             this.txt_particulars.TabIndex = 265;
+            this.txt_particulars.TextChanged += new System.EventHandler(this.txt_particulars_TextChanged);
             // 
             // txt_flighttimes
             // 
@@ -227,6 +232,7 @@
             this.txt_ph.Name = "txt_ph";
             this.txt_ph.Size = new System.Drawing.Size(267, 31);
             this.txt_ph.TabIndex = 247;
+            this.txt_ph.TextChanged += new System.EventHandler(this.txt_ph_TextChanged);
             // 
             // lbl_flighttime
             // 
@@ -293,6 +299,7 @@
             this.cmb_rego.Size = new System.Drawing.Size(231, 39);
             this.cmb_rego.TabIndex = 240;
             this.cmb_rego.SelectedIndexChanged += new System.EventHandler(this.cmb_rego_SelectedIndexChanged);
+            this.cmb_rego.TextChanged += new System.EventHandler(this.cmb_text_TextChanged);
             // 
             // txt_firstname
             // 
@@ -302,6 +309,7 @@
             this.txt_firstname.Name = "txt_firstname";
             this.txt_firstname.Size = new System.Drawing.Size(267, 31);
             this.txt_firstname.TabIndex = 239;
+            this.txt_firstname.TextChanged += new System.EventHandler(this.txt_firstname_TextChanged);
             // 
             // cmb_flightleaving
             // 
@@ -336,6 +344,7 @@
             this.txt_notes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_notes.Size = new System.Drawing.Size(254, 208);
             this.txt_notes.TabIndex = 309;
+            this.txt_notes.TextChanged += new System.EventHandler(this.txt_notes_TextChanged);
             // 
             // label3
             // 
@@ -376,6 +385,7 @@
             this.dt_customerleaving.Name = "dt_customerleaving";
             this.dt_customerleaving.Size = new System.Drawing.Size(468, 38);
             this.dt_customerleaving.TabIndex = 311;
+            this.dt_customerleaving.ValueChanged += new System.EventHandler(this.dt_customerleaving_ValueChanged);
             // 
             // cmd_accountlist
             // 
@@ -386,6 +396,21 @@
             this.cmd_accountlist.Name = "cmd_accountlist";
             this.cmd_accountlist.Size = new System.Drawing.Size(481, 28);
             this.cmd_accountlist.TabIndex = 315;
+            this.cmd_accountlist.SelectedIndexChanged += new System.EventHandler(this.cmd_accountlist_SelectedIndexChanged);
+            // 
+            // btn_update
+            // 
+            this.btn_update.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_update.ForeColor = System.Drawing.Color.White;
+            this.btn_update.Location = new System.Drawing.Point(195, 550);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(139, 63);
+            this.btn_update.TabIndex = 316;
+            this.btn_update.Text = "UPDATE CHANGES";
+            this.btn_update.UseVisualStyleBackColor = false;
+            this.btn_update.Visible = false;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // Bookings
             // 
@@ -393,6 +418,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(973, 625);
+            this.Controls.Add(this.btn_update);
             this.Controls.Add(this.cmd_accountlist);
             this.Controls.Add(this.btn_dlright);
             this.Controls.Add(this.btn_dlleft);
@@ -459,5 +485,6 @@
         private System.Windows.Forms.Button btn_dlleft;
         private System.Windows.Forms.DateTimePicker dt_customerleaving;
         private System.Windows.Forms.ComboBox cmd_accountlist;
+        private System.Windows.Forms.Button btn_update;
     }
 }

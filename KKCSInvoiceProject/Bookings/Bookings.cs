@@ -18,8 +18,12 @@ namespace KKCSInvoiceProject
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
         OleDbConnection connection = new OleDbConnection();
-        OleDbCommand command;
+
         OleDbDataReader reader;
+
+        bool bIsAlreadySaved = false;
+
+        int m_iID = 0;
 
         public Bookings()
         {
@@ -34,6 +38,7 @@ namespace KKCSInvoiceProject
             FindFlightTimesXML();
             FindFlightTimesOutFlightXML();
             PopulateAccountBox();
+            PopulateMakeModel();
         }
 
         void PopulateAccountBox()
@@ -93,27 +98,82 @@ namespace KKCSInvoiceProject
                 connection.Open();
             }
 
-            command = new OleDbCommand();
+            OleDbCommand command = new OleDbCommand();
 
             command.Connection = connection;
 
-            string query = @"select * from Bookings where ID = " + _id + "";
+            string query = @"select * from Bookings";
 
             command.CommandText = query;
 
             reader = command.ExecuteReader();
 
+            string sRego = "";
+
             while(reader.Read())
             {
-                cmb_rego.Text = reader["Rego"].ToString();
-                //dt_customerleaving.Value = (DateTime)reader["DateCustomerLeaving"];
-                //cmb_flightleaving.Text = reader["FlightTimeLeaving"].ToString();
-                //txt_notes.Text = reader["Notes"].ToString();
-                //dt_returndate.Value = (DateTime)reader["DateCustomerPickingUp"];
-                //txt_flighttimes.Text = reader["FlightTimePickingUp"].ToString();
+                sRego = reader["Rego"].ToString();
+                dt_customerleaving.Value = (DateTime)reader["DateCustomerLeaving"];
+                cmb_flightleaving.Text = reader["FlightTimeLeaving"].ToString();
+                txt_notes.Text = reader["Notes"].ToString();
+                dt_returndate.Value = (DateTime)reader["DateCustomerPickingUp"];
+                txt_flighttimes.Text = reader["FlightTimePickingUp"].ToString();
+
+                int.TryParse(reader["ID"].ToString(), out m_iID);
             }
 
             connection.Close();
+
+            cmb_rego.Text = sRego;
+
+            this.BackColor = Color.LightGreen;
+            btn_save.BackColor = Color.Green;
+            btn_save.Text = "Saved";
+
+            WarningsStoreOriginalValues();
+
+            bIsAlreadySaved = true;
+        }
+
+        void UpdateDatabase()
+        {
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            // Make the command equal the physical location of the database (connection)
+            command.Connection = connection;
+
+            string cmd1 = @"UPDATE Bookings SET
+                                    Rego = '" + cmb_rego.Text +
+                                "', DateCustomerLeaving = '" + dt_returndate.Value +
+                                "', FlightTimeLeaving = '" + cmb_flightleaving.Text +
+                                "', FName = '" + txt_firstname.Text +
+                                "', LName = '" + txt_lastname.Text +
+                                "', Ph = '" + txt_ph.Text +
+                                "', Make = '" + cmb_makemodel.Text +
+                                "', Account = '" + cmd_accountlist.Text +
+                                "', AccountPart = '" + txt_particulars.Text +
+                                "', DateCustomerPickingUp = '" + dt_returndate.Value +
+                                "', FlightTimePickingUp = '" + txt_flighttimes.Text +
+                                "', Notes = '" + txt_notes.Text +
+                                "' WHERE ID = " + m_iID + "";
+
+            // Makes the command text equal the string
+            command.CommandText = cmd1;
+
+            // Run a NonQuery (Saves into Database instead of pulling data out)
+            command.ExecuteNonQuery();
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         void CheckDatabase()
@@ -159,7 +219,7 @@ namespace KKCSInvoiceProject
                 connection.Open();
             }
 
-            command = new OleDbCommand();
+            OleDbCommand command = new OleDbCommand();
 
             command.Connection = connection;
 
@@ -182,7 +242,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-
         private void PopulateRegoBox()
         {
             object[] a = new object[MyAppManager.MainMenuInstance.GetCmbRegoComboBox().Items.Count];
@@ -194,7 +253,7 @@ namespace KKCSInvoiceProject
         {
             connection.Open();
 
-            command = new OleDbCommand();
+            OleDbCommand command = new OleDbCommand();
 
             command.Connection = connection;
 
@@ -358,6 +417,13 @@ namespace KKCSInvoiceProject
             FindFlightTimesXML();
         }
 
+        private void PopulateMakeModel()
+        {
+            object[] a = new object[MyAppManager.MainMenuInstance.GetCmbMakeModelComboBox().Items.Count];
+            MyAppManager.MainMenuInstance.GetCmbMakeModelComboBox().Items.CopyTo(a, 0);
+            cmb_makemodel.Items.AddRange(a);
+        }
+
         private void btn_dlleft_Click(object sender, EventArgs e)
         {
             dt_customerleaving.Value = dt_customerleaving.Value.AddDays(-1);
@@ -370,14 +436,23 @@ namespace KKCSInvoiceProject
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            SaveData();
+            if(btn_save.Text != "Saved")
+            {
+                SaveData();
 
-            InsertIntoNumberPlates();
-            InsertIntoAccounts();
+                m_iID = GetId();
 
-            this.BackColor = Color.LightGreen;
-            btn_save.BackColor = Color.Green;
-            btn_save.Text = "Saved";
+                InsertIntoNumberPlates();
+                InsertIntoAccounts();
+
+                this.BackColor = Color.LightGreen;
+                btn_save.BackColor = Color.Green;
+                btn_save.Text = "Saved";
+
+                WarningsStoreOriginalValues();
+
+                bIsAlreadySaved = true;
+            }
         }
 
         private void dt_dateleft_Click(object sender, EventArgs e)
@@ -390,10 +465,7 @@ namespace KKCSInvoiceProject
             dt_returndate.Value = dt_returndate.Value.AddDays(1);
         }
 
-        private void cmb_flightleaving_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
 
         void InsertIntoNumberPlates()
         {
@@ -558,9 +630,185 @@ namespace KKCSInvoiceProject
             }
         }
 
+        int GetId()
+        {
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"SELECT * FROM Bookings ORDER BY ID DESC";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            int iID = 0;
+
+            while (reader.Read())
+            {
+                int.TryParse(reader["ID"].ToString(), out iID);
+
+                break;
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            return (iID);
+        }
+
+
+
+        private void btn_update_Click(object sender, EventArgs e)
+        {
+            UpdateDatabase();
+            InsertIntoNumberPlates();
+            InsertIntoAccounts();
+
+            WarningsStoreOriginalValues();
+
+            this.BackColor = Color.LightGreen;
+            btn_update.Visible = false;
+        }
+
+        #region ValuesChanges
+
+        private void cmb_makemodel_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void cmb_text_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void dt_customerleaving_ValueChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            WarningsChangesMade();
         }
+
+        private void cmb_flightleaving_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void txt_firstname_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void txt_lastname_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void txt_ph_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void cmb_makemodel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void cmd_accountlist_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void txt_particulars_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        private void txt_notes_TextChanged(object sender, EventArgs e)
+        {
+            WarningsChangesMade();
+        }
+
+        #endregion ValueChanges
+
+        #region Changes
+
+        List<string> lstOriginalValues = new List<string>();
+        List<string> lstCheckValues = new List<string>();
+
+        void WarningsStoreOriginalValues()
+        {
+            lstOriginalValues = new List<string>();
+
+            lstOriginalValues.Add(cmb_rego.Text);
+            lstOriginalValues.Add(dt_customerleaving.Value.ToString());
+            lstOriginalValues.Add(cmb_flightleaving.Text);
+            lstOriginalValues.Add(txt_firstname.Text);
+            lstOriginalValues.Add(txt_lastname.Text);
+            lstOriginalValues.Add(txt_ph.Text);
+            lstOriginalValues.Add(cmb_makemodel.Text);
+            lstOriginalValues.Add(cmd_accountlist.Text);
+            lstOriginalValues.Add(txt_particulars.Text);
+            lstOriginalValues.Add(dt_returndate.Value.ToString());
+            lstOriginalValues.Add(txt_flighttimes.Text);
+            lstOriginalValues.Add(txt_notes.Text);
+        }
+
+        void WarningsChangesMade()
+        {
+            if (bIsAlreadySaved)
+            {
+                lstCheckValues = new List<string>();
+
+                lstCheckValues.Add(cmb_rego.Text);
+                lstCheckValues.Add(dt_customerleaving.Value.ToString());
+                lstCheckValues.Add(cmb_flightleaving.Text);
+                lstCheckValues.Add(txt_firstname.Text);
+                lstCheckValues.Add(txt_lastname.Text);
+                lstCheckValues.Add(txt_ph.Text);
+                lstCheckValues.Add(cmb_makemodel.Text);
+                lstCheckValues.Add(cmd_accountlist.Text);
+                lstCheckValues.Add(txt_particulars.Text);
+                lstCheckValues.Add(dt_returndate.Value.ToString());
+                lstCheckValues.Add(txt_flighttimes.Text);
+                lstCheckValues.Add(txt_notes.Text);
+
+                int iCount = 0;
+
+                for (int i = 0; i < lstCheckValues.Count; i++)
+                {
+                    if (lstOriginalValues[i] != lstCheckValues[i])
+                    {
+                        iCount++;
+                    }
+                }
+
+                if (iCount > 0)
+                {
+                    this.BackColor = Color.Yellow;
+                    btn_update.Visible = true;
+                }
+                else
+                {
+                    this.BackColor = Color.LightGreen;
+                    btn_update.Visible = false;
+                }
+            }
+        }
+
+        #endregion Changes
     }
 }

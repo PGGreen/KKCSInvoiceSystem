@@ -284,9 +284,9 @@
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(1192, 142);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 20);
+            this.label12.Size = new System.Drawing.Size(62, 20);
             this.label12.TabIndex = 59;
-            this.label12.Text = "Edit";
+            this.label12.Text = "Delete";
             // 
             // pnl_green
             // 

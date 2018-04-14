@@ -284,24 +284,36 @@ namespace KKCSInvoiceProject
             int x = 0;
             Int32.TryParse(btn.Name, out x);
 
-            connection.Open();
+            string sWarningMessage = "Are you sure you want to delete this booking?";
 
-            OleDbCommand command = new OleDbCommand();
+            WarningSystem ws = new WarningSystem(sWarningMessage, true);
+            ws.ShowDialog();
 
-            command.Connection = connection;
+            if (ws.DialogResult == DialogResult.OK)
+            {
+                connection.Open();
 
-            string query = "DELETE FROM Bookings WHERE ID = " + x + "";
+                OleDbCommand command = new OleDbCommand();
 
-            command.CommandText = query;
+                command.Connection = connection;
 
-            command.ExecuteNonQuery();
+                string query = "DELETE FROM Bookings WHERE ID = " + x + "";
 
-            connection.Close();
+                command.CommandText = query;
 
-            ChangePettyCashDate();
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                ChangeBookingDate();
+            }
+            else
+            {
+                ws.Close();
+            }
         }
 
-        void ChangePettyCashDate()
+        void ChangeBookingDate()
         {
             DeleteControls();
 
@@ -346,7 +358,7 @@ namespace KKCSInvoiceProject
 
             if(bIsNumber && txt_year.TextLength == 4)
             {
-                ChangePettyCashDate();
+                ChangeBookingDate();
             }
         }
 
@@ -387,7 +399,7 @@ namespace KKCSInvoiceProject
 
         private void BookingsClosing(object sender, CancelEventArgs e)
         {
-            ChangePettyCashDate();
+            ChangeBookingDate();
         }
     }
 }

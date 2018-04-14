@@ -938,6 +938,7 @@
             this.cmb_makemodel.Name = "cmb_makemodel";
             this.cmb_makemodel.Size = new System.Drawing.Size(268, 33);
             this.cmb_makemodel.TabIndex = 169;
+            this.cmb_makemodel.SelectedIndexChanged += new System.EventHandler(this.cmb_makemodel_SelectedIndexChanged);
             this.cmb_makemodel.TextChanged += new System.EventHandler(this.cmb_makemodel_TextChanged);
             // 
             // cmb_returnstatus
