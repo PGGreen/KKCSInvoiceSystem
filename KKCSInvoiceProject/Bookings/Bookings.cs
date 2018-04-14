@@ -39,6 +39,8 @@ namespace KKCSInvoiceProject
             FindFlightTimesOutFlightXML();
             PopulateAccountBox();
             PopulateMakeModel();
+
+            cmb_rego.Select();
         }
 
         void PopulateAccountBox()
@@ -87,7 +89,39 @@ namespace KKCSInvoiceProject
 
         private void cmb_rego_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CheckDatabase();
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            // Checks to see if the NumberPlate already exists
+            string cmdStr = @"SELECT COUNT(*) FROM Bookings
+                        WHERE Rego = '" + cmb_rego.Text + "' AND BookingFinished = FALSE";
+
+            // Runs the command from above to search the database
+            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
+
+            int count = (int)cmd.ExecuteScalar();
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            if (count == 0)
+            {
+                CheckDatabase();
+            }
+            else if(count > 0)
+            {
+                string sWarning = "This Rego (" + cmb_rego.Text + ") already\r\nhas an active booking.";
+
+                WarningSystem ws = new WarningSystem(sWarning, false);
+                ws.ShowDialog();
+
+                cmb_rego.Text = "";
+            }
         }
 
         public void SetUpFromBookingsManager(int _id)
