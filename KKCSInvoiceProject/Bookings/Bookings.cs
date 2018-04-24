@@ -25,6 +25,8 @@ namespace KKCSInvoiceProject
 
         int m_iID = 0;
 
+        bool bIsSetUpFromEdit = false;
+
         public Bookings()
         {
             InitializeComponent();
@@ -89,24 +91,29 @@ namespace KKCSInvoiceProject
 
         private void cmb_rego_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Opens the connection to the database
-            if (connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
+            int count = 0;
 
-            // Checks to see if the NumberPlate already exists
-            string cmdStr = @"SELECT COUNT(*) FROM Bookings
+            if (!bIsSetUpFromEdit)
+            {
+                // Opens the connection to the database
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                // Checks to see if the NumberPlate already exists
+                string cmdStr = @"SELECT COUNT(*) FROM Bookings
                         WHERE Rego = '" + cmb_rego.Text + "' AND BookingFinished = FALSE";
 
-            // Runs the command from above to search the database
-            OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
+                // Runs the command from above to search the database
+                OleDbCommand cmd = new OleDbCommand(cmdStr, connection);
 
-            int count = (int)cmd.ExecuteScalar();
+                count = (int)cmd.ExecuteScalar();
 
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
 
             if (count == 0)
@@ -126,6 +133,8 @@ namespace KKCSInvoiceProject
 
         public void SetUpFromBookingsManager(int _id)
         {
+            bIsSetUpFromEdit = true;
+
             // Opens the connection to the database
             if (connection.State == ConnectionState.Closed)
             {

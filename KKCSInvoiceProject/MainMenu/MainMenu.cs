@@ -68,6 +68,8 @@ namespace KKCSInvoiceProject
 
             SetUpAccountComboBox();
 
+            SetUpAccountComboBox();
+
             UpdateAmountOfCars();
         }
 
@@ -211,28 +213,44 @@ namespace KKCSInvoiceProject
 
         public void SetUpAccountComboBox()
         {
-            //cmb_storeAccountItems = new ComboBox();
+            cmb_storeAccountItems = new ComboBox();
 
-            //connection.Open();
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
 
-            //OleDbCommand command = new OleDbCommand();
+            OleDbCommand command = new OleDbCommand();
 
-            //command.Connection = connection;
+            command.Connection = connection;
 
-            //string blank = "";
+            string query = @"SELECT * FROM Accounts ORDER BY Account ASC";
 
-            //string query = "select * from NumberPlates WHERE Account <> '" + blank + "'  ORDER BY Account ASC";
+            command.CommandText = query;
 
-            //command.CommandText = query;
+            OleDbDataReader reader = command.ExecuteReader();
 
-            //OleDbDataReader reader = command.ExecuteReader();
+            string sFirstName = "";
+            string sSecondName = "";
 
-            //while (reader.Read())
-            //{
-            //    cmb_storeAccountItems.Items.Add(reader["Account"].ToString());
-            //}
+            while (reader.Read())
+            {
+                sFirstName = reader["Account"].ToString();
 
-            //connection.Close();
+                if (sFirstName != sSecondName)
+                {
+                    sSecondName = sFirstName;
+
+                    cmb_storeAccountItems.Items.Add(reader["Account"].ToString());
+                }
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         #endregion SetFunctions
@@ -574,7 +592,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                LongTermMain ltm = new LongTermMain();
+                LongTermMain ltm = new LongTermMain(false, "");
                 ltm.Show();
             }
         }
@@ -1521,7 +1539,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                LongTermMain ltm = new LongTermMain();
+                LongTermMain ltm = new LongTermMain(false, "");
                 ltm.Show();
             }
         }
@@ -1621,7 +1639,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                LongTermMain bank = new LongTermMain();
+                LongTermMain bank = new LongTermMain(false, "");
                 bank.ShowDialog();
             }
         }

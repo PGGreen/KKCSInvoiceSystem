@@ -714,7 +714,6 @@
             this.button3.TabIndex = 233;
             this.button3.Text = "Long Term";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Visible = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // MainMenu

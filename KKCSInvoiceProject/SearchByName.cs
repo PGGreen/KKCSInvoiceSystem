@@ -113,6 +113,8 @@ namespace KKCSInvoiceProject
 
                 if (sFirst != sSecond)
                 {
+                    sSecond = sFirst;
+
                     cmb_name.Items.Add(sFirst);
                 }
 

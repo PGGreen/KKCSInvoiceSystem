@@ -88,6 +88,8 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.pnl_printtitles = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.btn_keybox = new System.Windows.Forms.Button();
             this.btn_invoice = new System.Windows.Forms.Button();
             this.btn_mainmenu = new System.Windows.Forms.Button();
@@ -97,13 +99,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btn_search = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.chk_entiredb = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lbl_notesalerts = new System.Windows.Forms.Label();
             this.lbl_staff = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.pnl_template.SuspendLayout();
             this.pnl_printtitles.SuspendLayout();
             this.SuspendLayout();
@@ -344,9 +342,9 @@
             this.lbl_keyno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_keyno.Location = new System.Drawing.Point(789, 10);
             this.lbl_keyno.Name = "lbl_keyno";
-            this.lbl_keyno.Size = new System.Drawing.Size(49, 20);
+            this.lbl_keyno.Size = new System.Drawing.Size(59, 20);
             this.lbl_keyno.TabIndex = 16;
-            this.lbl_keyno.Text = "5000";
+            this.lbl_keyno.Text = "50000";
             this.lbl_keyno.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_rego
@@ -764,6 +762,26 @@
             this.pnl_printtitles.TabIndex = 100;
             this.pnl_printtitles.Visible = false;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(1284, 3);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(49, 20);
+            this.label16.TabIndex = 110;
+            this.label16.Text = "Staff";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(1171, 3);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(108, 20);
+            this.label15.TabIndex = 109;
+            this.label15.Text = "Notes/Alerts";
+            // 
             // btn_keybox
             // 
             this.btn_keybox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -822,7 +840,7 @@
             this.cmb_items.Name = "cmb_items";
             this.cmb_items.Size = new System.Drawing.Size(219, 33);
             this.cmb_items.TabIndex = 118;
-            this.cmb_items.SelectedIndexChanged += new System.EventHandler(this.cmb_items_SelectedIndexChanged);
+            this.cmb_items.Visible = false;
             // 
             // cmb_searchby
             // 
@@ -836,8 +854,7 @@
             this.cmb_searchby.Items.AddRange(new object[] {
             "Invoice No",
             "Car Rego",
-            "First Name",
-            "Last Name"});
+            "Account"});
             this.cmb_searchby.Location = new System.Drawing.Point(896, 51);
             this.cmb_searchby.Name = "cmb_searchby";
             this.cmb_searchby.Size = new System.Drawing.Size(165, 33);
@@ -876,29 +893,6 @@
             this.label8.TabIndex = 122;
             this.label8.Text = "Items";
             // 
-            // chk_entiredb
-            // 
-            this.chk_entiredb.AutoSize = true;
-            this.chk_entiredb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_entiredb.Location = new System.Drawing.Point(897, 89);
-            this.chk_entiredb.Name = "chk_entiredb";
-            this.chk_entiredb.Size = new System.Drawing.Size(142, 30);
-            this.chk_entiredb.TabIndex = 123;
-            this.chk_entiredb.Text = "(Search Entire Database\r\n                      Very Slow)";
-            this.chk_entiredb.UseVisualStyleBackColor = true;
-            this.chk_entiredb.CheckedChanged += new System.EventHandler(this.chk_entiredb_CheckedChanged);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(914, 103);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(69, 13);
-            this.label12.TabIndex = 124;
-            this.label12.Text = "WARNING!!!";
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -931,26 +925,6 @@
             this.lbl_staff.Text = "Peter";
             this.lbl_staff.Visible = false;
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(1171, 3);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(108, 20);
-            this.label15.TabIndex = 109;
-            this.label15.Text = "Notes/Alerts";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(1284, 3);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(49, 20);
-            this.label16.TabIndex = 110;
-            this.label16.Text = "Staff";
-            // 
             // NewCarReturns
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -960,8 +934,6 @@
             this.Controls.Add(this.lbl_staff);
             this.Controls.Add(this.lbl_notesalerts);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.chk_entiredb);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btn_search);
             this.Controls.Add(this.label7);
@@ -1086,8 +1058,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btn_search;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox chk_entiredb;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lbl_staffmember;
         private System.Windows.Forms.Label lbl_customername;
         private System.Windows.Forms.Label label14;

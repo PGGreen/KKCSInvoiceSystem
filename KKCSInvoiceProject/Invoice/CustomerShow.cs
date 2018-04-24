@@ -12,6 +12,8 @@ namespace KKCSInvoiceProject
 {
     public partial class CustomerShow : Form
     {
+        int eError = 2147483647;
+
         public CustomerShow()
         {
             InitializeComponent();
@@ -72,6 +74,8 @@ namespace KKCSInvoiceProject
                 lbl_ccfee.Visible = true;
             }
 
+            bool bError = false;
+
             if (_sPrice != "")
             {
                 float fPrice = 0.0f;
@@ -79,6 +83,12 @@ namespace KKCSInvoiceProject
 
                 lbl_price.Visible = true;
                 lbl_price.Text = "$" + fPrice.ToString("0.00");
+
+                if(!bError)
+                { 
+                    //lbl_price.Text = eError.ToString();
+                    //lbl_paidby.Visible = false;
+                }
 
                 if(fPrice < 100.0f)
                 {

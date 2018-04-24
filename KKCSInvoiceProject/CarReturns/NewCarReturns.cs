@@ -40,6 +40,7 @@ namespace KKCSInvoiceProject
 
         //Checks to see if the car has already been picked up
         bool bPickedUp = false;
+        bool bIsLongTerm = false;
 
         bool bFirstTimeDividier = false;
         int iNoMoreThan1Divider = 0;
@@ -55,6 +56,9 @@ namespace KKCSInvoiceProject
             InitializeComponent();
 
             connection.ConnectionString = m_strDataBaseFilePath;
+
+            PopulateRegoBox();
+            PopulateAccountBox();
 
             cmb_searchby.SelectedIndex = 0;
 
@@ -383,6 +387,8 @@ namespace KKCSInvoiceProject
             // Checks to see if the car has been picked up or not already
             bPickedUp = (bool)reader["PickUp"];
 
+            bIsLongTerm = (bool)reader["IsLongTerm"];
+            
             // Handles the controls within the panel
             foreach (Control p in pnl_template.Controls)
             {
@@ -453,12 +459,24 @@ namespace KKCSInvoiceProject
             // Is it the Invoice No Button
             if (_p.Name == "btn_invno")
             {
-                btn.Text = reader["InvoiceNumber"].ToString();
-                btn.BackColor = _p.BackColor;
+                if(bIsLongTerm)
+                {
+                    btn.Text = reader["KeyNumber"].ToString();
+                    btn.BackColor = Color.LightBlue;
 
-                btn.Name = reader["InvoiceNumber"].ToString();
+                    //btn.Name = reader["InvoiceNumber"].ToString();
 
-                btn.Click += new EventHandler(InvoiceButton_Click);
+                    //btn.Click += new EventHandler(InvoiceButton_Click);
+                }
+                else
+                {
+                    btn.Text = reader["InvoiceNumber"].ToString();
+                    btn.BackColor = _p.BackColor;
+
+                    btn.Name = reader["InvoiceNumber"].ToString();
+
+                    btn.Click += new EventHandler(InvoiceButton_Click);
+                }
             }
 
             if(_p.Name == "btn_notesalerts")
@@ -548,11 +566,22 @@ namespace KKCSInvoiceProject
 
             if (_p.Name == "lbl_keyno")
             {
-                lbl.Font = _p.Font;
-                lbl.Size = _p.Size;
-                lbl.BackColor = _p.BackColor;
+                if(bIsLongTerm)
+                {
+                    lbl.Font = _p.Font;
+                    lbl.Size = _p.Size;
+                    lbl.BackColor = Color.LightBlue;
 
-                lbl.Text = reader["KeyNumber"].ToString();
+                    lbl.Text = reader["KeyNumber"].ToString();
+                }
+                else
+                {
+                    lbl.Font = _p.Font;
+                    lbl.Size = _p.Size;
+                    lbl.BackColor = _p.BackColor;
+
+                    lbl.Text = reader["KeyNumber"].ToString();
+                }
             }
 
             if (_p.Name == "lbl_amount")
@@ -566,12 +595,12 @@ namespace KKCSInvoiceProject
 
                 string sPaidStatus = reader["PaidStatus"].ToString();
 
-                if (fTotalPay == 0.0f && sPaidStatus != "N/C")
+                if (fTotalPay == 0.0f && sPaidStatus != "N/C" && !bIsLongTerm)
                 {
                     lbl.BackColor = Color.Red;
                     lbl.Text = "To Calc";
                 }
-                else if(fTotalPay == 0.0f && sPaidStatus == "N/C")
+                else if (fTotalPay == 0.0f && sPaidStatus == "N/C" || bIsLongTerm)
                 {
                     lbl.BackColor = Color.Orange;
                     lbl.Text = "N/C";
@@ -1816,16 +1845,63 @@ namespace KKCSInvoiceProject
 
         #region Search
 
-        string sSearchPickedUp = "False";
+        ComboBox cmbRego;
+        ComboBox cmbAccount;
+
+        private void PopulateRegoBox()
+        {
+            object[] a = new object[MyAppManager.MainMenuInstance.GetCmbRegoComboBox().Items.Count];
+            MyAppManager.MainMenuInstance.GetCmbRegoComboBox().Items.CopyTo(a, 0);
+            cmbRego = new ComboBox();
+            cmbRego.Size = cmb_items.Size;
+            cmbRego.Font = cmb_items.Font;
+            cmbRego.Location = cmb_items.Location;
+            cmbRego.Items.AddRange(a);
+            cmbRego.Visible = false;
+
+            Controls.Add(cmbRego);
+        }
+
+        private void PopulateAccountBox()
+        {
+            object[] a = new object[MyAppManager.MainMenuInstance.GetCmbAccountsComboBox().Items.Count];
+            MyAppManager.MainMenuInstance.GetCmbAccountsComboBox().Items.CopyTo(a, 0);
+            cmbAccount = new ComboBox();
+            cmbAccount.Size = cmb_items.Size;
+            cmbAccount.Font = cmb_items.Font;
+            cmbAccount.Location = cmb_items.Location;
+            cmbAccount.Items.AddRange(a);
+            cmbAccount.Visible = false;
+
+            Controls.Add(cmbAccount);
+        }
 
         private void cmb_searchby_SelectedIndexChanged(object sender, EventArgs e)
         {
             SearchBy();
         }
 
-        private void chk_entiredb_CheckedChanged(object sender, EventArgs e)
+        void SearchBy()
         {
-            SearchBy();
+            cmbRego.Visible = false;
+            cmbAccount.Visible = false;
+            cmb_items.Visible = false;
+
+            cmb_items.Text = "";
+
+            if (cmb_searchby.Text == "Invoice No")
+            {
+                cmb_items.Visible = true;
+                cmb_items.Items.Clear();
+            }
+            else if (cmb_searchby.Text == "Car Rego")
+            {
+                cmbRego.Visible = true;
+            }
+            else if (cmb_searchby.Text == "Account")
+            {
+                cmbAccount.Visible = true;
+            }
         }
 
         private void btn_search_Click(object sender, EventArgs e)
@@ -1839,70 +1915,6 @@ namespace KKCSInvoiceProject
             else
             {
                 SearchParameters();
-            }
-        }
-
-        private void cmb_items_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SearchParameters();
-        }
-
-        void SearchBy()
-        {
-            cmb_items.Text = "";
-
-            if (cmb_searchby.Text == "Invoice No")
-            {
-                cmb_items.Items.Clear();
-            }
-            else
-            {
-                connection.Open();
-
-                OleDbCommand command = new OleDbCommand();
-
-                command.Connection = connection;
-
-                string query = "";
-
-                if (chk_entiredb.Checked)
-                {
-                    sSearchPickedUp = "True";
-
-                    query = "select * from CustomerInvoices ORDER BY DTReturnDate ASC";
-                }
-                else
-                {
-                    sSearchPickedUp = "False";
-
-                    query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY DTReturnDate ASC";
-                }
-
-                command.CommandText = query;
-
-                OleDbDataReader reader = command.ExecuteReader();
-
-                cmb_items.Items.Clear();
-
-                while (reader.Read())
-                {
-                    if (cmb_searchby.Text == "Car Rego")
-                    {
-                        cmb_items.Items.Add(reader["Rego"].ToString());
-                    }
-                    else if (cmb_searchby.Text == "First Name")
-                    {
-                        cmb_items.Items.Add(reader["FirstName"].ToString());
-                    }
-                    else if (cmb_searchby.Text == "Last Name")
-                    {
-                        cmb_items.Items.Add(reader["LastName"].ToString());
-                    }
-                }
-
-                cmb_items.Sorted = true;
-
-                connection.Close();
             }
         }
 
@@ -1948,17 +1960,13 @@ namespace KKCSInvoiceProject
             {
                 sTodaysQuerys = "select * from CustomerInvoices WHERE InvoiceNumber = " + cmb_items.Text + "";
             }
-            else if (cmb_searchby.Text == "Car Rego")
+            else if(cmb_searchby.Text == "Car Rego")
             {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = "+ sSearchPickedUp + " AND Rego = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+                sTodaysQuerys = "select * from CustomerInvoices WHERE Rego = '" + cmbRego.Text + "' ORDER BY DtReturnDate DESC";
             }
-            else if (cmb_searchby.Text == "First Name")
+            else if (cmb_searchby.Text == "Account")
             {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = " + sSearchPickedUp + " AND FirstName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
-            }
-            else if (cmb_searchby.Text == "Last Name")
-            {
-                sTodaysQuerys = "select * from CustomerInvoices WHERE PickUp = " + sSearchPickedUp + " AND LastName = '" + cmb_items.Text + "' ORDER BY DTReturnDate ASC";
+                sTodaysQuerys = "select * from CustomerInvoices WHERE AccountHolder = '" + cmbAccount.Text + "' AND PaidStatus = 'OnAcc' ORDER BY DtReturnDate DESC";
             }
 
             CreateReturns(sTodaysQuerys);

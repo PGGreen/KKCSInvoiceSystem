@@ -222,7 +222,7 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                LongTermMain ltm = new LongTermMain();
+                LongTermMain ltm = new LongTermMain(false, "");
                 ltm.Show();
             }
         

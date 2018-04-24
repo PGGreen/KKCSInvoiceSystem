@@ -25,6 +25,7 @@ namespace KKCSInvoiceProject
         private PrintDocument printDocument1 = new PrintDocument();
 
         InvoiceManager invManager;
+        LongTermMain longTermMain;
 
         private OleDbConnection connection = new OleDbConnection();
 
@@ -1677,8 +1678,10 @@ namespace KKCSInvoiceProject
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //try
-            //{
+            bool bIsLongTerm = CheckIfLongTerm();
+
+            if (!bIsLongTerm)
+            {
                 CurrentTime = DateTime.Now;
 
                 if (!m_bIsFromCarReturns)
@@ -1747,11 +1750,46 @@ namespace KKCSInvoiceProject
                 ia.Close();
 
                 UpdateCustomerShow();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error " + ex);
-            //}
+            }
+        }
+
+        private bool CheckIfLongTerm()
+        {
+            bool bIsLongTerm = false;
+
+            // Opens the connection to the database
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = @"select * from LongTermAccounts where Rego1 = '" + cmb_rego.Text + "' OR Rego2 = '" + cmb_rego.Text + "'";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                longTermMain = new LongTermMain(true, cmb_rego.Text);
+                longTermMain.Show();
+
+                bIsLongTerm = true;
+            }
+
+            // Closes the connection to the database
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
+            cmb_rego.Text = "";
+
+            return (bIsLongTerm);
         }
 
         private void CheckIfAccount()

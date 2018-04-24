@@ -18,11 +18,19 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
+        OleDbDataReader reader;
+
         Panel pnl;
 
-        public LongTermMain()
+        bool m_bHighlight = false;
+        string m_sRegoToHighlight = "";
+
+        public LongTermMain(bool _bHighlight, string _sRego)
         {
             InitializeComponent();
+
+            m_bHighlight = _bHighlight;
+            m_sRegoToHighlight = _sRego;
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
@@ -43,7 +51,7 @@ namespace KKCSInvoiceProject
 
             command.CommandText = query;
 
-            OleDbDataReader reader = command.ExecuteReader();
+            reader = command.ExecuteReader();
 
             int iLocationY = 0;
             int iLocationX = pnl_template.Location.X;
@@ -53,7 +61,7 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                if (iCount == 10)
+                if (iCount == 15)
                 {
                     iLocationY = 0;
                     iLocationX = pnl_template.Size.Width + 50;
@@ -62,7 +70,16 @@ namespace KKCSInvoiceProject
                 pnl = new Panel();
 
                 pnl.Size = pnl_template.Size;
-                pnl.BackColor = pnl_template.BackColor;
+
+                if(m_bHighlight)
+                {
+                    pnl.BackColor = Color.White;
+                }
+                else
+                {
+                    pnl.BackColor = pnl_template.BackColor;
+                }
+                
                 pnl.Location = new Point(iLocationX, pnl_template.Location.Y + iLocationY);
                 pnl.Visible = true;
 
@@ -111,13 +128,57 @@ namespace KKCSInvoiceProject
             connection.Close();
         }
 
-        void ControlLabels(Control p)
+        void ControlLabels(Control _p)
         {
             Label lbl = new Label();
-            lbl.Location = p.Location;
-            lbl.Text = p.Text;
-            lbl.Size = p.Size;
-            lbl.Font = p.Font;
+            lbl.Font = _p.Font;
+            lbl.Text = _p.Text;
+            lbl.Location = _p.Location;
+            lbl.Size = _p.Size;
+
+            if (_p.Name == "lbl_ltnumber")
+            {
+                lbl.Text = "LT" + reader["LongTermKey"].ToString();
+            }
+
+            if (_p.Name == "lbl_name")
+            {
+                string sName = reader["ClientName"].ToString();
+
+                if(sName.Length > 15)
+                {
+                    lbl.Font = new Font(_p.Font.FontFamily, 8);
+                    //sName = sName.Substring(0, 15);
+                }
+                lbl.Text = sName;
+            }
+            if(_p.Name == "lbl_rego")
+            {
+                string sRego1 = reader["Rego1"].ToString();
+
+                if (m_bHighlight && sRego1 == m_sRegoToHighlight)
+                {
+                    pnl.BackColor = Color.LightGreen;
+                }
+
+                lbl.Text = sRego1;
+            }
+            if (_p.Name == "lbl_rego2")
+            {
+                string sRego2 = reader["Rego2"].ToString();
+
+                if (m_bHighlight && sRego2 == m_sRegoToHighlight)
+                {
+                    pnl.BackColor = Color.LightGreen;
+                }
+
+                lbl.Text = sRego2;
+            }
+            if(_p.Name == "lbl_ph")
+            {
+                lbl.Text = reader["Ph"].ToString();
+            }
+
             pnl.Controls.Add(lbl);
         }
     }
