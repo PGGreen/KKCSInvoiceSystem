@@ -33,7 +33,11 @@ namespace KKCSInvoiceProject
 
         void GetCurrentPettyCash()
         {
-            connection.Open();
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            
 
             OleDbCommand command = new OleDbCommand();
 
@@ -55,7 +59,11 @@ namespace KKCSInvoiceProject
                 break;
             }
 
-            connection.Close();
+            if(connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+            
 
             RestCalculation();
         }
@@ -75,7 +83,10 @@ namespace KKCSInvoiceProject
 
         void Save()
         {
-            connection.Open();
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
 
             OleDbCommand command = new OleDbCommand();
 
@@ -95,7 +106,10 @@ namespace KKCSInvoiceProject
 
             command.ExecuteNonQuery();
 
-            connection.Close();
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         private void btn_save_Click(object sender, EventArgs e)

@@ -30,14 +30,14 @@ namespace KKCSInvoiceProject
 
             connection.ConnectionString = m_strDataBaseFilePath;
 
-            txt_title.MaxLength = 35;
+            //txt_title.MaxLength = 35;
         }
 
         private void txt_title_TextChanged(object sender, EventArgs e)
         {
-            int iTextLength = txt_title.Text.Length;
+            //int iTextLength = txt_title.Text.Length;
 
-            lbl_maxchar.Text = iTextLength.ToString() + "/35";
+            //lbl_maxchar.Text = iTextLength.ToString() + "/35";
         }
 
         private void DailyNotes_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -53,7 +53,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            DateTime dt = new DateTime(dt_dateandtime.Value.Year, dt_dateandtime.Value.Month, dt_dateandtime.Value.Day, 12, 0, 0);
+            //DateTime dt = new DateTime(dt_dateandtime.Value.Year, dt_dateandtime.Value.Month, dt_dateandtime.Value.Day, 12, 0, 0);
 
             //Insert the new Number Plate into the Database
             string cmd1 = @"SELECT * FROM Notes WHERE ID = " + _ID + "";
@@ -66,10 +66,10 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                txt_title.Text = reader["Title"].ToString();
+                //txt_title.Text = reader["Title"].ToString();
                 txt_notes.Text = reader["NoteStore"].ToString();
 
-                dt_dateandtime.Value = (DateTime)reader["DateAndTime"];
+                //dt_dateandtime.Value = (DateTime)reader["DateAndTime"];
             }
 
             connection.Close();
@@ -90,13 +90,13 @@ namespace KKCSInvoiceProject
 
             string sTypeOfNote = "Daily Note";
 
-            DateTime dt = new DateTime(dt_dateandtime.Value.Year, dt_dateandtime.Value.Month, dt_dateandtime.Value.Day);
+            //DateTime dt = new DateTime(dt_dateandtime.Value.Year, dt_dateandtime.Value.Month, dt_dateandtime.Value.Day);
 
             //Insert the new Number Plate into the Database
             string cmd1 = @"INSERT into Notes (TypeOfNote,DateAndTime,Title,NoteStore) values
                                                             ('" + sTypeOfNote + "','" +
-                                                            dt + "','" +
-                                                            txt_title.Text + "','" +
+                                                            //dt + "','" +
+                                                            //txt_title.Text + "','" +
                                                             txt_notes.Text +
                                                         "')";
 
