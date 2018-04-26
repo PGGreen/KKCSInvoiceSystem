@@ -138,6 +138,12 @@
     <Compile Include="Invoice\InvoiceAlerts.Designer.cs">
       <DependentUpon>InvoiceAlerts.cs</DependentUpon>
     </Compile>
+    <Compile Include="LongTerm\LongTermReturn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LongTerm\LongTermReturn.Designer.cs">
+      <DependentUpon>LongTermReturn.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManualTime.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -467,6 +473,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Invoice\Refund.resx">
       <DependentUpon>Refund.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LongTerm\LongTermReturn.resx">
+      <DependentUpon>LongTermReturn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManualTime.resx">
       <DependentUpon>ManualTime.cs</DependentUpon>

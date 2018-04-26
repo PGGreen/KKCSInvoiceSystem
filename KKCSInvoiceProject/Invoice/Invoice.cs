@@ -25,7 +25,7 @@ namespace KKCSInvoiceProject
         private PrintDocument printDocument1 = new PrintDocument();
 
         InvoiceManager invManager;
-        LongTermMain longTermMain;
+        LongTermReturn longTermReturn;
 
         private OleDbConnection connection = new OleDbConnection();
 
@@ -1775,10 +1775,12 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                longTermMain = new LongTermMain(true, cmb_rego.Text);
-                longTermMain.Show();
+                longTermReturn = new LongTermReturn(cmb_rego.Text);
+                longTermReturn.Show();
 
                 bIsLongTerm = true;
+
+                cmb_rego.Text = "";
             }
 
             // Closes the connection to the database
@@ -1786,8 +1788,6 @@ namespace KKCSInvoiceProject
             {
                 connection.Close();
             }
-
-            cmb_rego.Text = "";
 
             return (bIsLongTerm);
         }
