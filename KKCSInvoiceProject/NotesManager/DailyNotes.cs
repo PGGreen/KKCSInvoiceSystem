@@ -20,29 +20,23 @@ namespace KKCSInvoiceProject
 
         OleDbDataReader reader;
 
-        NotesManager objNotesManager = new NotesManager();
-
-        public DailyNotes(NotesManager _objNotesManager)
+        public DailyNotes()
         {
             InitializeComponent();
 
-            objNotesManager = _objNotesManager;
-
             connection.ConnectionString = m_strDataBaseFilePath;
 
-            //txt_title.MaxLength = 35;
+
         }
 
         private void txt_title_TextChanged(object sender, EventArgs e)
         {
-            //int iTextLength = txt_title.Text.Length;
 
-            //lbl_maxchar.Text = iTextLength.ToString() + "/35";
         }
 
         private void DailyNotes_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            objNotesManager.RefreshNotes();
+            //objNotesManager.RefreshNotes();
         }
 
         public void LoadFromNotesManager(int _ID)
@@ -88,24 +82,24 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sTypeOfNote = "Daily Note";
+            DateTime dt = DateTime.Now;
 
-            //DateTime dt = new DateTime(dt_dateandtime.Value.Year, dt_dateandtime.Value.Month, dt_dateandtime.Value.Day);
+            bool bIsHighPriority = false;
+
+            if(chk_hp.Checked)
+            {
+                bIsHighPriority = true;
+            }
 
             //Insert the new Number Plate into the Database
-            string cmd1 = @"INSERT into Notes (TypeOfNote,DateAndTime,Title,NoteStore) values
-                                                            ('" + sTypeOfNote + "','" +
-                                                            //dt + "','" +
-                                                            //txt_title.Text + "','" +
-                                                            txt_notes.Text +
-                                                        "')";
+            string cmd1 = @"INSERT INTO Notes (Notes,DateAndTime,IsHighPriority) values ('"+ txt_notes.Text + "','"+ dt + "',"+ bIsHighPriority + ")";
 
             // Makes the command text equal the string
             command.CommandText = cmd1;
 
             // Run a NonQuery (Saves into Database instead of pulling data out)
             command.ExecuteNonQuery();
-
+            
             connection.Close();
 
             this.BackColor = Color.LightGreen;

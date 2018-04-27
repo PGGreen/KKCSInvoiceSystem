@@ -33,6 +33,7 @@
             this.btn_save = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.cmb_worker = new System.Windows.Forms.ComboBox();
+            this.chk_hp = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label3
@@ -94,12 +95,24 @@
             this.cmb_worker.Size = new System.Drawing.Size(238, 47);
             this.cmb_worker.TabIndex = 186;
             // 
+            // chk_hp
+            // 
+            this.chk_hp.AutoSize = true;
+            this.chk_hp.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_hp.Location = new System.Drawing.Point(524, 49);
+            this.chk_hp.Name = "chk_hp";
+            this.chk_hp.Size = new System.Drawing.Size(194, 35);
+            this.chk_hp.TabIndex = 188;
+            this.chk_hp.Text = "High Priority";
+            this.chk_hp.UseVisualStyleBackColor = true;
+            // 
             // DailyNotes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(763, 575);
+            this.Controls.Add(this.chk_hp);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmb_worker);
             this.Controls.Add(this.btn_save);
@@ -118,5 +131,6 @@
         private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmb_worker;
+        private System.Windows.Forms.CheckBox chk_hp;
     }
 }

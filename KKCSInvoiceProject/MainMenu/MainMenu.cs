@@ -26,6 +26,10 @@ namespace KKCSInvoiceProject
 
         string sVersionNumber = "3.00";
 
+        int iTemplateX = 0;
+        int iTemplateY = 0;
+        int iCount = 1;
+
         private OleDbConnection connection = new OleDbConnection();
         OleDbCommand command;
 
@@ -71,6 +75,8 @@ namespace KKCSInvoiceProject
             UpdateAmountOfCars();
 
             LoadNotes();
+
+            LoadInvoiceNotesAlerts();
         }
 
         #region Debug
@@ -390,15 +396,15 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = "select * from Notes ORDER BY IsHighPriority";
+            string query = "select * from Notes ORDER BY IsHighPriority,DateAndTime";
             command.CommandText = query;
 
             OleDbDataReader reader = command.ExecuteReader();
 
-            int iTemplateX = txt_template.Location.X;
-            int iTemplateY = txt_template.Location.Y;
+            iTemplateX = txt_template.Location.X;
+            iTemplateY = txt_template.Location.Y;
 
-            int iCount = 1;
+            iCount = 1;
 
             while (reader.Read())
             {
@@ -420,11 +426,62 @@ namespace KKCSInvoiceProject
                     txtBox.BackColor = txt_template.BackColor;
                 }
                 
-                txtBox.Text = reader["Note"].ToString();
+                txtBox.Text = reader["Notes"].ToString();
 
                 iTemplateX += txt_template.Size.Width + 50;
 
                 if(iCount % 4 == 0)
+                {
+                    iTemplateY += txt_template.Size.Height + 50;
+                    iTemplateX = txt_template.Location.X;
+                }
+
+                iCount++;
+
+                pnl_notes.Controls.Add(txtBox);
+            }
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        void LoadInvoiceNotesAlerts()
+        {
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            string query = "select * from InvoiceNotes WHERE DateAndTime(year) = @dt(year)";
+            command.Parameters.AddWithValue("@dt", dt);
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                TextBox txtBox = new TextBox();
+                txtBox.Location = new Point(iTemplateX, iTemplateY);
+                txtBox.Multiline = true;
+                txtBox.ScrollBars = ScrollBars.Vertical;
+                txtBox.Font = txt_template.Font;
+                txtBox.ReadOnly = true;
+                txtBox.Size = txt_template.Size;
+                txtBox.BackColor = Color.LightBlue;
+
+                txtBox.Text = reader["Notes"].ToString();
+
+                iTemplateX += txt_template.Size.Width + 50;
+
+                if (iCount % 4 == 0)
                 {
                     iTemplateY += txt_template.Size.Height + 50;
                     iTemplateX = txt_template.Location.X;
@@ -1692,6 +1749,21 @@ namespace KKCSInvoiceProject
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["DailyNotes"];
+
+            if (fm != null)
+            {
+                fm.BringToFront();
+            }
+            else
+            {
+                DailyNotes cu = new DailyNotes();
+                cu.ShowDialog();
+            }
         }
 
         #endregion

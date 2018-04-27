@@ -109,12 +109,6 @@ namespace KKCSInvoiceProject
 
             int x = 0;
             Int32.TryParse(btn.Name, out x);
-
-            DailyNotes dn = new DailyNotes(this);
-
-            dn.LoadFromNotesManager(x);
-
-            dn.Show();
         }
 
         private void btn_dailynew_Click(object sender, EventArgs e)
@@ -127,8 +121,8 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                DailyNotes dn = new DailyNotes(this);
-                dn.Show();
+
+
             }
         }
 
