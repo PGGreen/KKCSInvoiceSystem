@@ -25,6 +25,7 @@ namespace KKCSInvoiceProject
         Color defaultBackColour;
 
         string g_sOriginalValue = "";
+        bool g_bOriginalHighPriority = false;
 
         string g_sID = "";
 
@@ -41,8 +42,12 @@ namespace KKCSInvoiceProject
             cmb_worker.SelectedIndex = 0;
         }
 
+        bool bIgnoreFirstTime = true;
+
         public void LoadFromEdit(string _sInvoice)
         {
+            g_sID = _sInvoice;
+
             connection.Open();
 
             OleDbCommand command = new OleDbCommand();
@@ -69,6 +74,9 @@ namespace KKCSInvoiceProject
             connection.Close();
 
             g_sOriginalValue = txt_notes.Text;
+            g_bOriginalHighPriority = chk_hp.Checked;
+
+            bIgnoreFirstTime = false;
 
             btn_save.Enabled = false;
             btn_save.Text = "SAVED";
@@ -182,6 +190,7 @@ namespace KKCSInvoiceProject
             btn_save.BackColor = Color.Green;
 
             g_sOriginalValue = txt_notes.Text;
+            g_bOriginalHighPriority = chk_hp.Checked;
 
             g_bIsSaved = true;
 
@@ -193,26 +202,50 @@ namespace KKCSInvoiceProject
             SaveDailyNoteToDatabase();
         }
 
-        
+        bool m_bUpdate = false;
 
         private void chk_hp_CheckedChanged(object sender, EventArgs e)
         {
-            chk_hp.BackColor = defaultBackColour;
+            chk_hp.BackColor = Color.Transparent;
 
             if (chk_hp.Checked)
             {
                 chk_hp.BackColor = Color.Red;
             }
+
+            if(!bIgnoreFirstTime)
+            {
+                CheckForUpdate();
+            }
+            
         }
 
         private void txt_notes_TextChanged(object sender, EventArgs e)
         {
-            if (g_bIsSaved && txt_notes.Text != g_sOriginalValue)
+            if (!bIgnoreFirstTime)
+            {
+                CheckForUpdate();
+            }
+        }
+
+
+        void CheckForUpdate()
+        {
+            if (g_bIsSaved && g_bOriginalHighPriority != chk_hp.Checked || txt_notes.Text != g_sOriginalValue)
+            {
+                m_bUpdate = true;
+            }
+            else if (g_bIsSaved && g_bOriginalHighPriority == chk_hp.Checked && txt_notes.Text == g_sOriginalValue)
+            {
+                m_bUpdate = false;
+            }
+
+            if (m_bUpdate)
             {
                 btn_update.Visible = true;
                 BackColor = Color.Yellow;
             }
-            else if(g_bIsSaved)
+            else
             {
                 btn_update.Visible = false;
                 BackColor = Color.LightGreen;
@@ -233,7 +266,7 @@ namespace KKCSInvoiceProject
             int iID = 0;
             int.TryParse(g_sID, out iID);
 
-            command.CommandText = "UPDATE Notes SET IsHighPriority = True, Notes = '" + txt_notes.Text + "' WHERE ID = " + iID + "";
+            command.CommandText = "UPDATE Notes SET IsHighPriority = "+ chk_hp.Checked + ", Notes = '" + txt_notes.Text + "' WHERE ID = " + iID + "";
 
             command.ExecuteNonQuery();
 
@@ -244,6 +277,9 @@ namespace KKCSInvoiceProject
 
             BackColor = Color.LightGreen;
             btn_update.Visible = false;
+
+            g_bOriginalHighPriority = chk_hp.Checked;
+            g_sOriginalValue = txt_notes.Text;
         }
     }
 }

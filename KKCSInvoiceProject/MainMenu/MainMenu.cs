@@ -396,6 +396,8 @@ namespace KKCSInvoiceProject
 
         #region Notes
 
+        bool bShowClosedNotes = false;
+
         void LoadGeneralNotes()
         {
             if(connection.State == ConnectionState.Closed)
@@ -407,7 +409,17 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = "select * from Notes WHERE IsClosed = False ORDER BY IsHighPriority,DateAndTime";
+            string query = "";
+
+            if (bShowClosedNotes)
+            {
+                query = "select * from Notes ORDER BY IsHighPriority,DateAndTime";
+            }
+            else
+            {
+                query = "select * from Notes WHERE IsClosed = False ORDER BY IsHighPriority,DateAndTime";
+            }
+
             command.CommandText = query;
 
             OleDbDataReader reader = command.ExecuteReader();
@@ -749,6 +761,20 @@ namespace KKCSInvoiceProject
 
         void CloseNewNote(object sender, FormClosingEventArgs e)
         {
+            DeleteAndRefreshNotes();
+        }
+
+        private void chk_showclosed_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chk_showclosed.Checked)
+            {
+                bShowClosedNotes = true;
+            }
+            else
+            {
+                bShowClosedNotes = false;
+            }
+
             DeleteAndRefreshNotes();
         }
 

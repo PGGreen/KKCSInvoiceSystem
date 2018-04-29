@@ -161,6 +161,7 @@
             this.chk_showclosed.TabIndex = 4;
             this.chk_showclosed.Text = "Show Closed Notes";
             this.chk_showclosed.UseVisualStyleBackColor = true;
+            this.chk_showclosed.CheckedChanged += new System.EventHandler(this.chk_showclosed_CheckedChanged);
             // 
             // btn_addnewnote
             // 
@@ -331,7 +332,7 @@
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
             // 
