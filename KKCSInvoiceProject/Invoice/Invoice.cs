@@ -3277,7 +3277,10 @@ Number: 02-0800-0493229-00
                     connection.Close();
                 }
 
-                cmb_rego.Text = sStoreRego;
+                if(bIsWithRego)
+                {
+                    cmb_rego.Text = sStoreRego;
+                }
             }
         }
 

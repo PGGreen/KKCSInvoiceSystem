@@ -74,9 +74,14 @@ namespace KKCSInvoiceProject
 
             UpdateAmountOfCars();
 
-            LoadNotes();
 
-            LoadInvoiceNotesAlerts();
+            LoadGeneralNotes();
+
+            FindInvoiceNumbersNotesAlerts();
+
+            LoadInvoiceNotes();
+
+            LoadInvoiceAlerts();
         }
 
         #region Debug
@@ -385,7 +390,7 @@ namespace KKCSInvoiceProject
 
         #endregion Buttons
 
-        void LoadNotes()
+        void LoadGeneralNotes()
         {
             if(connection.State == ConnectionState.Closed)
             {
@@ -447,7 +452,48 @@ namespace KKCSInvoiceProject
             }
         }
 
-        void LoadInvoiceNotesAlerts()
+        List<string> lstInvoice;
+        List<string> lstRego;
+
+        void FindInvoiceNumbersNotesAlerts()
+        {
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            lstInvoice = new List<string>();
+            lstRego = new List<string>();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            string query = @"select * from CustomerInvoices WHERE DTReturnDate = @dt AND (IsNotes = True OR IsAlerts = True)";
+            query += " OR (DTReturnDate < @dt AND PickUp = False) AND (IsNotes = True OR IsAlerts = True)";
+
+            command.Parameters.AddWithValue("@dt", dt);
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                lstInvoice.Add(reader["InvoiceNumber"].ToString());
+                lstRego.Add(reader["Rego"].ToString());
+            }
+
+            int iStop = 0;
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        void LoadInvoiceNotes()
         {
             if (connection.State == ConnectionState.Closed)
             {
@@ -458,10 +504,22 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+            //DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
 
-            string query = "select * from InvoiceNotes WHERE DateAndTime(year) = @dt(year)";
-            command.Parameters.AddWithValue("@dt", dt);
+            //int iNumber = 0;
+            //int.TryParse(lstInvoice[0], out iNumber);
+
+            string sInvoiceNumber = "";
+
+            for(int i = 0; i < lstInvoice.Count; i++)
+            {
+                sInvoiceNumber += lstInvoice[i] + ",";
+            }
+
+            string query = "select * from InvoiceNotes WHERE InvoiceNumber IN ("+ sInvoiceNumber + ") ORDER BY DateAndTime DESC";
+
+            //string query = "select * from InvoiceNotes WHERE InvoiceNumber IN (7196, 6937, 6916)";
+
             command.CommandText = query;
 
             OleDbDataReader reader = command.ExecuteReader();
@@ -478,6 +536,69 @@ namespace KKCSInvoiceProject
                 txtBox.BackColor = Color.LightBlue;
 
                 txtBox.Text = reader["Notes"].ToString();
+
+                iTemplateX += txt_template.Size.Width + 50;
+
+                if (iCount % 4 == 0)
+                {
+                    iTemplateY += txt_template.Size.Height + 50;
+                    iTemplateX = txt_template.Location.X;
+                }
+
+                iCount++;
+
+                pnl_notes.Controls.Add(txtBox);
+            }
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        void LoadInvoiceAlerts()
+        {
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            //DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            //int iNumber = 0;
+            //int.TryParse(lstInvoice[0], out iNumber);
+
+            string sRego = "";
+
+            for (int i = 0; i < lstRego.Count; i++)
+            {
+                sRego += "'" + lstRego[i] + "',";
+            }
+
+            string query = "select * from Alerts WHERE Rego IN (" + sRego + ")";
+
+            //string query = "select * from InvoiceNotes WHERE InvoiceNumber IN (7196, 6937, 6916)";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                TextBox txtBox = new TextBox();
+                txtBox.Location = new Point(iTemplateX, iTemplateY);
+                txtBox.Multiline = true;
+                txtBox.ScrollBars = ScrollBars.Vertical;
+                txtBox.Font = txt_template.Font;
+                txtBox.ReadOnly = true;
+                txtBox.Size = txt_template.Size;
+                txtBox.BackColor = Color.LightBlue;
+
+                txtBox.Text = reader["Alert"].ToString();
 
                 iTemplateX += txt_template.Size.Width + 50;
 
