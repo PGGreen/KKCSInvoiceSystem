@@ -34,6 +34,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.chk_hp = new System.Windows.Forms.CheckBox();
+            this.btn_update = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -54,6 +55,7 @@
             this.txt_notes.Name = "txt_notes";
             this.txt_notes.Size = new System.Drawing.Size(716, 414);
             this.txt_notes.TabIndex = 40;
+            this.txt_notes.TextChanged += new System.EventHandler(this.txt_notes_TextChanged);
             // 
             // btn_save
             // 
@@ -62,7 +64,7 @@
             this.btn_save.ForeColor = System.Drawing.Color.Black;
             this.btn_save.Location = new System.Drawing.Point(279, 23);
             this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(209, 80);
+            this.btn_save.Size = new System.Drawing.Size(205, 61);
             this.btn_save.TabIndex = 41;
             this.btn_save.Text = "UNSAVED";
             this.btn_save.UseVisualStyleBackColor = false;
@@ -105,6 +107,21 @@
             this.chk_hp.TabIndex = 188;
             this.chk_hp.Text = "High Priority";
             this.chk_hp.UseVisualStyleBackColor = true;
+            this.chk_hp.CheckedChanged += new System.EventHandler(this.chk_hp_CheckedChanged);
+            // 
+            // btn_update
+            // 
+            this.btn_update.BackColor = System.Drawing.Color.Fuchsia;
+            this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_update.ForeColor = System.Drawing.Color.White;
+            this.btn_update.Location = new System.Drawing.Point(279, 90);
+            this.btn_update.Name = "btn_update";
+            this.btn_update.Size = new System.Drawing.Size(178, 38);
+            this.btn_update.TabIndex = 189;
+            this.btn_update.Text = "Update Changes";
+            this.btn_update.UseVisualStyleBackColor = false;
+            this.btn_update.Visible = false;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // DailyNotes
             // 
@@ -112,6 +129,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(763, 575);
+            this.Controls.Add(this.btn_update);
             this.Controls.Add(this.chk_hp);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cmb_worker);
@@ -132,5 +150,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmb_worker;
         private System.Windows.Forms.CheckBox chk_hp;
+        private System.Windows.Forms.Button btn_update;
     }
 }

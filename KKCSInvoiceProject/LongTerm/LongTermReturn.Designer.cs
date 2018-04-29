@@ -33,8 +33,8 @@
             this.dt_dateleft = new System.Windows.Forms.Button();
             this.dt_returndate = new System.Windows.Forms.DateTimePicker();
             this.lbl_returndate = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.lbl_return = new System.Windows.Forms.Label();
+            this.chk_enablereturn = new System.Windows.Forms.CheckBox();
             this.txt_flighttimes = new System.Windows.Forms.ComboBox();
             this.lbl_flighttime = new System.Windows.Forms.Label();
             this.btn_save = new System.Windows.Forms.Button();
@@ -93,27 +93,28 @@
             this.lbl_returndate.TabIndex = 236;
             this.lbl_returndate.Text = "RETURN DATE:";
             // 
-            // label1
+            // lbl_return
             // 
-            this.label1.AutoSize = true;
-            this.label1.Enabled = false;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 226);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(653, 37);
-            this.label1.TabIndex = 240;
-            this.label1.Text = "If they know their return date enter it here:";
+            this.lbl_return.AutoSize = true;
+            this.lbl_return.Enabled = false;
+            this.lbl_return.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_return.Location = new System.Drawing.Point(12, 226);
+            this.lbl_return.Name = "lbl_return";
+            this.lbl_return.Size = new System.Drawing.Size(653, 37);
+            this.lbl_return.TabIndex = 240;
+            this.lbl_return.Text = "If they know their return date enter it here:";
             // 
-            // checkBox2
+            // chk_enablereturn
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(17, 190);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(331, 33);
-            this.checkBox2.TabIndex = 242;
-            this.checkBox2.Text = "Tick to enable return date";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chk_enablereturn.AutoSize = true;
+            this.chk_enablereturn.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_enablereturn.Location = new System.Drawing.Point(17, 190);
+            this.chk_enablereturn.Name = "chk_enablereturn";
+            this.chk_enablereturn.Size = new System.Drawing.Size(331, 33);
+            this.chk_enablereturn.TabIndex = 242;
+            this.chk_enablereturn.Text = "Tick to enable return date";
+            this.chk_enablereturn.UseVisualStyleBackColor = true;
+            this.chk_enablereturn.CheckedChanged += new System.EventHandler(this.chk_enablereturn_CheckedChanged);
             // 
             // txt_flighttimes
             // 
@@ -163,8 +164,8 @@
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.txt_flighttimes);
             this.Controls.Add(this.lbl_flighttime);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.chk_enablereturn);
+            this.Controls.Add(this.lbl_return);
             this.Controls.Add(this.dt_dateright);
             this.Controls.Add(this.dt_dateleft);
             this.Controls.Add(this.dt_returndate);
@@ -184,8 +185,8 @@
         private System.Windows.Forms.Button dt_dateleft;
         private System.Windows.Forms.DateTimePicker dt_returndate;
         private System.Windows.Forms.Label lbl_returndate;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label lbl_return;
+        private System.Windows.Forms.CheckBox chk_enablereturn;
         private System.Windows.Forms.ComboBox txt_flighttimes;
         private System.Windows.Forms.Label lbl_flighttime;
         private System.Windows.Forms.Button btn_save;

@@ -34,7 +34,10 @@
             this.btn_eod = new System.Windows.Forms.Button();
             this.btn_printcarreturns = new System.Windows.Forms.Button();
             this.pnl_notes = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_edit = new System.Windows.Forms.Button();
+            this.chk_showclosed = new System.Windows.Forms.CheckBox();
+            this.btn_addnewnote = new System.Windows.Forms.Button();
+            this.btn_mark = new System.Windows.Forms.Button();
             this.txt_template = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ms_mainstrip = new System.Windows.Forms.MenuStrip();
@@ -57,9 +60,6 @@
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.chk_showclosed = new System.Windows.Forms.CheckBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.pnl_notes.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             this.SuspendLayout();
@@ -130,10 +130,10 @@
             this.pnl_notes.AutoScroll = true;
             this.pnl_notes.BackColor = System.Drawing.Color.LightCyan;
             this.pnl_notes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnl_notes.Controls.Add(this.button4);
+            this.pnl_notes.Controls.Add(this.btn_edit);
             this.pnl_notes.Controls.Add(this.chk_showclosed);
-            this.pnl_notes.Controls.Add(this.button2);
-            this.pnl_notes.Controls.Add(this.button1);
+            this.pnl_notes.Controls.Add(this.btn_addnewnote);
+            this.pnl_notes.Controls.Add(this.btn_mark);
             this.pnl_notes.Controls.Add(this.txt_template);
             this.pnl_notes.Controls.Add(this.label3);
             this.pnl_notes.Location = new System.Drawing.Point(17, 262);
@@ -141,14 +141,48 @@
             this.pnl_notes.Size = new System.Drawing.Size(1331, 542);
             this.pnl_notes.TabIndex = 24;
             // 
-            // button1
+            // btn_edit
             // 
-            this.button1.Location = new System.Drawing.Point(23, 205);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Mark As Closed";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_edit.Location = new System.Drawing.Point(123, 205);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(65, 23);
+            this.btn_edit.TabIndex = 5;
+            this.btn_edit.Text = "Edit Note";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Visible = false;
+            // 
+            // chk_showclosed
+            // 
+            this.chk_showclosed.AutoSize = true;
+            this.chk_showclosed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_showclosed.Location = new System.Drawing.Point(412, 9);
+            this.chk_showclosed.Name = "chk_showclosed";
+            this.chk_showclosed.Size = new System.Drawing.Size(184, 24);
+            this.chk_showclosed.TabIndex = 4;
+            this.chk_showclosed.Text = "Show Closed Notes";
+            this.chk_showclosed.UseVisualStyleBackColor = true;
+            // 
+            // btn_addnewnote
+            // 
+            this.btn_addnewnote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btn_addnewnote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_addnewnote.Location = new System.Drawing.Point(692, 5);
+            this.btn_addnewnote.Name = "btn_addnewnote";
+            this.btn_addnewnote.Size = new System.Drawing.Size(167, 28);
+            this.btn_addnewnote.TabIndex = 3;
+            this.btn_addnewnote.Text = "+ Add New Note";
+            this.btn_addnewnote.UseVisualStyleBackColor = false;
+            this.btn_addnewnote.Click += new System.EventHandler(this.btn_addnewnote_Click);
+            // 
+            // btn_mark
+            // 
+            this.btn_mark.Location = new System.Drawing.Point(23, 205);
+            this.btn_mark.Name = "btn_mark";
+            this.btn_mark.Size = new System.Drawing.Size(94, 23);
+            this.btn_mark.TabIndex = 2;
+            this.btn_mark.Text = "Mark As Closed";
+            this.btn_mark.UseVisualStyleBackColor = true;
+            this.btn_mark.Visible = false;
             // 
             // txt_template
             // 
@@ -359,38 +393,6 @@
             this.label1.TabIndex = 234;
             this.label1.Text = "Kerikeri Car Storage Invoice System";
             // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(692, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(167, 28);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "+ Add New Note";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // chk_showclosed
-            // 
-            this.chk_showclosed.AutoSize = true;
-            this.chk_showclosed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_showclosed.Location = new System.Drawing.Point(412, 9);
-            this.chk_showclosed.Name = "chk_showclosed";
-            this.chk_showclosed.Size = new System.Drawing.Size(184, 24);
-            this.chk_showclosed.TabIndex = 4;
-            this.chk_showclosed.Text = "Show Closed Notes";
-            this.chk_showclosed.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(123, 205);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(65, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Edit Note";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -451,9 +453,9 @@
         private System.Windows.Forms.ToolStripMenuItem accountsToolStripMenuItem1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_template;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_mark;
+        private System.Windows.Forms.Button btn_addnewnote;
         private System.Windows.Forms.CheckBox chk_showclosed;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btn_edit;
     }
 }

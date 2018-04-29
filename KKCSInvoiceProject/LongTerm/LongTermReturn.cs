@@ -64,5 +64,35 @@ namespace KKCSInvoiceProject
 
             connection.Close();
         }
+
+        private void chk_enablereturn_CheckedChanged(object sender, EventArgs e)
+        {
+            lbl_flighttime.Enabled = false;
+            lbl_returndate.Enabled = false;
+            lbl_return.Enabled = false;
+            dt_dateleft.Enabled = false;
+            dt_dateright.Enabled = false;
+            dt_returndate.Enabled = false;
+            txt_flighttimes.Enabled = false;
+            btn_save.Visible = false;
+            btn_save.Enabled = false;
+            this.BackColor = Color.White;
+
+
+            if (chk_enablereturn.Checked)
+            {
+                lbl_flighttime.Enabled = true;
+                lbl_return.Enabled = true;
+                lbl_returndate.Enabled = true;
+                dt_dateleft.Enabled = true;
+                dt_dateright.Enabled = true;
+                dt_returndate.Enabled = true;
+                txt_flighttimes.Enabled = true;
+                btn_save.Visible = true;
+                btn_save.Enabled = true;
+
+                this.BackColor = Color.MistyRose;
+            }
+        }
     }
 }

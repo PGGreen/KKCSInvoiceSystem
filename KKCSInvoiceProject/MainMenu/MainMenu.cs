@@ -74,7 +74,11 @@ namespace KKCSInvoiceProject
 
             UpdateAmountOfCars();
 
+            LoadAllNotes();
+        }
 
+        void LoadAllNotes()
+        {
             LoadGeneralNotes();
 
             FindInvoiceNumbersNotesAlerts();
@@ -390,6 +394,8 @@ namespace KKCSInvoiceProject
 
         #endregion Buttons
 
+        #region Notes
+
         void LoadGeneralNotes()
         {
             if(connection.State == ConnectionState.Closed)
@@ -401,13 +407,19 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = "select * from Notes ORDER BY IsHighPriority,DateAndTime";
+            string query = "select * from Notes WHERE IsClosed = False ORDER BY IsHighPriority,DateAndTime";
             command.CommandText = query;
 
             OleDbDataReader reader = command.ExecuteReader();
 
             iTemplateX = txt_template.Location.X;
             iTemplateY = txt_template.Location.Y;
+
+            int iButtonMarkX = btn_mark.Location.X;
+            int iButtonMarkY = btn_mark.Location.Y;
+
+            int iButtonEditX = btn_edit.Location.X;
+            int iButtonEditY = btn_edit.Location.Y;
 
             iCount = 1;
 
@@ -421,7 +433,29 @@ namespace KKCSInvoiceProject
                 txtBox.ReadOnly = true;
                 txtBox.Size = txt_template.Size;
 
-                if((bool)reader["IsHighPriority"])
+                Button btn = new Button();
+                btn.Location = new Point(iButtonMarkX, iButtonMarkY);
+                btn.Font = btn_mark.Font;
+                btn.Size = btn_mark.Size;
+                btn.Text = btn_mark.Text;
+                btn.BackColor = btn_mark.BackColor;
+                btn.Click += btn_mark_Click;
+                btn.Name = reader["ID"].ToString();
+
+                pnl_notes.Controls.Add(btn);
+
+                btn = new Button();
+                btn.Location = new Point(iButtonEditX, iButtonEditY);
+                btn.Font = btn_edit.Font;
+                btn.Size = btn_edit.Size;
+                btn.Text = btn_edit.Text;
+                btn.BackColor = btn_edit.BackColor;
+                btn.Click += btn_edit_Click;
+                btn.Name = reader["ID"].ToString();
+
+                pnl_notes.Controls.Add(btn);
+
+                if ((bool)reader["IsHighPriority"])
                 {
                     txtBox.BackColor = Color.Red;
                     txtBox.ForeColor = Color.White;
@@ -435,10 +469,20 @@ namespace KKCSInvoiceProject
 
                 iTemplateX += txt_template.Size.Width + 50;
 
-                if(iCount % 4 == 0)
+                iButtonMarkX += btn_mark.Size.Width + 235;
+
+                iButtonEditX += btn_edit.Size.Width + 265;
+
+                if (iCount % 4 == 0)
                 {
                     iTemplateY += txt_template.Size.Height + 50;
                     iTemplateX = txt_template.Location.X;
+
+                    iButtonMarkY += btn_mark.Size.Height + 180;
+                    iButtonMarkX = btn_mark.Location.X;
+
+                    iButtonEditY += btn_edit.Size.Height + 180;
+                    iButtonEditX = btn_edit.Location.X;
                 }
 
                 iCount++;
@@ -618,6 +662,102 @@ namespace KKCSInvoiceProject
                 connection.Close();
             }
         }
+
+        private void btn_mark_Click(object sender, EventArgs e)
+        {
+            string sWarning = "Do you wish to close this note?";
+            WarningSystem ws = new WarningSystem(sWarning, true);
+            ws.ShowDialog();
+
+            if (ws.DialogResult == DialogResult.OK)
+            {
+                Button btn = (Button)sender;
+
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                int iInovice = 0;
+                int.TryParse(btn.Name, out iInovice);
+
+                command.CommandText = "UPDATE Notes SET IsClosed = True WHERE ID = " + iInovice + "";
+
+                command.ExecuteNonQuery();
+
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+
+                DeleteAndRefreshNotes();
+            }
+            else
+            {
+                ws.Close();
+            }
+        }
+
+        private void btn_edit_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            DailyNotes DailyNotes = new DailyNotes();
+            DailyNotes.LoadFromEdit(btn.Name);
+            DailyNotes.ShowDialog();
+
+            DeleteAndRefreshNotes();
+        }
+
+        void DeleteAndRefreshNotes()
+        {
+            foreach (TextBox txt in pnl_notes.Controls.OfType<TextBox>().ToArray())
+            {
+                pnl_notes.Controls.Remove(txt);
+            }
+
+            foreach (Button btn in pnl_notes.Controls.OfType<Button>().ToArray())
+            {
+                if(btn.Name != "btn_addnewnote")
+                {
+                    pnl_notes.Controls.Remove(btn);
+                }
+            }
+
+            LoadAllNotes();
+        }
+
+        private void btn_addnewnote_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["DailyNotes"];
+
+            if (fm != null)
+            {
+                fm.BringToFront();
+            }
+            else
+            {
+                DailyNotes cu = new DailyNotes();
+                cu.FormClosing += CloseNewNote;
+                cu.ShowDialog();
+            }
+        }
+
+        void CloseNewNote(object sender, FormClosingEventArgs e)
+        {
+            DeleteAndRefreshNotes();
+        }
+
+        #endregion Notes
+
+
+
+
+
 
         private void MainMenu_Closing(object sender, FormClosingEventArgs e)
         {
@@ -1870,21 +2010,6 @@ namespace KKCSInvoiceProject
         private void label3_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Form fm = Application.OpenForms["DailyNotes"];
-
-            if (fm != null)
-            {
-                fm.BringToFront();
-            }
-            else
-            {
-                DailyNotes cu = new DailyNotes();
-                cu.ShowDialog();
-            }
         }
 
         #endregion
