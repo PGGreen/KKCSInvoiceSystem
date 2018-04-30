@@ -3166,6 +3166,7 @@ Number: 02-0800-0493229-00
         {
             iv = new InvoiceNotes();
             iv.GetInvoiceNumber(iInvoiceNumber);
+            iv.GetRego(cmb_rego.Text);
             iv.FormClosing += CloseInvoiceNotes;
             iv.ShowDialog();
         }

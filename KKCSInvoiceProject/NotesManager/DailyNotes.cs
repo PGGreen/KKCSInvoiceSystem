@@ -57,15 +57,17 @@ namespace KKCSInvoiceProject
             int iInvoice = 0;
             int.TryParse(_sInvoice, out iInvoice);
 
-            command.CommandText = "SELECT Notes,IsHighPriority FROM Notes WHERE ID = "+ iInvoice + "";
+            command.CommandText = "SELECT Notes,IsHighPriority,StaffMember FROM Notes WHERE ID = "+ iInvoice + "";
 
             OleDbDataReader reader = command.ExecuteReader();
 
             while(reader.Read())
             {
                 txt_notes.Text = reader["Notes"].ToString();
-                
-                if((bool)reader["IsHighPriority"])
+                cmb_worker.Text = reader["StaffMember"].ToString();
+
+
+                if ((bool)reader["IsHighPriority"])
                 {
                     chk_hp.Checked = true;
                 }

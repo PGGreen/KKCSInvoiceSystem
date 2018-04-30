@@ -37,7 +37,9 @@ namespace KKCSInvoiceProject
 
             //Test();
 
-            XMLTest();
+            //XMLTest();
+
+            GetRegoFromInvoice();
         }
 
         void Test()
@@ -96,6 +98,225 @@ namespace KKCSInvoiceProject
                 }
             }
             //Console.ReadKey();
+        }
+
+        void GetRegoFromInvoice()
+        {
+            int[] Yes = {
+4289,
+5875,
+5976,
+6018,
+6034,
+6050,
+6076,
+6089,
+6111,
+6117,
+6129,
+6173,
+6181,
+6188,
+6200,
+6206,
+6218,
+6220,
+6238,
+6262,
+6273,
+6273,
+6293,
+6317,
+6326,
+6360,
+6386,
+6425,
+6452,
+6501,
+6504,
+6505,
+6513,
+6519,
+6528,
+6530,
+6530,
+6541,
+6546,
+6568,
+6573,
+6574,
+6575,
+6593,
+6605,
+6607,
+6611,
+6620,
+6639,
+6690,
+6701,
+6705,
+6709,
+6712,
+6712,
+6720,
+6721,
+6733,
+6736,
+6740,
+6759,
+6766,
+6768,
+6773,
+6773,
+6777,
+6793,
+6809,
+6815,
+6824,
+6827,
+6835,
+6866,
+6874,
+6894,
+6905,
+6916,
+6924,
+6925,
+6930,
+6931,
+6937,
+6969,
+6970,
+6970,
+6972,
+6980,
+6981,
+6993,
+6994,
+7024,
+7042,
+7051,
+7058,
+7077,
+7098,
+7107,
+7115,
+7129,
+7130,
+7134,
+7137,
+7153,
+7161,
+7179,
+7196,
+7204,
+7229,
+7233,
+7246,
+7253,
+7254,
+7283,
+7314,
+7315,
+7319,
+7353,
+7364,
+7388,
+7396,
+7398,
+7415,
+7428,
+7443,
+7452,
+7455,
+7466,
+7483,
+7528,
+7620,
+7637,
+7649,
+7659,
+7678,
+7688,
+7690,
+7695,
+7698,
+7699,
+7777,
+7779,
+7795,
+7801,
+7803,
+7810,
+7826,
+7829,
+7830,
+7832,
+7839,
+7848,
+7870,
+7871,
+7940,
+7952,
+7953,
+7956,
+7957,
+7972,
+7985,
+7991,
+8003,
+8004,
+8033,
+8033,
+8036,
+8075,
+8077,
+8078,
+8079,
+8097,
+8102
+
+                 };
+
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            string sString = "";
+            int iCount = 0;
+
+            for (int i = 0; i < Yes.Length; i++)
+            {
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                string query = "select Rego from CustomerInvoices WHERE InvoiceNumber = "+ Yes[i] + "";
+
+                command.CommandText = query;
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                //iCount = 0;
+
+                while (reader.Read())
+                {
+                    iCount++;
+
+                    sString += reader["Rego"].ToString() + "\r\n";
+                }
+
+            }
+
+            txt_test.Text = sString;
+
+          
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         #region Accounts

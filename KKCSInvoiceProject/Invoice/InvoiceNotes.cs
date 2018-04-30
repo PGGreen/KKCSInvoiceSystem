@@ -23,6 +23,7 @@ namespace KKCSInvoiceProject
         private OleDbConnection connection = new OleDbConnection();
 
         int g_iInoviceNumber = 0;
+        string g_sRego = "";
 
         public InvoiceNotes()
         {
@@ -52,8 +53,9 @@ namespace KKCSInvoiceProject
 
                 DateTime DTNow = DateTime.Now;
 
-                string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,DateAndTime,InvoiceNumber) values ('" + txt_newnote.Text +
+                string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,Rego,DateAndTime,InvoiceNumber) values ('" + txt_newnote.Text +
                                                                                                         "', '" + cmb_worker.Text +
+                                                                                                        "', '" + g_sRego +
                                                                                                         "', '" + DTNow +
                                                                                                         "', " + g_iInoviceNumber + ")";
 
@@ -179,6 +181,11 @@ namespace KKCSInvoiceProject
             lbl_invoice.Text = "Invoice " + _iInvoiceNumber.ToString() + " Notes";
 
             LoadNotes();
+        }
+
+        public void GetRego(string _sRego)
+        {
+            g_sRego = _sRego;
         }
 
         public string GetCurrentNotes()

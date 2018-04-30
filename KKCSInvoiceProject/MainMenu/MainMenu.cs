@@ -476,8 +476,11 @@ namespace KKCSInvoiceProject
                 {
                     txtBox.BackColor = txt_template.BackColor;
                 }
-                
-                txtBox.Text = reader["Notes"].ToString();
+
+                DateTime dtNoteTime = (DateTime)reader["DateAndTime"];
+                string sDate = dtNoteTime.Day.ToString() + "/" + dtNoteTime.Month + "/" + dtNoteTime.ToString("yy") + " - " + dtNoteTime.ToString("h:mm tt");
+
+                txtBox.Text = reader["Notes"].ToString() + "\r\n\r\n" + reader["StaffMember"].ToString() + " (" + sDate + ")"; ;
 
                 iTemplateX += txt_template.Size.Width + 50;
 
@@ -591,7 +594,9 @@ namespace KKCSInvoiceProject
                 txtBox.Size = txt_template.Size;
                 txtBox.BackColor = Color.LightBlue;
 
-                txtBox.Text = reader["Notes"].ToString();
+                txtBox.Text = reader["Rego"].ToString() + " (" + reader["InvoiceNumber"].ToString() + "): \r\n";
+                txtBox.Text += "-------------------------------------\r\n";
+                txtBox.Text += reader["Notes"].ToString();
 
                 iTemplateX += txt_template.Size.Width + 50;
 
