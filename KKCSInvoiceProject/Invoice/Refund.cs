@@ -40,7 +40,7 @@ namespace KKCSInvoiceProject
 
             int iTotalMoney = 0;
 
-            int iFirstDay = 15;
+            //int iFirstDay = 15;
             int iDaysAfter = 12;
             int iDays7Plus = 10;
             int iMonth = 55;

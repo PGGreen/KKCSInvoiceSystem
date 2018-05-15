@@ -26,23 +26,23 @@ namespace KKCSInvoiceProject
         bool bTurnPrintingOff = false; // True = Off
 
         string EODDate = "";
-        string NextDayDate = "";
+        //string NextDayDate = "";
 
-        string g_strDatePicked = "";
+        //string g_strDatePicked = "";
 
-        string g_sTodaysPettyCashItems = "";
+        //string g_sTodaysPettyCashItems = "";
 
-        int g_iIsTherePettyCashToday = 0;
-        float g_fTotalPettyCashToday = 0.0f;
-        float g_fTotalPettyCashRemaning = 0.0f;
+        //int g_iIsTherePettyCashToday = 0;
+        //float g_fTotalPettyCashToday = 0.0f;
+        //float g_fTotalPettyCashRemaning = 0.0f;
 
         Color defaultBackWindowColor;
 
         //float g_fTotalPettyCash = 0.0f;
-        int g_iRefunds = 0;
-        float fTotalForDay = 0.0f;
-        float fTomorrow = 0.0f;
-        float fTomorrowPlasticContainer = 0.0f;
+        //int g_iRefunds = 0;
+        //float fTotalForDay = 0.0f;
+        //float fTomorrow = 0.0f;
+        //float fTomorrowPlasticContainer = 0.0f;
 
         string sCombinedAccount = "";
 
@@ -58,10 +58,10 @@ namespace KKCSInvoiceProject
 
         string g_sTitleHeader = "";
 
-        bool g_bStepOneDailyTotalPrinted = false;
-        bool g_bStepTwoCash = false;
-        bool g_bStepThreeEftpos = false;
-        bool g_bStepFourConfirmation = false;
+        //bool g_bStepOneDailyTotalPrinted = false;
+        //bool g_bStepTwoCash = false;
+        //bool g_bStepThreeEftpos = false;
+        //bool g_bStepFourConfirmation = false;
 
         int g_iTotalCash = 0;
 
@@ -299,7 +299,7 @@ namespace KKCSInvoiceProject
 
         #region StepThreeTillCounting
 
-        int iSODTillCash = 0;
+        //int iSODTillCash = 0;
 
         void GetCashTotal()
         {
@@ -468,7 +468,7 @@ namespace KKCSInvoiceProject
 
             bool bFirstTimeOnly = false;
             
-            int iPadLength = 25;
+            //int iPadLength = 25;
 
             sCombinedAccount = "Dropped Car In".PadRight(15) + "Picked Car Up".PadRight(15) + "Name".PadRight(35)
                                 + "Rego".PadRight(25) + "Total" + sNextLine + sLineBreak + sNextLine + sNextLine;
@@ -595,7 +595,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string sTrue = "True";
+            //string sTrue = "True";
 
             string query = "";
 
@@ -1445,7 +1445,7 @@ namespace KKCSInvoiceProject
 
             reader = command.ExecuteReader();
 
-            string sTest = "";
+            //string sTest = "";
 
             DateTime dtFirst = new DateTime();
             DateTime dtSecond = new DateTime();
@@ -1552,7 +1552,7 @@ namespace KKCSInvoiceProject
 
             reader = command.ExecuteReader();
 
-            string sTest = "";
+            //string sTest = "";
 
             DateTime dtFirst = new DateTime();
             DateTime dtSecond = new DateTime();
@@ -1728,13 +1728,13 @@ namespace KKCSInvoiceProject
 
             reader = command.ExecuteReader();
 
-            string StoreAccountName1 = "";
-            string StoreAccountName2 = "";
+            //string StoreAccountName1 = "";
+            //string StoreAccountName2 = "";
 
-            string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
-            string sNextLine = "\r\n";
+            //string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
+            //string sNextLine = "\r\n";
 
-            bool bFirstTimeOnly = false;
+            //bool bFirstTimeOnly = false;
 
             DateTime dtFirst = new DateTime();
             DateTime dtSecond = new DateTime();

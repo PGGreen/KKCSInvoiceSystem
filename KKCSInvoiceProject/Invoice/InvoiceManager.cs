@@ -57,7 +57,15 @@ namespace KKCSInvoiceProject
 
         private void InvoiceManager_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //string sTabsStillOpen = "Are you sure you want to\r\nclose all Invoices?";
 
+            //WarningSystem ws = new WarningSystem(sTabsStillOpen, true);
+            //ws.ShowDialog();
+
+            //if (ws.DialogResult == DialogResult.Cancel)
+            //{
+            //    e.Cancel = true;
+            //}
         }
 
         void InvoiceChildForms()

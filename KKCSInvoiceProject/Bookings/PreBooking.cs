@@ -16,7 +16,7 @@ namespace KKCSInvoiceProject
     {
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
-        OleDbDataReader reader;
+        //OleDbDataReader reader;
 
         private OleDbConnection connection = new OleDbConnection();
 

@@ -37,15 +37,15 @@ namespace KKCSInvoiceProject
         DateTime dtTodaysDate = DateTime.Today;
 
         // Print Member Variables
-        int m_iStartX = 10;
-        int m_iStartY = 10;
-        int m_iNextLineOffset = 30;
-        float m_fFontHeight = 0.0f;
-        Font font;
-        Font fontBold;
-        Font fontBoldUnderline;
+        //int m_iStartX = 10;
+        //int m_iStartY = 10;
+        //int m_iNextLineOffset = 30;
+        //float m_fFontHeight = 0.0f;
+        //Font font;
+        //Font fontBold;
+        //Font fontBoldUnderline;
 
-        Graphics graphic;
+        //Graphics graphic;
 
         private OleDbConnection connection = new OleDbConnection();
 
@@ -304,7 +304,7 @@ namespace KKCSInvoiceProject
 
                 if(fTotal < 0.0f)
                 {
-                    int fgh = 9;
+                    //int fgh = 9;
                 }
 
                 fTotalMonthly += fTotal;

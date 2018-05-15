@@ -20,11 +20,11 @@ namespace KKCSInvoiceProject
 
         private OleDbConnection connection = new OleDbConnection();
 
-        private OleDbCommand command;
+        //private OleDbCommand command;
 
         string g_sAccount = "";
         bool g_bIsExistingAccount = false;
-        bool g_bIsNewAccount = false;
+        //bool g_bIsNewAccount = false;
 
         public WarningNewAccount()
         {

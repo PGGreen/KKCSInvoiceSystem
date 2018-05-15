@@ -52,8 +52,12 @@ namespace KKCSInvoiceProject
 
                 DateTime DTNow = DateTime.Now;
 
+                string sAlert = txt_newalert.Text;
+
+                sAlert = sAlert.Replace("'", "''");
+
                 string sNonQuery = @"INSERT INTO Alerts (Rego,Alert,StaffMember,DateAndTime) values ('" + g_sCarRego +
-                                                                                                        "', '" + txt_newalert.Text +
+                                                                                                        "', '" + sAlert +
                                                                                                         "', '" + cmb_worker.Text +
                                                                                                         "', '" + DTNow + "')";
 

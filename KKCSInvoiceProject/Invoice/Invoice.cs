@@ -52,7 +52,7 @@ namespace KKCSInvoiceProject
 
         private int iTabNumberFromManager = 0;
 
-        bool PaidStatusPicked = false;
+        //bool PaidStatusPicked = false;
 
         private bool m_bAlreadyPaid = false;
 
@@ -64,7 +64,7 @@ namespace KKCSInvoiceProject
         DateTime dtReturnDateOriginal;
         string sReturnTimeOriginal;
 
-        private string sTempStorePrice = "";
+        //private string sTempStorePrice = "";
 
         private string m_sTempStoreRego = "";
 
@@ -72,7 +72,7 @@ namespace KKCSInvoiceProject
 
         private bool m_bCarPickedUp = false;
 
-        float m_fOriginalPriceBeforeCredit = 0.0f;
+        //float m_fOriginalPriceBeforeCredit = 0.0f;
         float fRemainingCredit = 0.0f;
 
         NewCarReturns NewCarReturns;
@@ -414,6 +414,10 @@ namespace KKCSInvoiceProject
                 m_bAlreadyPaid = (bool)reader["YNDatePaid"];
 
                 dtDatePaid = (DateTime)reader["DTDatePaid"];
+                dt_datepaidedit.Value = (DateTime)reader["DTDatePaid"];
+
+                string sTimePaid = reader["TimePaid"].ToString();
+                txt_timepaidedit.Text = sTimePaid;
 
                 if (g_sPaidStatus == "To Pay")
                 {
@@ -424,7 +428,7 @@ namespace KKCSInvoiceProject
                     //DateTime dtDatePaid = (DateTime)reader["DTDatePaid"];
                     string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid;
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " - " + sTimePaid + " (Click To Modify)";
                 }
             }
 
@@ -605,7 +609,7 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                if(reader["KeyNumber"].ToString() != "NK")
+                if(reader["KeyNumber"].ToString() != "NK" && (bool)reader["IsLongTerm"] != true)
                 {
                     int.TryParse(reader["KeyNumber"].ToString(), out iSecondNumber);
 
@@ -777,7 +781,6 @@ namespace KKCSInvoiceProject
                     case "Monday":
                         {
                             txt_flighttimes.Items.Add("0920 - NZ8266");
-                            txt_flighttimes.Items.Add("1215 - NZ8274");
                             txt_flighttimes.Items.Add("1440 - NZ8268");
                             txt_flighttimes.Items.Add("1720 - NZ8270");
                             txt_flighttimes.Items.Add("2025 - NZ8272");
@@ -798,7 +801,6 @@ namespace KKCSInvoiceProject
                     case "Friday":
                         {
                             txt_flighttimes.Items.Add("0920 - NZ8266");
-                            txt_flighttimes.Items.Add("1215 - NZ8274");
                             txt_flighttimes.Items.Add("1440 - NZ8268");
                             txt_flighttimes.Items.Add("1720 - NZ8270");
                             txt_flighttimes.Items.Add("2025 - NZ8272");
@@ -941,7 +943,7 @@ namespace KKCSInvoiceProject
             // Make the command equal the physical location of the database (connection)
             command.Connection = connection;
 
-            string sRemaining = "";
+            //string sRemaining = "";
 
             string cmd1 = @"UPDATE Bookings SET BookingFinished = TRUE WHERE ID = " + iPreBookID + "";
 
@@ -958,7 +960,6 @@ namespace KKCSInvoiceProject
                 connection.Close();
             }
         }
-
 
         void SaveDataIntoDatabase()
         {
@@ -1001,9 +1002,9 @@ namespace KKCSInvoiceProject
 
                 if (bCheckKeyNumberBlank)
                 {
-                    WarningsStoreOriginalValues();
-
                     UpdateInvoice();
+
+                    WarningsStoreOriginalValues();
 
                     InsertIntoNumberPlates();
 
@@ -1099,6 +1100,10 @@ namespace KKCSInvoiceProject
 
                 command.Connection = connection;
 
+                string sTimePaid = "";
+
+                //btn_datepaid.Visible = false;
+
                 // Sets up Paid Status & Paid Time
                 //--------------------------------------------------------------------------//
                 // If paid status is "To Pay", sets AlreadyPaid to false and date to 2001
@@ -1108,21 +1113,49 @@ namespace KKCSInvoiceProject
 
                     btn_datepaid.Visible = false;
 
+                    sTimePaid = "";
+                    txt_timepaidedit.Text = "";
+
                     dtDatePaid = new DateTime(2001, 1, 1, 12, 0, 0);
+
+                    dt_datepaidedit.Value = new DateTime(2001, 1, 1, 12, 0, 0);
                 }
                 // Sets up the date the customer paid
                 else if(!m_bAlreadyPaid)
                 {
                     m_bAlreadyPaid = true;
 
+                    btn_datepaid.Visible = true;
+
                     DateTime dtNow = DateTime.Now;
                     dtDatePaid = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
 
+                    dt_datepaidedit.Value = new DateTime(dtNow.Year, dtNow.Month, dtNow.Day, 12, 0, 0);
+
+                    sTimePaid = dtNow.Hour.ToString("00") + dtNow.Minute.ToString("00");
+
+                    txt_timepaidedit.Text = sTimePaid;
+
                     string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
 
-                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " (Click to Change)";
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " - " + sTimePaid + " (Click To Modify)";
+
+                    btn_datepaid.Name = txt_invoiceno.Text;
                 }
-                //--------------------------------------------------------------------------//
+                else if(m_bAlreadyPaid)
+                {
+                    dtDatePaid = new DateTime(dt_datepaidedit.Value.Year, dt_datepaidedit.Value.Month, dt_datepaidedit.Value.Day, 12, 0, 0);
+
+                    string dateCustomerPaid = dtDatePaid.Day.ToString() + "/" + dtDatePaid.Month.ToString("00") + "/" + dtDatePaid.ToString("yy");
+
+                    sTimePaid = txt_timepaidedit.Text;
+
+                    btn_datepaid.Text = "Date Paid: " + dateCustomerPaid + " - " + sTimePaid + " (Click To Modify)";
+
+                    dt_datepaidedit.Visible = false;
+                    txt_timepaidedit.Visible = false;
+                }
+                    //--------------------------------------------------------------------------//
 
                 string sTimeIn = "";
                 string tempReturnTimeHours = "";
@@ -1230,6 +1263,7 @@ namespace KKCSInvoiceProject
                                                                     "', DTDateIn = '" + dtDateIn +
                                                                     "', TimeIn = '" + sTimeIn +
                                                                     "', DTDatePaid = '" + dtDatePaid +
+                                                                    "', TimePaid = '" + sTimePaid +
                                                                     "', DTReturnDate = '" + dtReturnDate +
                                                                     "', ReturnTime = '" + tempReturnTimeHours +
                                                                     "', AccountHolder = '" + txt_account.Text +
@@ -2006,6 +2040,8 @@ namespace KKCSInvoiceProject
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
+            lbl_stay.Text = "";
+
             DateTime dtXmasDay = new DateTime(dt_returndate.Value.Year, 12, 25);
             DateTime dtXmasDayCompare = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day);
 
@@ -2740,7 +2776,7 @@ Number: 02-0800-0493229-00
 
             int iTotalMoney = 0;
 
-            int iFirstDay = 15;
+            //int iFirstDay = 15;
             int iDaysAfter = 12;
             int iDays7Plus = 10;
             int iMonth = 55;
@@ -2869,7 +2905,30 @@ Number: 02-0800-0493229-00
 
             if (iDays > 1)
             {
-                lbl_stay.Text = iDays.ToString("0") + " Days";
+                if(iDays == 7)
+                {
+                    float fDays = iDays;
+
+                    lbl_stay.Text = (fDays / 7).ToString("0") + " Week (" + iDays.ToString("0") + " Days)";
+                }
+                else if(iDays >= 8)
+                {
+                    float fDays = iDays;
+
+                    if(iDays % 7 == 0)
+                    {
+                        lbl_stay.Text = (fDays / 7).ToString("0") + " Weeks (" + iDays.ToString("0") + " Days)";
+                    }
+                    else
+                    {
+                        lbl_stay.Text = (fDays / 7).ToString("0.0") + " Weeks (" + iDays.ToString("0") + " Days)";
+                    }
+                }
+                else
+                {
+                    lbl_stay.Text = iDays.ToString("0") + " Days";
+                }
+                
             }
             else if(iDays <= 1)
             {
@@ -2939,6 +2998,7 @@ Number: 02-0800-0493229-00
             m_bCarPickedUp = bPickedUp;
             m_sCarLocation = lstOriginalValues[10];
             cmb_makemodel.Text = lstOriginalValues[11];
+            txt_keyno.Text = lstOriginalValues[14];
 
             m_bInitialSetUpFromCarReturns = false;
 
@@ -2965,6 +3025,9 @@ Number: 02-0800-0493229-00
             lstOriginalValues.Add(cmb_pickedup.Text);
             lstOriginalValues.Add(m_sCarLocation);
             lstOriginalValues.Add(cmb_makemodel.Text);
+            lstOriginalValues.Add(dt_datepaidedit.Value.Year.ToString() + dt_datepaidedit.Value.Month.ToString() + dt_datepaidedit.Value.Day.ToString());
+            lstOriginalValues.Add(txt_timepaidedit.Text);
+            lstOriginalValues.Add(txt_keyno.Text);
         }
 
         void WarningsChangesMade()
@@ -2986,6 +3049,11 @@ Number: 02-0800-0493229-00
                 lstCheckValues.Add(cmb_pickedup.Text);
                 lstCheckValues.Add(m_sCarLocation);
                 lstCheckValues.Add(cmb_makemodel.Text);
+                lstCheckValues.Add(dt_datepaidedit.Value.Year.ToString() + dt_datepaidedit.Value.Month.ToString() + dt_datepaidedit.Value.Day.ToString());
+                lstCheckValues.Add(txt_timepaidedit.Text);
+                lstCheckValues.Add(txt_keyno.Text);
+
+                //dt_datein
 
                 int iCount = 0;
 
@@ -3522,6 +3590,49 @@ Number: 02-0800-0493229-00
         private void cmb_makemodel_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_datepaid_Click(object sender, EventArgs e)
+        {
+            dt_datepaidedit.Visible = !dt_datepaidedit.Visible;
+            txt_timepaidedit.Visible = !txt_timepaidedit.Visible;
+        }
+
+        private void dt_datepaid_ValueChanged(object sender, EventArgs e)
+        {
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
+        }
+
+        private void txt_timepaid_TextChanged(object sender, EventArgs e)
+        {
+            int iNumber = 0;
+            bool bIsNumber = int.TryParse(txt_timepaidedit.Text, out iNumber);
+
+            if(txt_timepaidedit.Text.Length == 4 && !bIsNumber)
+            {
+                string sTimeWarning = "Please make sure Time Paid is in the\r\nformat of 24hr time only. e.g. 0920";
+
+                WarningSystem ws = new WarningSystem(sTimeWarning, false);
+                ws.ShowDialog();
+
+                txt_timepaidedit.Text = lstOriginalValues[13];
+            }
+
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
+        }
+
+        private void txt_keyno_TextChanged(object sender, EventArgs e)
+        {
+            if (!m_bInitialSetUpFromCarReturns)
+            {
+                WarningsChangesMade();
+            }
         }
     }
 }

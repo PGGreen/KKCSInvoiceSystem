@@ -22,7 +22,7 @@ namespace KKCSInvoiceProject
 
         private OleDbCommand command = new OleDbCommand();
 
-        private OleDbDataReader reader;
+        //private OleDbDataReader reader;
 
         public NewAccount()
         {
@@ -82,10 +82,10 @@ namespace KKCSInvoiceProject
             //string StoreAccountName2 = "";
             
 
-            string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
+            //string sLineBreak = "-------------------------------------------------------------------------------------------------------------------------";
             string sNextLine = "\r\n";
 
-            bool bFirstTimeOnly = false;
+            //bool bFirstTimeOnly = false;
 
             //sCombinedAccount += "Date In" + Padding.Left(5);
 
@@ -102,7 +102,7 @@ namespace KKCSInvoiceProject
             sCombinedNewAccount += "Make/Model: " + txt_make1.Text + sNextLine + sNextLine;
             sCombinedNewAccount += "Notes: " + dtToday + sNextLine;
 
-            int iPadLength = 25;
+            //int iPadLength = 25;
 
             //sCombinedNewAccount = "Date In".PadRight(15) + "Date Out".PadRight(15) + "Name".PadRight(35)
             //                    + "Rego".PadRight(25) + "Total" + sNextLine + sLineBreak + sNextLine + sNextLine;

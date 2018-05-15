@@ -72,6 +72,18 @@
     <Compile Include="Accounts\Accounts.Designer.cs">
       <DependentUpon>Accounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Administrator\AdminInvoicesEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\AdminInvoicesEdit.Designer.cs">
+      <DependentUpon>AdminInvoicesEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrator\AdminInvoices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\AdminInvoices.Designer.cs">
+      <DependentUpon>AdminInvoices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Administrator\AdminFlightTimes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -233,6 +245,12 @@
     </Compile>
     <Compile Include="Testing\Testing.Designer.cs">
       <DependentUpon>Testing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTable\TimeTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeTable\TimeTable.Designer.cs">
+      <DependentUpon>TimeTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Warning\DrivingBack.cs">
       <SubType>Form</SubType>
@@ -420,11 +438,17 @@
     <EmbeddedResource Include="Accounts\Accounts.resx">
       <DependentUpon>Accounts.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\AdminInvoices.resx">
+      <DependentUpon>AdminInvoices.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Administrator\AdminAlerts.resx">
       <DependentUpon>AdminAlerts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Administrator\AdminFlightTimes.resx">
       <DependentUpon>AdminFlightTimes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\AdminInvoicesEdit.resx">
+      <DependentUpon>AdminInvoicesEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Administrator\AdministratorManager.resx">
       <DependentUpon>AdministratorManager.cs</DependentUpon>
@@ -591,6 +615,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Testing\Testing.resx">
       <DependentUpon>Testing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeTable\TimeTable.resx">
+      <DependentUpon>TimeTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Warning\DrivingBack.resx">
       <DependentUpon>DrivingBack.cs</DependentUpon>

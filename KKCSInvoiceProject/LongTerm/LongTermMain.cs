@@ -57,7 +57,7 @@ namespace KKCSInvoiceProject
             int iLocationX = pnl_template.Location.X;
             int iCount = 0;
 
-            int iLongTermNumber = 0;
+            //int iLongTermNumber = 0;
 
             while (reader.Read())
             {
@@ -101,24 +101,6 @@ namespace KKCSInvoiceProject
 
                 iCount++;
 
-                /*
-                iLongTermNumber++;
-
-                Label lbl = new Label();
-
-                lbl.Location = new Point(lbl_template.Location.X, lbl_template.Location.Y + LocationY);
-
-                lbl.Text = "LT" + reader["LongTermKey"].ToString().ToString() + ". "+ reader["ClientName"].ToString();
-
-                lbl.Font = lbl_template.Font;
-
-                lbl.Size = new Size(1000, lbl.Size.Height + 10);
-
-                lbl.BackColor = Color.LightBlue;
-                */
-
-                //Controls.Add(lbl);
-
                 iLocationY += 50;
 
             }
@@ -143,9 +125,9 @@ namespace KKCSInvoiceProject
 
             if (_p.Name == "lbl_name")
             {
-                string sName = reader["ClientName"].ToString();
+                string sName = reader["FName"].ToString() + " " + reader["LName"].ToString();
 
-                if(sName.Length > 15)
+                if (sName.Length > 15)
                 {
                     lbl.Font = new Font(_p.Font.FontFamily, 8);
                     //sName = sName.Substring(0, 15);

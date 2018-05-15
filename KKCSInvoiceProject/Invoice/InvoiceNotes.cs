@@ -53,7 +53,11 @@ namespace KKCSInvoiceProject
 
                 DateTime DTNow = DateTime.Now;
 
-                string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,Rego,DateAndTime,InvoiceNumber) values ('" + txt_newnote.Text +
+                string sNotes = txt_newnote.Text;
+
+                sNotes = sNotes.Replace("'", "''");
+
+                string sNonQuery = @"INSERT INTO InvoiceNotes (Notes,StaffMember,Rego,DateAndTime,InvoiceNumber) values ('" + sNotes +
                                                                                                         "', '" + cmb_worker.Text +
                                                                                                         "', '" + g_sRego +
                                                                                                         "', '" + DTNow +

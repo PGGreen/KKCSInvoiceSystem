@@ -508,8 +508,6 @@ namespace KKCSInvoiceProject
             dt_returndate.Value = dt_returndate.Value.AddDays(1);
         }
 
-
-
         void InsertIntoNumberPlates()
         {
             // Opens the connection to the database
@@ -566,7 +564,7 @@ namespace KKCSInvoiceProject
                 // Make the command equal the physical location of the database (connection)
                 command.Connection = connection;
 
-                string sRemaining = "";
+                //string sRemaining = "";
 
                 string cmd1 = @"UPDATE NumberPlates SET
                                     NumberPlates = '" + cmb_rego.Text +
@@ -708,8 +706,6 @@ namespace KKCSInvoiceProject
 
             return (iID);
         }
-
-
 
         private void btn_update_Click(object sender, EventArgs e)
         {

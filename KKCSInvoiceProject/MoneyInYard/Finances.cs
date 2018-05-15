@@ -21,7 +21,7 @@ namespace KKCSInvoiceProject
 
         OleDbDataReader reader;
 
-        OleDbCommand command;
+        //OleDbCommand command;
 
         int iTotalCashTill = 0;
         int iTotalRefundsTill = 0;

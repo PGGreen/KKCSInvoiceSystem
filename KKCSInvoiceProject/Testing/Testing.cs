@@ -39,7 +39,9 @@ namespace KKCSInvoiceProject
 
             //XMLTest();
 
-            GetRegoFromInvoice();
+            TotalYearlyMoney();
+
+            //GetRegoFromInvoice();
         }
 
         void Test()
@@ -319,6 +321,185 @@ namespace KKCSInvoiceProject
             }
         }
 
+        #region YearlyMoney
+
+        string sMoney = "";
+
+        float fYearlyEftposCC = 0.0f;
+        float fYearlyCash = 0.0f;
+        float fYearlyAccounts = 0.0f;
+        float fYearlyOthers = 0.0f;
+
+        float fTotalEftpos = 0.0f;
+        float fTotalCash = 0.0f;
+        float fTotalAccounts = 0.0f;
+        float fTotalOthers = 0.0f;
+
+        float fYearlyTotal = 0.0f;
+        float fTotal = 0.0f;
+
+        int iTotalCars = 0;
+        int iYearlyCars = 0;
+
+        string sStoreYearFirst = "";
+        string sStoreYearSecond = "";
+        bool bIgnoreFirstTime = true;
+
+        void TotalYearlyMoney()
+        {
+            connection.Open();
+
+            //DateTime dtTodaysDate = new DateTime(2017, 10, 7, 12, 0, 0);
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "SELECT * FROM CustomerInvoices ORDER BY DTDatePaid";
+            //command.Parameters.AddWithValue("@dtTodaysDate", dtTodaysDate);
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            sMoney = "";
+
+            fYearlyEftposCC = 0.0f;
+            fYearlyCash = 0.0f;
+            fYearlyAccounts = 0.0f;
+            fYearlyOthers = 0.0f;
+
+            fTotalEftpos = 0.0f;
+            fTotalCash = 0.0f;
+            fTotalAccounts = 0.0f;
+            fTotalOthers = 0.0f;
+
+            fYearlyTotal = 0.0f;
+            fTotal = 0.0f;
+
+            iYearlyCars = 0;
+            iTotalCars = 0;
+
+            sStoreYearFirst = "";
+            sStoreYearSecond = "";
+            bIgnoreFirstTime = true;
+
+            while (reader.Read())
+            {
+                DateTime dtDate = (DateTime)reader["DTDatePaid"];
+                sStoreYearFirst = dtDate.Year.ToString();
+
+                int iStoreYear = 0;
+                int.TryParse(sStoreYearFirst, out iStoreYear);
+
+                if (sStoreYearFirst != sStoreYearSecond && !bIgnoreFirstTime)
+                {
+                    StringYearlyMoney();
+
+                    fYearlyEftposCC = 0.0f;
+                    fYearlyCash = 0.0f;
+                    fYearlyAccounts = 0.0f;
+                    fYearlyOthers = 0.0f;
+
+                    fYearlyTotal = 0.0f;
+
+                    iTotalCars = 0;
+
+                    sStoreYearSecond = sStoreYearFirst;
+                }
+
+                iTotalCars++;
+                iYearlyCars++;
+
+                string sPaidStatus = reader["PaidStatus"].ToString();
+
+                float fPay = 0.0f;
+                float.TryParse(reader["TotalPay"].ToString(), out fPay);
+
+                if(sPaidStatus != "N/C" && sPaidStatus != "To Pay")
+                {
+                    fYearlyTotal += fPay;
+                    fTotal += fPay;
+                }
+
+                switch (sPaidStatus)
+                {
+                    case "Eftpos":
+                    case "Credit Card":
+                        {
+                            fYearlyEftposCC += fPay;
+                            fTotalEftpos += fPay;
+
+                            break;
+                        }
+                    case "Cash":
+                        {
+                            fYearlyCash += fPay;
+                            fTotalCash += fPay;
+
+                            break;
+                        }
+                    case "OnAcc":
+                        {
+                            fYearlyAccounts += fPay;
+                            fTotalAccounts += fPay;
+
+                            break;
+                        }
+                    default:
+                        {
+                            if (sPaidStatus != "N/C" && sPaidStatus != "To Pay")
+                            {
+                                fYearlyOthers += fPay;
+                                fTotalOthers += fPay;
+                            }
+
+                            break;
+                        }
+                }
+                
+
+                sStoreYearSecond = sStoreYearFirst;
+
+                bIgnoreFirstTime = false;
+            }
+
+            StringYearlyMoney();
+            StringTotalMoney();
+
+            txt_test.Text = sMoney;
+
+            //int i = 0;
+        }
+
+        void StringYearlyMoney()
+        {
+            sMoney += "Year: " + sStoreYearSecond + "\r\n";
+            sMoney += "--------------------------------" + "\r\n";
+            sMoney += "Eftpos + CC: $" + fYearlyEftposCC.ToString("0.00") + "\r\n";
+            sMoney += "Cash: $" + fYearlyCash.ToString("0.00") + "\r\n";
+            sMoney += "Accounts: $" + fYearlyAccounts.ToString("0.00") + "\r\n";
+            sMoney += "Other: $" + fYearlyOthers.ToString("0.00") + "\r\n\r\n";
+            sMoney += "Customers Into Yard: " + iTotalCars + "\r\n\r\n";
+            sMoney += "Total: $" + fYearlyTotal.ToString("0.00");
+            sMoney += "\r\n\r\n\r\n";
+        }
+
+        void StringTotalMoney()
+        {
+            sMoney += "Total Finances Since June 2016:\r\n";
+            sMoney += "--------------------------------" + "\r\n";
+            sMoney += "Eftpos + CC: $" + fTotalEftpos.ToString("0.00") + "\r\n";
+            sMoney += "Cash: $" + fTotalCash.ToString("0.00") + "\r\n";
+            sMoney += "Accounts: $" + fTotalAccounts.ToString("0.00") + "\r\n";
+            sMoney += "Other: $" + fTotalOthers.ToString("0.00") + "\r\n\r\n";
+            sMoney += "Customers Into Yard: " + iYearlyCars + "\r\n\r\n";
+            sMoney += "Total: $" + fTotal.ToString("0.00");
+            sMoney += "\r\n\r\n\r\n";
+        }
+
+        #endregion YearlyMoney
+
         #region Accounts
 
         int iLocationY = 0;
@@ -326,7 +507,7 @@ namespace KKCSInvoiceProject
         
         int iListCount = 0;
          
-        int iPageNumber = 1;
+        //int iPageNumber = 1;
 
         Brush blackBrush = new SolidBrush(Color.Black);
         //PointF pf = new PointF(_Label.Bounds.Location.X, _pReturns.Bounds.Location.Y + iLocationY);
@@ -340,7 +521,7 @@ namespace KKCSInvoiceProject
 
             iListCount = 0;
 
-            iPageNumber = 1;
+            //iPageNumber = 1;
 
             GetAccountInfo();
 
@@ -392,7 +573,7 @@ namespace KKCSInvoiceProject
                 }
             }
 
-            int i = 0;
+            //int i = 0;
         }
 
         void GetAccountInfo()
@@ -432,7 +613,7 @@ namespace KKCSInvoiceProject
 
             iListCount = 0;
 
-            iPageNumber = 1;
+            //iPageNumber = 1;
 
             GetCashInfo();
 
@@ -484,7 +665,7 @@ namespace KKCSInvoiceProject
                 }
             }
 
-            int i = 0;
+            //int i = 0;
         }
 
         void GetCashInfo()

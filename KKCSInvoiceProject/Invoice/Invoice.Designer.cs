@@ -115,6 +115,8 @@
             this.chk_nokey = new System.Windows.Forms.CheckBox();
             this.txt_credit = new System.Windows.Forms.TextBox();
             this.lbl_credit = new System.Windows.Forms.Label();
+            this.dt_datepaidedit = new System.Windows.Forms.DateTimePicker();
+            this.txt_timepaidedit = new System.Windows.Forms.TextBox();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             this.SuspendLayout();
@@ -177,7 +179,7 @@
             // dt_returndate
             // 
             this.dt_returndate.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_returndate.Location = new System.Drawing.Point(268, 331);
+            this.dt_returndate.Location = new System.Drawing.Point(285, 331);
             this.dt_returndate.Name = "dt_returndate";
             this.dt_returndate.Size = new System.Drawing.Size(468, 38);
             this.dt_returndate.TabIndex = 16;
@@ -418,6 +420,7 @@
             this.txt_keyno.Name = "txt_keyno";
             this.txt_keyno.Size = new System.Drawing.Size(75, 38);
             this.txt_keyno.TabIndex = 63;
+            this.txt_keyno.TextChanged += new System.EventHandler(this.txt_keyno_TextChanged);
             // 
             // lbl_accountname
             // 
@@ -666,7 +669,7 @@
             // 
             this.lbl_pickuptitle.AutoSize = true;
             this.lbl_pickuptitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_pickuptitle.Location = new System.Drawing.Point(796, 335);
+            this.lbl_pickuptitle.Location = new System.Drawing.Point(801, 335);
             this.lbl_pickuptitle.Name = "lbl_pickuptitle";
             this.lbl_pickuptitle.Size = new System.Drawing.Size(108, 20);
             this.lbl_pickuptitle.TabIndex = 156;
@@ -676,7 +679,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label45.Location = new System.Drawing.Point(760, 372);
+            this.label45.Location = new System.Drawing.Point(764, 372);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(144, 20);
             this.label45.TabIndex = 159;
@@ -1060,12 +1063,13 @@
             // 
             this.btn_datepaid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btn_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_datepaid.Location = new System.Drawing.Point(775, 83);
+            this.btn_datepaid.Location = new System.Drawing.Point(845, 83);
             this.btn_datepaid.Name = "btn_datepaid";
-            this.btn_datepaid.Size = new System.Drawing.Size(314, 23);
+            this.btn_datepaid.Size = new System.Drawing.Size(361, 23);
             this.btn_datepaid.TabIndex = 177;
-            this.btn_datepaid.Text = "Date Paid: 17/06/17 (Click to Change)";
+            this.btn_datepaid.Text = "Date Paid: 17/06/17 - 0600 (Click To Modify)";
             this.btn_datepaid.UseVisualStyleBackColor = false;
+            this.btn_datepaid.Click += new System.EventHandler(this.btn_datepaid_Click);
             // 
             // btn_refund
             // 
@@ -1183,7 +1187,7 @@
             this.dt_dateleft.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dt_dateleft.Location = new System.Drawing.Point(227, 334);
             this.dt_dateleft.Name = "dt_dateleft";
-            this.dt_dateleft.Size = new System.Drawing.Size(37, 31);
+            this.dt_dateleft.Size = new System.Drawing.Size(52, 31);
             this.dt_dateleft.TabIndex = 234;
             this.dt_dateleft.Text = "<--";
             this.dt_dateleft.UseVisualStyleBackColor = true;
@@ -1192,9 +1196,9 @@
             // dt_dateright
             // 
             this.dt_dateright.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dt_dateright.Location = new System.Drawing.Point(742, 334);
+            this.dt_dateright.Location = new System.Drawing.Point(756, 333);
             this.dt_dateright.Name = "dt_dateright";
-            this.dt_dateright.Size = new System.Drawing.Size(37, 31);
+            this.dt_dateright.Size = new System.Drawing.Size(46, 31);
             this.dt_dateright.TabIndex = 235;
             this.dt_dateright.Text = "-->";
             this.dt_dateright.UseVisualStyleBackColor = true;
@@ -1233,12 +1237,32 @@
             this.lbl_credit.Text = "Credit $";
             this.lbl_credit.Visible = false;
             // 
+            // dt_datepaidedit
+            // 
+            this.dt_datepaidedit.Location = new System.Drawing.Point(846, 109);
+            this.dt_datepaidedit.Name = "dt_datepaidedit";
+            this.dt_datepaidedit.Size = new System.Drawing.Size(200, 20);
+            this.dt_datepaidedit.TabIndex = 239;
+            this.dt_datepaidedit.Visible = false;
+            this.dt_datepaidedit.ValueChanged += new System.EventHandler(this.dt_datepaid_ValueChanged);
+            // 
+            // txt_timepaidedit
+            // 
+            this.txt_timepaidedit.Location = new System.Drawing.Point(1053, 109);
+            this.txt_timepaidedit.Name = "txt_timepaidedit";
+            this.txt_timepaidedit.Size = new System.Drawing.Size(67, 20);
+            this.txt_timepaidedit.TabIndex = 240;
+            this.txt_timepaidedit.Visible = false;
+            this.txt_timepaidedit.TextChanged += new System.EventHandler(this.txt_timepaid_TextChanged);
+            // 
             // Invoice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 737);
+            this.Controls.Add(this.txt_timepaidedit);
+            this.Controls.Add(this.dt_datepaidedit);
             this.Controls.Add(this.lbl_credit);
             this.Controls.Add(this.txt_credit);
             this.Controls.Add(this.chk_nokey);
@@ -1415,5 +1439,7 @@
         private System.Windows.Forms.CheckBox chk_nokey;
         private System.Windows.Forms.TextBox txt_credit;
         private System.Windows.Forms.Label lbl_credit;
+        private System.Windows.Forms.DateTimePicker dt_datepaidedit;
+        private System.Windows.Forms.TextBox txt_timepaidedit;
     }
 }

@@ -17,16 +17,16 @@ namespace KKCSInvoiceProject
     {
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
-        OleDbDataReader reader;
+        //OleDbDataReader reader;
 
-        OleDbCommand command;
+        //OleDbCommand command;
 
         private OleDbConnection connection = new OleDbConnection();
 
         string g_sPrint = "";
 
-        bool g_bProcedure = false;
-        bool g_bStaffMember = false;
+        //bool g_bProcedure = false;
+        //bool g_bStaffMember = false;
 
         bool g_bClosedWithSaved = false;
 
@@ -176,7 +176,7 @@ Phone: 09-401-6351";
 
             int startX = 10;
             int startY = 10;
-            int offset = 30;
+            //int offset = 30;
 
             graphic.DrawString(g_sPrint, new Font("Times New Roman", 10), new SolidBrush(Color.Black), startX, startY);
             

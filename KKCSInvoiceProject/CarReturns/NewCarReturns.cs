@@ -31,6 +31,7 @@ namespace KKCSInvoiceProject
 
         List<Panel> lstReturnPanels;
         List<Panel> lstUnknownPanels;
+        List<Panel> lstBadDebot;
 
         string sList = "TodaysReturns";
 
@@ -44,6 +45,8 @@ namespace KKCSInvoiceProject
 
         bool bFirstTimeDividier = false;
         int iNoMoreThan1Divider = 0;
+
+        int iCars = 0;
 
         int iInitialPanelLocationY = 0;
 
@@ -83,6 +86,7 @@ namespace KKCSInvoiceProject
 
             lstReturnPanels = new List<Panel>();
             lstUnknownPanels = new List<Panel>();
+            lstBadDebot = new List<Panel>();
 
             // Creates the Title Header
             TitleHeaders(0);
@@ -154,7 +158,7 @@ namespace KKCSInvoiceProject
             dtDate = new DateTime(now.Year, now.Month, now.Day, 12, 0, 0);
 
             // Creates a query for todays returns
-            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDatePaid = @dtDate ORDER BY TimeIn ASC";
+            string sTodaysQuerys = "select * from CustomerInvoices WHERE DTDatePaid = @dtDate ORDER BY TimePaid ASC";
             CreateReturns(sTodaysQuerys);
 
             iInitialPanelLocationY += 10;
@@ -172,6 +176,8 @@ namespace KKCSInvoiceProject
 
             // Creates the Title Header
             TitleHeaders(3);
+
+            sList = "BadDebtor";
 
             // Create todays date for the query
             DateTime now = dt_timepicked.Value;
@@ -288,7 +294,7 @@ namespace KKCSInvoiceProject
             // Skips the very first check as there is no time to compare on the first
             bool bSkipFirstCheck = true;
 
-            int iCars = 0;
+            iCars = 0;
             int iTotalCars = 0;
 
             while (reader.Read())
@@ -327,6 +333,15 @@ namespace KKCSInvoiceProject
                         Panel pnl = new Panel();
                         pnl.Name = "pnlDivider";
                         lstUnknownPanels.Add(pnl);
+
+                        iNoMoreThan1Divider++;
+                    }
+
+                    if (sList == "BadDebtor" & bFirstTimeDividier && iNoMoreThan1Divider < 1)
+                    {
+                        Panel pnl = new Panel();
+                        pnl.Name = "pnlDivider";
+                        lstBadDebot.Add(pnl);
 
                         iNoMoreThan1Divider++;
                     }
@@ -420,6 +435,14 @@ namespace KKCSInvoiceProject
             else if (sList == "UnknownReturns")
             {
                 lstUnknownPanels.Add(pnl);
+
+                bFirstTimeDividier = true;
+
+                iNoMoreThan1Divider = 0;
+            }
+            else if(sList == "BadDebtor")
+            {
+                lstBadDebot.Add(pnl);
 
                 bFirstTimeDividier = true;
 
@@ -527,6 +550,14 @@ namespace KKCSInvoiceProject
             Label lbl = new Label();
 
             lbl.Name = _p.Name;
+
+            if (_p.Name == "lbl_no")
+            {
+                lbl.Font = _p.Font;
+                lbl.Size = _p.Size;
+
+                lbl.Text = (iCars+1).ToString() + ".";
+            }
 
             // Handles the customer name
             if (_p.Name == "lbl_customername")
@@ -636,12 +667,16 @@ namespace KKCSInvoiceProject
                 {
                     lbl.BackColor = Color.Orange;
                 }
+                else if(sPaidStatus == "LT")
+                {
+                    lbl.BackColor = Color.LightYellow;
+                }
                 else
                 {
                     lbl.BackColor = _p.BackColor;
                 }
 
-                lbl.Text = reader["PaidStatus"].ToString();
+                 lbl.Text = reader["PaidStatus"].ToString();
             }
 
             if (_p.Name == "lbl_returntime")
@@ -669,7 +704,7 @@ namespace KKCSInvoiceProject
                 }
                 else if (chk_datepaid.Checked)
                 {
-                    lbl.Text = reader["TimeIn"].ToString();
+                    lbl.Text = reader["TimePaid"].ToString();
                     lbl_returntimeheader.Text = "Time Paid";
                 }
             }
@@ -1336,6 +1371,8 @@ namespace KKCSInvoiceProject
             iLocationY += 40;
         }
 
+        int iCountTotal = 0;
+
         void PrintingPanels(PrintPageEventArgs e, int _iReturnPanel)
         {
             if (lstReturnPanels[_iReturnPanel].Name == "pnlDivider")
@@ -1343,6 +1380,8 @@ namespace KKCSInvoiceProject
                 e.Graphics.FillRectangle(Brushes.White, 0, iLocationY + 2, 1200, 40);
 
                 iLocationY += 40;
+
+                iCountTotal = 0;
             }
             else
             {
@@ -1352,14 +1391,17 @@ namespace KKCSInvoiceProject
 
                     switch (pReturns.Name)
                     {
+                        //case "lbl_no":
+                        //    DrawString(e, pReturns, lbl_printname, false, false, pReturns.Text);
+                        //    break;
                         case "lbl_customername":
-                            DrawString(e, pReturns, lbl_printname, true, false);
+                            DrawString(e, pReturns, lbl_printname, true, false, (iCountTotal+1).ToString() + ". " + pReturns.Text);
                             break;
                         case "lbl_rego":
-                            DrawString(e, pReturns, lbl_printrego, false, false);
+                            DrawString(e, pReturns, lbl_printrego, false, false, pReturns.Text);
                             break;
                         case "lbl_make":
-                            DrawString(e, pReturns, lbl_printmake, true, false);
+                            DrawString(e, pReturns, lbl_printmake, true, false, pReturns.Text);
                             break;
                         case "lbl_location":
                             bool _bPrintColourLocation = false;
@@ -1368,22 +1410,33 @@ namespace KKCSInvoiceProject
                                 _bPrintBrush = new SolidBrush(Color.Red);
                                 _bPrintColourLocation = true;
                             }
-                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation);
+                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation, pReturns.Text);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printinvno, false, false);
+                            DrawString(e, pReturns, lbl_printinvno, false, false, pReturns.Text);
                             break;
                         case "lbl_keyno":
                             bool _bPrintColourKeyNo = false;
 
-                            _bPrintBrush = new SolidBrush(Color.Yellow);
-                            _bPrintColourKeyNo = true;
-                            
-                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo);
+                            int iNumber = 0;
+                            bool bIsNumber = int.TryParse(pReturns.Text, out iNumber);
+
+                            if(!bIsNumber)
+                            {
+                                _bPrintBrush = new SolidBrush(Color.LightPink);
+                                _bPrintColourKeyNo = true;
+                            }
+                            else
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Yellow);
+                                _bPrintColourKeyNo = true;
+                            }
+
+                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo, pReturns.Text);
                             break;
                         case "lbl_amount":
-                            DrawString(e, pReturns, lbl_printamount, false, false);
+                            DrawString(e, pReturns, lbl_printamount, false, false, pReturns.Text);
                             break;
                         case "lbl_paidstatus":
                             bool _bPrintColourPaidStatus = false;
@@ -1402,21 +1455,21 @@ namespace KKCSInvoiceProject
                                 _bPrintBrush = new SolidBrush(Color.Orange);
                                 _bPrintColourPaidStatus = true;
                             }
-                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus);
+                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus, pReturns.Text);
                             break;
                         case "lbl_ph":
-                            DrawString(e, pReturns, lbl_printphone, false, false);
+                            DrawString(e, pReturns, lbl_printphone, false, false, pReturns.Text);
                             break;
                         case "lbl_DateIn":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printdatein, false, false);
+                            DrawString(e, pReturns, lbl_printdatein, false, false, pReturns.Text);
                             break;
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printreturndate, false, false);
+                            DrawString(e, pReturns, lbl_printreturndate, false, false, pReturns.Text);
                             break;
                         case "lbl_staffmember":
-                            DrawString(e, pReturns, lbl_staff, false, false);
+                            DrawString(e, pReturns, lbl_staff, false, false, pReturns.Text);
                             break;
                         case "lbl_NotesAndAlerts":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
@@ -1436,7 +1489,7 @@ namespace KKCSInvoiceProject
                                 _bPrintBrush = new SolidBrush(Color.MediumPurple);
                                 _bPrintColourNA = true;
                             }
-                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA);
+                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA, pReturns.Text);
                             break;
 
                         default:
@@ -1445,10 +1498,11 @@ namespace KKCSInvoiceProject
                 }
 
                 iLocationY += 40;
+                iCountTotal++;
             }
         }
 
-        void DrawString(PrintPageEventArgs _e, Control _pReturns, Label _Label, bool _bCheckFontSize, bool _bPrintColour)
+        void DrawString(PrintPageEventArgs _e, Control _pReturns, Label _Label, bool _bCheckFontSize, bool _bPrintColour, string _sText)
         {
             if(_bPrintColour && m_iPrinterPicked == 0)
             {
@@ -1469,7 +1523,7 @@ namespace KKCSInvoiceProject
                 }
             }
             //blackBrush = new SolidBrush(Color.White);
-            _e.Graphics.DrawString(_pReturns.Text, f, blackBrush, pf);
+            _e.Graphics.DrawString(_sText, f, blackBrush, pf);
 
             PrintHorizontalLine(_e, 40);
         }
@@ -1616,13 +1670,13 @@ namespace KKCSInvoiceProject
                     switch (pReturns.Name)
                     {
                         case "lbl_customername":
-                            DrawString(e, pReturns, lbl_printname, true, false);
+                            DrawString(e, pReturns, lbl_printname, true, false, pReturns.Text);
                             break;
                         case "lbl_rego":
-                            DrawString(e, pReturns, lbl_printrego, false, false);
+                            DrawString(e, pReturns, lbl_printrego, false, false, pReturns.Text);
                             break;
                         case "lbl_make":
-                            DrawString(e, pReturns, lbl_printmake, true, false);
+                            DrawString(e, pReturns, lbl_printmake, true, false, pReturns.Text);
                             break;
                         case "lbl_location":
                             bool _bPrintColourLocation = false;
@@ -1631,11 +1685,11 @@ namespace KKCSInvoiceProject
                                 _bPrintBrush = new SolidBrush(Color.Red);
                                 _bPrintColourLocation = true;
                             }
-                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation);
+                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation, pReturns.Text);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printinvno, false, false);
+                            DrawString(e, pReturns, lbl_printinvno, false, false, pReturns.Text);
                             break;
                         case "lbl_keyno":
                             bool _bPrintColourKeyNo = false;
@@ -1643,10 +1697,10 @@ namespace KKCSInvoiceProject
                             _bPrintBrush = new SolidBrush(Color.Yellow);
                             _bPrintColourKeyNo = true;
 
-                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo);
+                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo, pReturns.Text);
                             break;
                         case "lbl_amount":
-                            DrawString(e, pReturns, lbl_printamount, false, false);
+                            DrawString(e, pReturns, lbl_printamount, false, false, pReturns.Text);
                             break;
                         case "lbl_paidstatus":
                             bool _bPrintColourPaidStatus = false;
@@ -1665,21 +1719,21 @@ namespace KKCSInvoiceProject
                                 _bPrintBrush = new SolidBrush(Color.Orange);
                                 _bPrintColourPaidStatus = true;
                             }
-                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus);
+                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus, pReturns.Text);
                             break;
                         case "lbl_ph":
-                            DrawString(e, pReturns, lbl_printphone, false, false);
+                            DrawString(e, pReturns, lbl_printphone, false, false, pReturns.Text);
                             break;
                         case "lbl_DateIn":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printdatein, false, false);
+                            DrawString(e, pReturns, lbl_printdatein, false, false, pReturns.Text);
                             break;
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printreturndate, false, false);
+                            DrawString(e, pReturns, lbl_printreturndate, false, false, pReturns.Text);
                             break;
                         case "lbl_staffmember":
-                            DrawString(e, pReturns, lbl_staff, false, false);
+                            DrawString(e, pReturns, lbl_staff, false, false, pReturns.Text);
                             break;
                         case "lbl_NotesAndAlerts":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
@@ -1699,7 +1753,7 @@ namespace KKCSInvoiceProject
                                 _bPrintBrush = new SolidBrush(Color.MediumPurple);
                                 _bPrintColourNA = true;
                             }
-                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA);
+                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA, pReturns.Text);
                             break;
 
                         default:
@@ -1715,8 +1769,10 @@ namespace KKCSInvoiceProject
 
         #region BadDebotors
 
-        void PrintBadDebt()
+        public void PrintBadDebt()
         {
+            RefreshBadDebots();
+
             iLocationY = 50;
             iItemsPerPage = 0;
 
@@ -1730,6 +1786,18 @@ namespace KKCSInvoiceProject
 
             PaperSize ps = new PaperSize();
             ps.RawKind = (int)PaperKind.A4;
+
+            //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            if (m_iPrinterPicked == 0)
+            {
+                PrintDocument.PrinterSettings.PrinterName = "Brother MFC-665CW USB Printer";
+            }
+            else if (m_iPrinterPicked == 1)
+            {
+                PrintDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            }
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
 
             PrintDocument.DefaultPageSettings.PaperSize = ps;
 
@@ -1755,9 +1823,9 @@ namespace KKCSInvoiceProject
 
             PrintLines(e);
 
-            while (iListCount < lstUnknownPanels.Count)
+            while (iListCount < lstBadDebot.Count)
             {
-                PrintingUnknownPanels(e, iListCount);
+                PrintingBadDebtPanels(e, iListCount);
 
                 iListCount++;
 
@@ -1782,7 +1850,7 @@ namespace KKCSInvoiceProject
 
         void PrintingBadDebtPanels(PrintPageEventArgs e, int _iReturnPanel)
         {
-            if (lstUnknownPanels[_iReturnPanel].Name == "pnlDivider")
+            if (lstBadDebot[_iReturnPanel].Name == "pnlDivider")
             {
                 e.Graphics.FillRectangle(Brushes.White, 0, iLocationY + 2, 1200, 40);
 
@@ -1790,46 +1858,97 @@ namespace KKCSInvoiceProject
             }
             else
             {
-                foreach (Control pReturns in lstUnknownPanels[_iReturnPanel].Controls)
+                foreach (Control pReturns in lstBadDebot[_iReturnPanel].Controls)
                 {
                     switch (pReturns.Name)
                     {
                         case "lbl_customername":
-                            DrawString(e, pReturns, lbl_printname, true, false);
+                            DrawString(e, pReturns, lbl_printname, true, false, pReturns.Text);
                             break;
                         case "lbl_rego":
-                            DrawString(e, pReturns, lbl_printrego, false, false);
+                            DrawString(e, pReturns, lbl_printrego, false, false, pReturns.Text);
                             break;
                         case "lbl_make":
-                            DrawString(e, pReturns, lbl_printmake, true, false);
+                            DrawString(e, pReturns, lbl_printmake, true, false, pReturns.Text);
                             break;
                         case "lbl_location":
-                            DrawString(e, pReturns, lbl_printlocation, false, false);
+                            bool _bPrintColourLocation = false;
+                            if (pReturns.Text == "Back")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Red);
+                                _bPrintColourLocation = true;
+                            }
+                            DrawString(e, pReturns, lbl_printlocation, false, _bPrintColourLocation, pReturns.Text);
                             break;
                         case "lbl_InvNo":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printinvno, false, false);
+                            DrawString(e, pReturns, lbl_printinvno, false, false, pReturns.Text);
                             break;
                         case "lbl_keyno":
-                            DrawString(e, pReturns, lbl_printkeyno, false, false);
+                            bool _bPrintColourKeyNo = false;
+
+                            _bPrintBrush = new SolidBrush(Color.Yellow);
+                            _bPrintColourKeyNo = true;
+
+                            DrawString(e, pReturns, lbl_printkeyno, false, _bPrintColourKeyNo, pReturns.Text);
                             break;
                         case "lbl_amount":
-                            DrawString(e, pReturns, lbl_printamount, false, false);
+                            DrawString(e, pReturns, lbl_printamount, false, false, pReturns.Text);
                             break;
                         case "lbl_paidstatus":
-                            DrawString(e, pReturns, lbl_printpaid, true, false);
+                            bool _bPrintColourPaidStatus = false;
+                            if (pReturns.Text == "To Pay")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Yellow);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            else if (pReturns.Text == "OnAcc")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Violet);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            else if (pReturns.Text == "N/C")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Orange);
+                                _bPrintColourPaidStatus = true;
+                            }
+                            DrawString(e, pReturns, lbl_printpaid, true, _bPrintColourPaidStatus, pReturns.Text);
                             break;
                         case "lbl_ph":
-                            DrawString(e, pReturns, lbl_printphone, false, false);
+                            DrawString(e, pReturns, lbl_printphone, false, false, pReturns.Text);
                             break;
                         case "lbl_DateIn":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printdatein, false, false);
+                            DrawString(e, pReturns, lbl_printdatein, false, false, pReturns.Text);
                             break;
                         case "lbl_ReturnDate":
                             pReturns.Location = new Point(pReturns.Location.X, 10);
-                            DrawString(e, pReturns, lbl_printreturndate, false, false);
+                            DrawString(e, pReturns, lbl_printreturndate, false, false, pReturns.Text);
                             break;
+                        case "lbl_staffmember":
+                            DrawString(e, pReturns, lbl_staff, false, false, pReturns.Text);
+                            break;
+                        case "lbl_NotesAndAlerts":
+                            pReturns.Location = new Point(pReturns.Location.X, 10);
+                            bool _bPrintColourNA = false;
+                            if (pReturns.Text == "N")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.LightBlue);
+                                _bPrintColourNA = true;
+                            }
+                            else if (pReturns.Text == "A")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.Red);
+                                _bPrintColourNA = true;
+                            }
+                            else if (pReturns.Text == "N/A")
+                            {
+                                _bPrintBrush = new SolidBrush(Color.MediumPurple);
+                                _bPrintColourNA = true;
+                            }
+                            DrawString(e, pReturns, lbl_notesalerts, false, _bPrintColourNA, pReturns.Text);
+                            break;
+
                         default:
                             break;
                     }

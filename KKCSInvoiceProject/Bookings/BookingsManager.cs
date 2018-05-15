@@ -19,7 +19,7 @@ namespace KKCSInvoiceProject
 
         OleDbDataReader reader;
 
-        OleDbCommand command;
+        //OleDbCommand command;
 
         Panel pnl;
 
@@ -103,9 +103,9 @@ namespace KKCSInvoiceProject
 
             iInitialPanelLocationY = pnl_template.Location.Y;
 
-            string sFinalAmount = "";
+            //string sFinalAmount = "";
 
-            bool bPettyCashThisMonth = false;
+            //bool bPettyCashThisMonth = false;
 
             string sStoreMonthFirst = "";
             string sStoreMonthSecond = "";

@@ -121,7 +121,7 @@ namespace KKCSInvoiceProject
                 sSecond = sFirst;
             }
 
-            int g = 0;
+            //int g = 0;
         }
 
         #endregion

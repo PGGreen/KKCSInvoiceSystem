@@ -113,7 +113,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY KeyNumber";
+            string query = "select * from CustomerInvoices WHERE PickUp = False AND IsLongTerm = False ORDER BY KeyNumber";
 
             command.CommandText = query;
 
@@ -205,7 +205,7 @@ namespace KKCSInvoiceProject
 
             string sStoreFirstMM = "";
             string sStoreSecondMM = "";
-            bool bSkipFirstCheck = false;
+            //bool bSkipFirstCheck = false;
 
             while (reader.Read())
             {
@@ -272,8 +272,19 @@ namespace KKCSInvoiceProject
 
         #region Buttons
 
+        DateTime dtStoreToday;
+
         private void btn_invoice_Click(object sender, EventArgs e)
         {
+            DateTime dtToday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            if(dtStoreToday != dtToday)
+            {
+                DeleteAndRefreshNotes();
+
+                dtStoreToday = dtToday;
+            }
+            
             Form fm = Application.OpenForms["InvoiceManager"];
 
             if (fm != null)
@@ -334,32 +345,57 @@ namespace KKCSInvoiceProject
 
         private void btn_printcarreturns_Click(object sender, EventArgs e)
         {
-            Form fm = Application.OpenForms["NewCarReturns"];
-
-            if (fm != null)
+            if (ModifierKeys.HasFlag(Keys.Shift) && ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))
             {
-                fm.Close();
+                WarningSystem ws = new WarningSystem("Would you like to print bad debtors?", true);
+                ws.ShowDialog();
+
+                if (ws.DialogResult == DialogResult.OK)
+                {
+                    Form fm = Application.OpenForms["NewCarReturns"];
+
+                    if (fm != null)
+                    {
+                        fm.Close();
+                    }
+
+                    NewCarReturns ncr = new NewCarReturns();
+                    ncr.Show();
+
+                    ncr.PrintBadDebt();
+
+                    ncr.Close();
+                }
             }
+            else
+            {
+                Form fm = Application.OpenForms["NewCarReturns"];
 
-            NewCarReturns ncr = new NewCarReturns();
-            ncr.Show();
+                if (fm != null)
+                {
+                    fm.Close();
+                }
 
-            // Out of Colour Ink (Uncomment Next Line)
-            //cmb_printerpicked.SelectedIndex = 1;
+                NewCarReturns ncr = new NewCarReturns();
+                ncr.Show();
 
-            // B&W Printer Down
-            //cmb_printerpicked.SelectedIndex = 0;
+                // Out of Colour Ink (Uncomment Next Line)
+                //cmb_printerpicked.SelectedIndex = 1;
 
-            ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
+                // B&W Printer Down
+                //cmb_printerpicked.SelectedIndex = 0;
 
-            //cmb_printerpicked.SelectedIndex = 0;
+                ncr.PrintReturns(cmb_printerpicked.SelectedIndex);
 
-            // Out of Colour Ink (Uncomment Next Line)
-            //cmb_printerpicked.SelectedIndex = 1;
+                //cmb_printerpicked.SelectedIndex = 0;
 
-            //PrintTest();
+                // Out of Colour Ink (Uncomment Next Line)
+                //cmb_printerpicked.SelectedIndex = 1;
 
-            //PrintLongTerm();
+                //PrintTest();
+
+                //PrintLongTerm();
+            }
         }
 
         private void btn_eod_Click(object sender, EventArgs e)
@@ -544,7 +580,7 @@ namespace KKCSInvoiceProject
                 lstRego.Add(reader["Rego"].ToString());
             }
 
-            int iStop = 0;
+            //int iStop = 0;
 
             if (connection.State == ConnectionState.Open)
             {
@@ -1277,7 +1313,7 @@ namespace KKCSInvoiceProject
 
 
         // Print Button
-        int totalnumber = 0;//this is for total number of items of the list or array
+        //int totalnumber = 0;//this is for total number of items of the list or array
         int itemperpage = 0;//this is for no of item per page
 
         int startX = 10;
@@ -1437,7 +1473,7 @@ namespace KKCSInvoiceProject
                 //connection.Close();
 
                 itemperpage = 0;
-                totalnumber = 0;
+                //totalnumber = 0;
 
                 bReferenceDatabaseOnce = false;
             }
@@ -1526,7 +1562,7 @@ namespace KKCSInvoiceProject
                 //connection.Close();
 
                 itemperpage = 0;
-                totalnumber = 0;
+                //totalnumber = 0;
 
                 bReferenceUnknownOnce = false;
             }
@@ -1764,7 +1800,7 @@ namespace KKCSInvoiceProject
             reader = command.ExecuteReader();
 
             itemperpage = 0;
-            totalnumber = 0;
+            //totalnumber = 0;
 
             string sDateToday = dt.DayOfWeek.ToString() + ", " +
             dt.Day.ToString() + " " +
@@ -2041,6 +2077,13 @@ namespace KKCSInvoiceProject
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void customerSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchByName sbn = new SearchByName();
+            //sbn.FormClosing += CloseCustomerSearch;
+            sbn.Show();
         }
 
         #endregion

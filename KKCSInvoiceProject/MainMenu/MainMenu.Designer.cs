@@ -60,6 +60,7 @@
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.customerSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnl_notes.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +69,7 @@
             // 
             this.btn_invoice.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_invoice.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_invoice.Location = new System.Drawing.Point(286, 80);
+            this.btn_invoice.Location = new System.Drawing.Point(392, 69);
             this.btn_invoice.Name = "btn_invoice";
             this.btn_invoice.Size = new System.Drawing.Size(187, 50);
             this.btn_invoice.TabIndex = 1;
@@ -80,7 +81,7 @@
             // 
             this.btn_returns.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_returns.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_returns.Location = new System.Drawing.Point(495, 80);
+            this.btn_returns.Location = new System.Drawing.Point(601, 69);
             this.btn_returns.Name = "btn_returns";
             this.btn_returns.Size = new System.Drawing.Size(189, 50);
             this.btn_returns.TabIndex = 2;
@@ -92,7 +93,7 @@
             // 
             this.btn_keybox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btn_keybox.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_keybox.Location = new System.Drawing.Point(704, 79);
+            this.btn_keybox.Location = new System.Drawing.Point(810, 68);
             this.btn_keybox.Name = "btn_keybox";
             this.btn_keybox.Size = new System.Drawing.Size(189, 50);
             this.btn_keybox.TabIndex = 3;
@@ -104,7 +105,7 @@
             // 
             this.btn_eod.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btn_eod.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_eod.Location = new System.Drawing.Point(1053, 136);
+            this.btn_eod.Location = new System.Drawing.Point(392, 131);
             this.btn_eod.Name = "btn_eod";
             this.btn_eod.Size = new System.Drawing.Size(98, 45);
             this.btn_eod.TabIndex = 11;
@@ -117,7 +118,7 @@
             this.btn_printcarreturns.BackColor = System.Drawing.Color.Black;
             this.btn_printcarreturns.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_printcarreturns.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_printcarreturns.Location = new System.Drawing.Point(583, 175);
+            this.btn_printcarreturns.Location = new System.Drawing.Point(765, 170);
             this.btn_printcarreturns.Name = "btn_printcarreturns";
             this.btn_printcarreturns.Size = new System.Drawing.Size(234, 45);
             this.btn_printcarreturns.TabIndex = 17;
@@ -221,6 +222,7 @@
             this.accountsToolStripMenuItem,
             this.tillPBToolStripMenuItem,
             this.aboutToolStripMenuItem,
+            this.customerSearchToolStripMenuItem,
             this.testToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
@@ -332,7 +334,7 @@
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
             // 
@@ -342,18 +344,19 @@
             this.lbl_debug.BackColor = System.Drawing.Color.Black;
             this.lbl_debug.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_debug.ForeColor = System.Drawing.Color.White;
-            this.lbl_debug.Location = new System.Drawing.Point(10, 142);
+            this.lbl_debug.Location = new System.Drawing.Point(1349, 151);
             this.lbl_debug.Name = "lbl_debug";
             this.lbl_debug.Size = new System.Drawing.Size(458, 39);
             this.lbl_debug.TabIndex = 29;
             this.lbl_debug.Text = "WARNING: DEBUG MODE";
+            this.lbl_debug.Visible = false;
             // 
             // txt_noofcars
             // 
             this.txt_noofcars.AutoSize = true;
             this.txt_noofcars.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_noofcars.ForeColor = System.Drawing.Color.Red;
-            this.txt_noofcars.Location = new System.Drawing.Point(606, 220);
+            this.txt_noofcars.Location = new System.Drawing.Point(390, 189);
             this.txt_noofcars.Name = "txt_noofcars";
             this.txt_noofcars.Size = new System.Drawing.Size(196, 39);
             this.txt_noofcars.TabIndex = 231;
@@ -366,7 +369,7 @@
             this.cmb_printerpicked.Items.AddRange(new object[] {
             "Colour (Small Printer)",
             "B&W (Large Printer)"});
-            this.cmb_printerpicked.Location = new System.Drawing.Point(583, 136);
+            this.cmb_printerpicked.Location = new System.Drawing.Point(765, 131);
             this.cmb_printerpicked.Name = "cmb_printerpicked";
             this.cmb_printerpicked.Size = new System.Drawing.Size(234, 32);
             this.cmb_printerpicked.TabIndex = 232;
@@ -374,10 +377,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button3.Font = new System.Drawing.Font("Perpetua Titling MT", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(916, 79);
+            this.button3.Font = new System.Drawing.Font("Perpetua Titling MT", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(496, 131);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(235, 51);
+            this.button3.Size = new System.Drawing.Size(228, 45);
             this.button3.TabIndex = 233;
             this.button3.Text = "Long Term";
             this.button3.UseVisualStyleBackColor = false;
@@ -388,11 +391,19 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Perpetua Titling MT", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(412, 35);
+            this.label1.Location = new System.Drawing.Point(391, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(615, 32);
             this.label1.TabIndex = 234;
             this.label1.Text = "Kerikeri Car Storage Invoice System";
+            // 
+            // customerSearchToolStripMenuItem
+            // 
+            this.customerSearchToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.customerSearchToolStripMenuItem.Name = "customerSearchToolStripMenuItem";
+            this.customerSearchToolStripMenuItem.Size = new System.Drawing.Size(119, 21);
+            this.customerSearchToolStripMenuItem.Text = "Customer Search";
+            this.customerSearchToolStripMenuItem.Click += new System.EventHandler(this.customerSearchToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -458,5 +469,6 @@
         private System.Windows.Forms.Button btn_addnewnote;
         private System.Windows.Forms.CheckBox chk_showclosed;
         private System.Windows.Forms.Button btn_edit;
+        private System.Windows.Forms.ToolStripMenuItem customerSearchToolStripMenuItem;
     }
 }

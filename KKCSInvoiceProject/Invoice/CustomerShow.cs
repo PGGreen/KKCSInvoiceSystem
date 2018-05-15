@@ -12,7 +12,7 @@ namespace KKCSInvoiceProject
 {
     public partial class CustomerShow : Form
     {
-        int eError = 2147483647;
+        //int eError = 2147483647;
 
         public CustomerShow()
         {

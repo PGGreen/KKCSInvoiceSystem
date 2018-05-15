@@ -86,14 +86,14 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = "select * from CustomerInvoices WHERE PickUp = False ORDER BY KeyNumber";
+            string query = "select * from CustomerInvoices WHERE PickUp = False AND IsLongTerm = False ORDER BY KeyNumber";
 
             command.CommandText = query;
 
             OleDbDataReader reader = command.ExecuteReader();
 
             int iNumberOfCars = 0;
-            int iNumberOfNoKeys = 0;
+            //int iNumberOfNoKeys = 0;
             lbl_nokey.Visible = false;
 
             int iLocationNoKeyX = 0;

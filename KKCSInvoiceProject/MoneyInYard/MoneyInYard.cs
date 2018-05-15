@@ -21,9 +21,9 @@ namespace KKCSInvoiceProject
         private OleDbConnection connection = new OleDbConnection();
 
         // Sets up the main OleDb Command
-        OleDbCommand command;
+        //OleDbCommand command;
 
-        OleDbDataReader reader;
+        //OleDbDataReader reader;
         #endregion
 
         public MoneyInYard()
