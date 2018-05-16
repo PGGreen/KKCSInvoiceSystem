@@ -127,7 +127,9 @@ namespace KKCSInvoiceProject
 
                 WipeCustomerShow();
 
-                if (NewCarReturns != null)
+                Form fmCustomerShow = Application.OpenForms["NewCarReturns"];
+
+                if (fmCustomerShow != null)
                 {
                     NewCarReturns.ReloadPageFromInvoice();
                 }
