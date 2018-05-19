@@ -481,6 +481,14 @@ namespace KKCSInvoiceProject
         {
             if(btn_save.Text != "Saved")
             {
+                if(cmb_rego.Text == "")
+                {
+                    WarningSystem ws = new WarningSystem("Missing Rego", false);
+                    ws.ShowDialog();
+
+                    return;
+                }
+
                 SaveData();
 
                 m_iID = GetId();

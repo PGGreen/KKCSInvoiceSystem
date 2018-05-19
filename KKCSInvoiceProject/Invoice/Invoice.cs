@@ -3636,5 +3636,10 @@ Number: 02-0800-0493229-00
                 WarningsChangesMade();
             }
         }
+
+        private void cmb_worker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

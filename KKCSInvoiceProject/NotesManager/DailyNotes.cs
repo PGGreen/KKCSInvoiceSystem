@@ -25,6 +25,7 @@ namespace KKCSInvoiceProject
         Color defaultBackColour;
 
         string g_sOriginalValue = "";
+        string g_sOriginalTitle = "";
         bool g_bOriginalHighPriority = false;
 
         string g_sID = "";
@@ -57,7 +58,7 @@ namespace KKCSInvoiceProject
             int iInvoice = 0;
             int.TryParse(_sInvoice, out iInvoice);
 
-            command.CommandText = "SELECT Notes,IsHighPriority,StaffMember FROM Notes WHERE ID = "+ iInvoice + "";
+            command.CommandText = "SELECT Notes,Title,IsHighPriority,StaffMember FROM Notes WHERE ID = "+ iInvoice + "";
 
             OleDbDataReader reader = command.ExecuteReader();
 
@@ -65,7 +66,7 @@ namespace KKCSInvoiceProject
             {
                 txt_notes.Text = reader["Notes"].ToString();
                 cmb_worker.Text = reader["StaffMember"].ToString();
-
+                txt_title.Text = reader["Title"].ToString();
 
                 if ((bool)reader["IsHighPriority"])
                 {
@@ -77,6 +78,7 @@ namespace KKCSInvoiceProject
 
             g_sOriginalValue = txt_notes.Text;
             g_bOriginalHighPriority = chk_hp.Checked;
+            g_sOriginalTitle = txt_title.Text;
 
             bIgnoreFirstTime = false;
 
@@ -144,6 +146,14 @@ namespace KKCSInvoiceProject
                 return;
             }
 
+            if(txt_title.Text == "")
+            {
+                WarningSystem ws = new WarningSystem("- Please enter a Title.", false);
+                ws.ShowDialog();
+
+                return;
+            }
+
             connection.Open();
 
             OleDbCommand command = new OleDbCommand();
@@ -160,7 +170,7 @@ namespace KKCSInvoiceProject
             }
 
             //Insert the new Number Plate into the Database
-            string cmd1 = @"INSERT INTO Notes (StaffMember,Notes,DateAndTime,IsHighPriority) values ('" + cmb_worker.Text + "','" + txt_notes.Text + "','"+ dt + "',"+ bIsHighPriority + ")";
+            string cmd1 = @"INSERT INTO Notes (StaffMember,Notes,Title,DateAndTime,IsHighPriority) values ('" + cmb_worker.Text + "','" + txt_notes.Text + "','" + txt_title.Text + "','" + dt + "',"+ bIsHighPriority + ")";
 
             // Makes the command text equal the string
             command.CommandText = cmd1;
@@ -193,6 +203,7 @@ namespace KKCSInvoiceProject
 
             g_sOriginalValue = txt_notes.Text;
             g_bOriginalHighPriority = chk_hp.Checked;
+            g_sOriginalTitle = txt_title.Text;
 
             g_bIsSaved = true;
 
@@ -202,6 +213,8 @@ namespace KKCSInvoiceProject
         private void btn_save_Click(object sender, EventArgs e)
         {
             SaveDailyNoteToDatabase();
+
+            bIgnoreFirstTime = false;
         }
 
         bool m_bUpdate = false;
@@ -233,11 +246,11 @@ namespace KKCSInvoiceProject
 
         void CheckForUpdate()
         {
-            if (g_bIsSaved && g_bOriginalHighPriority != chk_hp.Checked || txt_notes.Text != g_sOriginalValue)
+            if (g_bIsSaved && g_bOriginalHighPriority != chk_hp.Checked || txt_notes.Text != g_sOriginalValue || txt_title.Text != g_sOriginalTitle)
             {
                 m_bUpdate = true;
             }
-            else if (g_bIsSaved && g_bOriginalHighPriority == chk_hp.Checked && txt_notes.Text == g_sOriginalValue)
+            else if (g_bIsSaved && g_bOriginalHighPriority == chk_hp.Checked && txt_notes.Text == g_sOriginalValue && txt_title.Text == g_sOriginalTitle)
             {
                 m_bUpdate = false;
             }
@@ -268,7 +281,7 @@ namespace KKCSInvoiceProject
             int iID = 0;
             int.TryParse(g_sID, out iID);
 
-            command.CommandText = "UPDATE Notes SET IsHighPriority = "+ chk_hp.Checked + ", Notes = '" + txt_notes.Text + "' WHERE ID = " + iID + "";
+            command.CommandText = "UPDATE Notes SET IsHighPriority = "+ chk_hp.Checked + ", Notes = '" + txt_notes.Text + "', Title = '" + txt_title.Text + "' WHERE ID = " + iID + "";
 
             command.ExecuteNonQuery();
 
@@ -282,6 +295,14 @@ namespace KKCSInvoiceProject
 
             g_bOriginalHighPriority = chk_hp.Checked;
             g_sOriginalValue = txt_notes.Text;
+        }
+
+        private void txt_title_TextChanged_1(object sender, EventArgs e)
+        {
+            if (!bIgnoreFirstTime)
+            {
+                CheckForUpdate();
+            }
         }
     }
 }

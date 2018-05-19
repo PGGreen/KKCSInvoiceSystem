@@ -1168,6 +1168,7 @@
             this.cmb_worker.Name = "cmb_worker";
             this.cmb_worker.Size = new System.Drawing.Size(238, 47);
             this.cmb_worker.TabIndex = 184;
+            this.cmb_worker.SelectedIndexChanged += new System.EventHandler(this.cmb_worker_SelectedIndexChanged);
             // 
             // cmb_printerpicked
             // 

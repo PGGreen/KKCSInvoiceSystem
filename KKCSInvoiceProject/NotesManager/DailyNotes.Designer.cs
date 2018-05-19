@@ -35,13 +35,15 @@
             this.cmb_worker = new System.Windows.Forms.ComboBox();
             this.chk_hp = new System.Windows.Forms.CheckBox();
             this.btn_update = new System.Windows.Forms.Button();
+            this.txt_title = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 106);
+            this.label3.Location = new System.Drawing.Point(16, 176);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 25);
             this.label3.TabIndex = 7;
@@ -50,7 +52,7 @@
             // txt_notes
             // 
             this.txt_notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.txt_notes.Location = new System.Drawing.Point(21, 134);
+            this.txt_notes.Location = new System.Drawing.Point(18, 213);
             this.txt_notes.Multiline = true;
             this.txt_notes.Name = "txt_notes";
             this.txt_notes.Size = new System.Drawing.Size(716, 414);
@@ -101,7 +103,7 @@
             // 
             this.chk_hp.AutoSize = true;
             this.chk_hp.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_hp.Location = new System.Drawing.Point(524, 49);
+            this.chk_hp.Location = new System.Drawing.Point(517, 14);
             this.chk_hp.Name = "chk_hp";
             this.chk_hp.Size = new System.Drawing.Size(194, 35);
             this.chk_hp.TabIndex = 188;
@@ -114,7 +116,7 @@
             this.btn_update.BackColor = System.Drawing.Color.Fuchsia;
             this.btn_update.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_update.ForeColor = System.Drawing.Color.White;
-            this.btn_update.Location = new System.Drawing.Point(279, 90);
+            this.btn_update.Location = new System.Drawing.Point(279, 87);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(178, 38);
             this.btn_update.TabIndex = 189;
@@ -123,12 +125,33 @@
             this.btn_update.Visible = false;
             this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
+            // txt_title
+            // 
+            this.txt_title.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_title.Location = new System.Drawing.Point(87, 138);
+            this.txt_title.Name = "txt_title";
+            this.txt_title.Size = new System.Drawing.Size(496, 31);
+            this.txt_title.TabIndex = 190;
+            this.txt_title.TextChanged += new System.EventHandler(this.txt_title_TextChanged_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(16, 141);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 25);
+            this.label1.TabIndex = 191;
+            this.label1.Text = "Title:";
+            // 
             // DailyNotes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
-            this.ClientSize = new System.Drawing.Size(763, 575);
+            this.ClientSize = new System.Drawing.Size(763, 639);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txt_title);
             this.Controls.Add(this.btn_update);
             this.Controls.Add(this.chk_hp);
             this.Controls.Add(this.label8);
@@ -151,5 +174,7 @@
         private System.Windows.Forms.ComboBox cmb_worker;
         private System.Windows.Forms.CheckBox chk_hp;
         private System.Windows.Forms.Button btn_update;
+        private System.Windows.Forms.TextBox txt_title;
+        private System.Windows.Forms.Label label1;
     }
 }

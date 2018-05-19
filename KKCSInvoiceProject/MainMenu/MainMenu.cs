@@ -26,8 +26,6 @@ namespace KKCSInvoiceProject
 
         string sVersionNumber = "3.00";
 
-        int iTemplateX = 0;
-        int iTemplateY = 0;
         int iCount = 1;
 
         private OleDbConnection connection = new OleDbConnection();
@@ -74,18 +72,7 @@ namespace KKCSInvoiceProject
 
             UpdateAmountOfCars();
 
-            LoadAllNotes();
-        }
-
-        void LoadAllNotes()
-        {
             LoadGeneralNotes();
-
-            FindInvoiceNumbersNotesAlerts();
-
-            LoadInvoiceNotes();
-
-            LoadInvoiceAlerts();
         }
 
         #region Debug
@@ -430,6 +417,9 @@ namespace KKCSInvoiceProject
 
         #endregion Buttons
 
+
+
+
         #region Notes
 
         bool bShowClosedNotes = false;
@@ -460,254 +450,49 @@ namespace KKCSInvoiceProject
 
             OleDbDataReader reader = command.ExecuteReader();
 
-            iTemplateX = txt_template.Location.X;
-            iTemplateY = txt_template.Location.Y;
+            int iButtonNoteX = btn_note.Location.X;
+            int iButtonNoteY = btn_note.Location.Y;
 
-            int iButtonMarkX = btn_mark.Location.X;
-            int iButtonMarkY = btn_mark.Location.Y;
-
-            int iButtonEditX = btn_edit.Location.X;
-            int iButtonEditY = btn_edit.Location.Y;
-
-            iCount = 1;
+            int iButtonMarkClosedX = btn_markclosed.Location.X;
+            int iButtonMarkClosedY = btn_markclosed.Location.Y;
 
             while (reader.Read())
             {
-                TextBox txtBox = new TextBox();
-                txtBox.Location = new Point(iTemplateX, iTemplateY);
-                txtBox.Multiline = true;
-                txtBox.ScrollBars = ScrollBars.Vertical;
-                txtBox.Font = txt_template.Font;
-                txtBox.ReadOnly = true;
-                txtBox.Size = txt_template.Size;
-
                 Button btn = new Button();
-                btn.Location = new Point(iButtonMarkX, iButtonMarkY);
-                btn.Font = btn_mark.Font;
-                btn.Size = btn_mark.Size;
-                btn.Text = btn_mark.Text;
-                btn.BackColor = btn_mark.BackColor;
-                btn.Click += btn_mark_Click;
-                btn.Name = reader["ID"].ToString();
-
-                pnl_notes.Controls.Add(btn);
-
-                btn = new Button();
-                btn.Location = new Point(iButtonEditX, iButtonEditY);
-                btn.Font = btn_edit.Font;
-                btn.Size = btn_edit.Size;
-                btn.Text = btn_edit.Text;
-                btn.BackColor = btn_edit.BackColor;
+                btn.Location = new Point(iButtonNoteX, iButtonNoteY);
+                btn.Font = btn_note.Font;
+                btn.Size = btn_note.Size;
+                btn.TextAlign = btn_note.TextAlign;
                 btn.Click += btn_edit_Click;
                 btn.Name = reader["ID"].ToString();
+                btn.Text = reader["Title"].ToString();
+
+                Button btnMarkClose = new Button();
+                btnMarkClose.Location = new Point(iButtonMarkClosedX, iButtonMarkClosedY);
+                btnMarkClose.Font = btn_markclosed.Font;
+                btnMarkClose.Size = btn_markclosed.Size;
+                btnMarkClose.TextAlign = btn_markclosed.TextAlign;
+                btnMarkClose.Click += btn_mark_Click;
+                btnMarkClose.Name = reader["ID"].ToString();
+                btnMarkClose.Text = btn_markclosed.Text;
 
                 pnl_notes.Controls.Add(btn);
+                pnl_notes.Controls.Add(btnMarkClose);
 
                 if ((bool)reader["IsHighPriority"])
                 {
-                    txtBox.BackColor = Color.Red;
-                    txtBox.ForeColor = Color.White;
+                    btn.BackColor = Color.Red;
+                    btn.ForeColor = Color.White;
                 }
                 else
                 {
-                    txtBox.BackColor = txt_template.BackColor;
+                    btn.BackColor = btn_note.BackColor;
                 }
 
-                DateTime dtNoteTime = (DateTime)reader["DateAndTime"];
-                string sDate = dtNoteTime.Day.ToString() + "/" + dtNoteTime.Month + "/" + dtNoteTime.ToString("yy") + " - " + dtNoteTime.ToString("h:mm tt");
-
-                txtBox.Text = reader["Notes"].ToString() + "\r\n\r\n" + reader["StaffMember"].ToString() + " (" + sDate + ")"; ;
-
-                iTemplateX += txt_template.Size.Width + 50;
-
-                iButtonMarkX += btn_mark.Size.Width + 235;
-
-                iButtonEditX += btn_edit.Size.Width + 265;
-
-                if (iCount % 4 == 0)
-                {
-                    iTemplateY += txt_template.Size.Height + 50;
-                    iTemplateX = txt_template.Location.X;
-
-                    iButtonMarkY += btn_mark.Size.Height + 180;
-                    iButtonMarkX = btn_mark.Location.X;
-
-                    iButtonEditY += btn_edit.Size.Height + 180;
-                    iButtonEditX = btn_edit.Location.X;
-                }
+                iButtonNoteY += btn_note.Size.Height + 10;
+                iButtonMarkClosedY += btn_markclosed.Height + 10;
 
                 iCount++;
-
-                pnl_notes.Controls.Add(txtBox);
-            }
-
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-        }
-
-        List<string> lstInvoice;
-        List<string> lstRego;
-
-        void FindInvoiceNumbersNotesAlerts()
-        {
-            if (connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
-
-            lstInvoice = new List<string>();
-            lstRego = new List<string>();
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
-
-            string query = @"select * from CustomerInvoices WHERE DTReturnDate = @dt AND (IsNotes = True OR IsAlerts = True)";
-            query += " OR (DTReturnDate < @dt AND PickUp = False) AND (IsNotes = True OR IsAlerts = True)";
-
-            command.Parameters.AddWithValue("@dt", dt);
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                lstInvoice.Add(reader["InvoiceNumber"].ToString());
-                lstRego.Add(reader["Rego"].ToString());
-            }
-
-            //int iStop = 0;
-
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-        }
-
-        void LoadInvoiceNotes()
-        {
-            if (connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            //DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
-
-            //int iNumber = 0;
-            //int.TryParse(lstInvoice[0], out iNumber);
-
-            string sInvoiceNumber = "";
-
-            for(int i = 0; i < lstInvoice.Count; i++)
-            {
-                sInvoiceNumber += lstInvoice[i] + ",";
-            }
-
-            string query = "select * from InvoiceNotes WHERE InvoiceNumber IN ("+ sInvoiceNumber + ") ORDER BY DateAndTime DESC";
-
-            //string query = "select * from InvoiceNotes WHERE InvoiceNumber IN (7196, 6937, 6916)";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                TextBox txtBox = new TextBox();
-                txtBox.Location = new Point(iTemplateX, iTemplateY);
-                txtBox.Multiline = true;
-                txtBox.ScrollBars = ScrollBars.Vertical;
-                txtBox.Font = txt_template.Font;
-                txtBox.ReadOnly = true;
-                txtBox.Size = txt_template.Size;
-                txtBox.BackColor = Color.LightBlue;
-
-                txtBox.Text = reader["Rego"].ToString() + " (" + reader["InvoiceNumber"].ToString() + "): \r\n";
-                txtBox.Text += "-------------------------------------\r\n";
-                txtBox.Text += reader["Notes"].ToString();
-
-                iTemplateX += txt_template.Size.Width + 50;
-
-                if (iCount % 4 == 0)
-                {
-                    iTemplateY += txt_template.Size.Height + 50;
-                    iTemplateX = txt_template.Location.X;
-                }
-
-                iCount++;
-
-                pnl_notes.Controls.Add(txtBox);
-            }
-
-            if (connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-            }
-        }
-
-        void LoadInvoiceAlerts()
-        {
-            if (connection.State == ConnectionState.Closed)
-            {
-                connection.Open();
-            }
-
-            OleDbCommand command = new OleDbCommand();
-
-            command.Connection = connection;
-
-            //DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
-
-            //int iNumber = 0;
-            //int.TryParse(lstInvoice[0], out iNumber);
-
-            string sRego = "";
-
-            for (int i = 0; i < lstRego.Count; i++)
-            {
-                sRego += "'" + lstRego[i] + "',";
-            }
-
-            string query = "select * from Alerts WHERE Rego IN (" + sRego + ")";
-
-            //string query = "select * from InvoiceNotes WHERE InvoiceNumber IN (7196, 6937, 6916)";
-
-            command.CommandText = query;
-
-            OleDbDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                TextBox txtBox = new TextBox();
-                txtBox.Location = new Point(iTemplateX, iTemplateY);
-                txtBox.Multiline = true;
-                txtBox.ScrollBars = ScrollBars.Vertical;
-                txtBox.Font = txt_template.Font;
-                txtBox.ReadOnly = true;
-                txtBox.Size = txt_template.Size;
-                txtBox.BackColor = Color.LightBlue;
-
-                txtBox.Text = reader["Alert"].ToString();
-
-                iTemplateX += txt_template.Size.Width + 50;
-
-                if (iCount % 4 == 0)
-                {
-                    iTemplateY += txt_template.Size.Height + 50;
-                    iTemplateX = txt_template.Location.X;
-                }
-
-                iCount++;
-
-                pnl_notes.Controls.Add(txtBox);
             }
 
             if (connection.State == ConnectionState.Open)
@@ -781,7 +566,7 @@ namespace KKCSInvoiceProject
                 }
             }
 
-            LoadAllNotes();
+            LoadGeneralNotes();
         }
 
         private void btn_addnewnote_Click(object sender, EventArgs e)
