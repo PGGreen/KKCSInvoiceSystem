@@ -1264,18 +1264,25 @@ namespace KKCSInvoiceProject
 
         public void PrintNotes(int _iPrinterPicked)
         {
+            lstInvoiceNotes = new List<string>();
+            lstGeneralNotes = new List<string>();
+            lstAlertNotes = new List<string>();
+
             m_iPrinterPicked = _iPrinterPicked;
+
+            bOnlyOnce = false;
 
             iLocationY = 50;
             iItemsPerPage = 0;
 
             iListCount = 0;
+            iListNotes = 0;
+            iListAlerts = 0;
+            iListGeneral = 0;
 
             iPageNumber = 1;
 
             pnl_printtitles.Visible = true;
-
-            bOnceOnly = false;
 
             PrintDocument PrintDocument = new PrintDocument();
 
@@ -1294,8 +1301,9 @@ namespace KKCSInvoiceProject
             {
                 PrintDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             }
-            PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
+            PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
             PrintDocument.PrintPage += new PrintPageEventHandler(doc_PrintNotesPage);
@@ -1305,7 +1313,12 @@ namespace KKCSInvoiceProject
             pnl_printtitles.Visible = false;
         }
 
-        bool bOnceOnly = false;
+        bool bOnlyOnce = false;
+        int iListNotes = 0;
+        int iListAlerts = 0;
+        int iListGeneral = 0;
+
+        int iMaxItems = 5;
 
         private void doc_PrintNotesPage(object sender, PrintPageEventArgs e)
         {
@@ -1324,45 +1337,26 @@ namespace KKCSInvoiceProject
 
             //NewPrintHeader(e);
 
-            if (!bOnceOnly)
+            if(!bOnlyOnce)
             {
                 FindInvoiceNumbersNotesAlerts();
 
-                if (connection.State == ConnectionState.Closed)
-                {
-                    connection.Open();
-                }
+                LoadInvoiceNotes(e);
 
-                OleDbCommand command = new OleDbCommand();
+                LoadInvoiceAlerts(e);
 
-                command.Connection = connection;
+                LoadGeneralNotes(e);
 
-                string sInvoiceNumber = "";
-
-                for (int i = 0; i < lstInvoice.Count; i++)
-                {
-                    sInvoiceNumber += lstInvoice[i] + ",";
-                }
-
-                string query = "select * from InvoiceNotes WHERE InvoiceNumber IN (" + sInvoiceNumber + ") ORDER BY DateAndTime DESC";
-
-                command.CommandText = query;
-
-                OleDbDataReader reader = command.ExecuteReader();
-
-                bOnceOnly = true;
+                bOnlyOnce = true;
             }
 
-            while (reader.Read())
+            while (iListGeneral < lstGeneralNotes.Count)
             {
-                string sNote = "";
+                DrawNotesStrings(e, lstGeneralNotes[iListGeneral], false);
 
-                sNote = reader["Rego"].ToString() +
-                    " (" + reader["InvoiceNumber"].ToString() + "): " + reader["Notes"].ToString();
+                iListGeneral++;
 
-                DrawNotesStrings(e, sNote);
-
-                if (iItemsPerPage < 2)
+                if (iItemsPerPage < iMaxItems)
                 {
                     iItemsPerPage++;
                     e.HasMorePages = false;
@@ -1374,14 +1368,56 @@ namespace KKCSInvoiceProject
 
                     iLocationY = 50;
 
-                    //return;
+                    return;
                 }
             }
 
-            //if (connection.State == ConnectionState.Open)
-            //{
-            //    connection.Close();
-            //}
+            while (iListNotes < lstInvoiceNotes.Count)
+            {
+                DrawNotesStrings(e, lstInvoiceNotes[iListNotes], false);
+
+                iListNotes++;
+
+                if (iItemsPerPage < iMaxItems)
+                {
+                    iItemsPerPage++;
+                    e.HasMorePages = false;
+                }
+                else
+                {
+                    iItemsPerPage = 0;
+                    e.HasMorePages = true;
+
+                    iLocationY = 50;
+
+                    return;
+                }
+            }
+
+            while (iListAlerts < lstAlertNotes.Count)
+            {
+                DrawNotesStrings(e, lstAlertNotes[iListAlerts], false);
+
+                iListAlerts++;
+
+                if (iItemsPerPage < iMaxItems)
+                {
+                    iItemsPerPage++;
+                    e.HasMorePages = false;
+                }
+                else
+                {
+                    if(iListAlerts != lstAlertNotes.Count)
+                    {
+                        iItemsPerPage = 0;
+                        e.HasMorePages = true;
+
+                        iLocationY = 50;
+
+                        return;
+                    }
+                }
+            }
         }
 
         List<string> lstInvoice;
@@ -1431,7 +1467,45 @@ namespace KKCSInvoiceProject
 
         void LoadInvoiceNotes(PrintPageEventArgs _e)
         {
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
 
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string sInvoiceNumber = "";
+
+            for (int i = 0; i < lstInvoice.Count; i++)
+            {
+                sInvoiceNumber += lstInvoice[i] + ",";
+            }
+
+            string query = "select * from InvoiceNotes WHERE InvoiceNumber IN (" + sInvoiceNumber + ") ORDER BY DateAndTime DESC";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+
+            while (reader.Read())
+            {
+                string sNote = "";
+
+                sNote = reader["Rego"].ToString() +
+                    " (" + reader["InvoiceNumber"].ToString() + "): " + reader["Notes"].ToString();
+
+                lstInvoiceNotes.Add(sNote);
+
+                //DrawNotesStrings(_e, sNote);
+            }
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         void LoadInvoiceAlerts(PrintPageEventArgs _e)
@@ -1471,9 +1545,7 @@ namespace KKCSInvoiceProject
 
                 sAlert = reader["Alert"].ToString();
 
-                DrawNotesStrings(_e, sAlert);
-
-                iLocationY += 40;
+                lstAlertNotes.Add(sAlert);
             }
 
             if (connection.State == ConnectionState.Open)
@@ -1482,17 +1554,55 @@ namespace KKCSInvoiceProject
             }
         }
 
-        void DrawNotesStrings(PrintPageEventArgs _e, string _sNote)
+        void LoadGeneralNotes(PrintPageEventArgs _e)
+        {
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from Notes WHERE IsClosed = False";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string sGeneralNote = "";
+
+                sGeneralNote = reader["Title"].ToString();
+
+                lstGeneralNotes.Add(sGeneralNote);
+            }
+
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        void DrawNotesStrings(PrintPageEventArgs _e, string _sNote, bool _bRed)
         {
             //PrintHorizontalLine(_e, 0);
 
             PointF pf = new PointF(0.0f, iLocationY);// new PointF(_Label.Bounds.Location.X, _pReturns.Bounds.Location.Y + iLocationY);
             Font f = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
 
-            Color red = Color.FromArgb(255, 220, 220);
+            Color color = Color.Red;
+
+            if (!_bRed)
+            {
+                color = Color.FromArgb(224, 253, 255);
+            }
+
             SizeF sf = _e.Graphics.MeasureString(_sNote, f, 800);
 
-            _e.Graphics.FillRectangle(new SolidBrush(red), new RectangleF(new PointF(0.0f, iLocationY), sf));
+            _e.Graphics.FillRectangle(new SolidBrush(color), new RectangleF(new PointF(0.0f, iLocationY), sf));
             _e.Graphics.DrawString(_sNote, f, Brushes.Black, new RectangleF(new PointF(0.0f, iLocationY), sf), StringFormat.GenericTypographic);
 
             iLocationY += 50 + (int)sf.Height;
