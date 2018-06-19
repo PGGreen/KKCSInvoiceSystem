@@ -36,10 +36,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.lbl_eftposin = new System.Windows.Forms.Label();
             this.pnl_stepsthree = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.cmb_stepthree = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.lbl_sod = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -47,6 +47,8 @@
             this.lbl_refunds = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pnl_steptwo = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.chk_eftposreset = new System.Windows.Forms.CheckBox();
@@ -114,7 +116,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Blue;
-            this.label10.Location = new System.Drawing.Point(6, 180);
+            this.label10.Location = new System.Drawing.Point(8, 223);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(378, 37);
             this.label10.TabIndex = 94;
@@ -125,7 +127,7 @@
             this.lbl_total.AutoSize = true;
             this.lbl_total.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.lbl_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total.Location = new System.Drawing.Point(381, 180);
+            this.lbl_total.Location = new System.Drawing.Point(383, 223);
             this.lbl_total.Name = "lbl_total";
             this.lbl_total.Size = new System.Drawing.Size(134, 37);
             this.lbl_total.TabIndex = 95;
@@ -133,7 +135,7 @@
             // 
             // txtbox_notes
             // 
-            this.txtbox_notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtbox_notes.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtbox_notes.Location = new System.Drawing.Point(20, 86);
             this.txtbox_notes.Multiline = true;
             this.txtbox_notes.Name = "txtbox_notes";
@@ -156,7 +158,7 @@
             this.lbl_eftposin.AutoSize = true;
             this.lbl_eftposin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.lbl_eftposin.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_eftposin.Location = new System.Drawing.Point(111, 57);
+            this.lbl_eftposin.Location = new System.Drawing.Point(110, 83);
             this.lbl_eftposin.Name = "lbl_eftposin";
             this.lbl_eftposin.Size = new System.Drawing.Size(134, 37);
             this.lbl_eftposin.TabIndex = 128;
@@ -165,10 +167,10 @@
             // pnl_stepsthree
             // 
             this.pnl_stepsthree.BackColor = System.Drawing.Color.White;
+            this.pnl_stepsthree.Controls.Add(this.label19);
+            this.pnl_stepsthree.Controls.Add(this.label22);
             this.pnl_stepsthree.Controls.Add(this.label15);
             this.pnl_stepsthree.Controls.Add(this.cmb_stepthree);
-            this.pnl_stepsthree.Controls.Add(this.label11);
-            this.pnl_stepsthree.Controls.Add(this.label9);
             this.pnl_stepsthree.Controls.Add(this.label1);
             this.pnl_stepsthree.Controls.Add(this.lbl_sod);
             this.pnl_stepsthree.Controls.Add(this.label4);
@@ -179,16 +181,36 @@
             this.pnl_stepsthree.Controls.Add(this.lbl_total);
             this.pnl_stepsthree.Controls.Add(this.label3);
             this.pnl_stepsthree.Enabled = false;
-            this.pnl_stepsthree.Location = new System.Drawing.Point(12, 359);
+            this.pnl_stepsthree.Location = new System.Drawing.Point(12, 410);
             this.pnl_stepsthree.Name = "pnl_stepsthree";
-            this.pnl_stepsthree.Size = new System.Drawing.Size(557, 326);
+            this.pnl_stepsthree.Size = new System.Drawing.Size(557, 339);
             this.pnl_stepsthree.TabIndex = 132;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(193, 180);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(90, 25);
+            this.label19.TabIndex = 135;
+            this.label19.Text = "$180.00";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(10, 180);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(158, 25);
+            this.label22.TabIndex = 136;
+            this.label22.Text = "End of Day Till:";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(17, 271);
+            this.label15.Location = new System.Drawing.Point(19, 283);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(156, 25);
             this.label15.TabIndex = 134;
@@ -206,31 +228,11 @@
             this.cmb_stepthree.Items.AddRange(new object[] {
             "Correct",
             "Incorrect"});
-            this.cmb_stepthree.Location = new System.Drawing.Point(179, 261);
+            this.cmb_stepthree.Location = new System.Drawing.Point(181, 273);
             this.cmb_stepthree.Name = "cmb_stepthree";
             this.cmb_stepthree.Size = new System.Drawing.Size(182, 41);
             this.cmb_stepthree.TabIndex = 134;
             this.cmb_stepthree.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(230, 227);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(72, 20);
-            this.label11.TabIndex = 123;
-            this.label11.Text = "$180.00)";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(13, 227);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(207, 20);
-            this.label9.TabIndex = 122;
-            this.label9.Text = "(Tomorrows Till Start of Day:";
             // 
             // lbl_sod
             // 
@@ -276,7 +278,7 @@
             // 
             this.lbl_refunds.AutoSize = true;
             this.lbl_refunds.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_refunds.Location = new System.Drawing.Point(186, 141);
+            this.lbl_refunds.Location = new System.Drawing.Point(187, 141);
             this.lbl_refunds.Name = "lbl_refunds";
             this.lbl_refunds.Size = new System.Drawing.Size(97, 25);
             this.lbl_refunds.TabIndex = 93;
@@ -295,6 +297,8 @@
             // pnl_steptwo
             // 
             this.pnl_steptwo.BackColor = System.Drawing.Color.White;
+            this.pnl_steptwo.Controls.Add(this.label2);
+            this.pnl_steptwo.Controls.Add(this.label8);
             this.pnl_steptwo.Controls.Add(this.label13);
             this.pnl_steptwo.Controls.Add(this.label7);
             this.pnl_steptwo.Controls.Add(this.chk_eftposreset);
@@ -306,14 +310,35 @@
             this.pnl_steptwo.Enabled = false;
             this.pnl_steptwo.Location = new System.Drawing.Point(12, 148);
             this.pnl_steptwo.Name = "pnl_steptwo";
-            this.pnl_steptwo.Size = new System.Drawing.Size(557, 196);
+            this.pnl_steptwo.Size = new System.Drawing.Size(557, 245);
             this.pnl_steptwo.TabIndex = 133;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(18, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 20);
+            this.label2.TabIndex = 134;
+            this.label2.Text = "Refunds:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(94, 53);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(72, 20);
+            this.label8.TabIndex = 135;
+            this.label8.Text = "-$000.00";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(260, 22);
+            this.label13.Location = new System.Drawing.Point(244, 47);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(156, 25);
             this.label13.TabIndex = 133;
@@ -323,7 +348,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(24, 100);
+            this.label7.Location = new System.Drawing.Point(24, 134);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(376, 24);
             this.label7.TabIndex = 132;
@@ -334,7 +359,7 @@
             this.chk_eftposreset.AutoSize = true;
             this.chk_eftposreset.Enabled = false;
             this.chk_eftposreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_eftposreset.Location = new System.Drawing.Point(315, 154);
+            this.chk_eftposreset.Location = new System.Drawing.Point(315, 188);
             this.chk_eftposreset.Name = "chk_eftposreset";
             this.chk_eftposreset.Size = new System.Drawing.Size(116, 28);
             this.chk_eftposreset.TabIndex = 131;
@@ -348,7 +373,7 @@
             this.lbl_eftpostotals.Enabled = false;
             this.lbl_eftpostotals.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_eftpostotals.ForeColor = System.Drawing.Color.Red;
-            this.lbl_eftpostotals.Location = new System.Drawing.Point(22, 124);
+            this.lbl_eftpostotals.Location = new System.Drawing.Point(22, 158);
             this.lbl_eftpostotals.Name = "lbl_eftpostotals";
             this.lbl_eftpostotals.Size = new System.Drawing.Size(341, 58);
             this.lbl_eftpostotals.TabIndex = 130;
@@ -366,7 +391,7 @@
             this.cmb_Steptwo.Items.AddRange(new object[] {
             "Correct",
             "Incorrect"});
-            this.cmb_Steptwo.Location = new System.Drawing.Point(261, 53);
+            this.cmb_Steptwo.Location = new System.Drawing.Point(249, 79);
             this.cmb_Steptwo.Name = "cmb_Steptwo";
             this.cmb_Steptwo.Size = new System.Drawing.Size(182, 41);
             this.cmb_Steptwo.TabIndex = 129;
@@ -376,7 +401,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(15, 57);
+            this.label14.Location = new System.Drawing.Point(14, 83);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(98, 37);
             this.label14.TabIndex = 124;
@@ -391,7 +416,7 @@
             this.pnl_stepfive.Controls.Add(this.chk_signedform);
             this.pnl_stepfive.Controls.Add(this.lbl_haveyousigned);
             this.pnl_stepfive.Enabled = false;
-            this.pnl_stepfive.Location = new System.Drawing.Point(586, 148);
+            this.pnl_stepfive.Location = new System.Drawing.Point(586, 625);
             this.pnl_stepfive.Name = "pnl_stepfive";
             this.pnl_stepfive.Size = new System.Drawing.Size(557, 124);
             this.pnl_stepfive.TabIndex = 135;
@@ -503,7 +528,7 @@
             // 
             this.btn_endday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btn_endday.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_endday.Location = new System.Drawing.Point(346, 691);
+            this.btn_endday.Location = new System.Drawing.Point(346, 790);
             this.btn_endday.Name = "btn_endday";
             this.btn_endday.Size = new System.Drawing.Size(223, 64);
             this.btn_endday.TabIndex = 136;
@@ -520,7 +545,7 @@
             this.pnl_stepfour.Enabled = false;
             this.pnl_stepfour.Location = new System.Drawing.Point(586, 58);
             this.pnl_stepfour.Name = "pnl_stepfour";
-            this.pnl_stepfour.Size = new System.Drawing.Size(557, 76);
+            this.pnl_stepfour.Size = new System.Drawing.Size(557, 84);
             this.pnl_stepfour.TabIndex = 134;
             // 
             // cmb_worker
@@ -557,9 +582,9 @@
             this.panel3.Controls.Add(this.label17);
             this.panel3.Controls.Add(this.label20);
             this.panel3.Controls.Add(this.txtbox_notes);
-            this.panel3.Location = new System.Drawing.Point(586, 291);
+            this.panel3.Location = new System.Drawing.Point(586, 148);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(557, 394);
+            this.panel3.Size = new System.Drawing.Size(557, 467);
             this.panel3.TabIndex = 135;
             // 
             // label17
@@ -587,9 +612,9 @@
             this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.lbl_runningtotals);
             this.panel4.Controls.Add(this.label18);
-            this.panel4.Location = new System.Drawing.Point(1166, 58);
+            this.panel4.Location = new System.Drawing.Point(1160, 58);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(346, 627);
+            this.panel4.Size = new System.Drawing.Size(346, 691);
             this.panel4.TabIndex = 136;
             // 
             // lbl_runningtotals
@@ -669,7 +694,7 @@
             this.lbl_dayend.AutoSize = true;
             this.lbl_dayend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lbl_dayend.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_dayend.Location = new System.Drawing.Point(12, 705);
+            this.lbl_dayend.Location = new System.Drawing.Point(12, 804);
             this.lbl_dayend.Name = "lbl_dayend";
             this.lbl_dayend.Size = new System.Drawing.Size(328, 39);
             this.lbl_dayend.TabIndex = 142;
@@ -744,8 +769,6 @@
         private System.Windows.Forms.Panel pnl_stepfive;
         private System.Windows.Forms.CheckBox chk_signedform;
         private System.Windows.Forms.Label lbl_haveyousigned;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lbl_sod;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
@@ -784,5 +807,9 @@
         private System.Windows.Forms.Label lbl_runningtotals;
         private System.Windows.Forms.Label lbl_dayend;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label22;
     }
 }

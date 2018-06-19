@@ -240,6 +240,12 @@
     <Compile Include="Invoice\ShowNotesAlerts.Designer.cs">
       <DependentUpon>ShowNotesAlerts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Summary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Summary.Designer.cs">
+      <DependentUpon>Summary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Testing\Testing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -613,6 +619,9 @@
     <EmbeddedResource Include="Stats\YardStats.resx">
       <DependentUpon>YardStats.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Summary.resx">
+      <DependentUpon>Summary.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Testing\Testing.resx">
       <DependentUpon>Testing.cs</DependentUpon>
     </EmbeddedResource>
@@ -668,15 +677,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>7</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="Microsoft.Office.Interop.Access.Dao">
       <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
       <VersionMajor>12</VersionMajor>

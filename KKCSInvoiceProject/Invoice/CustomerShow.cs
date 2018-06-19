@@ -42,11 +42,19 @@ namespace KKCSInvoiceProject
             label9.Text = DateTime.Now.ToString("dd-MMM-yyyy\r\n  hh:mmtt");
         }
 
-        public void UpdateInfo(string _sName, string _sRego, string _sCarMake)
+        public void UpdateInfo(string _sName, string _sRego, string _sCarMake, string _sAccount)
         {
             txt_name.Text = _sName;
             txt_carrego.Text = _sRego;
             txt_carmake.Text = _sCarMake;
+
+            pnl_acc.Visible = false;
+
+            if (_sAccount != "")
+            {
+                pnl_acc.Visible = true;
+                lbl_acc.Text = _sAccount;
+            }
         }
 
         public void UpdateDateAndTime(string _sTimeIn, string _sFlightOut, string _sDays)
@@ -56,8 +64,23 @@ namespace KKCSInvoiceProject
             lbl_stay.Text = _sDays;
         }
 
+        public void UpdatePaidStatus(string _sPaidStatus)
+        {
+            int i = 0;
+        }
+
         public void UpdatePrice(string _sPrice, string _sPaidStatus)
         {
+            //switch(_sPaidStatus)
+            //{
+            //    case "Eftpos":
+            //    case "Credit Card":
+            //        {
+            //            lbl_paidby.BackColor = Color.Lime;
+            //            break;
+            //        }
+            //}
+
             lbl_paidby.Text = "Paid By: " + _sPaidStatus;
 
             if(_sPrice == "UNKNOWN")
@@ -74,8 +97,6 @@ namespace KKCSInvoiceProject
                 lbl_ccfee.Visible = true;
             }
 
-            bool bError = false;
-
             if (_sPrice != "")
             {
                 float fPrice = 0.0f;
@@ -83,21 +104,6 @@ namespace KKCSInvoiceProject
 
                 lbl_price.Visible = true;
                 lbl_price.Text = "$" + fPrice.ToString("0.00");
-
-                if(!bError)
-                { 
-                    //lbl_price.Text = eError.ToString();
-                    //lbl_paidby.Visible = false;
-                }
-
-                if(fPrice < 100.0f)
-                {
-                    lbl_paidby.Location = new Point(749, 391);
-                }
-                else
-                {
-                    lbl_paidby.Location = new Point(807, 389);
-                }
             }
             else
             {

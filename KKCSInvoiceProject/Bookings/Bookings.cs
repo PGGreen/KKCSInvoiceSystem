@@ -145,7 +145,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"select * from Bookings";
+            string query = @"select * from Bookings WHERE ID="+ _id + "";
 
             command.CommandText = query;
 

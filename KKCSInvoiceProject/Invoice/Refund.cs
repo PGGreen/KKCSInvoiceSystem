@@ -31,7 +31,7 @@ namespace KKCSInvoiceProject
 
         }
         
-        public void SetUpPrice()
+        public void SetUpRefund()
         {
             // Sets up the global days and times
             int iDays = 0;
@@ -150,22 +150,7 @@ namespace KKCSInvoiceProject
         
         private void chk_addascredit_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_addascredit.Checked)
-            {
-                pnl_credit.Visible = true;
-                pnl_refund.Visible = false;
 
-                pnl_credit.Enabled = true;
-                pnl_refund.Enabled = false;
-            }
-            else
-            {
-                pnl_credit.Visible = false;
-                pnl_refund.Visible = true;
-
-                pnl_credit.Enabled = false;
-                pnl_refund.Enabled = true;
-            }
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -173,9 +158,9 @@ namespace KKCSInvoiceProject
             Close();
         }
 
-        public void LoadInfoFromInvoice(DateTime _dtIn, DateTime _dtOut, 
-                                        string _sPrice, string _sInvoice, 
-                                        string _sTimeIn, string _sTimeOut, string _sDays)
+        public void LoadInfoFromInvoice(DateTime _dtIn, DateTime _dtOut, string _sTimeIn, string _sTimeOut,
+                                        string _sPrice, string _sInvoice, string _sDays, string _sFName,
+                                         string _sLName, string _sRego, string _sPaidStatus)
         {
             m_dtIn = _dtIn;
             m_dtOut = _dtOut;
@@ -186,12 +171,59 @@ namespace KKCSInvoiceProject
 
             DateTime dtToday = DateTime.Now;
 
-            label4.Text += " " + _sDays;
-
             TimeSpan TimeDifference = m_dtOut - dtToday;
             int iDays = TimeDifference.Days;
 
-            lbl_daysearly.Text += " " + iDays.ToString();
+            SetUpRefund();
+
+            //lbl_daysearl.Text += " " + _sDays;
+
+            //TimeSpan TimeDifference = m_dtOut - dtToday;
+            //int iDays = TimeDifference.Days;
+
+            //lbl_daysearly.Text += " " + iDays.ToString();
+        }
+
+        private void btn_eftpos_Click(object sender, EventArgs e)
+        {
+            pnl_credit.Visible = false;
+            pnl_refund.Visible = false;
+            cmb_location.Visible = false;
+            lbl_from.Visible = false;
+
+            pnl_refund.Visible = true;
+            cmb_location.Visible = false;
+            lbl_from.Visible = false;
+
+            lbl_typeofrefund.Text = "Eftpos Refund";
+
+            btn_confirm.Visible = true;
+            btn_instructions.Visible = true;
+        }
+
+        private void btn_cash_Click(object sender, EventArgs e)
+        {
+            pnl_credit.Visible = false;
+            pnl_refund.Visible = false;
+
+            cmb_location.Visible = true;
+            lbl_from.Visible = true;
+            pnl_refund.Visible = true;
+
+            lbl_typeofrefund.Text = "Cash Refund";
+
+            btn_confirm.Visible = true;
+            btn_instructions.Visible = false;
+        }
+
+        private void btn_credit_Click(object sender, EventArgs e)
+        {
+            pnl_credit.Visible = false;
+            pnl_refund.Visible = false;
+
+            pnl_credit.Visible = true;
+
+            btn_confirm.Visible = true;
         }
     }
 }

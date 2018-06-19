@@ -434,7 +434,36 @@ namespace KKCSInvoiceProject
                 }
             }
 
+            DateTime dtToday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
             WarningsStoreOriginalValues();
+
+            if(false)//dt_returndate.Value > dtToday)
+            {
+                WarningSystem ws = new WarningSystem("Has this customer come in early?", true);
+                ws.ShowDialog();
+
+                if(ws.DialogResult == DialogResult.OK)
+                {
+                    Refund r = new Refund();
+                    string sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
+                    r.LoadInfoFromInvoice(dt_datein.Value,
+                                          dt_returndate.Value, 
+                                          sTimeIn,
+                                          txt_flighttimes.Text,
+                                          txt_total.Text,
+                                          txt_invoiceno.Text,
+                                          lbl_stay.Text,
+                                          txt_firstname.Text,
+                                          txt_lastname.Text,
+                                          cmb_rego.Text,
+                                          g_sPaidStatus);
+                    r.ShowDialog();
+                }
+                else
+                {
+                    //MessageBox.Show("No");
+                }
+            }
 
             cmb_worker.Enabled = false;
 
@@ -1595,7 +1624,7 @@ namespace KKCSInvoiceProject
 
                 fmCustomerShow = cs;
             }
-
+            
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
             string sName = "";
@@ -1610,7 +1639,14 @@ namespace KKCSInvoiceProject
                 sName += txt_lastname.Text;
             }
 
-            objCustomerShow.UpdateInfo(sName, cmb_rego.Text, cmb_makemodel.Text);
+            string sAccount = "";
+
+            if(g_bIsAlreadyAccount)
+            {
+                sAccount = txt_account.Text;
+            }
+
+            objCustomerShow.UpdateInfo(sName, cmb_rego.Text, cmb_makemodel.Text, sAccount);
         }
 
         void UpdateCustomerShowPrice()
@@ -3188,6 +3224,11 @@ Number: 02-0800-0493229-00
                     }
             }
 
+            Form fmCustomerShow = Application.OpenForms["CustomerShow"];
+            CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
+
+            objCustomerShow.UpdatePaidStatus(cmb_paidstatus.Text);
+
             if (!m_bInitialSetUpFromCarReturns)
             {
                 WarningsChangesMade();
@@ -3366,7 +3407,7 @@ Number: 02-0800-0493229-00
         {
             Refund r = new Refund();
             string sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
-            r.LoadInfoFromInvoice(dt_datein.Value, dt_returndate.Value, txt_total.Text, txt_invoiceno.Text, sTimeIn, txt_flighttimes.Text, lbl_stay.Text);
+            //r.LoadInfoFromInvoice(dt_datein.Value, dt_returndate.Value, txt_total.Text, txt_invoiceno.Text, sTimeIn, txt_flighttimes.Text, lbl_stay.Text);
             r.ShowDialog();
         }
 

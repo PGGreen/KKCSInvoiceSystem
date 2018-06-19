@@ -34,6 +34,7 @@
             this.btn_eod = new System.Windows.Forms.Button();
             this.btn_printcarreturns = new System.Windows.Forms.Button();
             this.pnl_notes = new System.Windows.Forms.Panel();
+            this.btn_note = new System.Windows.Forms.Button();
             this.chk_showclosed = new System.Windows.Forms.CheckBox();
             this.btn_addnewnote = new System.Windows.Forms.Button();
             this.btn_markclosed = new System.Windows.Forms.Button();
@@ -59,7 +60,6 @@
             this.cmb_printerpicked = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_note = new System.Windows.Forms.Button();
             this.pnl_notes.SuspendLayout();
             this.ms_mainstrip.SuspendLayout();
             this.SuspendLayout();
@@ -135,10 +135,24 @@
             this.pnl_notes.Controls.Add(this.btn_addnewnote);
             this.pnl_notes.Controls.Add(this.btn_markclosed);
             this.pnl_notes.Controls.Add(this.label3);
-            this.pnl_notes.Location = new System.Drawing.Point(51, 272);
+            this.pnl_notes.Location = new System.Drawing.Point(647, 81);
             this.pnl_notes.Name = "pnl_notes";
             this.pnl_notes.Size = new System.Drawing.Size(500, 328);
             this.pnl_notes.TabIndex = 24;
+            this.pnl_notes.Visible = false;
+            // 
+            // btn_note
+            // 
+            this.btn_note.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btn_note.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_note.Location = new System.Drawing.Point(18, 56);
+            this.btn_note.Name = "btn_note";
+            this.btn_note.Size = new System.Drawing.Size(285, 23);
+            this.btn_note.TabIndex = 6;
+            this.btn_note.Text = "Note Heading";
+            this.btn_note.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_note.UseVisualStyleBackColor = false;
+            this.btn_note.Visible = false;
             // 
             // chk_showclosed
             // 
@@ -201,7 +215,7 @@
             this.testToolStripMenuItem});
             this.ms_mainstrip.Location = new System.Drawing.Point(0, 0);
             this.ms_mainstrip.Name = "ms_mainstrip";
-            this.ms_mainstrip.Size = new System.Drawing.Size(660, 25);
+            this.ms_mainstrip.Size = new System.Drawing.Size(650, 25);
             this.ms_mainstrip.TabIndex = 26;
             this.ms_mainstrip.Text = "menuStrip1";
             // 
@@ -380,25 +394,12 @@
             this.label1.TabIndex = 234;
             this.label1.Text = "Kerikeri Car Storage Invoice System";
             // 
-            // btn_note
-            // 
-            this.btn_note.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btn_note.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_note.Location = new System.Drawing.Point(18, 56);
-            this.btn_note.Name = "btn_note";
-            this.btn_note.Size = new System.Drawing.Size(285, 23);
-            this.btn_note.TabIndex = 6;
-            this.btn_note.Text = "Note Heading";
-            this.btn_note.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_note.UseVisualStyleBackColor = false;
-            this.btn_note.Visible = false;
-            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(660, 625);
+            this.ClientSize = new System.Drawing.Size(650, 261);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.cmb_printerpicked);

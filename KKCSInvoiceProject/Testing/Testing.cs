@@ -39,9 +39,11 @@ namespace KKCSInvoiceProject
 
             //XMLTest();
 
-            TotalYearlyMoney();
+            //TotalYearlyMoney();
 
             //GetRegoFromInvoice();
+
+            CarAverages();
         }
 
         void Test()
@@ -100,6 +102,81 @@ namespace KKCSInvoiceProject
                 }
             }
             //Console.ReadKey();
+        }
+
+        void CarAverages()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "SELECT * FROM CustomerInvoices ORDER BY DTDateIn";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            string sStoreFirstMonth = "";
+            string sStoreSecondMonth = "";
+
+            DateTime dtDateIn = DateTime.Now;
+            DateTime dtDateReturn = DateTime.Now;
+
+            bool bIgnoreFirstTime = true;
+
+            int iMonthCount = 0;
+
+            List<int> CarStays = new List<int>();
+            TimeSpan ts = dtDateIn - dtDateReturn;
+
+
+            while (reader.Read())
+            {
+                dtDateIn = (DateTime)reader["DTDateIn"];
+                dtDateReturn = (DateTime)reader["DTReturnDate"];
+
+                ts = dtDateReturn - dtDateIn;
+
+                if (dtDateIn.Year == 2018)
+                {
+                    CarStays.Add(ts.Days);
+                }
+            }
+
+            //CarStays.Add(ts.Days);
+
+            CarStays.Sort();
+
+            int iStoreFirst = 0;
+            int iStoreSecond = 0;
+            bool bIgnoreFirst = true;
+
+            int iCountHowMany = 0;
+
+            for (int i = 0; i < CarStays.Count; i++)
+            {
+                iStoreFirst = CarStays[i];
+
+                iCountHowMany++;
+
+                if (iStoreFirst != iStoreSecond && !bIgnoreFirst && iStoreFirst >= 0)
+                {
+                    txt_test.Text += iCountHowMany + " customers stayed for " + iStoreFirst + " Days" + "\r\n";
+
+                    iCountHowMany = 0;
+
+                    iStoreSecond = iStoreFirst;
+                }
+
+                iStoreSecond = iStoreFirst;
+
+                bIgnoreFirst = false;
+            }
+
+            txt_test.Text += iCountHowMany + ": " + iStoreFirst + "x" + "\r\n";
+
         }
 
         void GetRegoFromInvoice()
@@ -340,7 +417,7 @@ namespace KKCSInvoiceProject
 
         int iTotalCars = 0;
         int iYearlyCars = 0;
-
+        
         string sStoreYearFirst = "";
         string sStoreYearSecond = "";
         bool bIgnoreFirstTime = true;

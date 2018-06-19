@@ -599,8 +599,6 @@ namespace KKCSInvoiceProject
 
             string query = "";
 
-            string EODTill = "50";
-            string EODPB = "50";
             bool bIsDayEnded = true;
             bool bIsCashCorrect = true;
             bool bIsEftposCorrect = true;
@@ -609,10 +607,8 @@ namespace KKCSInvoiceProject
 
             DateTime dtNow = dtTodaysDate;
                                            
-            query = @"INSERT INTO EndOfDay (DTEODDate,EODPlasticBox,EODTill,StaffMember,Notes,IsDayEnded,CashCorrect,EftposCorrect) 
+            query = @"INSERT INTO EndOfDay (DTEODDate,StaffMember,Notes,IsDayEnded,CashCorrect,EftposCorrect) 
                             values ('" + dtNow + 
-                            "', '" + EODTill + 
-                            "', '" + EODPB +
                             "', '" + sStaffMember +
                             "', '" + sNotes +
                             "', " + bIsDayEnded +
@@ -1982,8 +1978,6 @@ namespace KKCSInvoiceProject
         }
 
         #endregion Reports
-
-
 
         private void btn_dateleft_Click(object sender, EventArgs e)
         {

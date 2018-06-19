@@ -242,6 +242,11 @@ namespace KKCSInvoiceProject
                 {
                     ControlLabels(p);
                 }
+                // Handles all the Label Controlls
+                if (p.GetType() == typeof(TextBox))
+                {
+                    ControlTextBox(p);
+                }
             }
 
             Controls.Add(pnl);
@@ -275,6 +280,18 @@ namespace KKCSInvoiceProject
                 btn.Visible = true;
 
                 btn.Click += new EventHandler(btn_InsertWRego_Click);
+            }
+
+            // Is it the Invoice No Button
+            if (_p.Name == "btn_savecredit")
+            {
+                btn.Text = _p.Text;
+                btn.Name = reader["ID"].ToString();
+                btn.BackColor = _p.BackColor;
+
+                btn.Visible = true;
+
+                //btn.Click += new EventHandler(btn_InsertWRego_Click);
             }
 
             btn.Location = _p.Location;
@@ -345,6 +362,27 @@ namespace KKCSInvoiceProject
             lbl.Location = _p.Location;
 
             pnl.Controls.Add(lbl);
+        }
+
+        void ControlTextBox(Control _p)
+        {
+            TextBox txtBox = new TextBox();
+
+            if (_p.Name == "txt_credit")
+            {
+                txtBox.Font = _p.Font;
+                txtBox.Size = _p.Size;
+                txtBox.Location = _p.Location;
+
+                txtBox.Text = reader["Credit"].ToString();
+
+                if(txtBox.Text != "")
+                {
+                    txtBox.BackColor = Color.LightGreen;
+                }
+            }
+
+            pnl.Controls.Add(txtBox);
         }
 
         #endregion

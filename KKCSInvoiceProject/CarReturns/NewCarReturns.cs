@@ -72,11 +72,6 @@ namespace KKCSInvoiceProject
 
         #endregion
 
-        void Test()
-        {
-
-        }
-
         #region CreatePanels
 
         void RefreshReturnDate()
@@ -1266,6 +1261,7 @@ namespace KKCSInvoiceProject
         {
             lstInvoiceNotes = new List<string>();
             lstGeneralNotes = new List<string>();
+            lstHighPriorityNotes = new List<string>();
             lstAlertNotes = new List<string>();
 
             m_iPrinterPicked = _iPrinterPicked;
@@ -1303,7 +1299,7 @@ namespace KKCSInvoiceProject
             }
             //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
-            PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
+            //PrintDocument.PrinterSettings.PrinterName = "Adobe PDF";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
             PrintDocument.PrintPage += new PrintPageEventHandler(doc_PrintNotesPage);
@@ -1327,7 +1323,7 @@ namespace KKCSInvoiceProject
             DateTime dtTodaysDate = DateTime.Now;
             string g_strDatePicked = dtTodaysDate.Day.ToString() + "/" + dtTodaysDate.Month.ToString() + "/" + dtTodaysDate.Year.ToString();
 
-            g_strDatePicked = "Todays Notes (" + g_strDatePicked + ") - Page " + iPageNumber.ToString();
+            g_strDatePicked = "Notes (" + g_strDatePicked + ") - Page " + iPageNumber.ToString();
 
             e.Graphics.FillRectangle(Brushes.LightGreen, 5, 7, 1100, 40);
             e.Graphics.DrawString(g_strDatePicked, new Font("Courier New", 26, FontStyle.Bold), new SolidBrush(Color.Black), 350, 7);
@@ -1346,6 +1342,8 @@ namespace KKCSInvoiceProject
                 LoadInvoiceAlerts(e);
 
                 LoadGeneralNotes(e);
+
+                LoadHighPriorityNotes(e);
 
                 bOnlyOnce = true;
             }
@@ -1426,6 +1424,7 @@ namespace KKCSInvoiceProject
         List<string> lstInvoiceNotes;
         List<string> lstAlertNotes;
         List<string> lstGeneralNotes;
+        List<string> lstHighPriorityNotes;
 
         void FindInvoiceNumbersNotesAlerts()
         {
@@ -1575,7 +1574,7 @@ namespace KKCSInvoiceProject
             {
                 string sGeneralNote = "";
 
-                sGeneralNote = reader["Title"].ToString();
+                sGeneralNote = reader["Notes"].ToString();
 
                 lstGeneralNotes.Add(sGeneralNote);
             }
@@ -1584,6 +1583,11 @@ namespace KKCSInvoiceProject
             {
                 connection.Close();
             }
+        }
+
+        void LoadHighPriorityNotes(PrintPageEventArgs _e)
+        {
+
         }
 
         void DrawNotesStrings(PrintPageEventArgs _e, string _sNote, bool _bRed)
@@ -1620,8 +1624,8 @@ namespace KKCSInvoiceProject
         {
             m_iPrinterPicked = _iPrinterPicked;
 
-            PrintNotes(_iPrinterPicked);
-            /*
+            //PrintNotes(_iPrinterPicked);
+            
             iLocationY = 50;
             iItemsPerPage = 0;
 
@@ -1648,7 +1652,7 @@ namespace KKCSInvoiceProject
             {
                 PrintDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             }
-            PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
+            //PrintDocument.PrinterSettings.PrinterName = "CutePDF Writer";
             //printDocument.PrinterSettings.PrinterName = "Lexmark MX510 Series XL";
             PrintDocument.OriginAtMargins = false;
             PrintDocument.DefaultPageSettings.Landscape = true;
@@ -1660,7 +1664,7 @@ namespace KKCSInvoiceProject
 
             PrintUnknowns();
             
-            */
+            
         }
 
         private void doc_PrintReturnsPage(object sender, PrintPageEventArgs e)

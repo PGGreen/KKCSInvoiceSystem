@@ -46,6 +46,9 @@
             this.lbl_customername = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_search = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_credit = new System.Windows.Forms.TextBox();
+            this.btn_savecredit = new System.Windows.Forms.Button();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,6 +140,8 @@
             // 
             this.pnl_template.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.pnl_template.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnl_template.Controls.Add(this.btn_savecredit);
+            this.pnl_template.Controls.Add(this.txt_credit);
             this.pnl_template.Controls.Add(this.btn_InsertWRego);
             this.pnl_template.Controls.Add(this.lbl_account);
             this.pnl_template.Controls.Add(this.btn_insert);
@@ -146,7 +151,7 @@
             this.pnl_template.Controls.Add(this.lbl_customername);
             this.pnl_template.Location = new System.Drawing.Point(10, 269);
             this.pnl_template.Name = "pnl_template";
-            this.pnl_template.Size = new System.Drawing.Size(1106, 39);
+            this.pnl_template.Size = new System.Drawing.Size(1316, 39);
             this.pnl_template.TabIndex = 129;
             this.pnl_template.Visible = false;
             // 
@@ -246,12 +251,40 @@
             this.btn_search.UseVisualStyleBackColor = false;
             this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1125, 231);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 20);
+            this.label3.TabIndex = 157;
+            this.label3.Text = "Credit";
+            // 
+            // txt_credit
+            // 
+            this.txt_credit.Location = new System.Drawing.Point(1118, 9);
+            this.txt_credit.Name = "txt_credit";
+            this.txt_credit.Size = new System.Drawing.Size(72, 20);
+            this.txt_credit.TabIndex = 31;
+            // 
+            // btn_savecredit
+            // 
+            this.btn_savecredit.BackColor = System.Drawing.Color.Red;
+            this.btn_savecredit.Location = new System.Drawing.Point(1195, 8);
+            this.btn_savecredit.Name = "btn_savecredit";
+            this.btn_savecredit.Size = new System.Drawing.Size(75, 23);
+            this.btn_savecredit.TabIndex = 32;
+            this.btn_savecredit.Text = "Save Credit";
+            this.btn_savecredit.UseVisualStyleBackColor = false;
+            // 
             // SearchByName
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1128, 619);
+            this.ClientSize = new System.Drawing.Size(1406, 619);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btn_search);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
@@ -293,5 +326,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_InsertWRego;
         private System.Windows.Forms.Button btn_search;
+        private System.Windows.Forms.Button btn_savecredit;
+        private System.Windows.Forms.TextBox txt_credit;
+        private System.Windows.Forms.Label label3;
     }
 }
