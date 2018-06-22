@@ -28,5 +28,11 @@ namespace KKCSInvoiceProject
             AdminFlightTimes aft = new AdminFlightTimes();
             aft.Show();
         }
+
+        private void btn_pricing_Click(object sender, EventArgs e)
+        {
+            AdminPricing ap = new AdminPricing();
+            ap.Show();
+        }
     }
 }

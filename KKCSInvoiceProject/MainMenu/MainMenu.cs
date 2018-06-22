@@ -450,34 +450,34 @@ namespace KKCSInvoiceProject
 
             OleDbDataReader reader = command.ExecuteReader();
 
-            int iButtonNoteX = btn_note.Location.X;
-            int iButtonNoteY = btn_note.Location.Y;
+            //int iButtonNoteX = btn_note.Location.X;
+            //int iButtonNoteY = btn_note.Location.Y;
 
-            int iButtonMarkClosedX = btn_markclosed.Location.X;
-            int iButtonMarkClosedY = btn_markclosed.Location.Y;
+            //int iButtonMarkClosedX = btn_markclosed.Location.X;
+            //int iButtonMarkClosedY = btn_markclosed.Location.Y;
 
             while (reader.Read())
             {
                 Button btn = new Button();
-                btn.Location = new Point(iButtonNoteX, iButtonNoteY);
-                btn.Font = btn_note.Font;
-                btn.Size = btn_note.Size;
-                btn.TextAlign = btn_note.TextAlign;
+                //btn.Location = new Point(iButtonNoteX, iButtonNoteY);
+                //btn.Font = btn_note.Font;
+                //btn.Size = btn_note.Size;
+                //btn.TextAlign = btn_note.TextAlign;
                 btn.Click += btn_edit_Click;
                 btn.Name = reader["ID"].ToString();
                 btn.Text = reader["Title"].ToString();
 
                 Button btnMarkClose = new Button();
-                btnMarkClose.Location = new Point(iButtonMarkClosedX, iButtonMarkClosedY);
-                btnMarkClose.Font = btn_markclosed.Font;
-                btnMarkClose.Size = btn_markclosed.Size;
-                btnMarkClose.TextAlign = btn_markclosed.TextAlign;
+                //btnMarkClose.Location = new Point(iButtonMarkClosedX, iButtonMarkClosedY);
+                //btnMarkClose.Font = btn_markclosed.Font;
+                //btnMarkClose.Size = btn_markclosed.Size;
+                //btnMarkClose.TextAlign = btn_markclosed.TextAlign;
                 btnMarkClose.Click += btn_mark_Click;
                 btnMarkClose.Name = reader["ID"].ToString();
-                btnMarkClose.Text = btn_markclosed.Text;
+                //btnMarkClose.Text = btn_markclosed.Text;
 
-                pnl_notes.Controls.Add(btn);
-                pnl_notes.Controls.Add(btnMarkClose);
+                //pnl_notes.Controls.Add(btn);
+                //pnl_notes.Controls.Add(btnMarkClose);
 
                 if ((bool)reader["IsHighPriority"])
                 {
@@ -486,11 +486,11 @@ namespace KKCSInvoiceProject
                 }
                 else
                 {
-                    btn.BackColor = btn_note.BackColor;
+                    //btn.BackColor = btn_note.BackColor;
                 }
 
-                iButtonNoteY += btn_note.Size.Height + 10;
-                iButtonMarkClosedY += btn_markclosed.Height + 10;
+                //iButtonNoteY += btn_note.Size.Height + 10;
+                //iButtonMarkClosedY += btn_markclosed.Height + 10;
 
                 iCount++;
             }
@@ -553,16 +553,16 @@ namespace KKCSInvoiceProject
 
         void DeleteAndRefreshNotes()
         {
-            foreach (TextBox txt in pnl_notes.Controls.OfType<TextBox>().ToArray())
+            //foreach (TextBox txt in pnl_notes.Controls.OfType<TextBox>().ToArray())
             {
-                pnl_notes.Controls.Remove(txt);
+                //pnl_notes.Controls.Remove(txt);
             }
 
-            foreach (Button btn in pnl_notes.Controls.OfType<Button>().ToArray())
+            //foreach (Button btn in pnl_notes.Controls.OfType<Button>().ToArray())
             {
-                if(btn.Name != "btn_addnewnote")
+                //if(btn.Name != "btn_addnewnote")
                 {
-                    pnl_notes.Controls.Remove(btn);
+                    //pnl_notes.Controls.Remove(btn);
                 }
             }
 
@@ -592,11 +592,11 @@ namespace KKCSInvoiceProject
 
         private void chk_showclosed_CheckedChanged(object sender, EventArgs e)
         {
-            if(chk_showclosed.Checked)
+            //if(chk_showclosed.Checked)
             {
                 bShowClosedNotes = true;
             }
-            else
+            //else
             {
                 bShowClosedNotes = false;
             }
@@ -1869,6 +1869,12 @@ namespace KKCSInvoiceProject
             SearchByName sbn = new SearchByName();
             //sbn.FormClosing += CloseCustomerSearch;
             sbn.Show();
+        }
+
+        private void adminToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdministratorPassword adp = new AdministratorPassword();
+            adp.Show();
         }
 
         #endregion

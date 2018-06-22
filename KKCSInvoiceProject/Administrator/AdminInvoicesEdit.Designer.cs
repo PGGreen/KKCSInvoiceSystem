@@ -44,7 +44,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -191,16 +190,6 @@
             this.label8.TabIndex = 16;
             this.label8.Text = "Time In:";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(973, 290);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // AdminInvoicesEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,7 +209,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_rego);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.txt_keyno);
             this.Controls.Add(this.label1);
             this.Name = "AdminInvoicesEdit";
@@ -248,6 +236,5 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

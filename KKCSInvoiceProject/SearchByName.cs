@@ -289,7 +289,7 @@ namespace KKCSInvoiceProject
                 btn.Name = reader["ID"].ToString();
                 btn.BackColor = _p.BackColor;
 
-                btn.Visible = true;
+                btn.Visible = false;
 
                 //btn.Click += new EventHandler(btn_InsertWRego_Click);
             }
@@ -373,10 +373,13 @@ namespace KKCSInvoiceProject
                 txtBox.Font = _p.Font;
                 txtBox.Size = _p.Size;
                 txtBox.Location = _p.Location;
+                txtBox.Name = reader["ID"].ToString();
 
                 txtBox.Text = reader["Credit"].ToString();
 
-                if(txtBox.Text != "")
+                txtBox.TextChanged += txt_credit_TextChanged;
+
+                if (txtBox.Text != "")
                 {
                     txtBox.BackColor = Color.LightGreen;
                 }
@@ -462,6 +465,32 @@ namespace KKCSInvoiceProject
             RefreshFirstNameSearch();
 
             RefreshLastNameSearch();
+        }
+
+        private void txt_credit_TextChanged(object sender, EventArgs e)
+        {
+            TextBox txtbox = (TextBox)sender;
+
+            txtbox.BackColor = Color.White;
+
+            if (txtbox.Text != "")
+            {
+                txtbox.BackColor = Color.LightGreen;
+            }
+
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string UpdateCommand = @"UPDATE NumberPlates SET Credit  = '" + txtbox.Text + "' WHERE ID = " + txtbox.Name + "";
+
+            command.CommandText = UpdateCommand;
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
     }
 }

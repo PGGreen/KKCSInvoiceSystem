@@ -37,6 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pnl_template = new System.Windows.Forms.Panel();
+            this.btn_savecredit = new System.Windows.Forms.Button();
+            this.txt_credit = new System.Windows.Forms.TextBox();
             this.btn_InsertWRego = new System.Windows.Forms.Button();
             this.lbl_account = new System.Windows.Forms.Label();
             this.btn_insert = new System.Windows.Forms.Button();
@@ -47,8 +49,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btn_search = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.txt_credit = new System.Windows.Forms.TextBox();
-            this.btn_savecredit = new System.Windows.Forms.Button();
             this.pnl_template.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,6 +155,25 @@
             this.pnl_template.TabIndex = 129;
             this.pnl_template.Visible = false;
             // 
+            // btn_savecredit
+            // 
+            this.btn_savecredit.BackColor = System.Drawing.Color.Red;
+            this.btn_savecredit.Location = new System.Drawing.Point(1195, 8);
+            this.btn_savecredit.Name = "btn_savecredit";
+            this.btn_savecredit.Size = new System.Drawing.Size(75, 23);
+            this.btn_savecredit.TabIndex = 32;
+            this.btn_savecredit.Text = "Save Credit";
+            this.btn_savecredit.UseVisualStyleBackColor = false;
+            this.btn_savecredit.Visible = false;
+            // 
+            // txt_credit
+            // 
+            this.txt_credit.Location = new System.Drawing.Point(1118, 9);
+            this.txt_credit.Name = "txt_credit";
+            this.txt_credit.Size = new System.Drawing.Size(72, 20);
+            this.txt_credit.TabIndex = 31;
+            this.txt_credit.TextChanged += new System.EventHandler(this.txt_credit_TextChanged);
+            // 
             // btn_InsertWRego
             // 
             this.btn_InsertWRego.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -260,23 +279,6 @@
             this.label3.Size = new System.Drawing.Size(57, 20);
             this.label3.TabIndex = 157;
             this.label3.Text = "Credit";
-            // 
-            // txt_credit
-            // 
-            this.txt_credit.Location = new System.Drawing.Point(1118, 9);
-            this.txt_credit.Name = "txt_credit";
-            this.txt_credit.Size = new System.Drawing.Size(72, 20);
-            this.txt_credit.TabIndex = 31;
-            // 
-            // btn_savecredit
-            // 
-            this.btn_savecredit.BackColor = System.Drawing.Color.Red;
-            this.btn_savecredit.Location = new System.Drawing.Point(1195, 8);
-            this.btn_savecredit.Name = "btn_savecredit";
-            this.btn_savecredit.Size = new System.Drawing.Size(75, 23);
-            this.btn_savecredit.TabIndex = 32;
-            this.btn_savecredit.Text = "Save Credit";
-            this.btn_savecredit.UseVisualStyleBackColor = false;
             // 
             // SearchByName
             // 

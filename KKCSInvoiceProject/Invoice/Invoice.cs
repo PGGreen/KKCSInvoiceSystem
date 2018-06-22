@@ -2799,6 +2799,38 @@ Number: 02-0800-0493229-00
 
         #region Price
 
+        int iFirstDay = 15;
+        int iDaysAfter = 12;
+        int iDays7Plus = 10;
+        int iMonth = 55;
+        float fCCF = 0.02f;
+
+        void GetPrices()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from CarYardPricing";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                int.TryParse(reader["One"].ToString(), out iFirstDay);
+                int.TryParse(reader["TwoToSeven"].ToString(), out iDaysAfter);
+                int.TryParse(reader["EightPlus"].ToString(), out iDays7Plus);
+                int.TryParse(reader["MonthPlus"].ToString(), out iMonth);
+                float.TryParse(reader["CreditCardFee"].ToString(), out fCCF);
+            }
+
+            connection.Close();
+        }
+
         public void SetUpPrice()
         {
             if(txt_flighttimes.Text == "Please Pick...")
@@ -2807,6 +2839,9 @@ Number: 02-0800-0493229-00
 
                 return;
             }
+
+            GetPrices();
+
             // Sets up the global days and times
             int iDays = 0;
             int iTimeInHours = 0;
@@ -2814,10 +2849,11 @@ Number: 02-0800-0493229-00
 
             int iTotalMoney = 0;
 
-            //int iFirstDay = 15;
-            int iDaysAfter = 12;
-            int iDays7Plus = 10;
-            int iMonth = 55;
+            //iFirstDay = 15;
+            //iDaysAfter = 12;
+            //iDays7Plus = 10;
+            //iMonth = 55;
+            //fCCF = 0.02f;
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
@@ -2879,7 +2915,7 @@ Number: 02-0800-0493229-00
                 // If they are only staying for 1 day
                 else if (iDays == 0 || iDays == 1)
                 {
-                    iTotalMoney = 15;
+                    iTotalMoney = iFirstDay;
                 }
 
                 // If they are staying between 2 to 7 days
@@ -2925,7 +2961,7 @@ Number: 02-0800-0493229-00
             // Adds the credit card fee if applicable
             if (g_sPaidStatus == "Credit Card")
             {
-                float fTempCreditCardCharge = (float)iTotalMoney * 0.02f;
+                float fTempCreditCardCharge = (float)iTotalMoney * fCCF;
 
                 float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
                 txt_total.Text = fTempTotalPrice.ToString("N2");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.OleDb;
 
 namespace KKCSInvoiceProject
 {
@@ -14,14 +16,52 @@ namespace KKCSInvoiceProject
     {
         //int eError = 2147483647;
 
+        string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
+
+        OleDbDataReader reader;
+
+        OleDbCommand command;
+
+        private OleDbConnection connection = new OleDbConnection();
+
         public CustomerShow()
         {
             InitializeComponent();
+
+            connection.ConnectionString = m_strDataBaseFilePath;
 
             tim_currentime.Tick += timer1_Tick;
 
             tim_currentime.Enabled = true;
             tim_currentime.Interval = 1000;
+
+            LoadPricing();
+        }
+
+        void LoadPricing()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from CarYardPricing";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                lbl_1.Text = "$" + reader["One"].ToString() + ".00";
+                lbl_27.Text = "$" + reader["TwoToSeven"].ToString() + ".00";
+                lbl_8.Text = "$" + reader["EightPlus"].ToString() + ".00";
+                lbl_month.Text = "$" + reader["MonthPlus"].ToString() + ".00";
+                lbl_ccf.Text = reader["CreditCardFee"].ToString() + "%";
+            }
+
+            connection.Close();
         }
 
         public void WipeInformation()
@@ -35,11 +75,38 @@ namespace KKCSInvoiceProject
             lbl_price.Text = "";
             lbl_ccfee.Visible = false;
             lbl_paidby.Text = "Paid By:";
+            pnl_acc.Visible = false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             label9.Text = DateTime.Now.ToString("dd-MMM-yyyy\r\n  hh:mmtt");
+        }
+
+        public void UpdatePricing()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from CarYardPricing";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                lbl_1.Text = "$" + reader["One"].ToString() + ".00";
+                lbl_27.Text = "$" + reader["TwoToSeven"].ToString() + ".00";
+                lbl_8.Text = "$" + reader["EightPlus"].ToString() + ".00";
+                lbl_month.Text = "$" + reader["MonthPlus"].ToString() + ".00";
+                lbl_ccf.Text = reader["CreditCardFee"].ToString() + "%";
+            }
+
+            connection.Close();
         }
 
         public void UpdateInfo(string _sName, string _sRego, string _sCarMake, string _sAccount)
@@ -175,5 +242,10 @@ namespace KKCSInvoiceProject
         }
 
         #endregion TextChanged
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
