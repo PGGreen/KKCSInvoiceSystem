@@ -210,11 +210,11 @@
             // lbl_acc
             // 
             this.lbl_acc.AutoSize = true;
-            this.lbl_acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_acc.ForeColor = System.Drawing.Color.Black;
             this.lbl_acc.Location = new System.Drawing.Point(3, 44);
             this.lbl_acc.Name = "lbl_acc";
-            this.lbl_acc.Size = new System.Drawing.Size(432, 39);
+            this.lbl_acc.Size = new System.Drawing.Size(369, 33);
             this.lbl_acc.TabIndex = 198;
             this.lbl_acc.Text = "Far North District Council";
             // 
@@ -429,9 +429,9 @@
             this.label18.ForeColor = System.Drawing.Color.Red;
             this.label18.Location = new System.Drawing.Point(359, 241);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(658, 37);
+            this.label18.Size = new System.Drawing.Size(648, 37);
             this.label18.TabIndex = 195;
-            this.label18.Text = "Credit Cards:       Transaction Fee Applies";
+            this.label18.Text = "Credit Cards:      Transaction Fee Applies";
             // 
             // label19
             // 
@@ -518,7 +518,7 @@
             this.lbl_ccf.AutoSize = true;
             this.lbl_ccf.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_ccf.ForeColor = System.Drawing.Color.Red;
-            this.lbl_ccf.Location = new System.Drawing.Point(571, 241);
+            this.lbl_ccf.Location = new System.Drawing.Point(570, 241);
             this.lbl_ccf.Name = "lbl_ccf";
             this.lbl_ccf.Size = new System.Drawing.Size(65, 37);
             this.lbl_ccf.TabIndex = 203;

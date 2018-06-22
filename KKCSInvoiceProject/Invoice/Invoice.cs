@@ -2961,7 +2961,7 @@ Number: 02-0800-0493229-00
             // Adds the credit card fee if applicable
             if (g_sPaidStatus == "Credit Card")
             {
-                float fTempCreditCardCharge = (float)iTotalMoney * fCCF;
+                float fTempCreditCardCharge = (float)iTotalMoney * (fCCF/100.0f);
 
                 float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
                 txt_total.Text = fTempTotalPrice.ToString("N2");
