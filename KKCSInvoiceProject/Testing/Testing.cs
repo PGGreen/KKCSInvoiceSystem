@@ -43,7 +43,9 @@ namespace KKCSInvoiceProject
 
             //GetRegoFromInvoice();
 
-            CarAverages();
+            //CarAverages();
+
+            MonthlyCarsInOut();
         }
 
         void Test()
@@ -102,6 +104,57 @@ namespace KKCSInvoiceProject
                 }
             }
             //Console.ReadKey();
+        }
+
+        void MonthlyCarsInOut()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "SELECT * FROM CustomerInvoices ORDER BY DTReturnDate";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            int sStoreFirstMonth = 0;
+            int sStoreSecondMonth = 0;
+
+            DateTime dtDateIn = DateTime.Now;
+            DateTime dtDateReturn = DateTime.Now;
+
+            bool bIgnoreFirst = true;
+
+            int iCountHowMany = 0;
+
+            while (reader.Read())
+            {
+                DateTime dt = (DateTime)reader["DTReturnDate"];
+
+                sStoreFirstMonth = dt.Month;
+
+                iCountHowMany++;
+
+                if (sStoreFirstMonth != sStoreSecondMonth && !bIgnoreFirst)
+                {
+                    txt_test.Text += sStoreFirstMonth + ": " + iCountHowMany + "\r\n";
+
+                    sStoreSecondMonth = sStoreFirstMonth;
+
+                    iCountHowMany = 0;
+                }
+
+                sStoreSecondMonth = sStoreFirstMonth;
+
+                bIgnoreFirst = false;
+            }
+
+            txt_test.Text += sStoreFirstMonth + ": " + iCountHowMany + "x" + "\r\n";
+
+            connection.Close();
         }
 
         void CarAverages()

@@ -2011,16 +2011,21 @@ namespace KKCSInvoiceProject
 
                     dt_returndate.Value = new DateTime(dtDatePickingUp.Year, dtDatePickingUp.Month, dtDatePickingUp.Day, 12, 0, 0);
 
-                    if(sFlightPickingUp != "Time Not Known")
-                    {
-                        txt_flighttimes.Text = sFlightPickingUp;
-                    }
+                    //if(sFlightPickingUp != "Time Not Known")
+                    //{
+                    //    txt_flighttimes.Text = sFlightPickingUp;
+                    //}
                 }
 
                 // Closes the connection to the database
                 if (connection.State == ConnectionState.Open)
                 {
                     connection.Close();
+                }
+
+                if (sFlightPickingUp != "Time Not Known")
+                {
+                    txt_flighttimes.Text = sFlightPickingUp;
                 }
             }
         }
@@ -2807,11 +2812,11 @@ Number: 02-0800-0493229-00
 
         void GetPrices()
         {
-            //if(connection.State == ConnectionState.Closed)
-            //{
-            //    connection.Open();
-            //}
-           
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
             OleDbCommand command = new OleDbCommand();
 
             command.Connection = connection;
@@ -2831,10 +2836,10 @@ Number: 02-0800-0493229-00
                 float.TryParse(reader["CreditCardFee"].ToString(), out fCCF);
             }
 
-            //if (connection.State == ConnectionState.Open)
-            //{
-            //    connection.Open();
-            //}
+            if (connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+            }
         }
 
         public void SetUpPrice()
