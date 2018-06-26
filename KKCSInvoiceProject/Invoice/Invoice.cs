@@ -2807,8 +2807,11 @@ Number: 02-0800-0493229-00
 
         void GetPrices()
         {
-            connection.Open();
-
+            //if(connection.State == ConnectionState.Closed)
+            //{
+            //    connection.Open();
+            //}
+           
             OleDbCommand command = new OleDbCommand();
 
             command.Connection = connection;
@@ -2828,7 +2831,10 @@ Number: 02-0800-0493229-00
                 float.TryParse(reader["CreditCardFee"].ToString(), out fCCF);
             }
 
-            connection.Close();
+            //if (connection.State == ConnectionState.Open)
+            //{
+            //    connection.Open();
+            //}
         }
 
         public void SetUpPrice()
