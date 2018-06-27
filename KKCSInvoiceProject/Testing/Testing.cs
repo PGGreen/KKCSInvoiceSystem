@@ -171,19 +171,11 @@ namespace KKCSInvoiceProject
 
             reader = command.ExecuteReader();
 
-            string sStoreFirstMonth = "";
-            string sStoreSecondMonth = "";
-
             DateTime dtDateIn = DateTime.Now;
             DateTime dtDateReturn = DateTime.Now;
 
-            bool bIgnoreFirstTime = true;
-
-            int iMonthCount = 0;
-
             List<int> CarStays = new List<int>();
             TimeSpan ts = dtDateIn - dtDateReturn;
-
 
             while (reader.Read())
             {

@@ -18,10 +18,6 @@ namespace KKCSInvoiceProject
 
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
-        OleDbDataReader reader;
-
-        OleDbCommand command;
-
         private OleDbConnection connection = new OleDbConnection();
 
         public CustomerShow()
@@ -133,7 +129,7 @@ namespace KKCSInvoiceProject
 
         public void UpdatePaidStatus(string _sPaidStatus)
         {
-            int i = 0;
+
         }
 
         public void UpdatePrice(string _sPrice, string _sPaidStatus)

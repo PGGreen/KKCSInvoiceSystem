@@ -131,6 +131,11 @@ namespace KKCSInvoiceProject
 
                 if (fmCustomerShow != null)
                 {
+                    if(NewCarReturns == null)
+                    {
+                        NewCarReturns = (NewCarReturns)fmCustomerShow;
+                    }
+
                     NewCarReturns.ReloadPageFromInvoice();
                 }
             }
@@ -437,8 +442,10 @@ namespace KKCSInvoiceProject
             DateTime dtToday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
             WarningsStoreOriginalValues();
 
+            /*
             if(false)//dt_returndate.Value > dtToday)
             {
+                
                 WarningSystem ws = new WarningSystem("Has this customer come in early?", true);
                 ws.ShowDialog();
 
@@ -463,7 +470,9 @@ namespace KKCSInvoiceProject
                 {
                     //MessageBox.Show("No");
                 }
+                
             }
+            */
 
             cmb_worker.Enabled = false;
 
@@ -1284,11 +1293,17 @@ namespace KKCSInvoiceProject
 
                 sTest = sTest.Replace("'", "''");
 
+                string sFName = txt_firstname.Text;
+                string sLName = txt_lastname.Text;
+
+                sFName = sFName.Replace("'", "''");
+                sLName = sLName.Replace("'", "''");
+
                 string UpdateCommand = @"UPDATE CustomerInvoices SET
                                                                     KeyNumber = '" + txt_keyno.Text +
                                                                     "', Rego = '" + cmb_rego.Text +
-                                                                    "', FirstName = '" + txt_firstname.Text +
-                                                                    "', LastName = '" + txt_lastname.Text +
+                                                                    "', FirstName = '" + sFName +
+                                                                    "', LastName = '" + sLName +
                                                                     "', PhoneNumber = '" + txt_ph.Text +
                                                                     "', MakeModel = '" + cmb_makemodel.Text +
                                                                     "', DTDateIn = '" + dtDateIn +
@@ -1360,12 +1375,18 @@ namespace KKCSInvoiceProject
                 // Make the command equal the physical location of the database (connection)
                 command.Connection = connection;
 
+                string sFName = txt_firstname.Text;
+                string sLName = txt_lastname.Text;
+
+                sFName = sFName.Replace("'", "''");
+                sLName = sLName.Replace("'", "''");
+
                 // Insert the new Number Plate into the Database
                 string cmd1 = @"INSERT into NumberPlates (NumberPlates,ClientName,LastName,MakeModel,Ph,
                                                             Alerts) values
                                                             ('" + cmb_rego.Text + "','" +
-                                                                txt_firstname.Text + "','" +
-                                                                txt_lastname.Text + "','" +
+                                                                sFName + "','" +
+                                                                sLName + "','" +
                                                                 cmb_makemodel.Text + "','" +
                                                                 txt_ph.Text + "','" +
                                                                 txt_alerts.Text +
@@ -1397,10 +1418,16 @@ namespace KKCSInvoiceProject
                     sRemaining = "";
                 }
 
+                string sFName = txt_firstname.Text;
+                string sLName = txt_lastname.Text;
+
+                sFName = sFName.Replace("'", "''");
+                sLName = sLName.Replace("'", "''");
+
                 string cmd1 = @"UPDATE NumberPlates SET
                                     NumberPlates = '" + cmb_rego.Text +
-                                    "', ClientName = '" + txt_firstname.Text +
-                                    "', LastName = '" + txt_lastname.Text +
+                                    "', ClientName = '" + sFName +
+                                    "', LastName = '" + sLName +
                                     "', MakeModel = '" + cmb_makemodel.Text +
                                     "', Ph = '" + txt_ph.Text +
                                     "', Alerts = '" + txt_alerts.Text +

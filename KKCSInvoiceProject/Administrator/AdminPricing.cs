@@ -16,10 +16,6 @@ namespace KKCSInvoiceProject
     {
         string m_strDataBaseFilePath = ConfigurationManager.ConnectionStrings["DatabaseFilePath"].ConnectionString;
 
-        OleDbDataReader reader;
-
-        OleDbCommand command;
-
         private OleDbConnection connection = new OleDbConnection();
 
         string sOrigPrice1 = "";
