@@ -42,17 +42,17 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.pnl_refund = new System.Windows.Forms.Panel();
+            this.btn_instructions = new System.Windows.Forms.Button();
             this.pnl_credit = new System.Windows.Forms.Panel();
             this.txt_keyno = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txt_invoiceno = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btn_eftpos = new System.Windows.Forms.Button();
             this.btn_cash = new System.Windows.Forms.Button();
             this.btn_credit = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.btn_instructions = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.pnl_refund.SuspendLayout();
             this.pnl_credit.SuspendLayout();
             this.SuspendLayout();
@@ -207,6 +207,19 @@
             this.pnl_refund.TabIndex = 162;
             this.pnl_refund.Visible = false;
             // 
+            // btn_instructions
+            // 
+            this.btn_instructions.BackColor = System.Drawing.Color.Red;
+            this.btn_instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_instructions.ForeColor = System.Drawing.Color.White;
+            this.btn_instructions.Location = new System.Drawing.Point(245, 10);
+            this.btn_instructions.Name = "btn_instructions";
+            this.btn_instructions.Size = new System.Drawing.Size(165, 159);
+            this.btn_instructions.TabIndex = 173;
+            this.btn_instructions.Text = "\"CLICK HERE\" FOR INSTRUCTIONS ON HOW \r\nTO REFUND VIA EFTPOS";
+            this.btn_instructions.UseVisualStyleBackColor = false;
+            this.btn_instructions.Visible = false;
+            // 
             // pnl_credit
             // 
             this.pnl_credit.BackColor = System.Drawing.Color.White;
@@ -238,16 +251,6 @@
             this.label18.Size = new System.Drawing.Size(80, 31);
             this.label18.TabIndex = 166;
             this.label18.Text = "KEY:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 31);
-            this.label3.TabIndex = 165;
-            this.label3.Text = "INV:";
             // 
             // txt_invoiceno
             // 
@@ -317,18 +320,15 @@
             this.label10.TabIndex = 172;
             this.label10.Text = "$000.00";
             // 
-            // btn_instructions
+            // label3
             // 
-            this.btn_instructions.BackColor = System.Drawing.Color.Red;
-            this.btn_instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_instructions.ForeColor = System.Drawing.Color.White;
-            this.btn_instructions.Location = new System.Drawing.Point(245, 10);
-            this.btn_instructions.Name = "btn_instructions";
-            this.btn_instructions.Size = new System.Drawing.Size(165, 159);
-            this.btn_instructions.TabIndex = 173;
-            this.btn_instructions.Text = "\"CLICK HERE\" FOR INSTRUCTIONS ON HOW \r\nTO REFUND VIA EFTPOS";
-            this.btn_instructions.UseVisualStyleBackColor = false;
-            this.btn_instructions.Visible = false;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(16, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 31);
+            this.label3.TabIndex = 165;
+            this.label3.Text = "INV:";
             // 
             // Refund
             // 
@@ -377,7 +377,6 @@
         private System.Windows.Forms.Panel pnl_credit;
         private System.Windows.Forms.TextBox txt_keyno;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_invoiceno;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btn_eftpos;
@@ -385,5 +384,6 @@
         private System.Windows.Forms.Button btn_credit;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btn_instructions;
+        private System.Windows.Forms.Label label3;
     }
 }

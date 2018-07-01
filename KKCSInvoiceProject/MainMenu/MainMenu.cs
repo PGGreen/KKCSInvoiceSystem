@@ -1861,7 +1861,22 @@ namespace KKCSInvoiceProject
 
         private void label3_Click(object sender, EventArgs e)
         {
+            Form fm = Application.OpenForms["Refund"];
 
+            if (fm != null)
+            {
+                if (fm.WindowState == FormWindowState.Minimized)
+                {
+                    fm.WindowState = FormWindowState.Normal;
+                }
+
+                fm.BringToFront();
+            }
+            else
+            {
+                Refund bank = new Refund();
+                bank.ShowDialog();
+            }
         }
 
         private void customerSearchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1875,6 +1890,11 @@ namespace KKCSInvoiceProject
         {
             AdministratorPassword adp = new AdministratorPassword();
             adp.Show();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
         }
 
         #endregion

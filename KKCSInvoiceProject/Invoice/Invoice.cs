@@ -442,10 +442,9 @@ namespace KKCSInvoiceProject
             DateTime dtToday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
             WarningsStoreOriginalValues();
 
-            /*
-            if(false)//dt_returndate.Value > dtToday)
+            
+            if(dt_returndate.Value > dtToday)
             {
-                
                 WarningSystem ws = new WarningSystem("Has this customer come in early?", true);
                 ws.ShowDialog();
 
@@ -463,7 +462,8 @@ namespace KKCSInvoiceProject
                                           txt_firstname.Text,
                                           txt_lastname.Text,
                                           cmb_rego.Text,
-                                          g_sPaidStatus);
+                                          g_sPaidStatus,
+                                          lbl_stay.Text);
                     r.ShowDialog();
                 }
                 else
@@ -472,7 +472,7 @@ namespace KKCSInvoiceProject
                 }
                 
             }
-            */
+            
 
             cmb_worker.Enabled = false;
 

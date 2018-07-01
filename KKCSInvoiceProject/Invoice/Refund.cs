@@ -18,6 +18,7 @@ namespace KKCSInvoiceProject
         string m_sInvoice;
         string m_sTimeIn;
         string m_sTimeOut;
+        int m_iStay;
 
         public Refund()
         {
@@ -38,9 +39,9 @@ namespace KKCSInvoiceProject
             int iTimeInHours = 0;
             int iReturnTimeHours = 0;
 
-            int iTotalMoney = 0;
+            int iTotalRefund = 0;
 
-            //int iFirstDay = 15;
+            int iFirstDay = 15;
             int iDaysAfter = 12;
             int iDays7Plus = 10;
             int iMonth = 55;
@@ -52,16 +53,13 @@ namespace KKCSInvoiceProject
             TimeSpan TimeDifference = m_dtOut - dtToday;
 
             // Put the difference of days into the variable
-            iDays = TimeDifference.Days;
+            //iDays = TimeDifference.Days;
 
             // Works out if the hours are above 20. If they are, add 1 day to the price
             if (TimeDifference.Hours > 20)
             {
                 iDays++;
             }
-
-            //m_sTimeIn
-            //m_sTimeOut
 
             // Gets the time the customer brought the car in
             iTimeInHours = int.Parse(m_sTimeIn.Substring(0, 2));
@@ -88,7 +86,7 @@ namespace KKCSInvoiceProject
                 // If they are only staying for 1 day
                 else if (iDays == 0 || iDays == 1)
                 {
-                    iTotalMoney = 15;
+                    iTotalRefund = 15;
                 }
 
                 // If they are staying between 2 to 7 days
@@ -160,7 +158,7 @@ namespace KKCSInvoiceProject
 
         public void LoadInfoFromInvoice(DateTime _dtIn, DateTime _dtOut, string _sTimeIn, string _sTimeOut,
                                         string _sPrice, string _sInvoice, string _sDays, string _sFName,
-                                         string _sLName, string _sRego, string _sPaidStatus)
+                                         string _sLName, string _sRego, string _sPaidStatus, string _sStay)
         {
             m_dtIn = _dtIn;
             m_dtOut = _dtOut;
@@ -168,6 +166,7 @@ namespace KKCSInvoiceProject
             m_sInvoice = _sInvoice;
             m_sTimeIn = _sTimeIn;
             m_sTimeOut = _sTimeOut;
+            int.TryParse(_sStay.Substring(0, 2), out m_iStay);
 
             DateTime dtToday = DateTime.Now;
 
