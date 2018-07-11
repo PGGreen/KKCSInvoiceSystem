@@ -260,7 +260,7 @@
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.tEstToolStripMenuItem_Click);
             // 
@@ -333,6 +333,7 @@
             this.button1.TabIndex = 235;
             this.button1.Text = "Refunds/Credit";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // MainMenu

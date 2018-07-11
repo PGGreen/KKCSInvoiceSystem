@@ -97,14 +97,14 @@ namespace KKCSInvoiceProject
                     int iCalculateTotal = ((iDaysAfter * iDays) + 3);
 
                     // Puts in the price in to the box
-                    iTotalMoney = iCalculateTotal;
+                    //iTotalMoney = iCalculateTotal;
                 }
 
                 else
                 {
                     int iCalculateTotal = (87 + (iDays7Plus * (iDays - 7)));
 
-                    iTotalMoney = iCalculateTotal;
+                    //iTotalMoney = iCalculateTotal;
                 }
             }
             // This calculates prices if the customer are staying over 1 month or more
@@ -114,7 +114,7 @@ namespace KKCSInvoiceProject
 
                 int iWorkOutWeeks = (int)decimal.Round((decimal)fWorkOutWeeks, 0, MidpointRounding.AwayFromZero);
 
-                iTotalMoney = iMonth * iWorkOutWeeks;
+                //iTotalMoney = iMonth * iWorkOutWeeks;
             }
 
             // Adds the credit card fee if applicable

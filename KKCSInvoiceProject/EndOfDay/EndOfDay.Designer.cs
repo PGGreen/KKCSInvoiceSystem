@@ -528,7 +528,7 @@
             // 
             this.btn_endday.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btn_endday.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_endday.Location = new System.Drawing.Point(346, 790);
+            this.btn_endday.Location = new System.Drawing.Point(755, 755);
             this.btn_endday.Name = "btn_endday";
             this.btn_endday.Size = new System.Drawing.Size(223, 64);
             this.btn_endday.TabIndex = 136;
@@ -694,7 +694,7 @@
             this.lbl_dayend.AutoSize = true;
             this.lbl_dayend.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lbl_dayend.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_dayend.Location = new System.Drawing.Point(12, 804);
+            this.lbl_dayend.Location = new System.Drawing.Point(421, 755);
             this.lbl_dayend.Name = "lbl_dayend";
             this.lbl_dayend.Size = new System.Drawing.Size(328, 39);
             this.lbl_dayend.TabIndex = 142;
@@ -716,7 +716,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
-            this.ClientSize = new System.Drawing.Size(1529, 874);
+            this.ClientSize = new System.Drawing.Size(1529, 830);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lbl_dayend);
             this.Controls.Add(this.textBox1);

@@ -557,14 +557,40 @@ namespace KKCSInvoiceProject
             // Handles the customer name
             if (_p.Name == "lbl_customername")
             {
-                string sNameLength = reader["FirstName"].ToString() + " " + reader["LastName"].ToString();
                 string sStoreName = "";
+                string sFirstName = reader["FirstName"].ToString();
+                string sLastName = reader["LastName"].ToString();
 
-                if (sNameLength.Length > 21)
+                if (sFirstName == "")
+                {
+                    sStoreName = sLastName;
+                }
+                else if(sLastName == "")
+                {
+                    sStoreName = sFirstName;
+                }
+                else
+                {
+                    sStoreName = sFirstName + " " + sLastName;
+                }
+                
+                if (sStoreName.Length > 16)
                 {
                     lbl.Font = new Font(_p.Font.FontFamily, 8);
                     lbl.Size = new Size(_p.Size.Width, _p.Size.Height + 10);
-                    sStoreName = reader["FirstName"].ToString() + "\r\n" + reader["LastName"].ToString();
+
+                    if (sFirstName == "")
+                    {
+                        sStoreName = sLastName;
+                    }
+                    else if (sLastName == "")
+                    {
+                        sStoreName = sFirstName;
+                    }
+                    else
+                    {
+                        sStoreName = reader["FirstName"].ToString() + "\r\n" + reader["LastName"].ToString();
+                    }
 
                     lbl.Text = sStoreName;
                 }
@@ -573,7 +599,7 @@ namespace KKCSInvoiceProject
                     lbl.Font = _p.Font;
                     lbl.Size = _p.Size;
 
-                    lbl.Text = sNameLength;
+                    lbl.Text = sStoreName;
                 }
 
                 if (bPickedUp)
