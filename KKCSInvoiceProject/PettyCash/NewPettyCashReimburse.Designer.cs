@@ -156,13 +156,6 @@
             this.cmb_worker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.cmb_worker.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_worker.FormattingEnabled = true;
-            this.cmb_worker.Items.AddRange(new object[] {
-            "Please Pick...",
-            "Jude",
-            "Graham",
-            "Noel",
-            "Peter",
-            "Deb"});
             this.cmb_worker.Location = new System.Drawing.Point(426, 487);
             this.cmb_worker.Name = "cmb_worker";
             this.cmb_worker.Size = new System.Drawing.Size(184, 37);

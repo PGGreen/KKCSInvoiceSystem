@@ -40,6 +40,8 @@ namespace KKCSInvoiceProject
 
             GetCurrentPettyCash();
 
+            FindStaffMembers();
+
             cmb_worker.SelectedIndex = 0;
 
             txt_itemamount.Focus();
@@ -68,6 +70,30 @@ namespace KKCSInvoiceProject
                 txt_pettycashremaning.Text = fPettyRemaning.ToString("0.00");
 
                 break;
+            }
+
+            connection.Close();
+        }
+
+        void FindStaffMembers()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from Staff";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            cmb_worker.Items.Add("Please Pick...");
+
+            while (reader.Read())
+            {
+                cmb_worker.Items.Add(reader["StaffMember"].ToString());
             }
 
             connection.Close();

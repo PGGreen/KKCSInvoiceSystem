@@ -1056,6 +1056,13 @@ namespace KKCSInvoiceProject
             dt_timepicked.Value = dtStore;
         }
 
+        public void LoadBadDebots()
+        {
+            DeleteControls();
+
+            RefreshBadDebots();
+        }
+
         private void btn_load_Click(object sender, EventArgs e)
         {
             if (ModifierKeys.HasFlag(Keys.Shift) && ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))

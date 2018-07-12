@@ -82,6 +82,8 @@ namespace KKCSInvoiceProject
 
             defaultBackWindowColor = this.BackColor;
 
+            FindStaffMembers();
+
             cmb_worker.SelectedIndex = 0;
             cmb_printerpicked1.SelectedIndex = 0;
             cmb_printerpicked2.SelectedIndex = 0;
@@ -94,6 +96,30 @@ namespace KKCSInvoiceProject
             g_bSkipEODPickFirstTime = false;
 
             CheckIfDayEnded();
+        }
+
+        void FindStaffMembers()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from Staff";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            cmb_worker.Items.Add("Please Pick...");
+
+            while (reader.Read())
+            {
+                cmb_worker.Items.Add(reader["StaffMember"].ToString());
+            }
+
+            connection.Close();
         }
 
         void SetUpEOD()

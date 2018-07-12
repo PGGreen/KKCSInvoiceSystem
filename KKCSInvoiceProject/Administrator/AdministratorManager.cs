@@ -34,5 +34,31 @@ namespace KKCSInvoiceProject
             AdminPricing ap = new AdminPricing();
             ap.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AdminStaff staff = new AdminStaff();
+            staff.ShowDialog();
+        }
+
+        private void btn_baddebot_Click(object sender, EventArgs e)
+        {
+            Form fm = Application.OpenForms["NewCarReturns"];
+
+            if (fm != null)
+            {
+                fm.Close();
+
+                NewCarReturns ncr = new NewCarReturns();
+                ncr.Show();
+                ncr.LoadBadDebots();
+            }
+            else
+            {
+                NewCarReturns ncr = new NewCarReturns();
+                ncr.Show();
+                ncr.LoadBadDebots();
+            }
+        }
     }
 }

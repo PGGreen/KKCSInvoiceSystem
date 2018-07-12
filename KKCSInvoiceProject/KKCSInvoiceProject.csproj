@@ -114,6 +114,12 @@
     <Compile Include="Administrator\AdminPricing.Designer.cs">
       <DependentUpon>AdminPricing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Administrator\AdminStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrator\AdminStaff.Designer.cs">
+      <DependentUpon>AdminStaff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Bookings\BookingsManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -471,6 +477,9 @@
     <EmbeddedResource Include="Administrator\AdminPricing.resx">
       <DependentUpon>AdminPricing.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Administrator\AdminStaff.resx">
+      <DependentUpon>AdminStaff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Alerts\AlertGeneric.resx">
       <DependentUpon>AlertGeneric.cs</DependentUpon>
     </EmbeddedResource>
@@ -663,6 +672,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigFiles\CarStorageLogo.ico" />
+    <Content Include="Resources\download.jpg" />
     <Content Include="XML\Test.xml" />
     <None Include="Resources\Background.png" />
     <None Include="Resources\A.png" />

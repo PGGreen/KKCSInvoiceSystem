@@ -27,6 +27,8 @@ namespace KKCSInvoiceProject
         InvoiceManager invManager;
         LongTermReturn longTermReturn;
 
+        //Color bcolor = Color.FromArgb(lbl_10per.BackColor.R, lbl_10per.BackColor.G, lbl_10per.BackColor.B);
+
         private OleDbConnection connection = new OleDbConnection();
 
         Color LabelBackColour = Color.FromArgb(255, 192, 192);
@@ -258,12 +260,14 @@ namespace KKCSInvoiceProject
                 btn_datepaid.Visible = false;
 
                 txt_flighttimes.SelectedIndex = 0;
-                cmb_worker.SelectedIndex = 0;
-
+                
                 PopulateRegoBox();
                 PopulateMakeModel();
                 FindKeyNumber();
                 FindInvoiceNumber();
+                FindStaffMembers();
+
+                cmb_worker.SelectedIndex = 0;
 
                 dtReturnDateOriginal = dt_returndate.Value;
                 sReturnTimeOriginal = txt_flighttimes.Text;
@@ -853,6 +857,30 @@ namespace KKCSInvoiceProject
             txt_flighttimes.Items.Add("Manual Time");
 
             txt_flighttimes.SelectedIndex = 0;
+        }
+
+        void FindStaffMembers()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from Staff";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            cmb_worker.Items.Add("Please Pick...");
+
+            while (reader.Read())
+            {
+                cmb_worker.Items.Add(reader["StaffMember"].ToString());
+            }
+
+            connection.Close();
         }
 
         void TempInsertInv()
@@ -2136,7 +2164,7 @@ namespace KKCSInvoiceProject
 
             if (!m_bInitialSetUpFromCarReturns)
             {
-                SetUpPrice();
+                //SetUpPrice();
             }
 
             UpdateDateAndTime();
@@ -2471,7 +2499,7 @@ namespace KKCSInvoiceProject
 
             if (!m_bInitialSetUpFromCarReturns)
             {
-                SetUpPrice();
+                //SetUpPrice();
 
                 g_bManualPicked = false;
             }
@@ -2494,6 +2522,13 @@ namespace KKCSInvoiceProject
             if (!m_bInitialSetUpFromCarReturns)
             {
                 WarningsChangesMade();
+            }
+
+            lbl_stay.Text = "";
+
+            if (txt_flighttimes.Text != "Please Pick...")
+            {
+                GetAmountOfDays();
             }
 
             UpdateDateAndTime();
@@ -2829,13 +2864,14 @@ Number: 02-0800-0493229-00
 
         #endregion
 
-        #region Price
+        #region Pricing
 
-        int iFirstDay = 15;
-        int iDaysAfter = 12;
-        int iDays7Plus = 10;
-        int iMonth = 55;
-        float fCCF = 0.02f;
+        int iFirstDayRate = 15;
+        int iDays2To7Rate = 12;
+        int iDays7PlusRate = 10;
+        int iMonthlyRate = 55;
+        float fCreditCardFee = 2.0f;
+        float fSuperCardDiscount = 10.0f;
 
         void GetPrices()
         {
@@ -2856,11 +2892,11 @@ Number: 02-0800-0493229-00
 
             while (reader.Read())
             {
-                int.TryParse(reader["One"].ToString(), out iFirstDay);
-                int.TryParse(reader["TwoToSeven"].ToString(), out iDaysAfter);
-                int.TryParse(reader["EightPlus"].ToString(), out iDays7Plus);
-                int.TryParse(reader["MonthPlus"].ToString(), out iMonth);
-                float.TryParse(reader["CreditCardFee"].ToString(), out fCCF);
+                int.TryParse(reader["One"].ToString(), out iFirstDayRate);
+                int.TryParse(reader["TwoToSeven"].ToString(), out iDays2To7Rate);
+                int.TryParse(reader["EightPlus"].ToString(), out iDays7PlusRate);
+                int.TryParse(reader["MonthPlus"].ToString(), out iMonthlyRate);
+                float.TryParse(reader["CreditCardFee"].ToString(), out fCreditCardFee);
             }
 
             if (connection.State == ConnectionState.Open)
@@ -2869,15 +2905,8 @@ Number: 02-0800-0493229-00
             }
         }
 
-        public void SetUpPrice()
+        void SetUpPrice()
         {
-            if(txt_flighttimes.Text == "Please Pick...")
-            {
-                txt_total.Text = "";
-
-                return;
-            }
-
             GetPrices();
 
             // Sets up the global days and times
@@ -2885,13 +2914,7 @@ Number: 02-0800-0493229-00
             int iTimeInHours = 0;
             int iReturnTimeHours = 0;
 
-            int iTotalMoney = 0;
-
-            //iFirstDay = 15;
-            //iDaysAfter = 12;
-            //iDays7Plus = 10;
-            //iMonth = 55;
-            //fCCF = 0.02f;
+            float iTotalMoney = 0.0f;
 
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
@@ -2915,18 +2938,20 @@ Number: 02-0800-0493229-00
             iDays = TimeDifference.Days;
 
             // Works out if the hours are above 20. If they are, add 1 day to the price
-            if (TimeDifference.Hours > 20)
-            {
-                iDays++;
-            }
+            //if (TimeDifference.TotalHours > 20)
+            //{
+            //    iDays++;
+            //}
 
             // Gets the time the customer brought the car in
             iTimeInHours = int.Parse(cmb_timeinhours.Text); 
 
             iReturnTimeHours = int.Parse(txt_flighttimes.Text.Substring(0, 2));
 
+            int iHoursDifference = TimeDifference.Hours;
+
             // If there is a gap of more than 4 hours between dropping off and picking up, add another days pay
-            if (iReturnTimeHours - iTimeInHours > 4 && iDays != 0)
+            if (iHoursDifference >= 4 && iDays != 0)
             {
                 iDays++;
             }
@@ -2953,15 +2978,16 @@ Number: 02-0800-0493229-00
                 // If they are only staying for 1 day
                 else if (iDays == 0 || iDays == 1)
                 {
-                    iTotalMoney = iFirstDay;
+                    iTotalMoney = iFirstDayRate;
                 }
 
                 // If they are staying between 2 to 7 days
                 else if (iDays >= 2 && iDays <= 7)
                 {
                     // Multiplies the price by the number of days
-                    //int iCalculateTotal = (15 + (iDaysAfter * (iDays - 1)));
-                    int iCalculateTotal = ((iDaysAfter * iDays) + 3);
+                    // int iCalculateTotal = (15 + (iDaysAfter * (iDays - 1)));
+                    //int iCalculateTotal = ((iDaysAfter * (iDays-1)));
+                    int iCalculateTotal = iFirstDayRate + (iDays2To7Rate * (iDays - 1));
 
                     // Puts in the price in to the box
                     iTotalMoney = iCalculateTotal;
@@ -2969,7 +2995,8 @@ Number: 02-0800-0493229-00
 
                 else
                 {
-                    int iCalculateTotal = (87 + (iDays7Plus * (iDays - 7)));
+                    int iFirstSevenDays = iFirstDayRate + (iDays2To7Rate * 6);
+                    int iCalculateTotal = (iFirstSevenDays + (iDays7PlusRate * (iDays - 7)));
 
                     iTotalMoney = iCalculateTotal;
                 }
@@ -2981,12 +3008,19 @@ Number: 02-0800-0493229-00
 
                 int iWorkOutWeeks = (int)decimal.Round((decimal)fWorkOutWeeks, 0, MidpointRounding.AwayFromZero);
 
-                iTotalMoney = iMonth * iWorkOutWeeks;
+                iTotalMoney = iMonthlyRate * iWorkOutWeeks;
             }
-            
-            if(cmb_rego.Text == "GNB404")
+
+            if (chk_supercard.Checked)
             {
-                if(iDays == 0)
+                float fTempCreditCardCharge = iTotalMoney * (fSuperCardDiscount / 100.0f);
+
+                iTotalMoney = iTotalMoney - fTempCreditCardCharge;
+            }
+
+            if (cmb_rego.Text == "GNB404")
+            {
+                if (iDays == 0)
                 {
                     iTotalMoney = 7;
                 }
@@ -2999,54 +3033,13 @@ Number: 02-0800-0493229-00
             // Adds the credit card fee if applicable
             if (g_sPaidStatus == "Credit Card")
             {
-                float fTempCreditCardCharge = (float)iTotalMoney * (fCCF/100.0f);
+                float fTempCreditCardCharge = (float)iTotalMoney * (fCreditCardFee / 100.0f);
 
-                float fTempTotalPrice = (float)iTotalMoney + fTempCreditCardCharge;
-                txt_total.Text = fTempTotalPrice.ToString("N2");
-
-                lbl_cccharges.Visible = true;
-            }
-            else
-            {
-                txt_total.Text = iTotalMoney.ToString();
-
-                lbl_cccharges.Visible = false;
-
-                txt_total.Text = iTotalMoney.ToString();
+                iTotalMoney = iTotalMoney + fTempCreditCardCharge;
             }
 
-            if (iDays > 1)
-            {
-                if(iDays == 7)
-                {
-                    float fDays = iDays;
-
-                    lbl_stay.Text = (fDays / 7).ToString("0") + " Week (" + iDays.ToString("0") + " Days)";
-                }
-                else if(iDays >= 8)
-                {
-                    float fDays = iDays;
-
-                    if(iDays % 7 == 0)
-                    {
-                        lbl_stay.Text = (fDays / 7).ToString("0") + " Weeks (" + iDays.ToString("0") + " Days)";
-                    }
-                    else
-                    {
-                        lbl_stay.Text = (fDays / 7).ToString("0.0") + " Weeks (" + iDays.ToString("0") + " Days)";
-                    }
-                }
-                else
-                {
-                    lbl_stay.Text = iDays.ToString("0") + " Days";
-                }
-                
-            }
-            else if(iDays <= 1)
-            {
-                lbl_stay.Text = "1 Day";
-            }
-
+            txt_total.Text = iTotalMoney.ToString("N2");
+            
             if (g_sPaidStatus == "N/C" || g_sPaidStatus == "No Charge")
             {
                 txt_total.Text = "";
@@ -3084,7 +3077,73 @@ Number: 02-0800-0493229-00
             UpdateCustomerShowPrice();
         }
 
-        #endregion
+        void GetAmountOfDays()
+        {
+            int iDays = 0;
+
+            // Works out how many days there are between the date the car was
+            // brought in, and when they are returning
+            int iInHours = 0;
+            int iInMinutes = 0;
+            int iReturnHours = 0;
+            int iReturnMinutes = 0;
+
+            int.TryParse(cmb_timeinhours.Text, out iInHours);
+            int.TryParse(cmb_timeinminutes.Text, out iInMinutes);
+
+            int.TryParse(txt_flighttimes.Text.Substring(0, 2), out iReturnHours);
+            int.TryParse(txt_flighttimes.Text.Substring(2, 2), out iReturnMinutes);
+
+            DateTime dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, iInHours, iInMinutes, 0);
+            DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, iReturnHours, iReturnMinutes, 0);
+
+            TimeSpan TimeDifference = dtReturnDate - dtDateIn;
+
+            // Puts the difference of days into the variable
+            iDays = TimeDifference.Days;
+
+            int iHoursDifference = TimeDifference.Hours;
+
+            // If there is a gap of more than 4 hours between dropping off and picking up, add another days pay
+            if (iHoursDifference > 4 && iDays != 0)
+            {
+                iDays++;
+            }
+
+            if (iDays > 1)
+            {
+                if (iDays == 7)
+                {
+                    float fDays = iDays;
+
+                    lbl_stay.Text = (fDays / 7).ToString("0") + " Week (" + iDays.ToString("0") + " Days)";
+                }
+                else if (iDays >= 8)
+                {
+                    float fDays = iDays;
+
+                    if (iDays % 7 == 0)
+                    {
+                        lbl_stay.Text = (fDays / 7).ToString("0") + " Weeks (" + iDays.ToString("0") + " Days)";
+                    }
+                    else
+                    {
+                        lbl_stay.Text = (fDays / 7).ToString("0.0") + " Weeks (" + iDays.ToString("0") + " Days)";
+                    }
+                }
+                else
+                {
+                    lbl_stay.Text = iDays.ToString("0") + " Days";
+                }
+
+            }
+            else if (iDays <= 1)
+            {
+                lbl_stay.Text = "1 Day";
+            }
+        }
+
+        #endregion Pricing
 
         #region Warnings
 
@@ -3211,7 +3270,7 @@ Number: 02-0800-0493229-00
 
             if(!m_bInitialSetUpFromCarReturns && cmb_returnstatus.Text == "Standard - On Flight")
             {
-                SetUpPrice();
+                //SetUpPrice();
             }
 
             lbl_particulars.Visible = false;
@@ -3755,6 +3814,76 @@ Number: 02-0800-0493229-00
         private void cmb_worker_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void chk_supercard_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_price_Click(object sender, EventArgs e)
+        {
+            int iCount = 0;
+            string sWarningText = "";
+
+            if (txt_flighttimes.Text == "Please Pick...")
+            {
+                iCount++;
+                sWarningText += "-Please pick a return flight\r\n";
+            }
+
+            if(cmb_paidstatus.Text == "Please Pick...")
+            {
+                iCount++;
+                sWarningText += "-Please pick a paid status";
+            }
+
+            if(iCount > 0)
+            {
+                WarningSystem ws = new WarningSystem(sWarningText, false);
+                ws.ShowDialog();
+
+                return;
+            }
+
+            SetUpPrice();
+        }
+
+        private void pic_supercard_Click(object sender, EventArgs e)
+        {
+            chk_supercard.Checked = !chk_supercard.Checked;
+        }
+
+        string sOriginalPrice = "";
+
+        private void chk_supercard_CheckedChanged_1(object sender, EventArgs e)
+        {
+            lbl_10per.BackColor = Color.White;
+
+            if (chk_supercard.Checked)
+            {
+                lbl_10per.BackColor = Color.LightGreen;
+            }
+
+            if (chk_supercard.Checked && txt_total.Text != "")
+            {
+                GetPrices();
+
+                sOriginalPrice = txt_total.Text;
+
+                float fPrice = 0.0f;
+                float.TryParse(txt_total.Text, out fPrice);
+
+                float fTempCreditCardCharge = fPrice * (fSuperCardDiscount / 100.0f);
+
+                fPrice = fPrice - fTempCreditCardCharge;
+
+                txt_total.Text = fPrice.ToString("N2");
+            }
+            else if (!chk_supercard.Checked && txt_total.Text != "")
+            {
+                txt_total.Text = sOriginalPrice;
+            }
         }
     }
 }

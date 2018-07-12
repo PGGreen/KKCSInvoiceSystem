@@ -39,12 +39,12 @@ namespace KKCSInvoiceProject
             int iTimeInHours = 0;
             int iReturnTimeHours = 0;
 
-            int iTotalRefund = 0;
+            //int iTotalRefund = 0;
 
-            int iFirstDay = 15;
+            //int iFirstDay = 15;
             int iDaysAfter = 12;
             int iDays7Plus = 10;
-            int iMonth = 55;
+            //int iMonth = 55;
 
             DateTime dtToday = DateTime.Now;
 
@@ -86,7 +86,7 @@ namespace KKCSInvoiceProject
                 // If they are only staying for 1 day
                 else if (iDays == 0 || iDays == 1)
                 {
-                    iTotalRefund = 15;
+                    //iTotalRefund = 15;
                 }
 
                 // If they are staying between 2 to 7 days

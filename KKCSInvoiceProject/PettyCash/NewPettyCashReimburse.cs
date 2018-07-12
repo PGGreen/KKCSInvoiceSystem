@@ -29,6 +29,34 @@ namespace KKCSInvoiceProject
             connection.ConnectionString = m_strDataBaseFilePath;
             
             GetCurrentPettyCash();
+
+            FindStaffMembers();
+
+            cmb_worker.SelectedIndex = 0;
+        }
+
+        void FindStaffMembers()
+        {
+            connection.Open();
+
+            OleDbCommand command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "select * from Staff";
+
+            command.CommandText = query;
+
+            OleDbDataReader reader = command.ExecuteReader();
+
+            cmb_worker.Items.Add("Please Pick...");
+
+            while (reader.Read())
+            {
+                cmb_worker.Items.Add(reader["StaffMember"].ToString());
+            }
+
+            connection.Close();
         }
 
         void GetCurrentPettyCash()
