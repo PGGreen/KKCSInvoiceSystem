@@ -49,6 +49,8 @@ namespace KKCSInvoiceProject
 
         private bool bIsAlreadySaved = false;
 
+        string sStoreOriginalPrice = "";
+
         bool bIsPreBooked = false;
         int iPreBookID = 0;
 
@@ -60,6 +62,8 @@ namespace KKCSInvoiceProject
 
         bool m_bIsFromCarReturns = false;
         bool m_bInitialSetUpFromCarReturns = false;
+
+        float fTotalMoney = 0.0f;
 
         int iInvoiceNumber = 0;
 
@@ -133,7 +137,7 @@ namespace KKCSInvoiceProject
 
                 if (fmCustomerShow != null)
                 {
-                    if(NewCarReturns == null)
+                    if (NewCarReturns == null)
                     {
                         NewCarReturns = (NewCarReturns)fmCustomerShow;
                     }
@@ -159,7 +163,7 @@ namespace KKCSInvoiceProject
                 bIsNotes = true;
             }
 
-            if(txt_alerts.Text != "")
+            if (txt_alerts.Text != "")
             {
                 bIsAlerts = true;
             }
@@ -260,7 +264,7 @@ namespace KKCSInvoiceProject
                 btn_datepaid.Visible = false;
 
                 txt_flighttimes.SelectedIndex = 0;
-                
+
                 PopulateRegoBox();
                 PopulateMakeModel();
                 FindKeyNumber();
@@ -364,7 +368,7 @@ namespace KKCSInvoiceProject
 
                 cmb_paidstatus.Text = reader["PaidStatus"].ToString();
 
-                if(cmb_paidstatus.Text == "OnAcc")
+                if (cmb_paidstatus.Text == "OnAcc")
                 {
                     cmb_paidstatus.Text = "On Account";
 
@@ -376,14 +380,14 @@ namespace KKCSInvoiceProject
 
                     txt_account.Text = reader["AccountHolder"].ToString();
                     txt_particulars.Text = reader["AccountParticulars"].ToString();
-                }                              
+                }
 
                 m_bCarPickedUp = (bool)reader["PickUp"];
 
                 if (!m_bCarPickedUp)
                 {
                     cmb_pickedup.SelectedIndex = 0;
-                    
+
                 }
                 else
                 {
@@ -401,7 +405,7 @@ namespace KKCSInvoiceProject
                 {
                     txt_flighttimes.SelectedIndex = i;
 
-                    if(txt_flighttimes.Text.Substring(0, 4) == reader["ReturnTime"].ToString())
+                    if (txt_flighttimes.Text.Substring(0, 4) == reader["ReturnTime"].ToString())
                     {
                         break;
                     }
@@ -446,18 +450,18 @@ namespace KKCSInvoiceProject
             DateTime dtToday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
             WarningsStoreOriginalValues();
 
-            
-            if(dt_returndate.Value > dtToday)
+
+            if (dt_returndate.Value > dtToday)
             {
                 WarningSystem ws = new WarningSystem("Has this customer come in early?", true);
                 ws.ShowDialog();
 
-                if(ws.DialogResult == DialogResult.OK)
+                if (ws.DialogResult == DialogResult.OK)
                 {
                     Refund r = new Refund();
                     string sTimeIn = cmb_timeinhours.Text + cmb_timeinminutes.Text;
                     r.LoadInfoFromInvoice(dt_datein.Value,
-                                          dt_returndate.Value, 
+                                          dt_returndate.Value,
                                           sTimeIn,
                                           txt_flighttimes.Text,
                                           txt_total.Text,
@@ -474,9 +478,9 @@ namespace KKCSInvoiceProject
                 {
                     //MessageBox.Show("No");
                 }
-                
+
             }
-            
+
 
             cmb_worker.Enabled = false;
 
@@ -653,7 +657,7 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                if(reader["KeyNumber"].ToString() != "NK" && (bool)reader["IsLongTerm"] != true)
+                if (reader["KeyNumber"].ToString() != "NK" && (bool)reader["IsLongTerm"] != true)
                 {
                     int.TryParse(reader["KeyNumber"].ToString(), out iSecondNumber);
 
@@ -745,7 +749,7 @@ namespace KKCSInvoiceProject
 
             //if (dtCompare <= dtDec17)
             {
-                switch(sTodaysDay)
+                switch (sTodaysDay)
                 {
                     case "Monday":
                     case "Friday":
@@ -803,15 +807,15 @@ namespace KKCSInvoiceProject
                         {
                             string sFlightString = xmlReader.GetAttribute("flighttime") + " - NZ" + xmlReader.GetAttribute("flightno");
                             txt_flighttimes.Items.Add(sFlightString);
-                        }  
+                        }
                     }
                 }
             }
 
-            if(txt_flighttimes.Items.Count <= 2)
+            if (txt_flighttimes.Items.Count <= 2)
             {
                 string sDay = dt_returndate.Value.ToString("dddd");
-                switch(sDay)
+                switch (sDay)
                 {
                     case "Saturday":
                         {
@@ -955,13 +959,13 @@ namespace KKCSInvoiceProject
 
                 iIsThereWarnings++;
             }
-            if(cmb_worker.Text == "Please Pick...")
+            if (cmb_worker.Text == "Please Pick...")
             {
                 sWarning += "-Please pick a 'Staff Member'" + sEndLine;
 
                 iIsThereWarnings++;
             }
-            if(txt_flighttimes.Text == "Please Pick..." && cmb_returnstatus.Text == "Standard - On Flight")
+            if (txt_flighttimes.Text == "Please Pick..." && cmb_returnstatus.Text == "Standard - On Flight")
             {
                 sWarning += "-Please pick a Return Time" + sEndLine;
 
@@ -978,13 +982,13 @@ namespace KKCSInvoiceProject
             {
                 SaveDataIntoDatabase();
 
-                if(bIsPreBooked)
+                if (bIsPreBooked)
                 {
                     ClearBooking();
 
                     bIsPreBooked = false;
                 }
-                
+
                 WipeCustomerShow();
 
                 Form fm = Application.OpenForms["MainMenu"];
@@ -1098,7 +1102,7 @@ namespace KKCSInvoiceProject
 
                     DateTime _dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, 12, 0, 0);
 
-                    if(_dtToday == _dtReturnDate && cmb_returnstatus.Text != "Unknown Date & Time" && cmb_returnstatus.Text != "Driving Back/Bus - Unknown")
+                    if (_dtToday == _dtReturnDate && cmb_returnstatus.Text != "Unknown Date & Time" && cmb_returnstatus.Text != "Driving Back/Bus - Unknown")
                     {
                         ReminderAddToReturns ratr = new ReminderAddToReturns();
                         ratr.ShowDialog();
@@ -1189,7 +1193,7 @@ namespace KKCSInvoiceProject
                     dt_datepaidedit.Value = new DateTime(2001, 1, 1, 12, 0, 0);
                 }
                 // Sets up the date the customer paid
-                else if(!m_bAlreadyPaid)
+                else if (!m_bAlreadyPaid)
                 {
                     m_bAlreadyPaid = true;
 
@@ -1210,7 +1214,7 @@ namespace KKCSInvoiceProject
 
                     btn_datepaid.Name = txt_invoiceno.Text;
                 }
-                else if(m_bAlreadyPaid)
+                else if (m_bAlreadyPaid)
                 {
                     dtDatePaid = new DateTime(dt_datepaidedit.Value.Year, dt_datepaidedit.Value.Month, dt_datepaidedit.Value.Day, 12, 0, 0);
 
@@ -1223,7 +1227,7 @@ namespace KKCSInvoiceProject
                     dt_datepaidedit.Visible = false;
                     txt_timepaidedit.Visible = false;
                 }
-                    //--------------------------------------------------------------------------//
+                //--------------------------------------------------------------------------//
 
                 string sTimeIn = "";
                 string tempReturnTimeHours = "";
@@ -1231,7 +1235,7 @@ namespace KKCSInvoiceProject
                 DateTime dtReturnDate = new DateTime();
                 string sPrice = txt_total.Text;
 
-                if(sPrice == "UNKNOWN")
+                if (sPrice == "UNKNOWN")
                 {
                     sPrice = "";
                 }
@@ -1312,7 +1316,7 @@ namespace KKCSInvoiceProject
                     bIsNotes = true;
                 }
 
-                if(txt_alerts.Text != "")
+                if (txt_alerts.Text != "")
                 {
                     bIsAlerts = true;
                 }
@@ -1437,11 +1441,11 @@ namespace KKCSInvoiceProject
 
                 string sRemaining = "";
 
-                if(fRemainingCredit != 0.0f)
+                if (fRemainingCredit != 0.0f)
                 {
                     sRemaining = fRemainingCredit.ToString();
                 }
-                else if(fRemainingCredit == 0.0f)
+                else if (fRemainingCredit == 0.0f)
                 {
                     sRemaining = "";
                 }
@@ -1672,14 +1676,14 @@ namespace KKCSInvoiceProject
         {
             Form fmCustomerShow = Application.OpenForms["CustomerShow"];
 
-            if(fmCustomerShow == null)
+            if (fmCustomerShow == null)
             {
                 CustomerShow cs = new CustomerShow();
                 cs.Show();
 
                 fmCustomerShow = cs;
             }
-            
+
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
             string sName = "";
@@ -1689,14 +1693,14 @@ namespace KKCSInvoiceProject
                 sName += txt_firstname.Text + " ";
             }
 
-            if(txt_lastname.Text != "")
+            if (txt_lastname.Text != "")
             {
                 sName += txt_lastname.Text;
             }
 
             string sAccount = "";
 
-            if(g_bIsAlreadyAccount)
+            if (g_bIsAlreadyAccount)
             {
                 sAccount = txt_account.Text;
             }
@@ -1706,7 +1710,7 @@ namespace KKCSInvoiceProject
 
         void UpdateCustomerShowPrice()
         {
-            Form fmCustomerShow = Application.OpenForms ["CustomerShow"];
+            Form fmCustomerShow = Application.OpenForms["CustomerShow"];
 
             if (fmCustomerShow == null)
             {
@@ -1716,7 +1720,7 @@ namespace KKCSInvoiceProject
                 fmCustomerShow = cs;
             }
 
-            CustomerShow objCustomerShow = (CustomerShow) fmCustomerShow;
+            CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
             objCustomerShow.UpdatePrice(txt_total.Text, g_sPaidStatus);
         }
@@ -2055,8 +2059,8 @@ namespace KKCSInvoiceProject
                     sCombined += "Name: " + sFName + " " + sLName + sEL;
                     sCombined += "Ph: " + sPh + sEL;
                     sCombined += "Account: " + sAccount + sEL;
-                    
-                    if(sAccountPart != "")
+
+                    if (sAccountPart != "")
                     {
                         sCombined += "Account Particulars: " + sAccountPart;
                     }
@@ -2139,11 +2143,12 @@ namespace KKCSInvoiceProject
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
             lbl_stay.Text = "";
+            txt_total.Text = "";
 
             DateTime dtXmasDay = new DateTime(dt_returndate.Value.Year, 12, 25);
             DateTime dtXmasDayCompare = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day);
 
-            if(dtXmasDay == dtXmasDayCompare)
+            if (dtXmasDay == dtXmasDayCompare)
             {
                 string sXmasWarning = "Please advise customer we are closed on Christmas Day.\r\n\r\n";
                 sXmasWarning += "If they wish to stay with us, they can pick up their car on Boxing Day (26th),\r\n";
@@ -2242,7 +2247,7 @@ namespace KKCSInvoiceProject
             //{
             if (txt_total.Text == "")
             {
-                txt_total.BackColor = LabelBackColour;  
+                txt_total.BackColor = LabelBackColour;
             }
             else
             {
@@ -2490,7 +2495,7 @@ namespace KKCSInvoiceProject
 
         private void txt_flighttimes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(txt_flighttimes.Text == "Manual Time" && !m_bInitialSetUpFromCarReturns)
+            if (txt_flighttimes.Text == "Manual Time" && !m_bInitialSetUpFromCarReturns)
             {
                 mt = new ManualTime();
                 mt.FormClosing += CloseManualTime;
@@ -2525,6 +2530,7 @@ namespace KKCSInvoiceProject
             }
 
             lbl_stay.Text = "";
+            txt_total.Text = "";
 
             if (txt_flighttimes.Text != "Please Pick...")
             {
@@ -2914,8 +2920,6 @@ Number: 02-0800-0493229-00
             int iTimeInHours = 0;
             int iReturnTimeHours = 0;
 
-            float iTotalMoney = 0.0f;
-
             // Works out how many days there are between the date the car was
             // brought in, and when they are returning
             int iInHours = 0;
@@ -2926,8 +2930,8 @@ Number: 02-0800-0493229-00
             int.TryParse(cmb_timeinhours.Text, out iInHours);
             int.TryParse(cmb_timeinminutes.Text, out iInMinutes);
 
-            int.TryParse(txt_flighttimes.Text.Substring(0,2), out iReturnHours);
-            int.TryParse(txt_flighttimes.Text.Substring(2,2), out iReturnMinutes);
+            int.TryParse(txt_flighttimes.Text.Substring(0, 2), out iReturnHours);
+            int.TryParse(txt_flighttimes.Text.Substring(2, 2), out iReturnMinutes);
 
             DateTime dtDateIn = new DateTime(dt_datein.Value.Year, dt_datein.Value.Month, dt_datein.Value.Day, iInHours, iInMinutes, 0);
             DateTime dtReturnDate = new DateTime(dt_returndate.Value.Year, dt_returndate.Value.Month, dt_returndate.Value.Day, iReturnHours, iReturnMinutes, 0);
@@ -2944,7 +2948,7 @@ Number: 02-0800-0493229-00
             //}
 
             // Gets the time the customer brought the car in
-            iTimeInHours = int.Parse(cmb_timeinhours.Text); 
+            iTimeInHours = int.Parse(cmb_timeinhours.Text);
 
             iReturnTimeHours = int.Parse(txt_flighttimes.Text.Substring(0, 2));
 
@@ -2978,7 +2982,7 @@ Number: 02-0800-0493229-00
                 // If they are only staying for 1 day
                 else if (iDays == 0 || iDays == 1)
                 {
-                    iTotalMoney = iFirstDayRate;
+                    fTotalMoney = iFirstDayRate;
                 }
 
                 // If they are staying between 2 to 7 days
@@ -2990,7 +2994,7 @@ Number: 02-0800-0493229-00
                     int iCalculateTotal = iFirstDayRate + (iDays2To7Rate * (iDays - 1));
 
                     // Puts in the price in to the box
-                    iTotalMoney = iCalculateTotal;
+                    fTotalMoney = iCalculateTotal;
                 }
 
                 else
@@ -2998,7 +3002,7 @@ Number: 02-0800-0493229-00
                     int iFirstSevenDays = iFirstDayRate + (iDays2To7Rate * 6);
                     int iCalculateTotal = (iFirstSevenDays + (iDays7PlusRate * (iDays - 7)));
 
-                    iTotalMoney = iCalculateTotal;
+                    fTotalMoney = iCalculateTotal;
                 }
             }
             // This calculates prices if the customer are staying over 1 month or more
@@ -3008,44 +3012,44 @@ Number: 02-0800-0493229-00
 
                 int iWorkOutWeeks = (int)decimal.Round((decimal)fWorkOutWeeks, 0, MidpointRounding.AwayFromZero);
 
-                iTotalMoney = iMonthlyRate * iWorkOutWeeks;
+                fTotalMoney = iMonthlyRate * iWorkOutWeeks;
             }
 
             if (chk_supercard.Checked)
             {
-                float fTempCreditCardCharge = iTotalMoney * (fSuperCardDiscount / 100.0f);
+                float fTempCreditCardCharge = fTotalMoney * (fSuperCardDiscount / 100.0f);
 
-                iTotalMoney = iTotalMoney - fTempCreditCardCharge;
+                fTotalMoney = fTotalMoney - fTempCreditCardCharge;
             }
 
             if (cmb_rego.Text == "GNB404")
             {
                 if (iDays == 0)
                 {
-                    iTotalMoney = 7;
+                    fTotalMoney = 7;
                 }
                 else
                 {
-                    iTotalMoney = iDays * 7;
+                    fTotalMoney = iDays * 7;
                 }
             }
 
             // Adds the credit card fee if applicable
             if (g_sPaidStatus == "Credit Card")
             {
-                float fTempCreditCardCharge = (float)iTotalMoney * (fCreditCardFee / 100.0f);
+                float fTempCreditCardCharge = (float)fTotalMoney * (fCreditCardFee / 100.0f);
 
-                iTotalMoney = iTotalMoney + fTempCreditCardCharge;
+                fTotalMoney = fTotalMoney + fTempCreditCardCharge;
             }
 
-            txt_total.Text = iTotalMoney.ToString("N2");
-            
+            txt_total.Text = fTotalMoney.ToString("N2");
+
             if (g_sPaidStatus == "N/C" || g_sPaidStatus == "No Charge")
             {
                 txt_total.Text = "";
             }
 
-            if(txt_credit.Text != "")
+            if (txt_credit.Text != "")
             {
                 float fNewTotal = 0.0f;
 
@@ -3057,7 +3061,7 @@ Number: 02-0800-0493229-00
 
                 fNewTotal = fTotal - fCredit;
 
-                if(fNewTotal < 0)
+                if (fNewTotal < 0)
                 {
                     cmb_paidstatus.Text = "Credit Used";
                     txt_credit.Text = "$" + fCredit + ".00 ($" + (fNewTotal * -1) + ".00 Remaining)";
@@ -3065,7 +3069,7 @@ Number: 02-0800-0493229-00
 
                     fRemainingCredit = (fNewTotal * -1);
                 }
-                else if(fNewTotal >= 0)
+                else if (fNewTotal >= 0)
                 {
                     txt_credit.Text = "$" + fCredit + ".00 ($0.00 Remaining)";
                     txt_total.Text = fNewTotal.ToString();
@@ -3263,12 +3267,14 @@ Number: 02-0800-0493229-00
 
         private void cmb_paidstatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //txt_total.Text = fTotalMoney.ToString("N2");
+
             if (cmb_paidstatus.Text != "Please Pick...")
             {
                 g_sPaidStatus = cmb_paidstatus.Text;
             }
 
-            if(!m_bInitialSetUpFromCarReturns && cmb_returnstatus.Text == "Standard - On Flight")
+            if (!m_bInitialSetUpFromCarReturns && cmb_returnstatus.Text == "Standard - On Flight")
             {
                 //SetUpPrice();
             }
@@ -3295,15 +3301,18 @@ Number: 02-0800-0493229-00
                     }
                 case "Cash":
                     {
+                        txt_total.Text = sStoreOriginalPrice;
+
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
                         if (!m_bInitialSetUpFromCarReturns)
                         {
                             CashChangeCalc ccc = new CashChangeCalc();
 
-                            int iPrice = int.Parse(txt_total.Text);
+                            float fPrice = 0;// int.TryParse(txt_total.Text);
+                            float.TryParse(txt_total.Text, out fPrice);
 
-                            ccc.CashChangeCalculation(iPrice);
+                            ccc.CashChangeCalculation(fPrice);
 
                             ccc.ShowDialog();
                         }
@@ -3314,44 +3323,65 @@ Number: 02-0800-0493229-00
                         break;
                     }
                 case "Credit Card":
+                    {
+                        if (txt_total.Text != "")
+                        {
+                            GetPrices();
+
+                            sOriginalPreCCPrice = txt_total.Text;
+
+                            //float fPrice = 0.0f;
+                            float.TryParse(txt_total.Text, out float fPrice);
+
+                            float fTempCreditCardCharge = fPrice * (fCreditCardFee / 100.0f);
+
+                            fPrice = fPrice + fTempCreditCardCharge;
+
+                            txt_total.Text = fPrice.ToString("N2");
+                        }
+
+                        break;
+                    }
                 case "Eftpos":
                 case "Internet":
                 case "Cheque":
                     {
+                        txt_total.Text = sStoreOriginalPrice;
+
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
                         break;
                     }
                 case "On Account":
                     {
+                        txt_total.Text = sStoreOriginalPrice;
+
                         g_sPaidStatus = "OnAcc";
 
                         cmb_paidstatus.BackColor = Color.PaleVioletRed;
-                         
-                        if(!g_bIsAlreadyAccount && !m_bInitialSetUpFromCarReturns)
+
+                        if (!g_bIsAlreadyAccount && !m_bInitialSetUpFromCarReturns)
                         {
                             SetUpNewAccount();
                         }
-                        
+
                         break;
                     }
                 case "No Charge":
                     {
+                        txt_total.Text = "0.00";
+
                         g_sPaidStatus = "N/C";
                         cmb_paidstatus.BackColor = Color.Orange;
 
-                        break;
-                    }
-                case "Credit Used":
-                    {
-                        g_sPaidStatus = "CreditUsed";
-                        cmb_paidstatus.BackColor = Color.LightGreen;
                         break;
                     }
                 default: // No Paid Status Picked
                     {
                         g_sPaidStatus = "";
                         cmb_paidstatus.BackColor = Color.White;
+
+                        txt_total.Text = "";
 
                         break;
                     }
@@ -3361,6 +3391,11 @@ Number: 02-0800-0493229-00
             CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
 
             objCustomerShow.UpdatePaidStatus(cmb_paidstatus.Text);
+
+            //if (chk_supercard.Checked)
+            //{
+            //    SuperCardDiscount();
+            //}
 
             if (!m_bInitialSetUpFromCarReturns)
             {
@@ -3427,7 +3462,7 @@ Number: 02-0800-0493229-00
         {
             g_bManualPicked = mt.GetPickedManual();
 
-            if(g_bManualPicked)
+            if (g_bManualPicked)
             {
                 txt_flighttimes.Items.Add(mt.GetTime());
 
@@ -3522,7 +3557,7 @@ Number: 02-0800-0493229-00
                     connection.Close();
                 }
 
-                if(bIsWithRego)
+                if (bIsWithRego)
                 {
                     cmb_rego.Text = sStoreRego;
                 }
@@ -3548,9 +3583,10 @@ Number: 02-0800-0493229-00
         {
             CashChangeCalc ccc = new CashChangeCalc();
 
-            int iPrice = int.Parse(txt_total.Text);
+            float fPrice = 0;// int.TryParse(txt_total.Text);
+            float.TryParse(txt_total.Text, out fPrice);
 
-            ccc.CashChangeCalculation(iPrice);
+            ccc.CashChangeCalculation(fPrice);
 
             ccc.ShowDialog();
         }
@@ -3823,23 +3859,10 @@ Number: 02-0800-0493229-00
 
         private void btn_price_Click(object sender, EventArgs e)
         {
-            int iCount = 0;
-            string sWarningText = "";
-
             if (txt_flighttimes.Text == "Please Pick...")
             {
-                iCount++;
-                sWarningText += "-Please pick a return flight\r\n";
-            }
+                string sWarningText = "-Please pick a return flight\r\n";
 
-            if(cmb_paidstatus.Text == "Please Pick...")
-            {
-                iCount++;
-                sWarningText += "-Please pick a paid status";
-            }
-
-            if(iCount > 0)
-            {
                 WarningSystem ws = new WarningSystem(sWarningText, false);
                 ws.ShowDialog();
 
@@ -3847,6 +3870,8 @@ Number: 02-0800-0493229-00
             }
 
             SetUpPrice();
+
+            sStoreOriginalPrice = txt_total.Text;
         }
 
         private void pic_supercard_Click(object sender, EventArgs e)
@@ -3855,6 +3880,9 @@ Number: 02-0800-0493229-00
         }
 
         string sOriginalPrice = "";
+        string sOriginalPreCCPrice = "";
+
+        string sOriginalSuperCardPrice = "";
 
         private void chk_supercard_CheckedChanged_1(object sender, EventArgs e)
         {
@@ -3867,23 +3895,31 @@ Number: 02-0800-0493229-00
 
             if (chk_supercard.Checked && txt_total.Text != "")
             {
-                GetPrices();
-
-                sOriginalPrice = txt_total.Text;
-
-                float fPrice = 0.0f;
-                float.TryParse(txt_total.Text, out fPrice);
-
-                float fTempCreditCardCharge = fPrice * (fSuperCardDiscount / 100.0f);
-
-                fPrice = fPrice - fTempCreditCardCharge;
-
-                txt_total.Text = fPrice.ToString("N2");
+                SuperCardDiscount();
             }
             else if (!chk_supercard.Checked && txt_total.Text != "")
             {
-                txt_total.Text = sOriginalPrice;
+                txt_total.Text = sStoreOriginalPrice;
             }
+        }
+
+        void SuperCardDiscount()
+        {
+            GetPrices();
+
+            sOriginalPrice = txt_total.Text;
+
+            float fPrice = 0.0f;
+            float.TryParse(txt_total.Text, out fPrice);
+
+            float fTempCreditCardCharge = fPrice * (fSuperCardDiscount / 100.0f);
+
+            fPrice = fPrice - fTempCreditCardCharge;
+
+            txt_total.Text = fPrice.ToString("N2");
+            fTotalMoney = fPrice;
+
+
         }
     }
 }

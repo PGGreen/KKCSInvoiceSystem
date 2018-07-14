@@ -240,7 +240,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(941, 268);
+            this.label13.Location = new System.Drawing.Point(935, 218);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(197, 25);
             this.label13.TabIndex = 30;
@@ -415,7 +415,7 @@
             // 
             this.txt_paidstatus.AutoSize = true;
             this.txt_paidstatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_paidstatus.Location = new System.Drawing.Point(765, 118);
+            this.txt_paidstatus.Location = new System.Drawing.Point(766, 270);
             this.txt_paidstatus.Name = "txt_paidstatus";
             this.txt_paidstatus.Size = new System.Drawing.Size(167, 25);
             this.txt_paidstatus.TabIndex = 59;
@@ -457,7 +457,7 @@
             this.btn_print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btn_print.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_print.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_print.Location = new System.Drawing.Point(1311, 258);
+            this.btn_print.Location = new System.Drawing.Point(1305, 209);
             this.btn_print.Name = "btn_print";
             this.btn_print.Size = new System.Drawing.Size(145, 41);
             this.btn_print.TabIndex = 71;
@@ -563,7 +563,7 @@
             this.txt_total.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.txt_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_total.ForeColor = System.Drawing.Color.ForestGreen;
-            this.txt_total.Location = new System.Drawing.Point(1144, 259);
+            this.txt_total.Location = new System.Drawing.Point(1138, 209);
             this.txt_total.Name = "txt_total";
             this.txt_total.Size = new System.Drawing.Size(161, 44);
             this.txt_total.TabIndex = 29;
@@ -1014,7 +1014,7 @@
             "Internet",
             "Cheque",
             "To Pay"});
-            this.cmb_paidstatus.Location = new System.Drawing.Point(930, 115);
+            this.cmb_paidstatus.Location = new System.Drawing.Point(931, 267);
             this.cmb_paidstatus.Name = "cmb_paidstatus";
             this.cmb_paidstatus.Size = new System.Drawing.Size(207, 33);
             this.cmb_paidstatus.TabIndex = 173;
@@ -1085,7 +1085,7 @@
             this.btn_cashcalc.BackColor = System.Drawing.Color.Transparent;
             this.btn_cashcalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cashcalc.ForeColor = System.Drawing.Color.Black;
-            this.btn_cashcalc.Location = new System.Drawing.Point(1144, 215);
+            this.btn_cashcalc.Location = new System.Drawing.Point(1144, 263);
             this.btn_cashcalc.Name = "btn_cashcalc";
             this.btn_cashcalc.Size = new System.Drawing.Size(80, 39);
             this.btn_cashcalc.TabIndex = 180;
@@ -1167,7 +1167,7 @@
             this.cmb_printerpicked.Items.AddRange(new object[] {
             "B&W (Large Printer)",
             "Colour (Small Printer)"});
-            this.cmb_printerpicked.Location = new System.Drawing.Point(1311, 229);
+            this.cmb_printerpicked.Location = new System.Drawing.Point(1307, 256);
             this.cmb_printerpicked.Name = "cmb_printerpicked";
             this.cmb_printerpicked.Size = new System.Drawing.Size(142, 24);
             this.cmb_printerpicked.TabIndex = 233;
@@ -1211,7 +1211,7 @@
             this.txt_credit.BackColor = System.Drawing.Color.LightGreen;
             this.txt_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_credit.ForeColor = System.Drawing.Color.Black;
-            this.txt_credit.Location = new System.Drawing.Point(883, 218);
+            this.txt_credit.Location = new System.Drawing.Point(877, 168);
             this.txt_credit.Name = "txt_credit";
             this.txt_credit.Size = new System.Drawing.Size(136, 31);
             this.txt_credit.TabIndex = 237;
@@ -1220,7 +1220,7 @@
             // 
             this.lbl_credit.AutoSize = true;
             this.lbl_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_credit.Location = new System.Drawing.Point(768, 222);
+            this.lbl_credit.Location = new System.Drawing.Point(762, 172);
             this.lbl_credit.Name = "lbl_credit";
             this.lbl_credit.Size = new System.Drawing.Size(95, 25);
             this.lbl_credit.TabIndex = 238;
@@ -1348,7 +1348,7 @@
             // 
             this.btn_price.BackColor = System.Drawing.Color.Lime;
             this.btn_price.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_price.Location = new System.Drawing.Point(771, 257);
+            this.btn_price.Location = new System.Drawing.Point(765, 207);
             this.btn_price.Name = "btn_price";
             this.btn_price.Size = new System.Drawing.Size(159, 49);
             this.btn_price.TabIndex = 252;
@@ -1410,7 +1410,7 @@
             // 
             this.pic_supercard.BackgroundImage = global::KKCSInvoiceProject.Properties.Resources.download;
             this.pic_supercard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pic_supercard.Location = new System.Drawing.Point(773, 165);
+            this.pic_supercard.Location = new System.Drawing.Point(767, 115);
             this.pic_supercard.Name = "pic_supercard";
             this.pic_supercard.Size = new System.Drawing.Size(63, 39);
             this.pic_supercard.TabIndex = 258;
@@ -1421,7 +1421,7 @@
             // 
             this.chk_supercard.AutoSize = true;
             this.chk_supercard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_supercard.Location = new System.Drawing.Point(846, 177);
+            this.chk_supercard.Location = new System.Drawing.Point(840, 127);
             this.chk_supercard.Name = "chk_supercard";
             this.chk_supercard.Size = new System.Drawing.Size(15, 14);
             this.chk_supercard.TabIndex = 259;
@@ -1432,7 +1432,7 @@
             // 
             this.lbl_10per.AutoSize = true;
             this.lbl_10per.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_10per.Location = new System.Drawing.Point(866, 170);
+            this.lbl_10per.Location = new System.Drawing.Point(860, 120);
             this.lbl_10per.Name = "lbl_10per";
             this.lbl_10per.Size = new System.Drawing.Size(66, 25);
             this.lbl_10per.TabIndex = 260;
@@ -1442,7 +1442,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(863, 219);
+            this.label2.Location = new System.Drawing.Point(857, 169);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 25);
             this.label2.TabIndex = 261;

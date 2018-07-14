@@ -25,9 +25,9 @@ namespace KKCSInvoiceProject
             base.OnShown(e);
         }
 
-        public void CashChangeCalculation(int _iCashChange)
+        public void CashChangeCalculation(float _fCashChange)
         {
-            txt_total.Text = _iCashChange.ToString();
+            txt_total.Text = _fCashChange.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
