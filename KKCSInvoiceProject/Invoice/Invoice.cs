@@ -380,7 +380,12 @@ namespace KKCSInvoiceProject
                     txt_account.Visible = true;
 
                     txt_account.Text = reader["AccountHolder"].ToString();
-                    txt_particulars.Text = reader["AccountParticulars"].ToString();
+                    txt_particulars.Text = reader["6AccountParticulars"].ToString();
+                }
+
+                if(cmb_paidstatus.Text != "To Pay")
+                {
+                    lbl_customerowes.Text = "Customer Paid: $";
                 }
 
                 m_bCarPickedUp = (bool)reader["PickUp"];
@@ -452,7 +457,7 @@ namespace KKCSInvoiceProject
             WarningsStoreOriginalValues();
 
 
-            if (dt_returndate.Value > dtToday)
+            if (false)//dt_returndate.Value > dtToday)
             {
                 WarningSystem ws = new WarningSystem("Has this customer come in early?", true);
                 ws.ShowDialog();
@@ -1812,6 +1817,11 @@ namespace KKCSInvoiceProject
         {
             bool bIsLongTerm = CheckIfLongTerm();
 
+            txt_credit.Enabled = false;
+            lbl_credit.Enabled = false;
+            lbl_creditminus.Enabled = false;
+            txt_credit.ReadOnly = true;
+
             if (!bIsLongTerm)
             {
                 CurrentTime = DateTime.Now;
@@ -1848,19 +1858,16 @@ namespace KKCSInvoiceProject
 
                     m_sTempStoreRego = cmb_rego.Text;
 
-                    txt_credit.Visible = false;
-                    lbl_credit.Visible = false;
-                    lbl_creditminus.Visible = false;
+                    txt_credit.Enabled = true;
+                    lbl_credit.Enabled = true;
+                    lbl_creditminus.Enabled = true;
+                    txt_credit.ReadOnly = true;
 
                     string sCredit = reader["Credit"].ToString();
                     txt_credit.Text = "";
 
                     if (sCredit != "")
                     {
-                        txt_credit.Visible = true;
-                        lbl_credit.Visible = true;
-                        lbl_creditminus.Visible = true;
-
                         txt_credit.Text = "$" + sCredit + ".00 ($" + sCredit + ".00 Remaining)";
                     }
                 }
@@ -2145,6 +2152,20 @@ namespace KKCSInvoiceProject
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
+            DateTime dtNow = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            //if (m_bIsFromCarReturns && dtNow > dtDateIn && g_sPaidStatus != "To Pay" && !m_bInitialSetUpFromCarReturns)
+            //{
+            //    string sWarning = "You can not change the price on this Invoice as";
+            //    sWarning += "\r\nIt has already been paid for";
+
+            //    WarningSystem ws = new WarningSystem(sWarning, false);
+
+            //    ws.ShowDialog();
+
+            //    return;
+            //}
+            
             lbl_stay.Text = "";
             txt_total.Text = "";
 
@@ -2167,13 +2188,6 @@ namespace KKCSInvoiceProject
             }
 
             FindFlightTimesXML();
-
-            //txt_flighttimes.SelectedIndex = 0;
-
-            if (!m_bInitialSetUpFromCarReturns)
-            {
-                //SetUpPrice();
-            }
 
             UpdateDateAndTime();
         }
@@ -2237,17 +2251,7 @@ namespace KKCSInvoiceProject
 
         private void txt_total_TextChanged(object sender, EventArgs e)
         {
-            //if (m_bIsFromCarReturns && g_sPaidStatus != "To Pay" && g_sPaidStatus != "Credit Card" && !m_bInitialSetUpFromCarReturns)
-            //{
-            //    string sWarningMessage = "This invoice has already been paid for.";
-
-            //    WarningSystem ws = new WarningSystem(sWarningMessage, false);
-            //    ws.ShowDialog();
-
-            //    RevertChanges();
-            //}
-            //else
-            //{
+            /*
             if (txt_total.Text == "")
             {
                 txt_total.BackColor = LabelBackColour;
@@ -2263,7 +2267,8 @@ namespace KKCSInvoiceProject
             {
                 WarningsChangesMade();
             }
-            //}
+            */
+            
         }
 
         private void txt_clientname_TextChanged(object sender, EventArgs e)
@@ -2389,18 +2394,6 @@ namespace KKCSInvoiceProject
                 pnl_splitpayment.Visible = false;
             }
 
-        }
-
-        private void chk_overdue_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chk_overdue.Checked)
-            {
-                pnl_overdue.Visible = true;
-            }
-            else
-            {
-                pnl_overdue.Visible = false;
-            }
         }
 
         private void chk_keypolicy_CheckedChanged(object sender, EventArgs e)
@@ -2530,10 +2523,11 @@ namespace KKCSInvoiceProject
             if (!m_bInitialSetUpFromCarReturns)
             {
                 WarningsChangesMade();
+                txt_total.Text = "";
             }
 
             lbl_stay.Text = "";
-            txt_total.Text = "";
+            
 
             if (txt_flighttimes.Text != "Please Pick...")
             {
@@ -3330,7 +3324,7 @@ Number: 02-0800-0493229-00
                     }
                 case "Credit Card":
                     {
-                        if (txt_total.Text != "")
+                        if (txt_total.Text != "" && !m_bInitialSetUpFromCarReturns)
                         {
                             GetPrices();
 
@@ -3344,6 +3338,10 @@ Number: 02-0800-0493229-00
                             fPrice = fPrice + fTempCreditCardCharge;
 
                             txt_total.Text = fPrice.ToString("N2");
+                        }
+                        else if(txt_total.Text != "" && m_bInitialSetUpFromCarReturns)
+                        {
+                            cmb_paidstatus.BackColor = Color.LightBlue;
                         }
 
                         break;
@@ -3857,16 +3855,6 @@ Number: 02-0800-0493229-00
             {
                 WarningsChangesMade();
             }
-        }
-
-        private void cmb_worker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chk_supercard_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btn_price_Click(object sender, EventArgs e)

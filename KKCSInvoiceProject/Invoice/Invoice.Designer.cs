@@ -37,7 +37,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lbl_flighttime = new System.Windows.Forms.Label();
             this.txt_ph = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lbl_customerowes = new System.Windows.Forms.Label();
             this.cmb_timeinhours = new System.Windows.Forms.ComboBox();
             this.cmb_timeinminutes = new System.Windows.Forms.ComboBox();
             this.txt_invoiceno = new System.Windows.Forms.TextBox();
@@ -73,7 +73,6 @@
             this.txt_account = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.chk_split = new System.Windows.Forms.CheckBox();
-            this.chk_overdue = new System.Windows.Forms.CheckBox();
             this.pnl_overdue = new System.Windows.Forms.Panel();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -236,15 +235,15 @@
             this.txt_ph.TabIndex = 22;
             this.txt_ph.TextChanged += new System.EventHandler(this.txt_ph_TextChanged);
             // 
-            // label13
+            // lbl_customerowes
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(935, 218);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(197, 25);
-            this.label13.TabIndex = 30;
-            this.label13.Text = "Customer Owes $";
+            this.lbl_customerowes.AutoSize = true;
+            this.lbl_customerowes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_customerowes.Location = new System.Drawing.Point(935, 218);
+            this.lbl_customerowes.Name = "lbl_customerowes";
+            this.lbl_customerowes.Size = new System.Drawing.Size(197, 25);
+            this.lbl_customerowes.TabIndex = 30;
+            this.lbl_customerowes.Text = "Customer Owes $";
             // 
             // cmb_timeinhours
             // 
@@ -560,7 +559,7 @@
             // 
             // txt_total
             // 
-            this.txt_total.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txt_total.BackColor = System.Drawing.Color.Yellow;
             this.txt_total.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_total.ForeColor = System.Drawing.Color.ForestGreen;
             this.txt_total.Location = new System.Drawing.Point(1138, 209);
@@ -622,26 +621,26 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.ForeColor = System.Drawing.Color.White;
-            this.label28.Location = new System.Drawing.Point(12, 140);
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.Black;
+            this.label28.Location = new System.Drawing.Point(4, 67);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(112, 20);
+            this.label28.Size = new System.Drawing.Size(172, 18);
             this.label28.TabIndex = 148;
-            this.label28.Text = "Paid Status: ";
+            this.label28.Text = "Overdue Paid Status: ";
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
+            "Please Pick...",
             "Cash",
-            "Credit Card",
             "Eftpos",
+            "Credit Card",
+            "No Charge",
             "Internet",
-            "Cheque",
-            "N/C",
-            "To Pay"});
-            this.comboBox1.Location = new System.Drawing.Point(128, 139);
+            "Cheque"});
+            this.comboBox1.Location = new System.Drawing.Point(171, 67);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 147;
@@ -728,32 +727,20 @@
             this.chk_split.UseVisualStyleBackColor = true;
             this.chk_split.CheckedChanged += new System.EventHandler(this.chk_split_CheckedChanged);
             // 
-            // chk_overdue
-            // 
-            this.chk_overdue.AutoSize = true;
-            this.chk_overdue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk_overdue.Location = new System.Drawing.Point(1152, 574);
-            this.chk_overdue.Name = "chk_overdue";
-            this.chk_overdue.Size = new System.Drawing.Size(86, 20);
-            this.chk_overdue.TabIndex = 167;
-            this.chk_overdue.Text = "Overdue";
-            this.chk_overdue.UseVisualStyleBackColor = true;
-            this.chk_overdue.CheckedChanged += new System.EventHandler(this.chk_overdue_CheckedChanged);
-            // 
             // pnl_overdue
             // 
             this.pnl_overdue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.pnl_overdue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnl_overdue.Controls.Add(this.comboBox1);
-            this.pnl_overdue.Controls.Add(this.label28);
-            this.pnl_overdue.Controls.Add(this.textBox3);
-            this.pnl_overdue.Controls.Add(this.textBox6);
-            this.pnl_overdue.Controls.Add(this.label44);
-            this.pnl_overdue.Controls.Add(this.label46);
             this.pnl_overdue.Controls.Add(this.label47);
-            this.pnl_overdue.Location = new System.Drawing.Point(1142, 616);
+            this.pnl_overdue.Controls.Add(this.textBox6);
+            this.pnl_overdue.Controls.Add(this.label46);
+            this.pnl_overdue.Controls.Add(this.textBox3);
+            this.pnl_overdue.Controls.Add(this.label44);
+            this.pnl_overdue.Controls.Add(this.label28);
+            this.pnl_overdue.Location = new System.Drawing.Point(1143, 105);
             this.pnl_overdue.Name = "pnl_overdue";
-            this.pnl_overdue.Size = new System.Drawing.Size(254, 208);
+            this.pnl_overdue.Size = new System.Drawing.Size(336, 98);
             this.pnl_overdue.TabIndex = 153;
             this.pnl_overdue.Visible = false;
             // 
@@ -761,51 +748,54 @@
             // 
             this.textBox3.BackColor = System.Drawing.Color.White;
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(164, 6);
+            this.textBox3.Location = new System.Drawing.Point(250, 8);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(80, 22);
             this.textBox3.TabIndex = 149;
-            this.textBox3.Text = "OC-0000";
+            this.textBox3.Text = "OC-00000";
             // 
             // textBox6
             // 
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(139, 86);
+            this.textBox6.BackColor = System.Drawing.Color.Red;
+            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox6.ForeColor = System.Drawing.Color.White;
+            this.textBox6.Location = new System.Drawing.Point(156, 43);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(98, 22);
+            this.textBox6.Size = new System.Drawing.Size(87, 22);
             this.textBox6.TabIndex = 149;
+            this.textBox6.Text = "27.00";
             // 
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.ForeColor = System.Drawing.Color.White;
-            this.label44.Location = new System.Drawing.Point(10, 87);
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.ForeColor = System.Drawing.Color.Black;
+            this.label44.Location = new System.Drawing.Point(4, 46);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(106, 20);
+            this.label44.Size = new System.Drawing.Size(149, 18);
             this.label44.TabIndex = 149;
-            this.label44.Text = "Extra Owed:";
+            this.label44.Text = "Customer Owes: $";
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.ForeColor = System.Drawing.Color.White;
-            this.label46.Location = new System.Drawing.Point(10, 45);
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.ForeColor = System.Drawing.Color.Black;
+            this.label46.Location = new System.Drawing.Point(5, 24);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(131, 20);
+            this.label46.Size = new System.Drawing.Size(124, 18);
             this.label46.TabIndex = 149;
             this.label46.Text = "Days Overdue: ";
             // 
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.ForeColor = System.Drawing.Color.White;
-            this.label47.Location = new System.Drawing.Point(8, 5);
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.ForeColor = System.Drawing.Color.Black;
+            this.label47.Location = new System.Drawing.Point(4, 3);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(148, 20);
+            this.label47.Size = new System.Drawing.Size(139, 18);
             this.label47.TabIndex = 1;
             this.label47.Text = "Overdue Charges";
             // 
@@ -1060,7 +1050,7 @@
             // 
             this.btn_datepaid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btn_datepaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_datepaid.Location = new System.Drawing.Point(1187, 110);
+            this.btn_datepaid.Location = new System.Drawing.Point(1180, 336);
             this.btn_datepaid.Name = "btn_datepaid";
             this.btn_datepaid.Size = new System.Drawing.Size(288, 23);
             this.btn_datepaid.TabIndex = 177;
@@ -1158,7 +1148,6 @@
             this.cmb_worker.Name = "cmb_worker";
             this.cmb_worker.Size = new System.Drawing.Size(215, 33);
             this.cmb_worker.TabIndex = 184;
-            this.cmb_worker.SelectedIndexChanged += new System.EventHandler(this.cmb_worker_SelectedIndexChanged);
             // 
             // cmb_printerpicked
             // 
@@ -1209,28 +1198,29 @@
             // txt_credit
             // 
             this.txt_credit.BackColor = System.Drawing.Color.LightGreen;
+            this.txt_credit.Enabled = false;
             this.txt_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_credit.ForeColor = System.Drawing.Color.Black;
             this.txt_credit.Location = new System.Drawing.Point(877, 168);
             this.txt_credit.Name = "txt_credit";
-            this.txt_credit.Size = new System.Drawing.Size(267, 29);
+            this.txt_credit.Size = new System.Drawing.Size(261, 29);
             this.txt_credit.TabIndex = 237;
-            this.txt_credit.Visible = false;
+            this.txt_credit.Text = "N/A";
             // 
             // lbl_credit
             // 
             this.lbl_credit.AutoSize = true;
+            this.lbl_credit.Enabled = false;
             this.lbl_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_credit.Location = new System.Drawing.Point(762, 172);
             this.lbl_credit.Name = "lbl_credit";
             this.lbl_credit.Size = new System.Drawing.Size(95, 25);
             this.lbl_credit.TabIndex = 238;
             this.lbl_credit.Text = "Credit $";
-            this.lbl_credit.Visible = false;
             // 
             // dt_datepaidedit
             // 
-            this.dt_datepaidedit.Location = new System.Drawing.Point(1189, 139);
+            this.dt_datepaidedit.Location = new System.Drawing.Point(1182, 365);
             this.dt_datepaidedit.Name = "dt_datepaidedit";
             this.dt_datepaidedit.Size = new System.Drawing.Size(200, 20);
             this.dt_datepaidedit.TabIndex = 239;
@@ -1239,7 +1229,7 @@
             // 
             // txt_timepaidedit
             // 
-            this.txt_timepaidedit.Location = new System.Drawing.Point(1400, 139);
+            this.txt_timepaidedit.Location = new System.Drawing.Point(1393, 365);
             this.txt_timepaidedit.Name = "txt_timepaidedit";
             this.txt_timepaidedit.Size = new System.Drawing.Size(67, 20);
             this.txt_timepaidedit.TabIndex = 240;
@@ -1443,13 +1433,13 @@
             // lbl_creditminus
             // 
             this.lbl_creditminus.AutoSize = true;
+            this.lbl_creditminus.Enabled = false;
             this.lbl_creditminus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_creditminus.Location = new System.Drawing.Point(857, 169);
             this.lbl_creditminus.Name = "lbl_creditminus";
             this.lbl_creditminus.Size = new System.Drawing.Size(20, 25);
             this.lbl_creditminus.TabIndex = 261;
             this.lbl_creditminus.Text = "-";
-            this.lbl_creditminus.Visible = false;
             // 
             // Invoice
             // 
@@ -1505,7 +1495,6 @@
             this.Controls.Add(this.btn_namesearch);
             this.Controls.Add(this.pnl_splitpayment);
             this.Controls.Add(this.pnl_overdue);
-            this.Controls.Add(this.chk_overdue);
             this.Controls.Add(this.chk_split);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.txt_account);
@@ -1538,7 +1527,7 @@
             this.Controls.Add(this.txt_invoiceno);
             this.Controls.Add(this.cmb_timeinminutes);
             this.Controls.Add(this.cmb_timeinhours);
-            this.Controls.Add(this.label13);
+            this.Controls.Add(this.lbl_customerowes);
             this.Controls.Add(this.txt_total);
             this.Controls.Add(this.txt_ph);
             this.Controls.Add(this.lbl_flighttime);
@@ -1577,7 +1566,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbl_flighttime;
         private System.Windows.Forms.TextBox txt_ph;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lbl_customerowes;
         private System.Windows.Forms.ComboBox cmb_timeinhours;
         private System.Windows.Forms.ComboBox cmb_timeinminutes;
         private System.Windows.Forms.TextBox txt_invoiceno;
@@ -1613,7 +1602,6 @@
         private System.Windows.Forms.TextBox txt_account;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.CheckBox chk_split;
-        private System.Windows.Forms.CheckBox chk_overdue;
         private System.Windows.Forms.Panel pnl_overdue;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox6;
