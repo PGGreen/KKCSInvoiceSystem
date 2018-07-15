@@ -134,7 +134,7 @@
             this.pic_supercard = new System.Windows.Forms.PictureBox();
             this.chk_supercard = new System.Windows.Forms.CheckBox();
             this.lbl_10per = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbl_creditminus = new System.Windows.Forms.Label();
             this.pnl_overdue.SuspendLayout();
             this.pnl_splitpayment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_supercard)).BeginInit();
@@ -1209,12 +1209,13 @@
             // txt_credit
             // 
             this.txt_credit.BackColor = System.Drawing.Color.LightGreen;
-            this.txt_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_credit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_credit.ForeColor = System.Drawing.Color.Black;
             this.txt_credit.Location = new System.Drawing.Point(877, 168);
             this.txt_credit.Name = "txt_credit";
-            this.txt_credit.Size = new System.Drawing.Size(136, 31);
+            this.txt_credit.Size = new System.Drawing.Size(267, 29);
             this.txt_credit.TabIndex = 237;
+            this.txt_credit.Visible = false;
             // 
             // lbl_credit
             // 
@@ -1225,6 +1226,7 @@
             this.lbl_credit.Size = new System.Drawing.Size(95, 25);
             this.lbl_credit.TabIndex = 238;
             this.lbl_credit.Text = "Credit $";
+            this.lbl_credit.Visible = false;
             // 
             // dt_datepaidedit
             // 
@@ -1438,15 +1440,16 @@
             this.lbl_10per.TabIndex = 260;
             this.lbl_10per.Text = "-10%";
             // 
-            // label2
+            // lbl_creditminus
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(857, 169);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 25);
-            this.label2.TabIndex = 261;
-            this.label2.Text = "-";
+            this.lbl_creditminus.AutoSize = true;
+            this.lbl_creditminus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_creditminus.Location = new System.Drawing.Point(857, 169);
+            this.lbl_creditminus.Name = "lbl_creditminus";
+            this.lbl_creditminus.Size = new System.Drawing.Size(20, 25);
+            this.lbl_creditminus.TabIndex = 261;
+            this.lbl_creditminus.Text = "-";
+            this.lbl_creditminus.Visible = false;
             // 
             // Invoice
             // 
@@ -1455,7 +1458,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1525, 721);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbl_creditminus);
             this.Controls.Add(this.lbl_10per);
             this.Controls.Add(this.chk_supercard);
             this.Controls.Add(this.pic_supercard);
@@ -1671,6 +1674,6 @@
         private System.Windows.Forms.PictureBox pic_supercard;
         private System.Windows.Forms.CheckBox chk_supercard;
         private System.Windows.Forms.Label lbl_10per;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbl_creditminus;
     }
 }

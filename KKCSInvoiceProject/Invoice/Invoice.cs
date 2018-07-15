@@ -365,6 +365,7 @@ namespace KKCSInvoiceProject
                 cmb_timeinminutes.Text = reader["TimeIn"].ToString().Substring(2, 2);
 
                 txt_total.Text = reader["TotalPay"].ToString();
+                sStoreOriginalPrice = txt_total.Text;
 
                 cmb_paidstatus.Text = reader["PaidStatus"].ToString();
 
@@ -1849,6 +1850,7 @@ namespace KKCSInvoiceProject
 
                     txt_credit.Visible = false;
                     lbl_credit.Visible = false;
+                    lbl_creditminus.Visible = false;
 
                     string sCredit = reader["Credit"].ToString();
                     txt_credit.Text = "";
@@ -1857,6 +1859,7 @@ namespace KKCSInvoiceProject
                     {
                         txt_credit.Visible = true;
                         lbl_credit.Visible = true;
+                        lbl_creditminus.Visible = true;
 
                         txt_credit.Text = "$" + sCredit + ".00 ($" + sCredit + ".00 Remaining)";
                     }
@@ -3063,7 +3066,7 @@ Number: 02-0800-0493229-00
 
                 if (fNewTotal < 0)
                 {
-                    cmb_paidstatus.Text = "Credit Used";
+                    cmb_paidstatus.Text = "No Charge";
                     txt_credit.Text = "$" + fCredit + ".00 ($" + (fNewTotal * -1) + ".00 Remaining)";
                     txt_total.Text = "0";
 
@@ -3301,8 +3304,11 @@ Number: 02-0800-0493229-00
                     }
                 case "Cash":
                     {
-                        txt_total.Text = sStoreOriginalPrice;
-
+                        if(!m_bInitialSetUpFromCarReturns)
+                        {
+                            txt_total.Text = sStoreOriginalPrice;
+                        }
+                        
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
                         if (!m_bInitialSetUpFromCarReturns)
@@ -3328,10 +3334,10 @@ Number: 02-0800-0493229-00
                         {
                             GetPrices();
 
-                            sOriginalPreCCPrice = txt_total.Text;
+                            //sOriginalPreCCPrice = txt_total.Text;
 
-                            //float fPrice = 0.0f;
-                            float.TryParse(txt_total.Text, out float fPrice);
+                            float fPrice = 0.0f;
+                            float.TryParse(txt_total.Text, out fPrice);
 
                             float fTempCreditCardCharge = fPrice * (fCreditCardFee / 100.0f);
 
@@ -3346,7 +3352,10 @@ Number: 02-0800-0493229-00
                 case "Internet":
                 case "Cheque":
                     {
-                        txt_total.Text = sStoreOriginalPrice;
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            txt_total.Text = sStoreOriginalPrice;
+                        }
 
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
@@ -3354,7 +3363,10 @@ Number: 02-0800-0493229-00
                     }
                 case "On Account":
                     {
-                        txt_total.Text = sStoreOriginalPrice;
+                        if (!m_bInitialSetUpFromCarReturns)
+                        {
+                            txt_total.Text = sStoreOriginalPrice;
+                        }
 
                         g_sPaidStatus = "OnAcc";
 
