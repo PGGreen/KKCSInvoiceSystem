@@ -74,11 +74,11 @@
             this.button5 = new System.Windows.Forms.Button();
             this.chk_split = new System.Windows.Forms.CheckBox();
             this.pnl_overdue = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.pnl_splitpayment = new System.Windows.Forms.Panel();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -504,7 +504,7 @@
             // btn_keybox
             // 
             this.btn_keybox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_keybox.Location = new System.Drawing.Point(1247, 59);
+            this.btn_keybox.Location = new System.Drawing.Point(1360, 60);
             this.btn_keybox.Name = "btn_keybox";
             this.btn_keybox.Size = new System.Drawing.Size(107, 28);
             this.btn_keybox.TabIndex = 92;
@@ -744,16 +744,16 @@
             this.pnl_overdue.TabIndex = 153;
             this.pnl_overdue.Visible = false;
             // 
-            // textBox3
+            // label47
             // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(250, 8);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(80, 22);
-            this.textBox3.TabIndex = 149;
-            this.textBox3.Text = "OC-00000";
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.ForeColor = System.Drawing.Color.Black;
+            this.label47.Location = new System.Drawing.Point(4, 3);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(139, 18);
+            this.label47.TabIndex = 1;
+            this.label47.Text = "Overdue Charges";
             // 
             // textBox6
             // 
@@ -766,17 +766,6 @@
             this.textBox6.TabIndex = 149;
             this.textBox6.Text = "27.00";
             // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.ForeColor = System.Drawing.Color.Black;
-            this.label44.Location = new System.Drawing.Point(4, 46);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(149, 18);
-            this.label44.TabIndex = 149;
-            this.label44.Text = "Customer Owes: $";
-            // 
             // label46
             // 
             this.label46.AutoSize = true;
@@ -788,16 +777,27 @@
             this.label46.TabIndex = 149;
             this.label46.Text = "Days Overdue: ";
             // 
-            // label47
+            // textBox3
             // 
-            this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.ForeColor = System.Drawing.Color.Black;
-            this.label47.Location = new System.Drawing.Point(4, 3);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(139, 18);
-            this.label47.TabIndex = 1;
-            this.label47.Text = "Overdue Charges";
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(250, 8);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(80, 22);
+            this.textBox3.TabIndex = 149;
+            this.textBox3.Text = "OC-00000";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.ForeColor = System.Drawing.Color.Black;
+            this.label44.Location = new System.Drawing.Point(4, 46);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(149, 18);
+            this.label44.TabIndex = 149;
+            this.label44.Text = "Customer Owes: $";
             // 
             // pnl_splitpayment
             // 
@@ -1391,7 +1391,7 @@
             // button17
             // 
             this.button17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button17.Location = new System.Drawing.Point(1360, 58);
+            this.button17.Location = new System.Drawing.Point(1247, 60);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(107, 28);
             this.button17.TabIndex = 257;

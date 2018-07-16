@@ -153,6 +153,8 @@ namespace KKCSInvoiceProject
                     {
                         lstKeyBox[iTempKeyNumber - 1].BackColor = Color.LightBlue;
                         lstKeyBox[iTempKeyNumber - 1].Text = iTempKeyNumber.ToString() + ". " + "On Hold";
+
+                        lstKeyBox[iTempKeyNumber - 1].Click += (sender, EventArgs) => { DeleteInvoice_Click(sender, EventArgs, sInvoiceNumber, iTempKeyNumber); };
                     }
                     else
                     {
@@ -242,6 +244,72 @@ namespace KKCSInvoiceProject
             inv.SetUpFromCarReturns(x, null);
 
             inv.Show();
+        }
+
+        private void DeleteInvoice_Click(object sender, EventArgs e, string _sInvoiceNumber, int _iKeyNumber)
+        {
+            Form fm = Application.OpenForms["InvoiceManager"];
+            InvoiceManager im = (InvoiceManager)fm;
+
+            int iCountError = 0;
+
+            if (im != null)
+            {
+                for (int i = 0; i < im.GetInvoiceFormList().Count; i++)
+                {
+                    Invoice invoice = (Invoice)im.GetInvoiceFormList()[i];
+                    string sKeyNumber = invoice.GetKeyNumber();
+
+                    if(_iKeyNumber.ToString("00") == sKeyNumber)
+                    {
+                        iCountError++;
+                    }
+                }
+            }
+
+            if(iCountError > 0)
+            {
+                string sWarning = "This Invoice is still active/open.";
+
+                WarningSystem ws = new WarningSystem(sWarning, false);
+                ws.ShowDialog();
+            }
+            else
+            {
+
+                string sWarning = "Do you wish to release this key?";
+
+                WarningSystem ws = new WarningSystem(sWarning, true);
+                ws.ShowDialog();
+
+                if (ws.DialogResult == DialogResult.OK)
+                {
+                    connection.Open();
+
+                    OleDbCommand command = new OleDbCommand();
+
+                    command.Connection = connection;
+
+                    string query = "DELETE FROM CustomerInvoices WHERE InvoiceNumber = @invoceNumber";
+
+                    command.Parameters.AddWithValue("@invoceNumber", _sInvoiceNumber);
+
+                    command.CommandText = query;
+
+                    OleDbDataReader reader = command.ExecuteReader();
+
+                    connection.Close();
+
+                    lstKeyBox[_iKeyNumber - 1].Text = _iKeyNumber.ToString() + ". ";
+                    lstKeyBox[_iKeyNumber - 1].BackColor = Color.MistyRose;
+                }
+                else
+                {
+                    ws.Close();
+                }
+            }
+
+
         }
 
         private void btn_clear_Click(object sender, EventArgs e)

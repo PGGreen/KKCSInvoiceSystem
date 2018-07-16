@@ -601,6 +601,11 @@ namespace KKCSInvoiceProject
             invManager = _invManager;
         }
 
+        public string GetKeyNumber()
+        {
+            return (txt_keyno.Text);
+        }
+
         // Sets this form to the correct tab in the invoice manager
         public void SetTabNumberFromManager(int _iTabNumberFromManager)
         {
@@ -3049,7 +3054,7 @@ Number: 02-0800-0493229-00
                 txt_total.Text = "";
             }
 
-            if (txt_credit.Text != "")
+            if (txt_credit.Text != "" && txt_credit.Text != "N/A")
             {
                 float fNewTotal = 0.0f;
 

@@ -68,6 +68,11 @@ namespace KKCSInvoiceProject
             //}
         }
 
+        public List<Form> GetInvoiceFormList()
+        {
+            return (g_listInvoiceFormList);
+        }
+
         void InvoiceChildForms()
         {
             ///////////////////////////////////////////////////
