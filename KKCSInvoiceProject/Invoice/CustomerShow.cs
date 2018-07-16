@@ -53,7 +53,7 @@ namespace KKCSInvoiceProject
                 lbl_1.Text = "$" + reader["One"].ToString() + ".00";
                 lbl_27.Text = "$" + reader["TwoToSeven"].ToString() + ".00";
                 lbl_8.Text = "$" + reader["EightPlus"].ToString() + ".00";
-                lbl_month.Text = "$" + reader["MonthPlus"].ToString() + ".00";
+                //lbl_month.Text = "$" + reader["MonthPlus"].ToString() + ".00";
                 lbl_ccf.Text = reader["CreditCardFee"].ToString() + "%";
             }
 
@@ -98,7 +98,7 @@ namespace KKCSInvoiceProject
                 lbl_1.Text = "$" + reader["One"].ToString() + ".00";
                 lbl_27.Text = "$" + reader["TwoToSeven"].ToString() + ".00";
                 lbl_8.Text = "$" + reader["EightPlus"].ToString() + ".00";
-                lbl_month.Text = "$" + reader["MonthPlus"].ToString() + ".00";
+                //lbl_month.Text = "$" + reader["MonthPlus"].ToString() + ".00";
                 lbl_ccf.Text = reader["CreditCardFee"].ToString() + "%";
             }
 

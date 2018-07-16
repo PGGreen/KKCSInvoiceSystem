@@ -1689,6 +1689,9 @@ namespace KKCSInvoiceProject
 
                     connection.Close();
                 }
+
+                ChangePriceAugust2018();
+
                 this.BackColor = Color.LightGreen;
 
                 btn_endday.BackColor = Color.Green;
@@ -1699,6 +1702,36 @@ namespace KKCSInvoiceProject
                 SendEndOfDayToDatabase();
 
                 ReportsEmail();
+            }
+        }
+
+        void ChangePriceAugust2018()
+        {
+            DateTime dtJulyLastDay = new DateTime(2018, 7, 31, 12, 0, 0);
+            DateTime dtToday = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 0, 0);
+
+            if (dtJulyLastDay == dtToday)
+            {
+                connection.Open();
+
+                OleDbCommand command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                string UpdateCommand = @"UPDATE CarYardPricing
+                                    SET One = '18', TwoToSeven = '15', EightPlus = '12',
+                                        MonthPlus = '66' WHERE ID=1";
+
+                command.CommandText = UpdateCommand;
+
+                command.ExecuteNonQuery();
+
+                connection.Close();
+
+                Form fmCustomerShow = Application.OpenForms["CustomerShow"];
+
+                CustomerShow objCustomerShow = (CustomerShow)fmCustomerShow;
+                objCustomerShow.UpdatePricing();
             }
         }
 

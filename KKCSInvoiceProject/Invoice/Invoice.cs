@@ -380,7 +380,7 @@ namespace KKCSInvoiceProject
                     txt_account.Visible = true;
 
                     txt_account.Text = reader["AccountHolder"].ToString();
-                    txt_particulars.Text = reader["6AccountParticulars"].ToString();
+                    txt_particulars.Text = reader["AccountParticulars"].ToString();
                 }
 
                 if(cmb_paidstatus.Text != "To Pay")
@@ -399,6 +399,8 @@ namespace KKCSInvoiceProject
                 {
                     cmb_pickedup.SelectedIndex = 1;
                 }
+
+                chk_supercard.Checked = (bool)reader["IsSuperGoldHolder"];
 
                 cmb_carlocation.Text = reader["CarLocation"].ToString();
                 cmb_worker.Text = reader["StaffMember"].ToString();
@@ -1364,6 +1366,7 @@ namespace KKCSInvoiceProject
                                                                     ", DrivingBack = " + bDrivingBack +
                                                                     ", IsNotes  = " + bIsNotes +
                                                                     ", IsAlerts  = " + bIsAlerts +
+                                                                    ", IsSuperGoldHolder = " + chk_supercard.Checked +
                                                                     " WHERE InvoiceNumber = " + iInvoiceNumber + "";
 
                 command.CommandText = UpdateCommand;
@@ -3890,16 +3893,19 @@ Number: 02-0800-0493229-00
 
             if (chk_supercard.Checked)
             {
-                lbl_10per.BackColor = Color.LightGreen;
+                lbl_10per.BackColor = Color.Green;
             }
 
-            if (chk_supercard.Checked && txt_total.Text != "")
+            if(!m_bInitialSetUpFromCarReturns)
             {
-                SuperCardDiscount();
-            }
-            else if (!chk_supercard.Checked && txt_total.Text != "")
-            {
-                txt_total.Text = sStoreOriginalPrice;
+                if (chk_supercard.Checked && txt_total.Text != "")
+                {
+                    SuperCardDiscount();
+                }
+                else if (!chk_supercard.Checked && txt_total.Text != "")
+                {
+                    txt_total.Text = sStoreOriginalPrice;
+                }
             }
         }
 

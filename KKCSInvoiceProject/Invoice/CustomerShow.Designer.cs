@@ -71,7 +71,6 @@
             this.lbl_8 = new System.Windows.Forms.Label();
             this.lbl_ccf = new System.Windows.Forms.Label();
             this.lbl_month = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnl_invoice.SuspendLayout();
             this.pnl_acc.SuspendLayout();
@@ -91,7 +90,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(357, 14);
+            this.label13.Location = new System.Drawing.Point(357, 17);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(344, 204);
             this.label13.TabIndex = 191;
@@ -416,7 +415,7 @@
             this.lbl_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_1.ForeColor = System.Drawing.Color.Red;
-            this.lbl_1.Location = new System.Drawing.Point(730, 13);
+            this.lbl_1.Location = new System.Drawing.Point(720, 13);
             this.lbl_1.Name = "lbl_1";
             this.lbl_1.Size = new System.Drawing.Size(160, 51);
             this.lbl_1.TabIndex = 194;
@@ -438,7 +437,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(892, 20);
+            this.label19.Location = new System.Drawing.Point(882, 20);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(197, 31);
             this.label19.TabIndex = 196;
@@ -449,7 +448,7 @@
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(892, 76);
+            this.label20.Location = new System.Drawing.Point(882, 76);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(197, 31);
             this.label20.TabIndex = 197;
@@ -460,7 +459,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(891, 133);
+            this.label21.Location = new System.Drawing.Point(881, 133);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(197, 31);
             this.label21.TabIndex = 198;
@@ -495,7 +494,7 @@
             this.lbl_27.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_27.ForeColor = System.Drawing.Color.Red;
-            this.lbl_27.Location = new System.Drawing.Point(730, 68);
+            this.lbl_27.Location = new System.Drawing.Point(720, 68);
             this.lbl_27.Name = "lbl_27";
             this.lbl_27.Size = new System.Drawing.Size(160, 51);
             this.lbl_27.TabIndex = 201;
@@ -507,7 +506,7 @@
             this.lbl_8.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_8.ForeColor = System.Drawing.Color.Red;
-            this.lbl_8.Location = new System.Drawing.Point(730, 123);
+            this.lbl_8.Location = new System.Drawing.Point(720, 123);
             this.lbl_8.Name = "lbl_8";
             this.lbl_8.Size = new System.Drawing.Size(160, 51);
             this.lbl_8.TabIndex = 202;
@@ -527,25 +526,13 @@
             // lbl_month
             // 
             this.lbl_month.AutoSize = true;
-            this.lbl_month.Font = new System.Drawing.Font("Microsoft Sans Serif", 32.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
-                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_month.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_month.ForeColor = System.Drawing.Color.Red;
-            this.lbl_month.Location = new System.Drawing.Point(730, 178);
+            this.lbl_month.Location = new System.Drawing.Point(720, 178);
             this.lbl_month.Name = "lbl_month";
-            this.lbl_month.Size = new System.Drawing.Size(160, 51);
+            this.lbl_month.Size = new System.Drawing.Size(281, 39);
             this.lbl_month.TabIndex = 204;
-            this.lbl_month.Text = "$55.00\r\n";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
-                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(892, 187);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(152, 31);
-            this.label25.TabIndex = 205;
-            this.label25.Text = "(per week)";
+            this.lbl_month.Text = "price on request";
             // 
             // CustomerShow
             // 
@@ -553,7 +540,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1581, 859);
-            this.Controls.Add(this.label25);
             this.Controls.Add(this.lbl_month);
             this.Controls.Add(this.lbl_ccf);
             this.Controls.Add(this.lbl_8);
@@ -625,6 +611,5 @@
         private System.Windows.Forms.Label lbl_8;
         private System.Windows.Forms.Label lbl_ccf;
         private System.Windows.Forms.Label lbl_month;
-        private System.Windows.Forms.Label label25;
     }
 }
