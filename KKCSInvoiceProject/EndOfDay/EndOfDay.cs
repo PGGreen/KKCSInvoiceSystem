@@ -63,7 +63,7 @@ namespace KKCSInvoiceProject
         //bool g_bStepThreeEftpos = false;
         //bool g_bStepFourConfirmation = false;
 
-        int g_iTotalCash = 0;
+        float g_fTotalCash = 0;
 
         float g_fTotalEftpos = 0.0f;
         //////////////////////////////////////////////////////
@@ -222,7 +222,7 @@ namespace KKCSInvoiceProject
         {
             if (!g_bSkipEODPickFirstTime)
             {
-                g_iTotalCash = 0;
+                g_fTotalCash = 0;
                 g_fTotalEftpos = 0.0f;
 
                 dtTodaysDate = new DateTime(dt_eodpick.Value.Year, dt_eodpick.Value.Month, dt_eodpick.Value.Day, 12, 0, 0);
@@ -344,15 +344,15 @@ namespace KKCSInvoiceProject
 
             while (reader.Read())
             {
-                int iTotalPay = 0;
-                Int32.TryParse(reader["TotalPay"].ToString(), out iTotalPay);
+                float fTotalPay = 0.0f;
+                float.TryParse(reader["TotalPay"].ToString(), out fTotalPay);
 
-                g_iTotalCash += iTotalPay;
+                g_fTotalCash += fTotalPay;
             }
 
             connection.Close();
 
-            lbl_cashin.Text = "$" + g_iTotalCash.ToString("0.00");
+            lbl_cashin.Text = "$" + g_fTotalCash.ToString("0.00");
         }
 
         void GetCashRefunds()
@@ -362,7 +362,7 @@ namespace KKCSInvoiceProject
 
         void TotalCash()
         {
-            lbl_total.Text = "$" + g_iTotalCash.ToString("0.00");
+            lbl_total.Text = "$" + g_fTotalCash.ToString("0.00");
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -726,7 +726,7 @@ namespace KKCSInvoiceProject
             string sTillTitle = "Till:";
             graphic.DrawString(sTillTitle, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             NextLine(1);
-            string sTillTotal = "Total Cash Taken Today: " + g_iTotalCash.ToString("$0.00");
+            string sTillTotal = "Total Cash Taken Today: " + g_fTotalCash.ToString("$0.00");
             graphic.DrawString(sTillTotal, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             graphic.DrawString(cmb_stepthree.Text, font, new SolidBrush(Color.Black), 620, m_iStartY + m_iNextLineOffset);
             NextLine(4);
