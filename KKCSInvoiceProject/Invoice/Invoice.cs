@@ -3306,10 +3306,10 @@ Number: 02-0800-0493229-00
                     }
                 case "Cash":
                     {
-                        if(!m_bInitialSetUpFromCarReturns)
-                        {
-                            txt_total.Text = sStoreOriginalPrice;
-                        }
+                        //if(!m_bInitialSetUpFromCarReturns)
+                        //{
+                        //    txt_total.Text = sStoreOriginalPrice;
+                        //}
                         
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
@@ -3358,10 +3358,10 @@ Number: 02-0800-0493229-00
                 case "Internet":
                 case "Cheque":
                     {
-                        if (!m_bInitialSetUpFromCarReturns)
-                        {
-                            txt_total.Text = sStoreOriginalPrice;
-                        }
+                        //if (!m_bInitialSetUpFromCarReturns)
+                        //{
+                        //    txt_total.Text = sStoreOriginalPrice;
+                        //}
 
                         cmb_paidstatus.BackColor = Color.LightBlue;
 
@@ -3369,10 +3369,10 @@ Number: 02-0800-0493229-00
                     }
                 case "On Account":
                     {
-                        if (!m_bInitialSetUpFromCarReturns)
-                        {
-                            txt_total.Text = sStoreOriginalPrice;
-                        }
+                        //if (!m_bInitialSetUpFromCarReturns)
+                        //{
+                        //    txt_total.Text = sStoreOriginalPrice;
+                        //}
 
                         g_sPaidStatus = "OnAcc";
 
