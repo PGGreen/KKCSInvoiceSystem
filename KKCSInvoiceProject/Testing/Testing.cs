@@ -45,7 +45,9 @@ namespace KKCSInvoiceProject
 
             //CarAverages();
 
-            MonthlyCarsInOut();
+            //MonthlyCarsInOut();
+
+            CopyAccountData();
         }
 
         void Test()
@@ -104,6 +106,52 @@ namespace KKCSInvoiceProject
                 }
             }
             //Console.ReadKey();
+        }
+
+        void CopyAccountData()
+        {
+            connection.Open();
+
+            command = new OleDbCommand();
+
+            command.Connection = connection;
+
+            string query = "SELECT * FROM Accounts ORDER BY Rego";
+
+            command.CommandText = query;
+
+            reader = command.ExecuteReader();
+
+            List<string> lstRego = new List<string>();
+            List<string> lstAccount = new List<string>();
+            List<string> lstAccountPart = new List<string>();
+
+            while (reader.Read())
+            {
+                lstRego.Add(reader["Rego"].ToString());
+                lstAccount.Add(reader["Account"].ToString());
+                lstAccountPart.Add(reader["AccountParticulars"].ToString());
+            }
+
+
+            for (int i = 0; i < lstRego.Count; i++)
+            {
+                command = new OleDbCommand();
+
+                command.Connection = connection;
+
+                string cmd1 = @"UPDATE NumberPlates SET Account = '" + lstAccount[i] +
+                    "', AccountParticulars = '" + lstAccountPart[i] +
+                    "' WHERE NumberPlates = '" + lstRego[i] + "'";
+
+                command.CommandText = cmd1;
+
+                command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+
+            MessageBox.Show("Complete");
         }
 
         void MonthlyCarsInOut()

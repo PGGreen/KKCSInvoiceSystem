@@ -603,7 +603,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-
         void smtpClient_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             test.Close();

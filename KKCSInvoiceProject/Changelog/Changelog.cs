@@ -22,12 +22,25 @@ namespace KKCSInvoiceProject
 
         private string btn_build_Click()
         {
-            string sChangeLog = @"v2.00 (16/12/2016)
-- Major Update
-- Main Menu
-    - Now has more info about the days car returns
-    - Colour change to more yellow background
-    - Button locations changed
+            string sChangeLog = @"
+
+v3.02 (05/09/2017)
+- 
+
+v3.00 (18/08/2017)
+- Added 'Number of Days Stay'
+- Added staff names to 'Alerts' and 'Invoice'
+- Rearranged look of 'Main Menu'
+
+v2.50 (19/06/2017)
+- Added 'Search By Name' system
+- Lots of small changes and fixes
+
+v2.00 (16/12/2016)
+- Main Menu Now has more info about the days car returns
+- Main Menu Colour change to more yellow background
+- Main Menu Button locations changed
+- Added new Price Change Calculator
 
 v1.57 (16/10/2016)
 - Added the new flight times to the returns

@@ -33,9 +33,6 @@
             this.btn_addtoaccount = new System.Windows.Forms.Button();
             this.cmd_accountlist = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btn_createnewaccount = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +53,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btn_addtoaccount);
             this.panel1.Controls.Add(this.cmd_accountlist);
-            this.panel1.Location = new System.Drawing.Point(58, 134);
+            this.panel1.Location = new System.Drawing.Point(58, 114);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(687, 144);
             this.panel1.TabIndex = 1;
@@ -87,52 +84,17 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(53, 94);
+            this.label2.Location = new System.Drawing.Point(53, 74);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(290, 25);
+            this.label2.Size = new System.Drawing.Size(346, 25);
             this.label2.TabIndex = 2;
-            this.label2.Text = "1. Add to Existing Account";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(52, 313);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 31);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Or";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(53, 398);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 25);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "2. ";
-            // 
-            // btn_createnewaccount
-            // 
-            this.btn_createnewaccount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btn_createnewaccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_createnewaccount.Location = new System.Drawing.Point(98, 387);
-            this.btn_createnewaccount.Name = "btn_createnewaccount";
-            this.btn_createnewaccount.Size = new System.Drawing.Size(371, 46);
-            this.btn_createnewaccount.TabIndex = 5;
-            this.btn_createnewaccount.Text = "CREATE NEW ACCOUNT";
-            this.btn_createnewaccount.UseVisualStyleBackColor = false;
-            this.btn_createnewaccount.Click += new System.EventHandler(this.btn_createnewaccount_Click);
+            this.label2.Text = "Please pick an existing account";
             // 
             // WarningNewAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 449);
-            this.Controls.Add(this.btn_createnewaccount);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(922, 293);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -151,8 +113,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmd_accountlist;
         private System.Windows.Forms.Button btn_addtoaccount;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btn_createnewaccount;
     }
 }

@@ -184,8 +184,8 @@
             // 
             this.accountsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.accountsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.accountsToolStripMenuItem1,
-            this.newAccountToolStripMenuItem});
+            this.newAccountToolStripMenuItem,
+            this.accountsToolStripMenuItem1});
             this.accountsToolStripMenuItem.Name = "accountsToolStripMenuItem";
             this.accountsToolStripMenuItem.Size = new System.Drawing.Size(72, 21);
             this.accountsToolStripMenuItem.Text = "Accounts";
@@ -193,14 +193,14 @@
             // accountsToolStripMenuItem1
             // 
             this.accountsToolStripMenuItem1.Name = "accountsToolStripMenuItem1";
-            this.accountsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.accountsToolStripMenuItem1.Text = "Accounts";
+            this.accountsToolStripMenuItem1.Size = new System.Drawing.Size(185, 22);
+            this.accountsToolStripMenuItem1.Text = "Accounts Manager";
             this.accountsToolStripMenuItem1.Click += new System.EventHandler(this.accountsToolStripMenuItem1_Click);
             // 
             // newAccountToolStripMenuItem
             // 
             this.newAccountToolStripMenuItem.Name = "newAccountToolStripMenuItem";
-            this.newAccountToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newAccountToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.newAccountToolStripMenuItem.Text = "New Account";
             this.newAccountToolStripMenuItem.Click += new System.EventHandler(this.newAccountToolStripMenuItem_Click);
             // 

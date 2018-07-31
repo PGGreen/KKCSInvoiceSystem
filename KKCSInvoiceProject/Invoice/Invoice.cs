@@ -1864,6 +1864,25 @@ namespace KKCSInvoiceProject
                     txt_ph.Text = reader["Ph"].ToString();
                     txt_alerts.Text = reader["Alerts"].ToString();
 
+                    txt_account.Text = reader["Account"].ToString();
+                    txt_particulars.Text = reader["AccountParticulars"].ToString();
+
+                    if(txt_account.Text != "")
+                    {
+                        g_bIsAlreadyAccount = true;
+
+                        cmb_paidstatus.Text = "On Account";
+
+                        txt_account.Visible = true;
+                        txt_particulars.Visible = true;
+
+                        lbl_accountname.Visible = true;
+                        lbl_particulars.Visible = true;
+
+                        txt_account.Text = reader["Account"].ToString();
+                        txt_particulars.Text = reader["AccountParticulars"].ToString();
+                    }
+
                     m_sTempStoreRego = cmb_rego.Text;
 
                     txt_credit.Enabled = true;
@@ -1888,7 +1907,7 @@ namespace KKCSInvoiceProject
                     connection.Close();
                 }
 
-                CheckIfAccount();
+                //CheckIfAccount();
 
                 CheckIfPreBookings();
 
@@ -3888,9 +3907,9 @@ Number: 02-0800-0493229-00
         }
 
         string sOriginalPrice = "";
-        string sOriginalPreCCPrice = "";
+        //string sOriginalPreCCPrice = "";
 
-        string sOriginalSuperCardPrice = "";
+        //string sOriginalSuperCardPrice = "";
 
         private void chk_supercard_CheckedChanged_1(object sender, EventArgs e)
         {
