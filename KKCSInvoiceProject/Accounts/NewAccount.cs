@@ -37,7 +37,7 @@ namespace KKCSInvoiceProject
 
             command.Connection = connection;
 
-            string query = @"INSERT INTO AccountsMain (Account,Ph,Email,FName,LName) 
+            string query = @"INSERT INTO AccountsMain (Account,FName,LName,Email,Ph) 
                     values ('" + txt_accountname.Text +
                     "','" + txt_fname.Text +
                     "','" + txt_lname.Text +

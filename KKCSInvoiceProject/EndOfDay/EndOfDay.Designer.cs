@@ -81,6 +81,7 @@
             this.btn_dateleft = new System.Windows.Forms.Button();
             this.btn_dateright = new System.Windows.Forms.Button();
             this.lbl_dayend = new System.Windows.Forms.Label();
+            this.btn_sendaccounts = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.pnl_stepsthree.SuspendLayout();
             this.pnl_steptwo.SuspendLayout();
@@ -693,6 +694,16 @@
             this.lbl_dayend.TabIndex = 142;
             this.lbl_dayend.Text = "Day Not Yet Ended";
             // 
+            // btn_sendaccounts
+            // 
+            this.btn_sendaccounts.Location = new System.Drawing.Point(1121, 21);
+            this.btn_sendaccounts.Name = "btn_sendaccounts";
+            this.btn_sendaccounts.Size = new System.Drawing.Size(96, 23);
+            this.btn_sendaccounts.TabIndex = 144;
+            this.btn_sendaccounts.Text = "Send Accounts";
+            this.btn_sendaccounts.UseVisualStyleBackColor = true;
+            this.btn_sendaccounts.Click += new System.EventHandler(this.btn_sendaccounts_Click);
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(1040, 20);
@@ -710,6 +721,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1529, 830);
+            this.Controls.Add(this.btn_sendaccounts);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lbl_dayend);
             this.Controls.Add(this.textBox1);
@@ -799,10 +811,11 @@
         private System.Windows.Forms.Button btn_dateright;
         private System.Windows.Forms.Label lbl_runningtotals;
         private System.Windows.Forms.Label lbl_dayend;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Button btn_sendaccounts;
+        private System.Windows.Forms.Button button2;
     }
 }

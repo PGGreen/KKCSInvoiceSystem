@@ -473,6 +473,7 @@ namespace KKCSInvoiceProject
             command.Connection = connection;
 
             DateTime dtDate = new DateTime(dt_eodpick.Value.Year, dt_eodpick.Value.Month, dt_eodpick.Value.Day, 12, 0, 0);
+            //DateTime dtDate = new DateTime(2018, 7, 31, 12, 0, 0);
 
             string query = "select * from CustomerInvoices WHERE year(DTReturnDate) = year(@dtDate) AND month(DTDatePaid) = month(@dtDate) AND PaidStatus = 'OnAcc' ORDER BY AccountHolder,DTDateIn ASC";
             command.Parameters.AddWithValue("@dtDate", dtDate);
@@ -556,10 +557,12 @@ namespace KKCSInvoiceProject
 
                 sCombinedAccount += reader["Rego"].ToString().PadRight(25);
 
-                int iPrice = 0;
-                int.TryParse(reader["TotalPay"].ToString(), out iPrice);
+                string sTotalPrice = reader["TotalPay"].ToString();
 
-                sCombinedAccount += "$" + iPrice.ToString("0.00");
+                float fPrice = 0;
+                float.TryParse(sTotalPrice, out fPrice);
+
+                sCombinedAccount += "$" + fPrice.ToString("0.00");
 
                 sCombinedAccount += sNextLine;
 
@@ -791,7 +794,7 @@ namespace KKCSInvoiceProject
 
         #region TodaysReport
 
-        int iCashTotal = 0;
+        float fCashTotal = 0.0f;
         float fEftposTotal = 0.0f;
 
         void PrintTodaysReport()
@@ -859,7 +862,7 @@ namespace KKCSInvoiceProject
             string sDailyTotalMoneyTitle = "Daily Total Money:";
             graphic.DrawString(sDailyTotalMoneyTitle, fontBoldUnderline, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             NextLine(2);
-            string sDailyTotalMoney = "Cash + EFTPOS + Credit Card: $" + ((float)iCashTotal + fEftposTotal).ToString("0.00");
+            string sDailyTotalMoney = "Cash + EFTPOS + Credit Card: $" + (fCashTotal + fEftposTotal).ToString("0.00");
             graphic.DrawString(sDailyTotalMoney, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             NextLine(3);
 
@@ -902,17 +905,17 @@ namespace KKCSInvoiceProject
             reader = command.ExecuteReader();
 
             string sCash = "";
-            iCashTotal = 0;
+            fCashTotal = 0;
 
             while (reader.Read())
             {
-                int iCash = 0;
-                int.TryParse(reader["TotalPay"].ToString(), out iCash);
+                float fCash = 0;
+                float.TryParse(reader["TotalPay"].ToString(), out fCash);
 
-                iCashTotal += iCash;
+                fCashTotal += fCash;
 
                 sCash = "Inv: " + reader["InvoiceNumber"].ToString() + " - Rego: " + reader["Rego"].ToString();
-                sCash += " - Cash: $" + iCash.ToString("0.00");
+                sCash += " - Cash: $" + fCash.ToString("0.00");
 
                 graphic.DrawString(sCash, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
 
@@ -921,7 +924,7 @@ namespace KKCSInvoiceProject
 
             NextLine(1);
 
-            string sCashTotal = "Cash Total: $" + iCashTotal.ToString("0.00");
+            string sCashTotal = "Cash Total: $" + fCashTotal.ToString("0.00");
             graphic.DrawString(sCashTotal, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
 
             connection.Close();
@@ -1170,7 +1173,7 @@ namespace KKCSInvoiceProject
                 graphic.DrawString(sSOD, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
                 NextLine(1);
 
-                string sCashTakenIn = "Cash Taken In: $" + iCashTotal.ToString("0.00");
+                string sCashTakenIn = "Cash Taken In: $" + fCashTotal.ToString("0.00");
                 graphic.DrawString(sCashTakenIn, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
                 NextLine(1);
 
@@ -1178,7 +1181,7 @@ namespace KKCSInvoiceProject
                 graphic.DrawString(sRefunds, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
                 NextLine(2);
 
-                string sTotalCashInTill = "Total Cash In Till: $" + (iSOD + iCashTotal).ToString("0.00");
+                string sTotalCashInTill = "Total Cash In Till: $" + (iSOD + fCashTotal).ToString("0.00");
                 graphic.DrawString(sTotalCashInTill, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             }
 
@@ -1208,11 +1211,11 @@ namespace KKCSInvoiceProject
                 graphic.DrawString(sSOD, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
                 NextLine(1);
 
-                string sCashTakenIn = "Cash Taken In: $" + iCashTotal.ToString("0.00");
+                string sCashTakenIn = "Cash Taken In: $" + fCashTotal.ToString("0.00");
                 graphic.DrawString(sCashTakenIn, font, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
                 NextLine(2);
 
-                string sRefunds = "Plastic Box End Of Day: $" + (iSODPlasticBox + iCashTotal).ToString("0.00");
+                string sRefunds = "Plastic Box End Of Day: $" + (iSODPlasticBox + fCashTotal).ToString("0.00");
                 graphic.DrawString(sRefunds, fontBold, new SolidBrush(Color.Black), m_iStartX, m_iStartY + m_iNextLineOffset);
             }
 
@@ -1734,17 +1737,6 @@ namespace KKCSInvoiceProject
             }
         }
 
-        private void btn_accountemail_Click(object sender, EventArgs e)
-        {
-            connection.Open();
-
-            AccountsEmail();
-
-            SendAccountsEmail();
-
-            connection.Close();
-        }
-
         #endregion Buttons
 
         #region HertzInfo
@@ -2052,6 +2044,17 @@ namespace KKCSInvoiceProject
             connection.Open();
 
             AccountsEmail();
+
+            connection.Close();
+        }
+
+        private void btn_sendaccounts_Click(object sender, EventArgs e)
+        {
+            connection.Open();
+
+            AccountsEmail();
+
+            SendAccountsEmail();
 
             connection.Close();
         }
