@@ -559,7 +559,7 @@ namespace KKCSInvoiceProject
 
                 string sTotalPrice = reader["TotalPay"].ToString();
 
-                float fPrice = 0;
+                float fPrice = 0.0f;
                 float.TryParse(sTotalPrice, out fPrice);
 
                 sCombinedAccount += "$" + fPrice.ToString("0.00");
@@ -2017,8 +2017,8 @@ namespace KKCSInvoiceProject
             client.UseDefaultCredentials = false;
             client.Credentials = new NetworkCredential("pg8472@hotmail.com", "Voyger600!");
             MailMessage msg = new MailMessage();
-            msg.To.Add("peter.george.green@gmail.com");
-            //msg.To.Add("deborah.green@hertz.com");
+            //msg.To.Add("peter.george.green@gmail.com");
+            msg.To.Add("deborah.green@hertz.com");
             //msg.CC.Add("peter.george.green@gmail.com");
             msg.From = new MailAddress("pg8472@hotmail.com");
             msg.Body = DailyReports();
